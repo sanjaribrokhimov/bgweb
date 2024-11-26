@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Sending data:', postData);
 
                 // Отправляем данные на API
-                const response = await fetch('http://144.126.128.67:8888/api/freelancers', {
+                const response = await fetch('http://bgweb.nurali.uz/api/freelancers', {
                     method: 'POST',
                     credentials: 'include',
                     headers: {

@@ -443,7 +443,7 @@
                             throw new Error('Пароли не совпадают');
                         }
 
-                        const response = await fetch('http://144.126.128.67:8888/api/auth/register', {
+                        const response = await fetch('http://bgweb.nurali.uz/api/auth/register', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -504,7 +504,7 @@
                             password: loginForm.querySelector('input[placeholder="Пароль"]').value
                         };
 
-                        const response = await fetch('http://144.126.128.67:8888/api/auth/login', {
+                        const response = await fetch('http://bgweb.nurali.uz/api/auth/login', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'

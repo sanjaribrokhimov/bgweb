@@ -1,7 +1,7 @@
 // Get user ads
 const getUserAds = async (category, userId) => {
     try {
-        const response = await fetch(`http://144.126.128.67:8888/api/ads/user/${category}/${userId}`, {
+        const response = await fetch(`http://bgweb.nurali.uz/api/ads/user/${category}/${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ const getUserAds = async (category, userId) => {
 // Delete ad
 const deleteAd = async (type, adId) => {
     try {
-        const response = await fetch(`http://144.126.128.67:8888/api/ads/${type}/${adId}`, {
+        const response = await fetch(`http://bgweb.nurali.uz/api/ads/${type}/${adId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'

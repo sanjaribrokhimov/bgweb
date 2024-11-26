@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const userData = JSON.parse(localStorage.getItem('userRegistrationData'));
             
             // Отправляем запрос на повторную отправку OTP
-            const response = await fetch('http://144.126.128.67:8888/api/auth/resend-otp', {
+            const response = await fetch('http://bgweb.nurali.uz/api/auth/resend-otp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Получаем данные пользователя из localStorage
             const userData = JSON.parse(localStorage.getItem('userRegistrationData'));
             
-            const response = await fetch('http://144.126.128.67:8888/api/auth/verify-otp', {
+            const response = await fetch('http://bgweb.nurali.uz/api/auth/verify-otp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alertBlock.textContent = data.message;
 
                 // Получаем данные о пользователе
-                const userResponse = await fetch(`http://144.126.128.67:8888/api/auth/user?email=${userData.email}`, {
+                const userResponse = await fetch(`http://bgweb.nurali.uz/api/auth/user?email=${userData.email}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
