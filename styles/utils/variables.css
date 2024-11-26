@@ -1,0 +1,22 @@
+:root {
+    /* Colors */
+    --primary-bg: #0f1116;
+    --card-bg: #1a1d26;
+    --text-color: #ffffff;
+    --text-secondary: #9ba1b0;
+    --accent-blue: #4d7eff;
+    --accent-purple: #9d50ff;
+    --accent-green: #32d583;
+    
+    /* Shadows */
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    
+    /* Gradients */
+    --gradient-1: linear-gradient(145deg, #1a1d26, #252935);
+    --gradient-2: linear-gradient(145deg, #4d7eff, #6d5dff);
+    
+    /* Other */
+    --card-hover: #252935;
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+} 
