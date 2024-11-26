@@ -19,7 +19,7 @@ class NotificationManager {
         if (!userId) return;
 
         try {
-            const response = await fetch(`http://bgweb.nurali.uz/api/notifications/${userId}`);
+            const response = await fetch(`https://bgweb.nurali.uz/api/notifications/${userId}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch notifications');
             }
@@ -123,7 +123,7 @@ class NotificationManager {
 
     async markAsRead(notificationId) {
         try {
-            const response = await fetch(`http://bgweb.nurali.uz/api/notifications/${notificationId}/read`, {
+            const response = await fetch(`https://bgweb.nurali.uz/api/notifications/${notificationId}/read`, {
                 method: 'PUT'
             });
 
@@ -146,7 +146,7 @@ class NotificationManager {
         if (!userId) return;
 
         try {
-            const response = await fetch(`http://bgweb.nurali.uz/api/notifications/${userId}`);
+            const response = await fetch(`https://bgweb.nurali.uz/api/notifications/${userId}`);
             if (!response.ok) throw new Error('Failed to fetch notifications');
             
             const notifications = await response.json();

@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Отправляем данные на API
-                const response = await fetch('http://bgweb.nurali.uz/api/companies', {
+                const response = await fetch('https://bgweb.nurali.uz/api/companies', {
                     method: 'POST',
                     credentials: 'include',
                     headers: {

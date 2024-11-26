@@ -83,7 +83,7 @@
                 const userId = localStorage.getItem('userId');
                 console.log('Loading user info for ID:', userId); // Для отладки
                 
-                const response = await fetch(`http://bgweb.nurali.uz/api/auth/user/${userId}`, {
+                const response = await fetch(`https://bgweb.nurali.uz/api/auth/user/${userId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -111,7 +111,7 @@
         async loadUserAds() {
             try {
                 console.log('Loading ads for user ID:', this.userId); // Для отладки
-                const response = await fetch(`http://bgweb.nurali.uz/api/ads/user/${this.userId}`);
+                const response = await fetch(`https://bgweb.nurali.uz/api/ads/user/${this.userId}`);
                 
                 if (!response.ok) {
                     throw new Error('Failed to fetch user ads');
@@ -224,7 +224,7 @@
             
             confirmDeleteBtn.onclick = async () => {
                 try {
-                    const response = await fetch(`http://bgweb.nurali.uz/api/ads/delete/${adId}`, {
+                    const response = await fetch(`https://bgweb.nurali.uz/api/ads/delete/${adId}`, {
                         method: 'DELETE'
                     });
 

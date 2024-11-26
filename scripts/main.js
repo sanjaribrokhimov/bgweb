@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ad_type: adType
             });
             
-            const response = await fetch('http://bgweb.nurali.uz/api/notifications/accept', {
+            const response = await fetch('https://bgweb.nurali.uz/api/notifications/accept', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
