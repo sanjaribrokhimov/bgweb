@@ -28,7 +28,7 @@ class FreelancerLoader {
         
         try {
             loadingIndicator.style.display = 'block';
-            const url = `http://localhost:8888/api/ads/category/freelancer?page=${this.page}&limit=${this.limit}`;
+            const url = `http://144.126.128.67:8888/api/ads/category/freelancer?page=${this.page}&limit=${this.limit}`;
 
             const response = await fetch(url);
             if (!response.ok) {
@@ -167,7 +167,7 @@ class FreelancerLoader {
             const loadingIndicator = document.getElementById('loadingIndicator');
             loadingIndicator.style.display = 'block';
 
-            const response = await fetch(`http://localhost:8888/api/ads/details/freelancer/${id}`);
+            const response = await fetch(`http://144.126.128.67:8888/api/ads/details/freelancer/${id}`);
             if (!response.ok) throw new Error('Failed to fetch details');
             const data = await response.json();
 

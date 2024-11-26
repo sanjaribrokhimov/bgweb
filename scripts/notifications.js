@@ -19,7 +19,7 @@ class NotificationManager {
         if (!userId) return;
 
         try {
-            const response = await fetch(`http://localhost:8888/api/notifications/${userId}`);
+            const response = await fetch(`http://144.126.128.67:8888/api/notifications/${userId}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch notifications');
             }
@@ -69,7 +69,7 @@ class NotificationManager {
         const userId = localStorage.getItem('userId');
         if (!userId) return;
 
-        this.ws = new WebSocket(`ws://localhost:8888/api/ws/${userId}`);
+        this.ws = new WebSocket(`ws://144.126.128.67:8888/api/ws/${userId}`);
         
         this.ws.onmessage = (event) => {
             const data = JSON.parse(event.data);
@@ -123,7 +123,7 @@ class NotificationManager {
 
     async markAsRead(notificationId) {
         try {
-            const response = await fetch(`http://localhost:8888/api/notifications/${notificationId}/read`, {
+            const response = await fetch(`http://144.126.128.67:8888/api/notifications/${notificationId}/read`, {
                 method: 'PUT'
             });
 
@@ -146,7 +146,7 @@ class NotificationManager {
         if (!userId) return;
 
         try {
-            const response = await fetch(`http://localhost:8888/api/notifications/${userId}`);
+            const response = await fetch(`http://144.126.128.67:8888/api/notifications/${userId}`);
             if (!response.ok) throw new Error('Failed to fetch notifications');
             
             const notifications = await response.json();

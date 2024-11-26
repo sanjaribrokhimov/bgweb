@@ -1,3 +1,7 @@
+<?php
+$IP = '144.126.128.67';
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -1000,7 +1004,7 @@
         // Функция поиска
         async function performSearch(query) {
             try {
-                const response = await fetch(`http://localhost:8888/api/ads/search?q=${encodeURIComponent(query)}`);
+                const response = await fetch(`http://144.126.128.67:8888/api/ads/search?q=${encodeURIComponent(query)}`);
                 if (!response.ok) throw new Error('Ошибка сети');
                 
                 const data = await response.json();

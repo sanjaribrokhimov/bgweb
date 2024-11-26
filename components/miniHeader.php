@@ -1,3 +1,6 @@
+<?php
+$IP = '144.126.128.67';
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
