@@ -445,14 +445,97 @@
         const photoInput = document.querySelector('input[type="file"]');
         const uploadPlaceholder = document.querySelector('.upload-placeholder');
 
-        photoInput.addEventListener('change', (e) => {
+        // Функция проверки и оптимизации размера изображения
+        function checkImageSize(base64String) {
+            // Примерный размер в байтах
+            const sizeInBytes = (base64String.length * 3) / 4;
+            const sizeInKB = sizeInBytes / 1024;
+            
+            if (sizeInKB > 300) { // Изменено с 500 на 300
+                const img = new Image();
+                img.src = base64String;
+                
+                return new Promise((resolve) => {
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        // Уменьшаем размеры изображения, если оно слишком большое
+                        let width = img.width;
+                        let height = img.height;
+                        const MAX_SIZE = 1000; // Уменьшено с 1200 на 1000
+                        
+                        if (width > height && width > MAX_SIZE) {
+                            height *= MAX_SIZE / width;
+                            width = MAX_SIZE;
+                        } else if (height > MAX_SIZE) {
+                            width *= MAX_SIZE / height;
+                            height = MAX_SIZE;
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // Начинаем с более низкого качества
+                        let quality = 0.5; // Изменено с 0.6 на 0.5
+                        let result = canvas.toDataURL('image/jpeg', quality);
+                        
+                        // Уменьшаем качество, пока размер не станет меньше 300KB
+                        while ((result.length * 3) / 4 / 1024 > 300 && quality > 0.1) {
+                            quality -= 0.1;
+                            result = canvas.toDataURL('image/jpeg', quality);
+                        }
+                        
+                        resolve(result);
+                    };
+                });
+            }
+            
+            return Promise.resolve(base64String);
+        }
+
+        // Обновляем обработчик загрузки фото
+        photoInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (file) {
+                const img = new Image();
                 const reader = new FileReader();
-                reader.onload = (e) => {
-                    uploadPlaceholder.innerHTML = `
-                        <img src="${e.target.result}" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                    `;
+                
+                reader.onload = async (e) => {
+                    img.src = e.target.result;
+                    img.onload = async () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+
+                        let width = img.width;
+                        let height = img.height;
+                        const MAX_SIZE = 1000; // Уменьшено с 1200 на 1000
+
+                        if (width > height && width > MAX_SIZE) {
+                            height *= MAX_SIZE / width;
+                            width = MAX_SIZE;
+                        } else if (height > MAX_SIZE) {
+                            width *= MAX_SIZE / height;
+                            height = MAX_SIZE;
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        // Начинаем с качества 0.5
+                        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.5);
+                        
+                        // Проверяем и оптимизируем размер
+                        const optimizedDataUrl = await checkImageSize(compressedDataUrl);
+
+                        uploadPlaceholder.innerHTML = `
+                            <img src="${optimizedDataUrl}" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                        `;
+
+                        photoInput.compressedImage = optimizedDataUrl;
+                    };
                 };
                 reader.readAsDataURL(file);
             }
@@ -471,16 +554,16 @@
                 try {
                     showLoading();
                     
-                    // Получаем файл фото
-                    const photoFile = document.querySelector('input[type="file"]').files[0];
-                    if (!photoFile) {
+                    // Получаем сжатое изображение
+                    const photoBase64 = document.querySelector('input[type="file"]').compressedImage;
+                    if (!photoBase64) {
                         throw new Error('Пожалуйста, выберите фото');
                     }
 
-                    // Конвертируем фото в base64
-                    const photoBase64 = await getBase64(photoFile);
+                    // Используйте эту функцию в обработчике формы перед отправкой
+                    const optimizedPhotoBase64 = await checkImageSize(photoBase64);
 
-                    // Получаем ID пол��зователя из localStorage
+                    // Получаем ID ползователя из localStorage
                     const userId = localStorage.getItem('userId');
                     if (!userId) {
                         throw new Error('Пользователь не авторизован');
@@ -494,7 +577,7 @@
                         followers: parseInt(addBloggerForm.querySelector('input[name="followers"]')?.value) || 0,
                         engagement: parseFloat(addBloggerForm.querySelector('input[name="engagement"]')?.value) || 0,
                         telegram_username: addBloggerForm.querySelector('input[name="telegram_username"]')?.value?.trim() || '',
-                        photo_base64: photoBase64,
+                        photo_base64: optimizedPhotoBase64,
                         ad_comment: addBloggerForm.querySelector('textarea[name="barter_conditions"]')?.value?.trim() || '',
                         
                         // Социальные сети с проверкой на существование элементов
@@ -544,16 +627,6 @@
                 } finally {
                     hideLoading();
                 }
-            });
-        }
-
-        // Функция для конвертации файла в base64
-        function getBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
             });
         }
     });

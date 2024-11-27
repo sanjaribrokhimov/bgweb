@@ -325,18 +325,93 @@ document.addEventListener('DOMContentLoaded', () => {
     const photoInput = document.querySelector('input[type="file"]');
     const uploadPlaceholder = document.querySelector('.upload-placeholder');
 
-    photoInput.addEventListener('change', (e) => {
+    photoInput.addEventListener('change', async (e) => {
         const file = e.target.files[0];
         if (file) {
+            const img = new Image();
             const reader = new FileReader();
-            reader.onload = (e) => {
-                uploadPlaceholder.innerHTML = `
-                    <img src="${e.target.result}" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                `;
+            
+            reader.onload = async (e) => {
+                img.src = e.target.result;
+                img.onload = async () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    let width = img.width;
+                    let height = img.height;
+                    const MAX_SIZE = 1000;
+
+                    if (width > height && width > MAX_SIZE) {
+                        height *= MAX_SIZE / width;
+                        width = MAX_SIZE;
+                    } else if (height > MAX_SIZE) {
+                        width *= MAX_SIZE / height;
+                        height = MAX_SIZE;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.5);
+                    const optimizedDataUrl = await checkImageSize(compressedDataUrl);
+
+                    uploadPlaceholder.innerHTML = `
+                        <img src="${optimizedDataUrl}" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                    `;
+
+                    photoInput.compressedImage = optimizedDataUrl;
+                };
             };
             reader.readAsDataURL(file);
         }
     });
+
+    // Добавляем функцию проверки размера
+    function checkImageSize(base64String) {
+        const sizeInBytes = (base64String.length * 3) / 4;
+        const sizeInKB = sizeInBytes / 1024;
+        
+        if (sizeInKB > 300) {
+            const img = new Image();
+            img.src = base64String;
+            
+            return new Promise((resolve) => {
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    let width = img.width;
+                    let height = img.height;
+                    const MAX_SIZE = 1000;
+                    
+                    if (width > height && width > MAX_SIZE) {
+                        height *= MAX_SIZE / width;
+                        width = MAX_SIZE;
+                    } else if (height > MAX_SIZE) {
+                        width *= MAX_SIZE / height;
+                        height = MAX_SIZE;
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    let quality = 0.5;
+                    let result = canvas.toDataURL('image/jpeg', quality);
+                    
+                    while ((result.length * 3) / 4 / 1024 > 300 && quality > 0.1) {
+                        quality -= 0.1;
+                        result = canvas.toDataURL('image/jpeg', quality);
+                    }
+                    
+                    resolve(result);
+                };
+            });
+        }
+        
+        return Promise.resolve(base64String);
+    }
 
     // Обработка переключателей социальных сетей
     const switches = {
@@ -372,23 +447,26 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 showLoading();
                 
-                // Получаем файл фото
-                const photoFile = document.querySelector('input[type="file"]').files[0];
-                if (!photoFile) {
+                // Получаем сжатое изображение
+                const photoBase64 = document.querySelector('input[type="file"]').compressedImage;
+                if (!photoBase64) {
                     throw new Error('Пожалуйста, выберите фото');
                 }
 
-                // Конвертируем фото в base64
-                const photoBase64 = await getBase64(photoFile);
+                // Дополнительная оптимизация перед отправкой
+                const optimizedPhotoBase64 = await checkImageSize(photoBase64);
 
                 // Получаем ID пользователя из localStorage
                 const userId = localStorage.getItem('userId');
+                if (!userId) {
+                    throw new Error('Пользователь не авторизован. Пожалуйста, войдите в систему.');
+                }
                 
                 const postData = {
                     user_id: parseInt(userId),
                     name: addFreelancerForm.querySelector('input[placeholder*="Имя"]').value.trim(),
                     category: addFreelancerForm.querySelector('.category-select').value,
-                    photo_base64: photoBase64,
+                    photo_base64: optimizedPhotoBase64,
                     ad_comment: addFreelancerForm.querySelector('textarea').value || "",
                     github_link: document.querySelector('#githubFields input[type="url"]')?.value?.trim() || "",
                     portfolio_link: document.querySelector('#portfolioFields input[type="url"]')?.value?.trim() || "",
@@ -397,17 +475,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     youtube_link: document.querySelector('#youtubeFields input[type="url"]')?.value?.trim() || ""
                 };
 
-                // Добавить перед отправкой данных
+                console.log('Sending data:', postData);
+
+                // Перед отправкой данных
                 if (!postData.name || !postData.category || !postData.photo_base64) {
                     throw new Error('Пожалуйста, заполните все обязательные поля');
                 }
-
-                // Проверка userId
-                if (!userId) {
-                    throw new Error('Пользователь не авторизован. Пожалуйста, войдите в систему.');
-                }
-
-                console.log('Sending data:', postData);
 
                 // Отправляем данные на API
                 const response = await fetch('https://bgweb.nurali.uz/api/freelancers', {
@@ -419,6 +492,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify(postData)
                 });
 
+                // Добавим проверку статуса
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Ошибка при создании профиля фрилансера');
+                }
+
                 const data = await response.json();
                 console.log('Response:', data);
                 
@@ -426,34 +505,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     alertBlock.className = 'alert alert-success';
-                    alertBlock.textContent = data.message || 'Фрилансер успешно добавлен';
+                    alertBlock.textContent = data.message || 'Профиль фрилансера успешно создан';
                     
-                    // Перенаправляем на главную страницу через 2 секунды
                     setTimeout(() => {
                         window.location.href = 'index.php';
                     }, 2000);
                 } else {
-                    throw new Error(data.message || 'Ошибка при добавлении фрилансера');
+                    throw new Error(data.message || 'Ошибка при создании профиля фрилансера');
                 }
 
             } catch (error) {
                 console.error('Error:', error);
                 responseBlock.style.display = 'block';
                 alertBlock.className = 'alert alert-danger';
+                if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+                    alertBlock.textContent = 'Ошибка соединения с сервером. Пожалуйста, проверьте подключение к интернету.';
+                } else {
                 alertBlock.textContent = error.message;
+                }
             } finally {
                 hideLoading();
             }
-        });
-    }
-
-    // Функция для конвертации файла в base64
-    function getBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
         });
     }
 

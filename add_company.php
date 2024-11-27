@@ -294,18 +294,93 @@ document.addEventListener('DOMContentLoaded', () => {
     const photoInput = document.querySelector('input[type="file"]');
     const uploadPlaceholder = document.querySelector('.upload-placeholder');
 
-    photoInput.addEventListener('change', (e) => {
+    photoInput.addEventListener('change', async (e) => {
         const file = e.target.files[0];
         if (file) {
+            const img = new Image();
             const reader = new FileReader();
-            reader.onload = (e) => {
-                uploadPlaceholder.innerHTML = `
-                    <img src="${e.target.result}" alt="Preview" style="max-width: 100%; max-height: 200px; border-radius: 8px;">
-                `;
+            
+            reader.onload = async (e) => {
+                img.src = e.target.result;
+                img.onload = async () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    let width = img.width;
+                    let height = img.height;
+                    const MAX_SIZE = 1000;
+
+                    if (width > height && width > MAX_SIZE) {
+                        height *= MAX_SIZE / width;
+                        width = MAX_SIZE;
+                    } else if (height > MAX_SIZE) {
+                        width *= MAX_SIZE / height;
+                        height = MAX_SIZE;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.5);
+                    const optimizedDataUrl = await checkImageSize(compressedDataUrl);
+
+                    uploadPlaceholder.innerHTML = `
+                        <img src="${optimizedDataUrl}" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                    `;
+
+                    photoInput.compressedImage = optimizedDataUrl;
+                };
             };
             reader.readAsDataURL(file);
         }
     });
+
+    // Добавляем функцию проверки размера
+    function checkImageSize(base64String) {
+        const sizeInBytes = (base64String.length * 3) / 4;
+        const sizeInKB = sizeInBytes / 1024;
+        
+        if (sizeInKB > 300) {
+            const img = new Image();
+            img.src = base64String;
+            
+            return new Promise((resolve) => {
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    let width = img.width;
+                    let height = img.height;
+                    const MAX_SIZE = 1000;
+                    
+                    if (width > height && width > MAX_SIZE) {
+                        height *= MAX_SIZE / width;
+                        width = MAX_SIZE;
+                    } else if (height > MAX_SIZE) {
+                        width *= MAX_SIZE / height;
+                        height = MAX_SIZE;
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    let quality = 0.5;
+                    let result = canvas.toDataURL('image/jpeg', quality);
+                    
+                    while ((result.length * 3) / 4 / 1024 > 300 && quality > 0.1) {
+                        quality -= 0.1;
+                        result = canvas.toDataURL('image/jpeg', quality);
+                    }
+                    
+                    resolve(result);
+                };
+            });
+        }
+        
+        return Promise.resolve(base64String);
+    }
 
     // Валидация ссылок
     const urlInputs = document.querySelectorAll('input[type="url"]');
@@ -350,14 +425,14 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 showLoading();
                 
-                // Получаем файл фото
-                const photoFile = document.querySelector('input[type="file"]').files[0];
-                if (!photoFile) {
+                // Получаем сжатое изображение
+                const photoBase64 = document.querySelector('input[type="file"]').compressedImage;
+                if (!photoBase64) {
                     throw new Error('Пожалуйста, выберите фото');
                 }
 
-                // Конвертируем фото в base64
-                const photoBase64 = await getBase64(photoFile);
+                // Дополнительная оптимизация перед отправкой
+                const optimizedPhotoBase64 = await checkImageSize(photoBase64);
 
                 // Получаем ID пользователя из localStorage
                 const userId = localStorage.getItem('userId');
@@ -369,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     user_id: parseInt(userId),
                     name: addCompanyForm.querySelector('input[placeholder*="Название компании"]').value.trim(),
                     category: addCompanyForm.querySelector('.category-select').value,
-                    photo_base64: photoBase64,
+                    photo_base64: optimizedPhotoBase64, // Используем оптимизированное изображение
                     budget: parseInt(addCompanyForm.querySelector('input[name="budget"]').value) || 0,
                     ad_comment: addCompanyForm.querySelector('textarea[name="ad_comment"]').value || "",
                     website_link: document.querySelector('#websiteFields input[type="url"]')?.value?.trim() || "",
@@ -383,6 +458,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!postData.name || !postData.category || !postData.photo_base64) {
                     throw new Error('Пожалуйста, заполните все обязательные поля');
                 }
+
+                console.log('Sending data:', postData);
 
                 // Отправляем данные на API
                 const response = await fetch('https://bgweb.nurali.uz/api/companies', {
@@ -409,7 +486,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     alertBlock.className = 'alert alert-success';
                     alertBlock.textContent = data.message || 'Компания успешно создана';
                     
-                    // Перенаправляем на главную страницу через 2 секунды
                     setTimeout(() => {
                         window.location.href = 'index.php';
                     }, 2000);
@@ -429,16 +505,6 @@ document.addEventListener('DOMContentLoaded', () => {
             } finally {
                 hideLoading();
             }
-        });
-    }
-
-    // Функция для конвертации файла в base64
-    function getBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
         });
     }
 
