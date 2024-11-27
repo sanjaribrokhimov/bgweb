@@ -35,8 +35,13 @@
     right: 0;
     background: var(--card-bg);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
     z-index: 1000;
-    padding: 4px 0;
+    padding: 10px 0;
+}
+
+.bottom-nav.hidden {
+    transform: translateY(100%);
 }
 
 .nav-item {
@@ -293,5 +298,21 @@ document.addEventListener('DOMContentLoaded', function() {
             button.classList.add('active');
         }
     });
+});
+
+let lastScrollY = window.scrollY;
+
+window.addEventListener('scroll', () => {
+    const bottomNav = document.querySelector('.bottom-nav');
+    const currentScrollY = window.scrollY;
+    
+    // Скрываем при скролле вниз, показываем при скролле вверх
+    if (currentScrollY > lastScrollY) {
+        bottomNav.classList.add('hidden');
+    } else {
+        bottomNav.classList.remove('hidden');
+    }
+    
+    lastScrollY = currentScrollY;
 });
 </script>

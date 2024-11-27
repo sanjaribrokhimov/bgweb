@@ -7,6 +7,75 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Стили для модального окна */
+        .modal-content {
+            border-radius: 15px;
+            background: var(--bs-body-bg);
+            color: var(--bs-body-color);
+        }
+
+        .delete-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: var(--bs-danger-bg-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-icon-wrapper i {
+            font-size: 2rem;
+        }
+
+        .delete-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--bs-body-color);
+        }
+
+        /* Темная тема */
+        [data-bs-theme="dark"] .modal-content {
+            background: var(--bs-dark);
+            border: 1px solid var(--bs-dark-border-subtle);
+        }
+
+        [data-bs-theme="dark"] .btn-outline-secondary {
+            border-color: var(--bs-dark-border-subtle);
+            color: var(--bs-body-color);
+        }
+
+        [data-bs-theme="dark"] .btn-outline-secondary:hover {
+            background: var(--bs-dark-border-subtle);
+            border-color: var(--bs-dark-border-subtle);
+        }
+
+        [data-bs-theme="dark"] .delete-icon-wrapper {
+            background: rgba(var(--bs-danger-rgb), 0.2);
+        }
+
+        /* Анимации */
+        .modal.fade .modal-dialog {
+            transform: scale(0.8);
+            transition: transform 0.3s ease-out;
+        }
+
+        .modal.show .modal-dialog {
+            transform: scale(1);
+        }
+
+        .delete-icon-wrapper i {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+    </style>
 </head>
 <body>
     <?php include 'components/miniHeader.php'; ?>
@@ -37,7 +106,6 @@
                     </div>
                     <div id="loadingIndicator" class="text-center" style="display: none;">
                         <div class="spinner-border" role="status">
-                            <span class="visually-hidden" data-translate="myads.loading">Загрузка...</span>
                         </div>
                     </div>
                     <div id="noAdsMessage" style="display: none;" class="text-center mt-4">
@@ -51,19 +119,29 @@
     <!-- Модальное окно подтверждения удаления -->
     <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" data-translate="myads.deleteConfirmTitle">Подтверждение действия</h5>
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-0 text-center">
+                    <h5 class="modal-title w-100" data-translate="myads.deleteConfirmTitle">Подтверждение действия</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center py-4">
-                    <i class="fas fa-exclamation-circle text-warning mb-3" style="font-size: 3rem;"></i>
-                    <p class="mb-0" data-translate="myads.deleteConfirmText">Вы действительно хотите удалить это объявление?</p>
-                    <p class="text-muted small" data-translate="myads.deleteConfirmSubtext">Это действие нельзя будет отменить</p>
+                    <div class="delete-icon-wrapper mb-4">
+                        <i class="fas fa-trash-alt text-danger"></i>
+                    </div>
+                    <h4 class="delete-title mb-3" data-translate="myads.deleteConfirmText">
+                        Вы действительно хотите удалить это объявление?
+                    </h4>
+                    <p class="text-muted" data-translate="myads.deleteConfirmSubtext">
+                        Это действие нельзя будет отменить
+                    </p>
                 </div>
-                <div class="modal-footer border-0 justify-content-center">
-                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal" data-translate="myads.cancel">Отмена</button>
-                    <button type="button" class="btn btn-danger px-4" id="confirmDelete" data-translate="myads.delete">Удалить</button>
+                <div class="modal-footer border-0 justify-content-center gap-2 pb-4">
+                    <button type="button" class="btn btn-outline-secondary px-4 py-2" data-bs-dismiss="modal" data-translate="myads.cancel">
+                        <i class="fas fa-times me-2"></i>Отмена
+                    </button>
+                    <button type="button" class="btn btn-danger px-4 py-2" id="confirmDelete" data-translate="myads.delete">
+                        <i class="fas fa-trash-alt me-2"></i>Удалить
+                    </button>
                 </div>
             </div>
         </div>
@@ -75,18 +153,20 @@
         constructor() {
             this.userId = localStorage.getItem('userId');
             this.loadUserInfo();
-            this.loadUserAds();
         }
 
         async loadUserInfo() {
             try {
-                const userId = localStorage.getItem('userId');
-                console.log('Loading user info for ID:', userId); // Для отладки
+                const token = localStorage.getItem('userId');
+                if (!this.userId || !token) {
+                    throw new Error('User ID or token not found');
+                }
                 
-                const response = await fetch(`https://bgweb.nurali.uz/api/auth/user/${userId}`, {
+                const response = await fetch(`https://bgweb.nurali.uz/api/auth/user/${this.userId}`, {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     }
                 });
                 
@@ -95,7 +175,6 @@
                 }
                 
                 const data = await response.json();
-                console.log('User data:', data); // Для отладки
                 
                 // Обновляем информацию о пользователе на странице
                 document.getElementById('userName').textContent = data.name || 'Без имени';
@@ -106,142 +185,6 @@
                 console.error('Error loading user info:', error);
                 Utils.showNotification('Ошибка при загрузке информации о пользователе', 'error');
             }
-        }
-
-        async loadUserAds() {
-            try {
-                console.log('Loading ads for user ID:', this.userId); // Для отладки
-                const response = await fetch(`https://bgweb.nurali.uz/api/ads/user/${this.userId}`);
-                
-                if (!response.ok) {
-                    throw new Error('Failed to fetch user ads');
-                }
-                
-                const data = await response.json();
-                console.log('User ads:', data); // Для отладки
-                
-                const adsContainer = document.getElementById('adsContainer');
-                const noAdsMessage = document.getElementById('noAdsMessage');
-                
-                if (!data || data.length === 0) {
-                    noAdsMessage.style.display = 'block';
-                    return;
-                }
-
-                adsContainer.innerHTML = '';
-                data.forEach(ad => {
-                    const card = this.createAdCard(ad);
-                    adsContainer.appendChild(card);
-                });
-                
-            } catch (error) {
-                console.error('Error loading user ads:', error);
-                Utils.showNotification('Ошибка при загрузке объявлений', 'error');
-            }
-        }
-
-        createAdCard(ad) {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            
-            card.innerHTML = `
-                <div class="product-image">
-                    <img src="${ad.photo_base64 || './img/noImage.jpg'}" 
-                         alt="Ad Image" 
-                         onerror="this.src='./img/noImage.jpg'">
-                    <div class="card-type-badge">${this.getAdTypeLabel(ad.type)}</div>
-                </div>
-                <div class="product-info">
-                    <h3>${ad.name || ad.nickname || 'Без названия'}</h3>
-                    <div class="category-tag">${ad.category || 'Без категории'}</div>
-                    ${this.getAdStats(ad)}
-                    <div class="btn-actions">
-                        <button class="btn-delete" data-id="${ad.id}">
-                            <i class="fas fa-trash"></i> Удалить
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            // Добавляем обработчик для кнопки удаления
-            const deleteBtn = card.querySelector('.btn-delete');
-            deleteBtn.addEventListener('click', () => this.showDeleteConfirm(ad.id));
-
-            return card;
-        }
-
-        getAdTypeLabel(type) {
-            const labels = {
-                'blogger': 'Блогер',
-                'company': 'Компания',
-                'freelancer': 'Фрилансер'
-            };
-            return labels[type] || type;
-        }
-
-        getAdStats(ad) {
-            if (ad.type === 'blogger') {
-                return `
-                    <div class="stats">
-                        <div class="stat-item">
-                            <i class="fas fa-users"></i>
-                            <span>${this.formatNumber(ad.followers)} подписчиков</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-chart-line"></i>
-                            <span>ER: ${ad.engagement || 0}%</span>
-                        </div>
-                    </div>
-                `;
-            }
-            if (ad.type === 'company') {
-                return `
-                    <div class="stats">
-                        <div class="stat-item">
-                            <i class="fas fa-briefcase"></i>
-                            <span>Бюджет: ${this.formatNumber(ad.budget)}$</span>
-                        </div>
-                    </div>
-                `;
-            }
-            return '';
-        }
-
-        formatNumber(num) {
-            if (!num) return '0';
-            if (num >= 1000000) {
-                return (num / 1000000).toFixed(1) + 'M';
-            }
-            if (num >= 1000) {
-                return (num / 1000).toFixed(1) + 'K';
-            }
-            return num.toString();
-        }
-
-        async showDeleteConfirm(adId) {
-            const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
-            const confirmDeleteBtn = document.getElementById('confirmDelete');
-            
-            confirmDeleteBtn.onclick = async () => {
-                try {
-                    const response = await fetch(`https://bgweb.nurali.uz/api/ads/delete/${adId}`, {
-                        method: 'DELETE'
-                    });
-
-                    if (response.ok) {
-                        Utils.showNotification('Объявление успешно удалено', 'success');
-                        await this.loadUserAds(); // Перезагружаем список объявлений
-                    } else {
-                        throw new Error('Failed to delete ad');
-                    }
-                } catch (error) {
-                    console.error('Error deleting ad:', error);
-                    Utils.showNotification('Ошибка при удалении объявления', 'error');
-                }
-                modal.hide();
-            };
-
-            modal.show();
         }
     }
 

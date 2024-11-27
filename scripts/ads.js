@@ -138,8 +138,8 @@ class AdsLoader {
                 <img src="${data.photo_base64}" alt="${cardType}" onerror="this.src='./img/noImage.jpg'">
                 <div class="card-type-badge">${cardType}</div>
             </div>
-            <div class="notranslate product-info">
-                <h3>${title}</h3>
+            <div class="product-info" translate="no">
+                <h3 class="notranslate">${title}</h3>
                 <div class="category-tag">${data.category || 'Без категории'}</div>
                 <div class="stats">
                     ${stats}
@@ -287,6 +287,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
 
 
 

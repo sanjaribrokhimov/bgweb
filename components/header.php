@@ -16,15 +16,48 @@ $IP = '144.126.128.67';
     <style>
         /* Фиксируем блок сверху */
         .top-bar {
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease-in-out;
+            background: var(--card-bg);
+            transition: all 0.3s ease;
+            padding: 12px 15px;
+            border-radius: 16px;
+            margin: 10px 15px;
+            box-shadow: var(--shadow);
+            transform: translateY(0);
         }
-        .top-bar.scrolled {
-            background-color: #f8f9fa;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+        .top-bar.hidden {
+            transform: translateY(-150%);
+        }
+
+        /* Добавляем отступ для контента под fixed top-bar */
+        .app-container {
+            padding-top: 60px !important;
+        }
+
+        /* Стили для header с логотипом и поиском */
+        header {
+            margin-top: 60px;
+            position: relative;
+            z-index: 999;
+        }
+
+        /* Стили для поиска и уведомлений */
+        .notifications-wrapper,
+        .search-container {
+            position: relative;
+            z-index: 999;
+        }
+
+        /* Стили для логотипа */
+        .header-logo {
+            height: 40px;
+            position: relative;
+            z-index: 999;
         }
 
         /* Стили для индикатора загрузки */
@@ -551,8 +584,13 @@ $IP = '144.126.128.67';
     }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        // Добавляем скрипт ��нициализации темы до загрузки DOM
+        document.documentElement.classList.add('dark-theme');
+    </script>
 </head>
-<body>
+<body class="dark-theme">
 
 
 
@@ -765,12 +803,10 @@ $IP = '144.126.128.67';
         // Переключатель темы с анимацией
         const themeToggle = document.querySelector('.theme-toggle');
         if (themeToggle) {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.body.classList.toggle('dark-theme', savedTheme === 'dark');
-
             themeToggle.addEventListener('click', () => {
                 themeToggle.classList.add('switching');
                 document.body.classList.toggle('dark-theme');
+                document.documentElement.classList.toggle('dark-theme');
                 const isDark = document.body.classList.contains('dark-theme');
                 localStorage.setItem('theme', isDark ? 'dark' : 'light');
                 
@@ -797,7 +833,7 @@ $IP = '144.126.128.67';
             }
         }
 
-        // Устанавли��аем активную кнопку и язык
+        // Устанавлиаем активную кнопку и язык
         langButtons.forEach(btn => {
             if (btn.dataset.lang === currentLang) {
                 btn.classList.add('active');
@@ -827,11 +863,8 @@ $IP = '144.126.128.67';
     // Переключатель темы
     const themeToggle = document.querySelector('.theme-toggle');
     if (themeToggle) {
-        // Устанавливаем начальную тему
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-        }
+        // Устанавливаем тёмную тему по умолчанию
+        document.body.classList.add('dark-theme');
 
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-theme');
@@ -840,39 +873,7 @@ $IP = '144.126.128.67';
         });
     }
 
-    // Переключатель языка
-    const langButtons = document.querySelectorAll('.lang-toggle button');
-    langButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            langButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            
-            const lang = button.textContent.toLowerCase();
-            localStorage.setItem('selectedLanguage', lang);
-            
-            // Обновляем все элементы с атрибутом data-translate на странице
-            document.querySelectorAll('[data-translate]').forEach(element => {
-                const key = element.getAttribute('data-translate');
-                const icon = element.querySelector('i')?.outerHTML || ''; // Сохраняем иконку если она есть
-                
-                const keys = key.split('.');
-                let translation = translations[lang];
-                
-                // Получаем значение по вложенным ключам
-                for (const k of keys) {
-                    if (translation && translation[k]) {
-                        translation = translation[k];
-                    } else {
-                        translation = null;
-                        break;
-                    }
-                }
-                
-                if (translation) {
-                    element.innerHTML = icon + ' ' + translation; // Возвращаем иконку с переводом
-                }
-            });
-        });
+    
     });
 
     // Восстанавливаем сохраненные настройки при загрузке
@@ -1070,6 +1071,26 @@ $IP = '144.126.128.67';
         }
     });
     </script>
+
+    <script>
+        let lastScrollPosition = window.pageYOffset;
+        const topBar = document.querySelector('.top-bar');
+        
+        window.addEventListener('scroll', () => {
+            const currentScrollPosition = window.pageYOffset;
+            
+            // Используем классы вместо прямого изменения стилей
+            if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 100) {
+                topBar.classList.add('hidden');
+            } else {
+                topBar.classList.remove('hidden');
+            }
+            
+            lastScrollPosition = currentScrollPosition;
+        });
+    </script>
+
+    
 </body>
 </html>
 

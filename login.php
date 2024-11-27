@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
+<script>
+    // Добавляем скрипт инициализации темы до загрузки DOM
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark-theme');
+    }
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,6 +97,61 @@
             margin-top: 1rem;
             font-size: 14px;
         }
+
+        /* Стили для переключателя темы */
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle i {
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle .fa-sun {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .theme-toggle .fa-moon {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Анимация для тёмной темы */
+        .dark-theme .theme-toggle .fa-sun {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .dark-theme .theme-toggle .fa-moon {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Добавляем вращение при переключении */
+        .theme-toggle.switching {
+            animation: rotate 0.5s ease;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -167,7 +229,7 @@
                 </div>
             </form>
 
-            <!-- Форма регистрации -->
+            <!-- Фрма регистраци -->
             <form id="registerForm" class="auth-form" autocomplete="off">
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
@@ -288,50 +350,32 @@
                 });
             });
 
-            // Добавляем обработку показа/скрытия пароля
+            // Заменяем существующий обработчик показа/скрытия пароля на этот:
             const passwordToggles = document.querySelectorAll('.password-toggle');
-            
+
             passwordToggles.forEach(toggle => {
-                toggle.addEventListener('click', (e) => {
-                    e.preventDefault(); // Предотвращаем отправку формы
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
                     
-                    const button = e.currentTarget;
-                    const input = button.previousElementSibling;
-                    const icon = button.querySelector('i');
+                    const inputWithIcon = this.closest('.input-with-icon');
+                    const input = inputWithIcon.querySelector('input');
+                    const icon = this.querySelector('i');
                     
-                    // Сохраняем текущее значение пароля
-                    const currentValue = input.value;
-                    
+                    // Просто меняем тип поля
                     if (input.type === 'password') {
                         input.type = 'text';
                         icon.classList.remove('fa-eye');
                         icon.classList.add('fa-eye-slash');
-                        button.classList.add('active');
                     } else {
                         input.type = 'password';
                         icon.classList.remove('fa-eye-slash');
                         icon.classList.add('fa-eye');
-                        button.classList.remove('active');
                     }
                     
-                    // Восстанавливаем значение пароля
-                    input.value = currentValue;
+                    // Сохраняем фокус на поле
+                    input.focus();
                 });
             });
-
-            // Переключатель темы
-            const themeToggle = document.querySelector('.theme-toggle');
-            if (themeToggle) {
-                // Устанавливаем начальную тему
-                const savedTheme = localStorage.getItem('theme') || 'light';
-                document.body.classList.toggle('dark-theme', savedTheme === 'dark');
-
-                themeToggle.addEventListener('click', () => {
-                    document.body.classList.toggle('dark-theme');
-                    const isDark = document.body.classList.contains('dark-theme');
-                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                });
-            }
 
             // Инициалиация языка
             const langButtons = document.querySelectorAll('.lang-toggle button');
@@ -420,44 +464,32 @@
                     const alertBlock = responseBlock.querySelector('.alert');
                     
                     try {
-                        // Получаем значения полей, учитывая как password, так и text type
+                        // Изменяем способ получения пароля
                         const formData = {
                             name: registerForm.querySelector('input[type="text"]').value.trim(),
                             phone: registerForm.querySelector('input[type="tel"]').value.trim(),
                             email: registerForm.querySelector('input[type="email"]').value.trim(),
-                            // Изменяем способ получения паролей
-                            password: registerForm.querySelector('.input-with-icon input[placeholder="Пароль"]').value,
-                            confirmPassword: registerForm.querySelector('.input-with-icon input[placeholder="Подтвердите пароль"]').value,
+                            // Получаем первый пароль (может быть как password, так и text)
+                            password: registerForm.querySelectorAll('input[type="password"], input[type="text"]')[0].value,
                             category: registerForm.querySelector('.category-select').value
                         };
 
-                        // Проверка заполнения всех полей
-                        for (const [key, value] of Object.entries(formData)) {
-                            if (!value) {
-                                throw new Error(`Поле ${key} обязательно для заполнения`);
-                            }
-                        }
-
-                        // Проверка совпадения паролей
-                        if (formData.password !== formData.confirmPassword) {
-                            throw new Error('Пароли не совпадают');
-                        }
+                        // Логируем данные
+                        console.log('Отправляемые данные (register):', formData);
 
                         const response = await fetch('https://bgweb.nurali.uz/api/auth/register', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify({
-                                name: formData.name,
-                                email: formData.email,
-                                password: formData.password,
-                                phone: formData.phone,
-                                category: formData.category
-                            })
+                            body: JSON.stringify(formData)
                         });
 
                         const data = await response.json();
+                        // Логируем ответ
+                        console.log('Ответ сервера (register):', data);
+                        console.log('Статус ответа:', response.status);
+
                         responseBlock.style.display = 'block';
 
                         if (response.status === 200) {
@@ -477,6 +509,7 @@
                             alertBlock.textContent = data.error;
                         }
                     } catch (error) {
+                        console.error('Ошибка при регистрации:', error);
                         responseBlock.style.display = 'block';
                         alertBlock.className = 'alert alert-danger';
                         alertBlock.textContent = error.message;
@@ -500,9 +533,11 @@
                     try {
                         const formData = {
                             email: loginForm.querySelector('input[type="email"]').value.trim(),
-                            // Изменяем способ получения пароля, используя placeholder для поиска нужного input
-                            password: loginForm.querySelector('input[placeholder="Пароль"]').value
+                            password: loginForm.querySelector('input[type="password"], input[type="text"]').value
                         };
+
+                        // Логируем данные, которые отправляем
+                        console.log('Отправляемые данные (login):', formData);
 
                         const response = await fetch('https://bgweb.nurali.uz/api/auth/login', {
                             method: 'POST',
@@ -513,6 +548,10 @@
                         });
 
                         const data = await response.json();
+                        // Логируем ответ сервера
+                        console.log('Ответ сервера (login):', data);
+                        console.log('Статус ответа:', response.status);
+
                         responseBlock.style.display = 'block';
 
                         if (response.status === 200) {
@@ -544,6 +583,7 @@
                             alertBlock.textContent = data.error;
                         }
                     } catch (error) {
+                        console.error('Ошибка при входе:', error);
                         responseBlock.style.display = 'block';
                         alertBlock.className = 'alert alert-danger';
                         alertBlock.textContent = 'Ошибка при попытке входа';
@@ -553,7 +593,7 @@
                 });
             }
 
-            // Добавьте этот код после инициализации формы
+            // Дбавьте этот код после инициализации формы
             const passwordInput = registerForm.querySelectorAll('input[type="password"]')[0];
             const confirmPasswordInput = registerForm.querySelectorAll('input[type="password"]')[1];
 
@@ -577,6 +617,39 @@
             passwordInput.addEventListener('input', validatePasswords);
             confirmPasswordInput.addEventListener('input', validatePasswords);
         });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Переключатель темы с анимацией
+        const themeToggle = document.querySelector('.theme-toggle');
+        if (themeToggle) {
+            // Устанавливаем тёмную тему по умолчанию
+            document.body.classList.add('dark-theme');
+            document.documentElement.classList.add('dark-theme');
+
+            themeToggle.addEventListener('click', () => {
+                themeToggle.classList.add('switching');
+                document.body.classList.toggle('dark-theme');
+                document.documentElement.classList.toggle('dark-theme');
+                const isDark = document.body.classList.contains('dark-theme');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                
+                setTimeout(() => {
+                    themeToggle.classList.remove('switching');
+                }, 500);
+            });
+
+            // Применяем сохраненную тему при загрузке
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                document.documentElement.classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+                document.documentElement.classList.remove('dark-theme');
+            }
+        }
+    });
     </script>
 </body>
 </html> 
