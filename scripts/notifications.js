@@ -5,6 +5,7 @@ class NotificationManager {
         this.button = document.querySelector('#notificationsBtn');
         this.modal = document.querySelector('.notifications-modal');
         this.unreadCount = 0;
+        this.isTelegramWebView = this.checkIfTelegramWebView();
         this.init();
     }
 
@@ -12,6 +13,10 @@ class NotificationManager {
         this.connectWebSocket();
         this.addEventListeners();
         this.loadNotifications();
+    }
+
+    checkIfTelegramWebView() {
+        return window.Telegram && window.Telegram.WebApp;
     }
 
     async loadNotifications() {
@@ -69,23 +74,89 @@ class NotificationManager {
         const userId = localStorage.getItem('userId');
         if (!userId) return;
 
-        this.ws = new WebSocket(`ws://bgweb.nurali.uz/api/ws/${userId}`);
-        
-        this.ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            this.handleNewNotification(data);
-        };
+        // Для мобильного Telegram используем long polling вместо WebSocket
+        if (this.isTelegramWebView) {
+            this.startPolling();
+            return;
+        }
 
-        this.ws.onclose = () => {
-            setTimeout(() => this.connectWebSocket(), 5000);
-        };
+        // Существующий WebSocket код для десктопа
+        try {
+            this.ws = new WebSocket(`wss://bgweb.nurali.uz/api/ws/${userId}`);
+            
+            this.ws.onopen = () => {
+                console.log('WebSocket соединение установлено');
+            };
+
+            this.ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                this.handleNewNotification(data);
+            };
+
+            this.ws.onerror = () => {
+                console.log('WebSocket ошибка, переключение на polling');
+                this.startPolling();
+            };
+
+            this.ws.onclose = () => {
+                if (!this.isTelegramWebView) {
+                    setTimeout(() => this.connectWebSocket(), 5000);
+                }
+            };
+        } catch (error) {
+            console.error('Ошибка WebSocket:', error);
+            this.startPolling();
+        }
+    }
+
+    startPolling() {
+        // Запускаем long polling каждые 10 секунд
+        this.pollingInterval = setInterval(() => {
+            this.pollNotifications();
+        }, 10000);
+
+        // Сразу делаем первый запрос
+        this.pollNotifications();
+    }
+
+    async pollNotifications() {
+        const userId = localStorage.getItem('userId');
+        if (!userId) return;
+
+        try {
+            const response = await fetch(`https://bgweb.nurali.uz/api/notifications/${userId}/poll`);
+            if (!response.ok) throw new Error('Ошибка получения уведомлений');
+            
+            const notifications = await response.json();
+            if (Array.isArray(notifications) && notifications.length > 0) {
+                notifications.forEach(notification => {
+                    this.handleNewNotification(notification);
+                });
+            }
+        } catch (error) {
+            console.error('Ошибка при polling уведомлений:', error);
+        }
     }
 
     handleNewNotification(notification) {
         this.unreadCount++;
         this.updateBadge();
         this.addNotificationToList(notification);
-        Utils.showNotification('У вас новое соглашение!', 'info');
+
+        // Специальная обработка для Telegram WebView
+        if (this.isTelegramWebView && window.Telegram.WebApp) {
+            window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
+            // Используем нативные уведомления Telegram
+            window.Telegram.WebApp.showPopup({
+                title: 'Новое уведомление',
+                message: 'У вас новое соглашение!',
+                buttons: [{
+                    type: 'ok'
+                }]
+            });
+        } else {
+            Utils.showNotification('У вас новое соглашение!', 'info');
+        }
     }
 
     renderNotifications(notifications) {
