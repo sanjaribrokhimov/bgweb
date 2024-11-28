@@ -1,0 +1,2682 @@
+:root {
+    --primary-bg: #0f1116;
+    --card-bg: #1a1d26;
+    --text-color: #ffffff;
+    --text-secondary: #9ba1b0;
+    --accent-blue: #4d7eff;
+    --accent-purple: #9d50ff;
+    --accent-green: #32d583;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    --gradient-1: linear-gradient(145deg, #1a1d26, #252935);
+    --gradient-2: linear-gradient(145deg, #4d7eff, #6d5dff);
+    --card-hover: #252935;
+}
+
+body.light-theme {
+    --primary-bg: #f0f2f5;
+    --card-bg: #ffffff;
+    --text-color: #1a1d26;
+    --text-secondary: #64748b;
+    --accent-blue: #3b82f6;
+    --accent-purple: #8b5cf6;
+    --accent-green: #22c55e;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --gradient-1: linear-gradient(145deg, #ffffff, #f8fafc);
+    --gradient-2: linear-gradient(145deg, #3b82f6, #6366f1);
+    --card-hover: #f8fafc;
+}
+
+.products-grid{
+    margin-bottom: 25%;
+}
+#categories{
+    padding-top: 10%;
+}
+
+/* Основные стили */
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+body.light-theme {
+    --primary-bg: #f0f2f5;
+    --card-bg: #ffffff;
+    --text-color: #1a1d26;
+    --text-secondary: #64748b;
+    --accent-blue: #3b82f6;
+    --accent-purple: #8b5cf6;
+    --accent-green: #22c55e;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --gradient-1: linear-gradient(145deg, #ffffff, #f8fafc);
+    --gradient-2: linear-gradient(145deg, #3b82f6, #6366f1);
+    --card-hover: #f8fafc;
+}
+
+.app-container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: 140px;
+}
+
+/* Верхняя панель */
+.top-bar {
+    background: var(--card-bg);
+    padding: 12px 15px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+
+/* Переключатель языка */
+.lang-toggle {
+    display: flex;
+    background: var(--gradient-1);
+    border-radius: 20px;
+    padding: 3px;
+    box-shadow: var(--shadow);
+}
+
+.lang-toggle button {
+    border: none;
+    background: none;
+    padding: 5px 12px;
+    border-radius: 17px;
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lang-toggle button.active {
+    background: var(--gradient-2);
+    color: white;
+    box-shadow: 0 2px 5px rgba(77, 126, 255, 0.3);
+}
+
+/* Переключатель темы */
+.theme-toggle {
+    background: var(--gradient-1);
+    border-radius: 30px;
+    padding: 5px;
+    width: 65px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle i {
+    font-size: 14px;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle i.fa-sun {
+    color: #ffd43b;
+    opacity: 0.5;
+    transform: scale(0.9);
+}
+
+.theme-toggle i.fa-moon {
+    color: #74c0fc;
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.theme-toggle::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: var(--accent-blue);
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Стили для темной темы */
+body.dark-theme .theme-toggle::after {
+    transform: translateX(35px);
+}
+
+body.dark-theme .theme-toggle i.fa-sun {
+    opacity: 0.5;
+    transform: scale(0.9);
+}
+
+body.dark-theme .theme-toggle i.fa-moon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Стили для светлой темы (по умолчанию) */
+body:not(.dark-theme) .theme-toggle i.fa-sun {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+body:not(.dark-theme) .theme-toggle i.fa-moon {
+    opacity: 0.5;
+    transform: scale(0.9);
+}
+
+/* Стили для темной темы */
+body.dark-theme {
+    --primary-bg: #0f1116;
+    --card-bg: #1a1d26;
+    --text-color: #ffffff;
+    --text-secondary: #9ba1b0;
+    --gradient-1: linear-gradient(145deg, #1a1d26, #252935);
+}
+
+/* Стили для светлой темы */
+body:not(.dark-theme) {
+    --primary-bg: #f0f2f5;
+    --card-bg: #ffffff;
+    --text-color: #1a1d26;
+    --text-secondary: #64748b;
+    --gradient-1: linear-gradient(145deg, #ffffff, #f8fafc);
+}
+
+/* Добавляем плавные переходы для всех элементов */
+* {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+/* Профиль */
+.profile-btn button {
+    background: var(--gradient-2);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(77, 126, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-btn i {
+    color: white;
+    font-size: 20px;
+}
+
+/* Карточки */
+.product-card {
+    background: var(--gradient-1);
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    background: var(--card-hover);
+    box-shadow: var(--shadow);
+}
+
+.product-image {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.product-image img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--gradient-1);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.favorite-btn:hover {
+    background: var(--gradient-2);
+    transform: scale(1.1);
+}
+
+/* Нижняя навигация */
+.bottom-nav {
+    background: var(--gradient-1);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+.bottom-nav .btn-link {
+    color: var(--text-secondary);
+    font-size: 20px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.bottom-nav .btn-link:hover {
+    color: var(--accent-blue);
+    transform: translateY(-2px);
+}
+
+.bottom-nav .btn-link.active {
+    color: var(--accent-blue);
+}
+
+/* Светлая тема */
+body.light-theme .theme-toggle::after {
+    transform: translateX(35px);
+}
+
+body.light-theme .theme-toggle i.fa-sun {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+body.light-theme .theme-toggle i.fa-moon {
+    opacity: 0.5;
+    transform: scale(0.9);
+}
+
+/* Медиа заросы */
+@media (max-width: 768px) {
+    .bottom-nav {
+        padding: 0 10px;
+    }
+    
+    h1 {
+        font-size: 20px;
+    }
+}
+
+/* Общие стили */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1 {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.search-icon i {
+    color: var(--text-color);
+    font-size: 20px;
+}
+
+/* Стили для поиска */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    position: absolute;
+    right: 40px;
+    background: var(--gradient-1);
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    color: var(--text-color);
+    width: 0;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.search-input.active {
+    width: 200px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.search-icon {
+    cursor: pointer;
+    z-index: 2;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-1);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+.search-input::placeholder {
+    color: var(--text-secondary);
+}
+
+/* Стили для светлой темы */
+body.light-theme .search-input {
+    background: var(--gradient-1);
+    color: var(--text-color);
+    box-shadow: var(--shadow);
+}
+
+/* Добавьте стили для заголовка */
+.header-content {
+    transition: all 0.3s ease;
+}
+
+.header-content.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Стили категорий */
+.categories {
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.categories::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}
+
+.categories .btn {
+    background: var(--gradient-1);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 12px;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.categories .btn i {
+    font-size: 14px;
+}
+
+.categories .btn:hover {
+    transform: translateY(-2px);
+    background: var(--card-hover);
+}
+
+.categories .btn.active {
+    background: var(--gradient-2);
+    color: white;
+    box-shadow: 0 4px 15px rgba(77, 126, 255, 0.3);
+}
+
+/* Добавляем медиа-запрос для мобильных устройств */
+@media (max-width: 768px) {
+    .categories .d-flex {
+        overflow-x: auto;
+        padding-bottom: 5px;
+        flex-wrap: nowrap !important;
+    }
+}
+
+/* Ст статистики */
+.stats {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.stats > span {
+    background: var(--gradient-1);
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Убираем стили для вложенных span */
+.stats > span span {
+    background: none;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    display: inline;
+}
+
+/* Специфичные стили для разных типов статистики */
+.stats > .engagement {
+    color: var(--accent-blue);
+}
+
+.stats > .price {
+    color: var(--accent-green);
+}
+
+.stats > .duration {
+    color: var(--accent-purple);
+}
+
+.stats > .requirements {
+    color: var(--accent-blue);
+}
+
+/* Стили для светлой темы */
+body.light-theme .stats > span {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow);
+}
+
+/* Анимация при наведении */
+.stats > span:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Адаптив для маленьких экранов */
+@media (max-width: 380px) {
+    .stats {
+        flex-wrap: wrap;
+    }
+    
+    .stats > span {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+/* Добавляем анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-card {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Добавьте эти стили для выпадающего меню профиля */
+.profile-dropdown {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: var(--gradient-1);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 200px;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.profile-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.profile-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.profile-dropdown-item:hover {
+    background: var(--card-hover);
+}
+
+.profile-dropdown-item i {
+    color: var(--accent-blue);
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+.profile-dropdown-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 8px 0;
+}
+
+/* Добавляем стли для логотипа */
+.header-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Обновляем стиль для скрытия при поиске */
+.header-content.hidden .header-logo {
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+/* Стили для селектора категорий */
+.category-select {
+    background: var(--gradient-1);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 12px;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 14px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+.category-select:hover {
+    transform: translateY(-2px);
+    background-color: var(--card-hover);
+}
+
+.category-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-blue);
+}
+
+.category-select option {
+    background: var(--card-bg);
+    color: var(--text-color);
+    padding: 8px;
+}
+
+/* Обновляем стили для скролла категорий на мобильных */
+@media (max-width: 768px) {
+    .categories .d-flex {
+        overflow-x: auto;
+        padding-bottom: 5px;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    
+    .category-select {
+        min-width: 140px;
+    }
+}
+
+/* Стили для форм авторизации */
+.auth-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background: var(--gradient-1);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.auth-toggle {
+    display: flex;
+    background: var(--gradient-1);
+    border-radius: 12px;
+    padding: 3px;
+    margin-bottom: 20px;
+}
+
+.auth-toggle button {
+    flex: 1;
+    border: none;
+    background: none;
+    padding: 10px;
+    color: var(--text-color);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.auth-toggle button.active {
+    background: var(--gradient-2);
+    color: white;
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+}
+
+.input-with-icon input {
+    padding-left: 40px;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+}
+
+.input-with-icon input:focus {
+    box-shadow: none;
+    border-color: var(--accent-blue);
+}
+
+.forgot-password {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.social-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue);
+    transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+    background: var(--gradient-2);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+}
+
+.form-check-label {
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+.form-check-input:checked {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+/* Стили для инпутв в темном режиме */
+.input-with-icon input {
+    padding-left: 40px;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+}
+
+.input-with-icon input::placeholder {
+    color: var(--text-secondary);
+}
+
+/* Сти для селекта в мном режиме */
+.category-select {
+    color: var(--text-color);
+}
+
+.category-select option {
+    background: var(--card-bg);
+    color: var(--text-color);
+}
+
+/* Стили для поиска в темном режиме */
+.search-input {
+    color: var(--text-color);
+}
+
+.search-input::placeholder {
+    color: var(--text-secondary);
+}
+
+/* Общие стили для всех инпутов */
+input, select, textarea {
+    color: var(--text-color) !important;
+    background: var(--card-bg) !important;
+}
+
+/* Сли для кнопки назад */
+.back-btn {
+    background: var(--gradient-1);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.back-btn:hover {
+    transform: translateX(-2px);
+    background: var(--card-hover);
+}
+
+.back-btn i {
+    font-size: 16px;
+}
+
+/* Стили для переключателя пароля */
+.input-with-icon {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.password-toggle:hover {
+    color: var(--accent-blue);
+    background: rgba(77, 126, 255, 0.1);
+}
+
+.password-toggle i {
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.password-toggle.active {
+    color: var(--accent-blue);
+}
+
+.input-with-icon input[type="password"],
+.input-with-icon input[type="text"] {
+    padding-right: 45px;
+}
+
+/* Добавляем стили для светлой темы */
+body.light-theme .favorite-btn {
+    background: var(--card-bg);
+    color: var(--accent-blue);
+    box-shadow: var(--shadow);
+}
+
+body.light-theme .favorite-btn:hover {
+    background: var(--gradient-2);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Стили для селектора категории в форме регистрации */
+.input-with-icon select.form-control {
+    padding-left: 40px;
+    padding-right: 30px;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ba1b0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    height: 45px; /* Фиксированная высота */
+}
+
+/* Стили для иконки в селекторе */
+.input-with-icon i.fa-tag {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 14px;
+    pointer-events: none; /* Чтобы икока не мешала клкам */
+    z-index: 1;
+}
+
+/* Стили для опций в селекторе */
+.input-with-icon select.form-control option {
+    background: var(--card-bg);
+    color: var(--text-color);
+    padding: 8px;
+    min-height: 40px; /* Минимальная высота опций */
+}
+
+/* Стили для светлой темы */
+body.light-theme .input-with-icon select.form-control {
+    border-color: rgba(0, 0, 0, 0.1);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Стили при фокусе */
+.input-with-icon select.form-control:focus {
+    border-color: var(--accent-blue);
+    box-shadow: none;
+    outline: none;
+}
+
+/* Стили при наведении */
+.input-with-icon select.form-control:hover {
+    border-color: var(--accent-blue);
+}
+
+/* Стили для чекбокса "Запомнить меня" */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-check-input {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--card-bg);
+    border: 2px solid var(--text-secondary);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.form-check-input:checked {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+.form-check-input:checked::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: white;
+    font-size: 11px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-check-label {
+    cursor: pointer;
+    user-select: none;
+    color: var(--text-secondary);
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.form-check-input:checked ~ .form-check-label {
+    color: var(--accent-blue);
+}
+
+/* Стили для светлой темы */
+body.light-theme .form-check-input {
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+body.light-theme .form-check-input:checked {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+/* Стили для переключателей (switches) */
+body.light-theme .form-switch .form-check-input {
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+body.light-theme .form-switch .form-check-input:checked {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+/* Стили для иконы галочки внутри чекбокса */
+body.light-theme .form-check-input:checked::after {
+    color: #fff;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для переключателя при наведении */
+body.light-theme .form-check-input:hover {
+    border-color: var(--accent-blue);
+}
+
+/* Анимация при нажатии */
+.form-check:hover .form-check-label {
+    color: var(--accent-blue);
+}
+
+/* Стили для автозаполнения */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--card-bg) inset !important;
+    -webkit-text-fill-color: var(--text-color) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Стили для светлой темы */
+body.light-theme input:-webkit-autofill,
+body.light-theme input:-webkit-autofill:hover,
+body.light-theme input:-webkit-autofill:focus,
+body.light-theme input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--card-bg) inset !important;
+    -webkit-text-fill-color: var(--text-color) !important;
+}
+
+/* Стили для загрузки фото */
+.upload-photo {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed var(--accent-blue);
+    border-radius: 16px;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.upload-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Сили для текстовой области */
+.input-with-icon textarea.form-control {
+    padding-left: 40px;
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Стили для заголовка */
+.top-bar h2 {
+    font-size: 20px;
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Стили для кнопок в каточках */
+.product-card .btn-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.product-card .btn-details {
+    flex-grow: 1;
+    background: var(--gradient-1);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 10px;
+    color: var(--text-color);
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.product-card .btn-details:hover {
+    transform: translateY(-2px);
+    background: var(--card-hover);
+    box-shadow: var(--shadow);
+}
+
+.product-card .btn-accept {
+    width: 40px;
+    height: 40px;
+    background: var(--gradient-2);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(77, 126, 255, 0.2);
+}
+
+.product-card .btn-accept:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(77, 126, 255, 0.3);
+}
+
+/* Стили для модального окна подтверждения */
+.confirm-modal {
+    display: none;
+    position: fixed;
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform: translate(-50%, -100%);
+}
+
+.confirm-modal.active {
+    display: block;
+}
+
+.confirm-modal.shake {
+    animation: shake 0.5s;
+}
+
+.confirm-content {
+    text-align: center;
+}
+
+.confirm-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.confirm-yes,
+.confirm-no {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.confirm-yes {
+    background: var(--accent-color);
+    color: white;
+}
+
+.confirm-no {
+    background: var(--card-hover);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translate(-50%, -100%); }
+    25% { transform: translate(-53%, -100%); }
+    75% { transform: translate(-47%, -100%); }
+}
+
+/* Анимации для уведомлений */
+.notification {
+    position: fixed;
+    padding: 15px 25px;
+    background: var(--gradient-2);
+    color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    z-index: 1200;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.notification.top {
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.notification.top.active {
+    top: 20px;
+    opacity: 1;
+}
+
+.notification.top-right {
+    top: -100px;
+    right: -100px;
+}
+
+.notification.top-right.active {
+    top: 20px;
+    right: 20px;
+    opacity: 1;
+}
+
+.notification.top-left {
+    top: -100px;
+    left: -100px;
+}
+
+.notification.top-left.active {
+    top: 20px;
+    left: 20px;
+    opacity: 1;
+}
+
+/* Анимация для отклонения */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Стили для кнопок входа и регистрации */
+.auth-form .btn-primary {
+    background: var(--gradient-2);
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(77, 126, 255, 0.3);
+}
+
+.auth-form .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(77, 126, 255, 0.4);
+}
+
+.auth-form .btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Эфф��кт при наведении */
+.auth-form .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.auth-form .btn-primary:hover::before {
+    left: 100%;
+}
+
+/* Анимация при нажатии */
+.auth-form .btn-primary:active::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+    from {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(4);
+        opacity: 0;
+    }
+}
+
+/* Стили для светлой темы */
+body.light-theme .auth-form .btn-primary {
+    background: var(--gradient-2);
+    color: white;
+}
+
+/* Адаптив для маленьких экранов */
+@media (max-width: 380px) {
+    .auth-form .btn-primary {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Стили для социальных секций */
+.social-section {
+    background: var(--gradient-1);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+/* Instagram стили */
+.social-section:has(.fa-instagram) {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.social-section:has(.fa-instagram) .social-header {
+    color: white;
+}
+
+/* Telegram стили */
+.social-section:has(.fa-telegram) {
+    background: linear-gradient(45deg, #0088cc, #00a2ff);
+}
+
+.social-section:has(.fa-telegram) .social-header {
+    color: white;
+}
+
+/* YouTube стили */
+.social-section:has(.fa-youtube) {
+    background: linear-gradient(45deg, #FF0000, #FF5555);
+}
+
+.social-section:has(.fa-youtube) .social-header {
+    color: white;
+}
+
+/* TikTok стили */
+.social-section:has(.fa-tiktok) {
+    background: linear-gradient(45deg, #000000, #25F4EE);
+}
+
+.social-section:has(.fa-tiktok) .social-header {
+    color: white;
+}
+
+/* Общие стили для полей внутри социальных секций */
+.social-fields {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+/* Стили для переключателя тиа объявлени */
+.type-toggle {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.type-toggle .d-flex {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 30px !important;
+    flex-wrap: nowrap !important;
+    width: 100%;
+}
+
+.type-toggle .form-check {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.type-toggle .form-check-label {
+    cursor: pointer;
+    padding: 8px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    margin: 0;
+}
+
+/* Стили для радио кнопок в переключателе */
+.type-toggle .form-check-input {
+    margin-right: 8px;
+    border-color: var(--accent-blue);
+}
+
+.type-toggle .form-check-input:checked {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+.type-toggle .form-check-input:checked::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: white;
+    font-size: 11px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Ст��ли для условий бартера */
+.barter-conditions .form-control {
+    background: var(--card-bg) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color) !important;
+}
+
+.barter-conditions .form-control::placeholder {
+    color: var(--text-secondary) !important;
+    opacity: 0.8;
+}
+
+/* Стили для светлой темы */
+body.light-theme .type-toggle {
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .type-toggle .form-check-input {
+    border-color: var(--text-color);
+    background-color: white;
+}
+
+body.light-theme .type-toggle .form-check-input:checked {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+body.light-theme .type-toggle .form-check-label {
+    color: var(--text-color);
+}
+
+body.light-theme .type-toggle .form-check-input:checked::after {
+    color: white;
+}
+
+/* Стили для кнопки публикации */
+.btn-primary {
+    background: var(--gradient-2) !important;
+    border: none;
+    padding: 12px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(77, 126, 255, 0.3);
+}
+
+/* Стили для социальных ссылок */
+.social-link .input-with-icon {
+    border-radius: 12px;
+    padding: 2px;
+}
+
+.social-link .input-with-icon input {
+    border-radius: 10px;
+    height: 45px; /* Увеличиваем высоту инпута */
+    font-size: 15px; /* Увеличиваем размер шрифта */
+}
+
+.social-link .input-with-icon i {
+    font-size: 18px; /* Увеличиваем размер иконки */
+    z-index: 1;
+}
+
+/* Instagram стили */
+.social-link.instagram-link .input-with-icon {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-link.instagram-link .input-with-icon i {
+    color: #e1306c; /* Цвет Instagram */
+}
+
+/* Telegram стили */
+.social-link.telegram-link .input-with-icon {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-link.telegram-link .input-with-icon i {
+    color: #0088cc; /* Цвет Telegram */
+}
+
+/* Эффект при наведении */
+.social-link .input-with-icon:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Стили для светлой темы */
+body.light-theme .social-link .input-with-icon {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .social-link .input-with-icon input {
+    background: #fff !important;
+}
+
+/* Добавляем стили для ссылки на сайт */
+.social-link.website-link .input-with-icon {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2px;
+}
+
+.social-link.website-link .input-with-icon input {
+    border-radius: 10px;
+    height: 45px;
+    font-size: 15px;
+}
+
+.social-link.website-link .input-with-icon i {
+    font-size: 18px;
+    z-index: 1;
+    color: #2196F3; /* Гоубой цвет для иконки глобуса */
+}
+
+/* Эффект при наведении */
+.social-link.website-link .input-with-icon:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Стили для светлой темы */
+body.light-theme .social-link.website-link .input-with-icon {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .social-link.website-link .input-with-icon input {
+    background: #fff !important;
+}
+
+/* Обновляем стили для Website секции */
+.social-section:has(.fa-globe) {
+    background: linear-gradient(45deg, #4CAF50, #8BC34A);
+}
+
+.social-section:has(.fa-globe) .social-header {
+    color: white;
+}
+
+.social-section:has(.fa-globe) .social-fields {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+/* Обновляем стили для иконки и текста */
+.social-section:has(.fa-globe) .social-header i,
+.social-section:has(.fa-globe) .social-header span {
+    color: white;
+}
+
+/* Стили для светлой темы */
+body.light-theme .social-section:has(.fa-globe) .social-fields {
+    background: #fff;
+}
+
+/* GitHub секция */
+.social-section:has(.fa-github) {
+    background: linear-gradient(45deg, #24292e, #404448);
+}
+
+.social-section:has(.fa-github) .social-header {
+    color: white;
+}
+
+/* Portfolio секция */
+.social-section:has(.fa-briefcase) {
+    background: linear-gradient(45deg, #FF9800, #FFC107);
+}
+
+.social-section:has(.fa-briefcase) .social-header {
+    color: white;
+}
+
+.loading-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 9999;
+    background: linear-gradient(to right, #4CAF50, #2196F3);
+    animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+
+/* Стили для индикатора загрузки */
+.loading-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-indicator.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.spinner-wrapper {
+    text-align: center;
+}
+
+.spinner-border {
+    width: 4rem;
+    height: 4rem;
+    border-width: 0.25em;
+    animation: spinner-border 1s linear infinite;
+    border-right-color: transparent;
+    border-radius: 50%;
+    border-color: var(--accent-blue);
+}
+
+.loading-text {
+    color: var(--text-color);
+    margin-top: 1rem;
+    font-size: 14px;
+}
+
+@keyframes spinner-border {
+    to { transform: rotate(360deg); }
+}
+
+
+/* Стили для модального окна уведомлений */
+.notifications-modal {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    width: 380px;
+    max-height: calc(100vh - 100px);
+    background: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.95);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.notifications-modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.notifications-header {
+    padding: 15px 20px;
+    background: linear-gradient(45deg, #2c2c2c, #333333);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.notifications-header h5 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.close-notification-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-notification-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.close-notification-btn i {
+    color: #fff;
+    font-size: 16px;
+}
+
+.notifications-content {
+    padding: 10px;
+    overflow-y: auto;
+    max-height: calc(100vh - 180px);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.notifications-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notifications-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.notifications-content::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.notification-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.notification-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+.notification-item.unread {
+    background: rgba(66, 153, 225, 0.1);
+    border-left: 3px solid #4299e1;
+}
+
+.notification-main {
+    padding: 15px;
+    cursor: pointer;
+    position: relative;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.notification-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.notification-user i {
+    color: #4299e1;
+    font-size: 18px;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.notification-message {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.btn-expand {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.btn-expand:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.btn-expand i {
+    transition: transform 0.3s ease;
+}
+
+.notification-details {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-details {
+    margin-bottom: 15px;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+}
+
+.detail-row i {
+    color: #4299e1;
+    width: 16px;
+}
+
+.ad-preview {
+    
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.ad-preview-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.ad-type {
+    background: #4299e1;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.ad-id {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+}
+
+.ad-preview-content {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.ad-thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.ad-info {
+    flex: 1;
+}
+
+.ad-title {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.ad-category {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+}
+
+/* Анимация для уведомлений */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notification-item {
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .notifications-modal {
+        width: calc(100% - 40px);
+        right: 20px;
+        left: 20px;
+        max-height: calc(100vh - 100px);
+    }
+}
+
+/* Стили для светлой темы */
+body.light-theme .notifications-modal {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+body.light-theme .notifications-header {
+    background: linear-gradient(45deg, #f0f0f0, #ffffff);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .notifications-header h5 {
+    color: #333333;
+}
+
+body.light-theme .close-notification-btn {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .close-notification-btn i {
+    color: #333333;
+}
+
+body.light-theme .notification-item {
+    background: #f5f5f5;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .notification-item:hover {
+    background: #f8f8f8;
+}
+
+body.light-theme .notification-item.unread {
+    background: rgba(66, 153, 225, 0.1);
+    border-left: 3px solid #4299e1;
+}
+
+body.light-theme .notification-message {
+    color: #333333;
+}
+
+body.light-theme .notification-time {
+    color: #666666;
+}
+
+body.light-theme .notification-user span {
+    color: #333333;
+}
+
+body.light-theme .notification-details {
+    background: #f0f0f0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .detail-row {
+    color: #444444;
+}
+
+body.light-theme .ad-preview {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .ad-title {
+    color: #333333;
+}
+
+body.light-theme .ad-category {
+    color: #666666;
+}
+
+body.light-theme .btn-expand {
+    color: #666666;
+}
+
+body.light-theme .btn-expand:hover {
+    color: #333333;
+}
+
+/* Стили для карточек в светлой теме */
+body.light-theme .product-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .product-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+body.light-theme .product-info h3 {
+    color: #333333;
+}
+
+body.light-theme .category-tag {
+    background: #f0f0f0;
+    color: #444444;
+}
+
+body.light-theme .stats {
+    color: #666666;
+}
+
+body.light-theme .stat-item {
+    color: #444444;
+}
+
+body.light-theme .btn-details {
+    background: #f0f0f0;
+    color: #333333;
+}
+
+body.light-theme .btn-details:hover {
+    background: #e0e0e0;
+}
+
+/* Стили для скроллбара в светлой теме */
+body.light-theme .notifications-content::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+body.light-theme .notifications-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Стили для всплывающих уведомлений в светлой теме */
+body.light-theme .notification-toast {
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #333333;
+}
+
+body.light-theme .notification-toast.success {
+    border-left: 4px solid #32d583;
+}
+
+body.light-theme .notification-toast.error {
+    border-left: 4px solid #ff4444;
+}
+
+.notification-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+}
+
+.notification-toast.success {
+    background: #32d583;
+    color: white;
+}
+
+.notification-toast.error {
+    background: #ff4d4d;
+    color: white;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Стили для футера в светлой теме */
+body:not(.dark-theme) .bottom-nav {
+    background: var(--card-bg);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-theme) .nav-item {
+    color: var(--text-secondary);
+}
+
+body:not(.dark-theme) .nav-item:hover {
+    color: var(--text-color);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body:not(.dark-theme) .nav-item.active {
+    color: var(--accent-blue);
+    background: rgba(77, 126, 255, 0.1);
+}
+
+/* Стили для иконок в футере */
+body:not(.dark-theme) .nav-icon i {
+    color: var(--text-secondary);
+}
+
+body:not(.dark-theme) .nav-item:hover .nav-icon i,
+body:not(.dark-theme) .nav-item.active .nav-icon i {
+    color: var(--accent-blue);
+}
+
+/* Стили для текста под иконками */
+body:not(.dark-theme) .nav-label {
+    color: var(--text-secondary);
+}
+
+body:not(.dark-theme) .nav-item:hover .nav-label,
+body:not(.dark-theme) .nav-item.active .nav-label {
+    color: var(--text-color);
+}
+
+/* Стили для кнопки добавления */
+body:not(.dark-theme) #addButton {
+    color: var(--text-secondary);
+}
+
+body:not(.dark-theme) #addButton:hover {
+    color: var(--accent-blue);
+    background: rgba(77, 126, 255, 0.1);
+}
+
+/* Стили для модального окна в светлой теме */
+body:not(.dark-theme) .modal-content {
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-theme) .modal-header {
+    background: var(--gradient-1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-theme) .modal-title {
+    color: var(--text-color);
+}
+
+body:not(.dark-theme) .details-card {
+    background: var(--card-bg);
+}
+
+body:not(.dark-theme) .details-header h4 {
+    color: var(--text-color);
+}
+
+body:not(.dark-theme) .details-stats span {
+    background: var(--gradient-1);
+    color: var(--text-color);
+}
+
+body:not(.dark-theme) .info-item {
+    background: var(--gradient-1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-theme) .info-item label {
+    color: var(--text-color);
+}
+
+body:not(.dark-theme) .info-item p,
+body:not(.dark-theme) .info-item span {
+    color: var(--text-secondary);
+}
+
+body:not(.dark-theme) .social-network-item {
+    background: var(--gradient-1);
+    color: var(--text-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-theme) .comment-text {
+    background: var(--gradient-1) !important;
+    color: var(--text-color) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для кнопки закрытия в светлой теме */
+body:not(.dark-theme) .btn-close {
+    filter: none;
+    opacity: 0.5;
+}
+
+body:not(.dark-theme) .btn-close:hover {
+    opacity: 0.75;
+}
+
+/* Стили для страницы уведомлений */
+.notifications-page {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Стили для списка уведомлений */
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Стили для карточки уведомления */
+.notification-item {
+    background: var(--gradient-1);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.notification-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.notification-item.unread {
+    border-left: 4px solid var(--accent-blue);
+}
+
+/* Заголовок уведомления */
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.notification-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification-user i {
+    font-size: 24px;
+    color: var(--accent-blue);
+}
+
+.notification-time {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* Контент уведомления */
+.notification-content {
+    margin-top: 15px;
+}
+
+/* Превью объявления */
+.notification-ad {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.ad-preview {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.ad-info {
+    flex: 1;
+}
+
+.ad-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.ad-id {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* Контактная информация */
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background: var(--gradient-1);
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.contact-item i {
+    color: var(--accent-blue);
+}
+
+/* Стили для светлой темы */
+body:not(.dark-theme) .notification-item {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-theme) .notification-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-theme) .contact-info {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-theme) .contact-item {
+    background: var(--gradient-1);
+    color: var(--text-color);
+}
+
+/* Стили для пустого состояния */
+.no-notifications {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+.no-notifications i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+/* Анимации */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notification-item {
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+/* Стили для страницы профиля */
+.profile-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile-header {
+    background: var(--gradient-1);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--gradient-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar i {
+    font-size: 40px;
+    color: white;
+}
+
+.info h4 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.info p {
+    margin: 5px 0;
+    color: var(--text-secondary);
+}
+
+.user-category {
+    display: inline-block;
+    padding: 5px 15px;
+    background: var(--gradient-2);
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+}
+
+/* Стили для вкладок */
+.profile-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    background: var(--gradient-1);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    transform: translateY(-2px);
+}
+
+.tab-btn.active {
+    background: var(--gradient-2);
+    color: white;
+}
+
+/* Стили для контента вкладок */
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Стили для карточек откликов */
+.response-card {
+    background: var(--gradient-1);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: var(--shadow);
+}
+
+.response-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.response-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.response-time {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.response-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-accept, .btn-reject {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-accept {
+    background: var(--accent-green);
+    color: white;
+}
+
+.btn-reject {
+    background: #ff4d4d;
+    color: white;
+}
+
+.btn-accept:hover, .btn-reject:hover {
+    transform: translateY(-2px);
+}
+
+.no-ads-message, .error-message {
+    text-align: center;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+.no-ads-message {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+.error-message {
+    background-color: #fff3f3;
+    color: #dc3545;
+}
+/* Стили для модального окна */
+.custom-modal .modal-content {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Светлая тема */
+.custom-modal .modal-content {
+    background-color: #fff;
+}
+
+.custom-modal .modal-title {
+    color: #333;
+    font-weight: 600;
+}
+
+.custom-modal .modal-body {
+    color: #444;
+}
+
+.custom-modal .text-muted {
+    color: #666 !important;
+}
+
+.custom-modal .btn-secondary {
+    background-color: #f0f0f0;
+    border: none;
+    color: #333;
+}
+
+.custom-modal .btn-secondary:hover {
+    background-color: #e0e0e0;
+}
+
+.custom-modal .btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+.custom-modal .btn-danger:hover {
+    background-color: #bb2d3b;
+}
+
+/* Тёмная тема */
+@media (prefers-color-scheme: dark) {
+    .custom-modal .modal-content {
+        background-color: #2d2d2d;
+    }
+
+    .custom-modal .modal-title {
+        color: #fff;
+    }
+
+    .custom-modal .modal-body {
+        color: #e0e0e0;
+    }
+
+    .custom-modal .text-muted {
+        color: #aaa !important;
+    }
+
+    .custom-modal .btn-close {
+        filter: invert(1) grayscale(100%) brightness(200%);
+    }
+
+    .custom-modal .btn-secondary {
+        background-color: #404040;
+        color: #fff;
+    }
+
+    .custom-modal .btn-secondary:hover {
+        background-color: #505050;
+    }
+
+    .custom-modal .btn-danger {
+        background-color: #dc3545;
+    }
+
+    .custom-modal .btn-danger:hover {
+        background-color: #bb2d3b;
+    }
+}
+
+/* Общие стили для кнопок */
+.custom-modal .btn {
+    padding: 8px 20px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+/* Анимация появления модального окна */
+.modal.fade .modal-dialog {
+    transition: transform 0.2s ease-out;
+}
+
+.modal.fade .modal-dialog {
+    transform: scale(0.95);
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+}
+
+
+

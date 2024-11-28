@@ -1,0 +1,79 @@
+2024-11-27 12:14:50.353 | INFO     | __main__:run:133 - Bot started
+2024-11-27 12:14:54.819 | INFO     | __main__:send_welcome:55 - Welcome message sent to user 5789133679
+2024-11-27 12:16:50.540 | INFO     | __main__:send_help:80 - Help message sent to user 5789133679
+2024-11-27 12:17:03.603 | INFO     | __main__:send_contacts:99 - Contacts sent to user 5789133679
+2024-11-27 12:17:08.074 | INFO     | __main__:send_welcome:55 - Welcome message sent to user 301906330
+2024-11-27 12:22:06.449 | INFO     | __main__:send_welcome:55 - Welcome message sent to user 5789133679
+2024-11-27 13:07:06.881 | INFO     | __main__:send_welcome:55 - Welcome message sent to user 5789133679
+2024-11-27 13:44:11.952 | INFO     | __main__:send_welcome:55 - Welcome message sent to user 5789133679
+2024-11-27 15:17:53.106 | ERROR    | __main__:run:136 - Bot crashed: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+2024-11-27 15:17:58.120 | INFO     | __main__:run:133 - Bot started
+2024-11-27 16:13:39.902 | INFO     | __main__:send_welcome:55 - Welcome message sent to user 1116708486
+2024-11-27 16:26:52.491 | INFO     | __main__:send_welcome:55 - Welcome message sent to user 1116708486
+2024-11-27 16:34:42.367 | ERROR    | __main__:run:136 - Bot crashed: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+2024-11-27 16:34:47.374 | INFO     | __main__:run:133 - Bot started
+2024-11-27 16:54:14.968 | ERROR    | __main__:run:136 - Bot crashed: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+2024-11-27 16:54:19.989 | INFO     | __main__:run:133 - Bot started
+2024-11-27 17:16:17.762 | INFO     | __main__:send_welcome:55 - Welcome message sent to user 5789133679
+2024-11-27 17:16:28.640 | INFO     | __main__:send_help:80 - Help message sent to user 5789133679
+2024-11-27 17:16:39.930 | INFO     | __main__:send_contacts:99 - Contacts sent to user 5789133679
+2024-11-27 17:41:26.981 | INFO     | __main__:send_welcome:55 - Welcome message sent to user 5789133679
+2024-11-27 17:47:58.928 | INFO     | __main__:run:133 - Bot started
+2024-11-27 17:48:05.088 | INFO     | __main__:run:133 - Bot started
+2024-11-27 17:48:08.362 | INFO     | __main__:run:133 - Bot started
+2024-11-28 13:37:02.638 | INFO     | __main__:run:133 - Bot started
+2024-11-28 13:37:07.078 | INFO     | __main__:send_welcome:55 - Welcome message sent to user 5789133679
+2024-11-28 13:37:07.109 | INFO     | __main__:send_help:80 - Help message sent to user 5789133679
+2024-11-28 13:38:02.770 | INFO     | __main__:run:133 - Bot started
+2024-11-28 13:39:06.982 | INFO     | __main__:run:132 - Бот запущен
+2024-11-28 13:39:26.928 | INFO     | __main__:send_welcome:55 - Welcome message sent to user 5789133679
+2024-11-28 13:39:30.512 | INFO     | __main__:send_help:80 - Help message sent to user 5789133679
+2024-11-28 13:39:32.601 | INFO     | __main__:send_contacts:99 - Contacts sent to user 5789133679
+2024-11-28 13:44:30.154 | INFO     | __main__:run:135 - Бот запущен
+2024-11-28 13:44:40.457 | ERROR    | __main__:send_welcome:60 - Error in send_welcome: [Errno 2] No such file or directory: '/img/logo.png'
+2024-11-28 13:45:20.130 | INFO     | __main__:run:135 - Бот запущен
+2024-11-28 13:45:25.394 | INFO     | __main__:send_welcome:58 - Welcome message with logo sent to user 5789133679
+2024-11-28 14:02:24.397 | INFO     | __main__:run:218 - Бот запущен
+2024-11-28 14:02:57.384 | INFO     | __main__:send_welcome:106 - Welcome message with logo sent to user 5789133679
+2024-11-28 14:16:13.585 | INFO     | __main__:send_welcome:106 - Welcome message with logo sent to user 5789133679
+2024-11-28 14:21:48.720 | INFO     | __main__:send_welcome:106 - Welcome message with logo sent to user 6171994810
+2024-11-28 14:30:03.036 | INFO     | __main__:channel_button:211 - Channel link sent to user 5789133679
+2024-11-28 14:30:09.350 | INFO     | __main__:channel_button:211 - Channel link sent to user 5789133679
+2024-11-28 14:31:47.904 | INFO     | __main__:run:225 - Бот запущен
+2024-11-28 14:31:57.976 | INFO     | __main__:send_welcome:105 - Welcome message with logo sent to user 5789133679
+2024-11-28 14:32:01.493 | INFO     | __main__:group_button:202 - Group link sent to user 5789133679
+2024-11-28 14:32:06.594 | INFO     | __main__:channel_button:218 - Channel link sent to user 5789133679
+2024-11-28 14:32:12.425 | INFO     | __main__:send_help:130 - Help message sent to user 5789133679
+2024-11-28 14:32:15.067 | INFO     | __main__:send_contacts:149 - Contacts sent to user 5789133679
+2024-11-28 14:40:09.635 | INFO     | __main__:run:225 - Бот запущен
+2024-11-28 14:41:06.376 | INFO     | __main__:send_welcome:105 - Welcome message with logo sent to user 5789133679
+2024-11-28 14:41:26.639 | INFO     | __main__:send_help:130 - Help message sent to user 5789133679
+2024-11-28 14:41:38.709 | INFO     | __main__:group_button:202 - Group link sent to user 5789133679
+2024-11-28 14:41:45.844 | INFO     | __main__:channel_button:218 - Channel link sent to user 5789133679
+2024-11-28 14:41:52.376 | ERROR    | __main__:send_contacts:151 - Error in send_contacts: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+2024-11-28 14:43:03.485 | INFO     | __main__:run:226 - Бот запущен
+2024-11-28 14:43:10.494 | INFO     | __main__:send_welcome:105 - Welcome message with logo sent to user 5789133679
+2024-11-28 14:43:13.910 | INFO     | __main__:send_contacts:150 - Contacts sent to user 5789133679
+2024-11-28 14:45:16.802 | INFO     | __main__:run:228 - Бот запущен
+2024-11-28 14:45:25.963 | INFO     | __main__:send_welcome:105 - Welcome message with logo sent to user 5789133679
+2024-11-28 14:45:28.404 | INFO     | __main__:send_contacts:152 - Contacts sent to user 5789133679
+2024-11-28 14:47:32.575 | INFO     | __main__:group_button:205 - Group link sent to user 5789133679
+2024-11-28 14:47:37.182 | INFO     | __main__:channel_button:221 - Channel link sent to user 5789133679
+2024-11-28 14:54:47.359 | INFO     | __main__:run:235 - Бот запущен
+2024-11-28 14:54:55.820 | INFO     | __main__:send_welcome:112 - Welcome message with logo sent to user 5789133679
+2024-11-28 15:00:56.687 | INFO     | __main__:run:257 - Бот запущен
+2024-11-28 15:02:41.229 | INFO     | __main__:run:378 - Бот запущен
+2024-11-28 15:02:58.515 | INFO     | __main__:send_welcome:229 - Welcome message with logo sent to user 5789133679
+2024-11-28 15:03:19.536 | INFO     | __main__:send_welcome:229 - Welcome message with logo sent to user 5789133679
+2024-11-28 15:03:52.806 | INFO     | __main__:send_welcome:229 - Welcome message with logo sent to user 5789133679
+2024-11-28 15:09:22.763 | INFO     | __main__:run:379 - Бот запущен
+2024-11-28 15:09:40.374 | INFO     | __main__:send_welcome:230 - Welcome message with logo sent to user 5789133679
+2024-11-28 15:10:37.756 | INFO     | __main__:send_welcome:230 - Welcome message with logo sent to user 5789133679
+2024-11-28 15:11:14.341 | INFO     | __main__:send_welcome:230 - Welcome message with logo sent to user 5789133679
+2024-11-28 15:11:31.980 | INFO     | __main__:send_welcome:230 - Welcome message with logo sent to user 5789133679
+2024-11-28 15:13:39.613 | INFO     | __main__:run:377 - Бот запущен
+2024-11-28 15:13:49.501 | INFO     | __main__:send_welcome:228 - Welcome message with logo sent to user 5789133679
+2024-11-28 15:33:38.273 | INFO     | __main__:send_welcome:228 - Welcome message with logo sent to user 5789133679
+2024-11-28 16:41:48.544 | INFO     | __main__:send_welcome:228 - Welcome message with logo sent to user 5789133679
+2024-11-28 16:43:43.681 | INFO     | __main__:send_welcome:228 - Welcome message with logo sent to user 5789133679
+2024-11-28 17:00:38.409 | INFO     | __main__:run:377 - Бот запущен
