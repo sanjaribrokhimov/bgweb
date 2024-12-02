@@ -206,7 +206,7 @@ function checkAuth() {
     
     if (!window.location.pathname.includes('login.php')) {
         if (missingFields.length > 0 || isVerified === 'false') {
-            alert(t.auth.needAuth);
+            
             localStorage.clear();
             window.location.href = 'login.php';
             return false;
@@ -264,13 +264,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const t = translations[currentLang];
             
             if (!userCategory || !userId || !userEmail) {
-                alert(t.auth.needAuth);
+                
                 window.location.href = 'login.php';
                 return;
             }
 
             if (isVerified !== 'true') {
-                alert(t.auth.verifyAccount);
+               
                 window.location.href = 'verification.php';
                 return;
             }

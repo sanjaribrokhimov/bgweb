@@ -77,3 +77,4 @@
 2024-11-28 16:41:48.544 | INFO     | __main__:send_welcome:228 - Welcome message with logo sent to user 5789133679
 2024-11-28 16:43:43.681 | INFO     | __main__:send_welcome:228 - Welcome message with logo sent to user 5789133679
 2024-11-28 17:00:38.409 | INFO     | __main__:run:377 - Бот запущен
+2024-11-28 17:43:00.663 | INFO     | __main__:send_welcome:228 - Welcome message with logo sent to user 5789133679

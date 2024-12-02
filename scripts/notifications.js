@@ -1,22 +1,38 @@
 class NotificationManager {
     constructor() {
-        this.ws = null;
         this.badge = document.querySelector('#notificationCount');
         this.button = document.querySelector('#notificationsBtn');
         this.modal = document.querySelector('.notifications-modal');
         this.unreadCount = 0;
         this.isTelegramWebView = this.checkIfTelegramWebView();
+        this.pollingInterval = null;
         this.init();
     }
 
     init() {
-        this.connectWebSocket();
+        this.startPolling();
         this.addEventListeners();
         this.loadNotifications();
     }
 
-    checkIfTelegramWebView() {
-        return window.Telegram && window.Telegram.WebApp;
+    startPolling() {
+        if (this.pollingInterval) return;
+        
+        console.log('Запуск периодического обновления уведомлений');
+        // Проверяем новые уведомления каждые 10 секунд
+        this.pollingInterval = setInterval(() => {
+            this.loadNotifications();
+        }, 10000);
+
+        // Сразу загружаем уведомления
+        this.loadNotifications();
+    }
+
+    stopPolling() {
+        if (this.pollingInterval) {
+            clearInterval(this.pollingInterval);
+            this.pollingInterval = null;
+        }
     }
 
     async loadNotifications() {
@@ -30,10 +46,29 @@ class NotificationManager {
             }
             const notifications = await response.json();
             
-            // Проверяем, что notifications это массив
             if (Array.isArray(notifications)) {
-                this.unreadCount = notifications.filter(n => !n.is_read).length;
-                this.updateBadge();
+                // Обновляем количество непрочитанных
+                const newUnreadCount = notifications.filter(n => !n.is_read).length;
+                
+                // Если количество непрочитанных изменилось
+                if (newUnreadCount !== this.unreadCount) {
+                    // Находим только действительно новые уведомления
+                    if (newUnreadCount > this.unreadCount) {
+                        const newNotifications = notifications
+                            .filter(n => !n.is_read)
+                            .slice(0, newUnreadCount - this.unreadCount);
+                            
+                        // Показываем уведомления, но НЕ увеличиваем счетчик
+                        newNotifications.forEach(notification => {
+                            this.showNotification(notification);
+                        });
+                    }
+                    
+                    // Обновляем счетчик после обработки
+                    this.unreadCount = newUnreadCount;
+                    this.updateBadge();
+                }
+                
                 this.renderNotifications(notifications);
             } else {
                 console.error('Notifications is not an array:', notifications);
@@ -41,6 +76,10 @@ class NotificationManager {
         } catch (error) {
             console.error('Error loading notifications:', error);
         }
+    }
+
+    checkIfTelegramWebView() {
+        return window.Telegram && window.Telegram.WebApp;
     }
 
     updateBadge() {
@@ -70,93 +109,10 @@ class NotificationManager {
         });
     }
 
-    connectWebSocket() {
-        const userId = localStorage.getItem('userId');
-        if (!userId) return;
-
-        // Для мобильного Telegram используем long polling вместо WebSocket
-        if (this.isTelegramWebView) {
-            this.startPolling();
-            return;
-        }
-
-        // Существующий WebSocket код для десктопа
-        try {
-            this.ws = new WebSocket(`wss://bgweb.nurali.uz/api/ws/${userId}`);
-            
-            this.ws.onopen = () => {
-                console.log('WebSocket соединение установлено');
-            };
-
-            this.ws.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                this.handleNewNotification(data);
-            };
-
-            this.ws.onerror = () => {
-                console.log('WebSocket ошибка, переключение на polling');
-                this.startPolling();
-            };
-
-            this.ws.onclose = () => {
-                if (!this.isTelegramWebView) {
-                    setTimeout(() => this.connectWebSocket(), 5000);
-                }
-            };
-        } catch (error) {
-            console.error('Ошибка WebSocket:', error);
-            this.startPolling();
-        }
-    }
-
-    startPolling() {
-        // Запускаем long polling каждые 10 секунд
-        this.pollingInterval = setInterval(() => {
-            this.pollNotifications();
-        }, 10000);
-
-        // Сразу делаем первый запрос
-        this.pollNotifications();
-    }
-
-    async pollNotifications() {
-        const userId = localStorage.getItem('userId');
-        if (!userId) return;
-
-        try {
-            const response = await fetch(`https://bgweb.nurali.uz/api/notifications/${userId}/poll`);
-            if (!response.ok) throw new Error('Ошибка получения уведомлений');
-            
-            const notifications = await response.json();
-            if (Array.isArray(notifications) && notifications.length > 0) {
-                notifications.forEach(notification => {
-                    this.handleNewNotification(notification);
-                });
-            }
-        } catch (error) {
-            console.error('Ошибка при polling уведомлений:', error);
-        }
-    }
-
     handleNewNotification(notification) {
-        this.unreadCount++;
         this.updateBadge();
         this.addNotificationToList(notification);
-
-        // Специальная обработка для Telegram WebView
-        if (this.isTelegramWebView && window.Telegram.WebApp) {
-            window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
-            // Используем нативные уведомления Telegram
-            window.Telegram.WebApp.showPopup({
-                title: 'Новое уведомление',
-                message: 'У вас новое соглашение!',
-                buttons: [{
-                    type: 'ok'
-                }]
-            });
-        } else {
-            Utils.showNotification('У вас новое соглашение!', 'info');
-        }
+        this.showNotification(notification);
     }
 
     renderNotifications(notifications) {
@@ -273,6 +229,23 @@ class NotificationManager {
                     </div>
                 </div>
             `;
+    }
+
+    // Новый метод только для показа уведомления
+    showNotification(notification) {
+        // Специальная обработка для Telegram WebView
+        if (this.isTelegramWebView && window.Telegram.WebApp) {
+            window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
+            window.Telegram.WebApp.showPopup({
+                title: 'Новое уведомление',
+                message: 'У вас новое соглашение!',
+                buttons: [{
+                    type: 'ok'
+                }]
+            });
+        } else {
+            Utils.showNotification('У вас новое соглашение!', 'info');
+        }
     }
 }
 
