@@ -1,7 +1,8 @@
 // Get user ads
 const getUserAds = async (category, userId) => {
+    console.log('Getting ads for:', { category, userId });
     try {
-        const response = await fetch(`https://bgweb.nurali.uz/api/ads/user/${category}/${userId}`, {
+        const response = await fetch(`http://localhost:8888/api/ads/user/${category}/${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -24,8 +25,12 @@ const getUserAds = async (category, userId) => {
 
 // Delete ad
 const deleteAd = async (type, adId) => {
+    if (!adId) {
+        throw new Error('ID объявления не определен');
+    }
+    
     try {
-        const response = await fetch(`https://bgweb.nurali.uz/api/ads/${type}/${adId}`, {
+        const response = await fetch(`http://localhost:8888/api/ads/${type}/${adId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -85,7 +90,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Display ads function
     const displayAds = (ads) => {
+        console.log('Displaying ads:', ads);
         adsContainer.innerHTML = '';
+        
+        if (!Array.isArray(ads)) {
+            console.error('Ads is not an array:', ads);
+            return;
+        }
         
         if (ads.length === 0) {
             noAdsMessage.style.display = 'block';
@@ -93,21 +104,43 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         
         ads.forEach(ad => {
-            const adCard = document.createElement('div');
-            adCard.className = 'product-card';
-            adCard.innerHTML = `
-                <div class="product-image">
-                    <img src="${ad.photo_base64}" alt="${ad.nickname}">
-                </div>
-                <div class="product-info">
-                    <h3>${ad.nickname || ad.name}</h3>
-                    <p>${ad.ad_comment}</p>
-                    <button class="btn btn-danger delete-btn" data-id="${ad.ID}">
-                        <i class="fas fa-trash"></i> ${t.myads.delete}
-                    </button>
-                </div>
-            `;
-            adsContainer.appendChild(adCard);
+            try {
+                const adCard = document.createElement('div');
+                adCard.className = 'product-card';
+
+                // Безопасное получение данных
+                const name = ad.name || 'Без названия';
+                const category = ad.category || 'Без категории';
+                const direction = ad.direction || '';
+                const comment = ad.ad_comment || '';
+                const photo = ad.photo_base64 || './img/noImage.jpg';
+                const budget = ad.budget || 0;
+                const id = ad.ID; // Используем большую букву ID
+
+                adCard.innerHTML = `
+                    <div class="product-image">
+                        <img src="${photo}" alt="${name}" onerror="this.src='./img/noImage.jpg'">
+                        <div class="card-type-badge">${category}</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>${name}</h3>
+
+
+                        <p class="ad-comment">${comment}</p>
+                        <div class="btn-actions">
+                            <button class="btn btn-danger delete-btn" data-id="${id}" data-type="${userCategory}">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+
+
+                adsContainer.appendChild(adCard);
+            } catch (error) {
+                console.error('Error creating ad card:', error, ad);
+            }
         });
     };
 
@@ -127,19 +160,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Handle delete
     let currentDeleteId = null;
+    let currentDeleteType = null;
     const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
 
     adsContainer.addEventListener('click', async (e) => {
         if (e.target.closest('.delete-btn')) {
             const deleteBtn = e.target.closest('.delete-btn');
             currentDeleteId = deleteBtn.dataset.id;
+            currentDeleteType = deleteBtn.dataset.type;
+            if (!currentDeleteId || !currentDeleteType) {
+                console.error('Missing data:', { id: currentDeleteId, type: currentDeleteType });
+                return;
+            }
+            console.log('Delete button clicked:', { id: currentDeleteId, type: currentDeleteType });
             deleteModal.show();
         }
     });
 
     document.getElementById('confirmDelete').addEventListener('click', async () => {
         try {
-            await deleteAd(userCategory, currentDeleteId);
+            console.log('Confirming delete:', { id: currentDeleteId, type: currentDeleteType });
+            await deleteAd(currentDeleteType, currentDeleteId);
             deleteModal.hide();
             
             const successAlert = document.createElement('div');

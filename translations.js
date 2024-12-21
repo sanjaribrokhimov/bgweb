@@ -33,7 +33,7 @@ const translations = {
             myProfile: 'Мой профиль',
             settings: 'Настройки',
             myAds: 'Мои объявления',
-            favorites: 'Избранное',
+            favorites: 'Изб��анное',
             logout: 'Выйти'
         },
         categories: {
@@ -65,10 +65,15 @@ const translations = {
             },
             phone: 'Номер телефона',
             otpTitle: 'Подтверждение',
-            otpDescription: 'Введите код подтверждения, отправленный на ваш номер телефона',
+            otpDescription: 'Введите код подтверждения, отпра��ленный на ваш номер телефона',
             otpTimer: 'Повторная отправка через:',
             otpResend: 'Отправить код повторно',
-            otpVerify: 'Подтвердить'
+            otpVerify: 'Подтвердить',
+            forgotPasswordTitle: "Восстановление пароля",
+            emailPlaceholder: "Введите ваш email",
+            sendCode: "Отправить код",
+            emailRequired: "Пожалуйста, введите email",
+            serverError: "Произошла ошибка при отправке запроса"
         },
         notifications: {
             success: 'Успешно подтверждено!',
@@ -257,7 +262,12 @@ const translations = {
             otpDescription: 'Telefon raqamingizga yuborilgan tasdiqlash kodini kiriting',
             otpTimer: 'Qayta yuborish vaqti:',
             otpResend: 'Kodni qayta yuborish',
-            otpVerify: 'Tasdiqlash'
+            otpVerify: 'Tasdiqlash',
+            forgotPasswordTitle: "Parolni tiklash",
+            emailPlaceholder: "Email manzilingizni kiriting",
+            sendCode: "Kodni yuborish",
+            emailRequired: "Iltimos, email manzilingizni kiriting",
+            serverError: "Xatolik yuz berdi"
         },
         notifications: {
             success: 'Muvaffaqiyatli tasdiqlandi!',

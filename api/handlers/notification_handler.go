@@ -4,6 +4,9 @@ import (
 	"bloger_agencyBackend/database"
 	"bloger_agencyBackend/models"
 	"bloger_agencyBackend/utils"
+	"bytes"
+	"fmt"
+	"io"
 	"log"
 	"net/http"
 
@@ -12,15 +15,50 @@ import (
 
 func CreateAcceptNotification(c *gin.Context) {
 	var input struct {
-		FromUserID uint   `json:"from_user_id"` // ID пользователя, который отправляет уведомление
-		ToUserID   uint   `json:"to_user_id"`   // ID пользователя, которому отправляется уведомление
-		AdID       uint   `json:"ad_id"`        // ID объявления
-		AdType     string `json:"ad_type"`      // тип объявления
+		FromUserID uint   `json:"from_user_id"`
+		ToUserID   uint   `json:"to_user_id"`
+		AdID       uint   `json:"ad_id"`
+		AdType     string `json:"ad_type"`
 	}
 
+	// Логируем входящие данные ДО привязки JSON
+	body, _ := io.ReadAll(c.Request.Body)
+	log.Printf("Raw request body: %s", string(body))
+	c.Request.Body = io.NopCloser(bytes.NewBuffer(body))
+
 	if err := c.ShouldBindJSON(&input); err != nil {
+		log.Printf("Error binding JSON: %v", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
+	}
+
+	log.Printf("Processing notification for ad type: %s, ad ID: %d", input.AdType, input.AdID)
+
+	// Получаем данные отправителя
+	var fromUser models.User
+	if err := database.DB.First(&fromUser, input.FromUserID).Error; err != nil {
+		log.Printf("Error getting sender info: %v", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get sender info"})
+		return
+	}
+
+	// Получаем данные получателя
+	var toUser models.User
+	if err := database.DB.First(&toUser, input.ToUserID).Error; err != nil {
+		log.Printf("Error getting recipient info: %v", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get recipient info"})
+		return
+	}
+
+	// Проверяем существование объявления фрилансера
+	if input.AdType == "freelancer" {
+		var freelancer models.Freelancer
+		if err := database.DB.First(&freelancer, input.AdID).Error; err != nil {
+			log.Printf("Error finding freelancer ad: %v", err)
+			c.JSON(http.StatusNotFound, gin.H{"error": "Freelancer ad not found"})
+			return
+		}
+		log.Printf("Found freelancer ad: %+v", freelancer)
 	}
 
 	// Создаем уведомление в базе
@@ -39,17 +77,30 @@ func CreateAcceptNotification(c *gin.Context) {
 		return
 	}
 
-	// Получаем email получателя
-	var toUser models.User
-	if err := database.DB.First(&toUser, input.ToUserID).Error; err != nil {
-		log.Printf("Failed to find user for email notification: %v", err)
-	} else {
-		// Отправляем email
-		err := utils.SendEmail(toUser.Email, "Новое соглашение",
-			"У вас новое соглашение по вашему объявлению. Пожалуйста, проверьте уведомления в приложении.")
-		if err != nil {
-			log.Printf("Failed to send email: %v", err)
-		}
+	// Формируем текст письма с данными отправителя
+	emailText := fmt.Sprintf(
+		"У вас новое соглашение по вашему объявлению!\n\n"+
+			"Данные пользователя:\n"+
+			"Имя: %s\n"+
+			"Категория: %s\n"+
+			"Направление: %s\n"+
+			"Email: %s\n"+
+			"Telegram: %s\n\n"+
+			"Телефон: %s\n\n"+
+			"Пожалуйста, свяжитесь с пользователем через Telegram или Email для обсуждения деталей.",
+		fromUser.Name,
+		fromUser.Category,
+		fromUser.Direction,
+		fromUser.Email,
+		fromUser.Telegram,
+		fromUser.Phone,
+	)
+
+	// Отправляем email
+	err := utils.SendEmail(toUser.Email, "Новое соглашение по объявлению", emailText)
+	if err != nil {
+		log.Printf("Failed to send email: %v", err)
+		// Не возвращаем ошибку клиенту, так как уведомление уже создано
 	}
 
 	// Отправляем уведомление через WebSocket
@@ -85,28 +136,35 @@ func GetUserNotifications(c *gin.Context) {
 			"ad_type":    notification.AdType,
 		}
 
-		// Получаем детали объявления
+		// Поучаем детали объявления
 		var adDetails interface{}
 		switch notification.AdType {
 		case "blogger":
 			var post models.PostBlogger
-			if err := database.DB.First(&post, notification.AdID).Error; err == nil {
+			if err := database.DB.Where("id = ?", notification.AdID).First(&post).Error; err == nil {
 				adDetails = post
+			} else {
+				log.Printf("Error fetching blogger post: %v", err)
 			}
 		case "company":
 			var company models.Company
-			if err := database.DB.First(&company, notification.AdID).Error; err == nil {
+			if err := database.DB.Where("id = ?", notification.AdID).First(&company).Error; err == nil {
 				adDetails = company
+			} else {
+				log.Printf("Error fetching company: %v", err)
 			}
 		case "freelancer":
 			var freelancer models.Freelancer
-			if err := database.DB.First(&freelancer, notification.AdID).Error; err == nil {
+			if err := database.DB.Where("id = ?", notification.AdID).First(&freelancer).Error; err == nil {
 				adDetails = freelancer
+			} else {
+				log.Printf("Error fetching freelancer: %v", err)
 			}
 		}
 
 		if adDetails != nil {
 			enriched["ad_details"] = adDetails
+			enriched["ad_id"] = notification.AdID
 		}
 
 		enrichedNotifications = append(enrichedNotifications, enriched)

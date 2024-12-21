@@ -2,20 +2,19 @@ package models
 
 import (
 	"gorm.io/gorm"
-	"time"
 )
 
 type User struct {
-	ID          uint      `json:"id" gorm:"primaryKey"`
-	Name        string    `json:"name" gorm:"not null"`
-	Email       string    `json:"email" gorm:"unique;not null"`
-	Password    string    `json:"password" gorm:"not null"`
-	Phone       string    `json:"phone" gorm:"not null"`
-	Category    string    `json:"category" gorm:"not null"`
-	OTPCode     string    `json:"otp_code"`
-	IsVerified  bool      `json:"is_verified" gorm:"default:false"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	gorm.Model
+	Name       string `json:"name"`
+	Email      string `json:"email" gorm:"unique"`
+	Password   string `json:"password"`
+	Phone      string `json:"phone"`
+	Category   string `json:"category"`
+	Direction  string `json:"direction"`
+	Telegram   string `json:"telegram"`
+	OTPCode    string `json:"otp_code"`
+	IsVerified bool   `json:"is_verified" gorm:"default:false"`
 }
 
 type Like struct {

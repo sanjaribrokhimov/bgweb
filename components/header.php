@@ -586,7 +586,7 @@ $IP = '144.126.128.67';
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
-        // Добавляем скрипт ��нициализации темы до загрузки DOM
+        // Добавляем скрипт инициализации темы до загрузки DOM
         document.documentElement.classList.add('dark-theme');
     </script>
 </head>
@@ -626,15 +626,11 @@ $IP = '144.126.128.67';
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <div class="profile-dropdown">
-                    <!-- <div class="profile-dropdown-item" data-translate="profile.myProfile">
+                    <div class="profile-dropdown-item" >
                         <i class="fas fa-user"></i>
                         Мой профиль
                     </div>
-                    <div class="profile-dropdown-item" data-translate="profile.settings">
-                        <i class="fas fa-cog"></i>
-                        Настройки
-                    </div> -->
-                    <div class="profile-dropdown-item" data-translate="profile.myAds">
+                    <div class="profile-dropdown-item">
                         <i class="fas fa-list"></i>
                         Мои объявления
                     </div>
@@ -660,7 +656,8 @@ $IP = '144.126.128.67';
             <div class="d-flex align-items-center gap-3">
                 <!-- Уведомления -->
                 <div class="notifications-wrapper header-content">
-                    <button class="btn notification-btn" id="notificationsBtn">
+                    <button href="notifications.php" 
+                    class="btn notification-btn" id="notificationsBtn">
                         <i class="fas fa-bell"></i>
                         <span class="notification-badge" id="notificationCount">0</span>
                     </button>
@@ -679,7 +676,7 @@ $IP = '144.126.128.67';
         <!-- Добавить модальное окно уведомлений -->
         <div class="notifications-modal">
             <div class="notifications-header">
-                <h5>Уведомления</h5>
+                <h5>Уведомлени��</h5>
             </div>
             <div class="notifications-content">
                 <!-- Уведомления будут добавляться здесь -->
@@ -944,7 +941,11 @@ $IP = '144.126.128.67';
                     const text = item.textContent.trim().toLowerCase();
                     
                     // Проверяем текст пункта меню на обоих языках
-                    if (text.includes('мои объявления') || text.includes('mening e\'lonlarim') || text.includes('my ads')) {
+                    if (text.includes('мой профиль') || text.includes('my profile')) {
+                        window.location.href = 'edit-profile.php';
+                    }
+                    // Проверяем текст пункта меню на обоих языках
+                    else if (text.includes('мои объявления') || text.includes('mening e\'lonlarim') || text.includes('my ads')) {
                         window.location.href = 'myads.php';
                     }
                     else if (text.includes('выйти') || text.includes('chiqish') || text.includes('logout')) {
@@ -1005,7 +1006,7 @@ $IP = '144.126.128.67';
         // Функция поиска
         async function performSearch(query) {
             try {
-                const response = await fetch(`https://bgweb.nurali.uz/api/ads/search?q=${encodeURIComponent(query)}`);
+                const response = await fetch(`http://localhost:8888/api/ads/search?q=${encodeURIComponent(query)}`);
                 if (!response.ok) throw new Error('Ошибка сети');
                 
                 const data = await response.json();
@@ -1056,7 +1057,7 @@ $IP = '144.126.128.67';
             const labels = {
                 bloggers: 'Блогер',
                 companies: 'Компания',
-                freelancers: 'Фрилансер'
+                freelancers: 'Фрила��сер'
             };
             return labels[type] || type;
         }
@@ -1088,6 +1089,20 @@ $IP = '144.126.128.67';
             
             lastScrollPosition = currentScrollPosition;
         });
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Получаем chat_id из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const telegramChatId = urlParams.get('telegram_chat_id');
+        
+        // Если chat_id есть, сохраняем его в localStorage
+        if (telegramChatId) {
+            localStorage.setItem('telegram_chat_id', telegramChatId);
+            console.log('Saved telegram_chat_id:', telegramChatId);
+        }
+    });
     </script>
 
     

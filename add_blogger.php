@@ -93,6 +93,9 @@
     color: #28a745;
     border: 1px solid rgba(40, 167, 69, 0.2);
 }
+.form-control{
+    color:white;
+}
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
@@ -117,64 +120,22 @@
         <div class="form-group mb-3">
             <div class="input-with-icon">
                 <i class="fas fa-user"></i>
-                <input type="text" name="nickname" class="form-control" placeholder="Никнейм" data-translate="addBlogger.nickname" required>
+                <input type="text" name="title" class="form-control" placeholder="Заголовок" required>
             </div>
         </div>
 
-        <div class="form-group mb-3">
+        <!-- Условия бартера / Комментарий к рекламе -->
+        <div class="form-group mb-4 conditions-field">
+            <h4>Кого вы ищете или условия бартера</h4>
             <div class="input-with-icon">
-                <i class="fas fa-tag"></i>
-                <select class="form-control category-select" required>
-                    <option value="" disabled selected data-translate="addBlogger.selectCategory">Выберите категорию</option>
-                    <option value="lifestyle">Lifestyle</option>
-                        <option value="travel">Travel</option>
-                        <option value="tech">Tech</option>
-                        <option value="food">Food & Cooking</option>
-                        <option value="beauty">Beauty & Fashion</option>
-                        <option value="fitness">Fitness & Health</option>
-                        <option value="gaming">Gaming</option>
-                        <option value="music">Music</option>
-                        <option value="business">Finance & Business</option>
-                        <option value="parenting">Parenting</option>
-                        <option value="education">Education</option>
-                        <option value="entertainment">Entertainment</option>
-                        <option value="diy">DIY & Creativity</option>
-                        <option value="culture">Culture & Art</option>
-                        <option value="auto">Auto & Moto</option>
-                        <option value="eco">Eco & Sustainability</option>
-                        <option value="social">Social & Community</option>
-                        <option value="animals">Animals & Nature</option>
-                        <option value="photo">Photography</option>
-                        <option value="comedy">Comedy</option>
-                </select>
+                <i class="fas fa-handshake barter-icon"></i>
+                <textarea  class="form-control" rows="4"  required></textarea>
             </div>
         </div>
-
-        <div class="form-group mb-3">
-            <div class="input-with-icon">
-                <i class="fas fa-users"></i>
-                <input type="number" name="followers" class="form-control" placeholder="Количесв подписчиков" required>
-            </div>
-        </div>
-
-        <div class="form-group mb-3">
-            <div class="input-with-icon">
-                <i class="fas fa-chart-line"></i>
-                <input type="number" name="engagement" step="0.1" class="form-control" placeholder="ER %" required>
-            </div>
-        </div>
-
-        <div class="form-group mb-3">
-            <div class="input-with-icon">
-                <i class="fab fa-telegram"></i>
-                <input type="text" name="telegram_username" class="form-control" placeholder="Username Telegram" required>
-            </div>
-        </div>
-
-
-
+        <h4>Ваши социальные сети</h4>
         <!-- Instagram секция -->
         <div class="social-section mb-4">
+           
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="social-header">
                     <i class="fab fa-instagram"></i>
@@ -239,33 +200,7 @@
             </div>
         </div>
 
-        <!-- TikTok секция -->
-        <div class="social-section mb-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <div class="social-header">
-                    <i class="fab fa-tiktok"></i>
-                    <span>TikTok</span>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="tiktokSwitch">
-                </div>
-            </div>
-            <div class="social-fields" id="tiktokFields" style="display: none;">
-                <div class="input-with-icon mb-2">
-                    <i class="fas fa-link"></i>
-                    <input type="url" name="tiktok_link" class="form-control" placeholder="Ссылка на профиль" data-translate="addBlogger.tiktok.link">
-                </div>
-                
-            </div>
-        </div>
 
-        <!-- Условия бартера перемещены в конец формы -->
-        <div class="form-group mb-4">
-            <div class="input-with-icon">
-                <i class="fas fa-handshake"></i>
-                <textarea name="barter_conditions" class="form-control" rows="4" placeholder="Условия бартера" data-translate="addBlogger.barterConditions" required></textarea>
-            </div>
-        </div>
 
         <button type="submit" class="btn btn-primary w-100" data-translate="addBlogger.publish">Опубликовать</button>
         
@@ -301,7 +236,7 @@
             instagram: document.getElementById('instagramSwitch'),
             telegram: document.getElementById('telegramSwitch'),
             youtube: document.getElementById('youtubeSwitch'),
-            tiktok: document.getElementById('tiktokSwitch')
+         
         };
 
         Object.entries(switches).forEach(([platform, switchEl]) => {
@@ -332,7 +267,7 @@
             }
         });
 
-        // Обработчики для кнопк языка
+        // Обработчики для кнопк язык
         langButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const lang = button.textContent.toLowerCase();
@@ -362,7 +297,7 @@
             document.body.classList.toggle('light-theme');
             const isLight = document.body.classList.contains('light-theme');
             
-            // Обновляем иконки
+            // Оновляем иконки
             document.querySelector('.fa-sun').style.opacity = isLight ? '1' : '0.5';
             document.querySelector('.fa-moon').style.opacity = isLight ? '0.5' : '1';
             
@@ -419,8 +354,6 @@
                 'addBlogger.telegram.postPrice': 'input[data-translate="addBlogger.telegram.postPrice"]',
                 'addBlogger.youtube.link': 'input[data-translate="addBlogger.youtube.link"]',
                 'addBlogger.youtube.adPrice': 'input[data-translate="addBlogger.youtube.adPrice"]',
-                'addBlogger.tiktok.link': 'input[data-translate="addBlogger.tiktok.link"]',
-                'addBlogger.tiktok.adPrice': 'input[data-translate="addBlogger.tiktok.adPrice"]',
                 'addBlogger.barterConditions': 'textarea[data-translate="addBlogger.barterConditions"]'
             };
 
@@ -495,7 +428,7 @@
             return Promise.resolve(base64String);
         }
 
-        // Обновляем обработчик загрузки фото
+        // Обновляе обработчик загрузки фото
         photoInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (file) {
@@ -572,30 +505,26 @@
                     // Собираем данные из формы, используя безопасные проверки
                     const postData = {
                         user_id: parseInt(userId),
-                        nickname: addBloggerForm.querySelector('input[name="nickname"]')?.value?.trim() || '',
-                        category: addBloggerForm.querySelector('.category-select')?.value || '',
-                        followers: parseInt(addBloggerForm.querySelector('input[name="followers"]')?.value) || 0,
-                        engagement: parseFloat(addBloggerForm.querySelector('input[name="engagement"]')?.value) || 0,
-                        telegram_username: addBloggerForm.querySelector('input[name="telegram_username"]')?.value?.trim() || '',
+                        name: addBloggerForm.querySelector('input[name="title"]').value.trim(),
                         photo_base64: optimizedPhotoBase64,
-                        ad_comment: addBloggerForm.querySelector('textarea[name="barter_conditions"]')?.value?.trim() || '',
-                        
-                        // Социальные сети с проверкой на существование элементов
-                        instagram_link: addBloggerForm.querySelector('input[name="instagram_link"]')?.value?.trim() || '',
-                        telegram_link: addBloggerForm.querySelector('input[name="telegram_link"]')?.value?.trim() || '',
-                        youtube_link: addBloggerForm.querySelector('input[name="youtube_link"]')?.value?.trim() || '',
-                        tiktok_link: addBloggerForm.querySelector('input[name="tiktok_link"]')?.value?.trim() || ''
+                        looking_for: addBloggerForm.querySelector('textarea').value || "",
+                        category: localStorage.getItem('category') || "",
+                        direction: localStorage.getItem('direction') || "",
+                        telegram_username: localStorage.getItem('telegram') || "",
+                        instagram_link: document.querySelector('#instagramFields input[type="url"]')?.value?.trim() || "",
+                        telegram_link: document.querySelector('#telegramFields input[type="url"]')?.value?.trim() || "",
+                        youtube_link: document.querySelector('#youtubeFields input[type="url"]')?.value?.trim() || ""
                     };
 
-                    // Проверка обязательных полей
-                    if (!postData.nickname || !postData.category || !postData.telegram_username) {
+                    // Перед отправкой данных
+                    if (!postData.name || !postData.photo_base64 || !postData.looking_for || !postData.category || !postData.telegram_username) {
                         throw new Error('Пожалуйста, заполните все обязательные поля');
                     }
 
                     console.log('Отправляемые данные:', postData);
 
                     // Отправляем данные на API
-                    const response = await fetch('https://bgweb.nurali.uz/api/post-bloggers', {
+                    const response = await fetch('http://localhost:8888/api/post-bloggers', {
                         method: 'POST',
                         credentials: 'include',
                         headers: {

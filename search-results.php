@@ -118,7 +118,7 @@ class SearchResultsLoader {
         if (loadingIndicator) loadingIndicator.style.display = 'block';
         
         try {
-            const url = `https://bgweb.nurali.uz/api/ads/search?q=${encodeURIComponent(this.query)}&type=${this.type}&page=${this.page}&limit=${this.limit}`;
+            const url = `http://localhost:8888/api/ads/search?q=${encodeURIComponent(this.query)}&type=${this.type}&page=${this.page}&limit=${this.limit}`;
             const response = await fetch(url);
             if (!response.ok) throw new Error('Failed to fetch search results');
             
@@ -272,7 +272,7 @@ class SearchResultsLoader {
                 throw new Error('Missing id or type');
             }
 
-            const response = await fetch(`https://bgweb.nurali.uz/api/ads/details/${type}/${id}`);
+            const response = await fetch(`http://localhost:8888/api/ads/details/${type}/${id}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const detailsBtn = button.closest('.btn-actions').querySelector('.btn-details');
                 const adType = detailsBtn ? detailsBtn.dataset.type : 'blogger';
 
-                const response = await fetch('https://bgweb.nurali.uz/api/notifications/accept', {
+                const response = await fetch('http://localhost:8888/api/notifications/accept', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

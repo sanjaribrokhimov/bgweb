@@ -9,17 +9,40 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func CreateCompany(c *gin.Context) {
-	var company models.Company
+type CompanyInput struct {
+	UserID           uint   `json:"user_id"`
+	Name             string `json:"name"`
+	Category         string `json:"category"`
+	Direction        string `json:"direction"`
+	PhotoBase64      string `json:"photo_base64"`
+	Budget           int    `json:"budget"`
+	AdComment        string `json:"ad_comment"`
+	WebsiteLink      string `json:"website_link"`
+	InstagramLink    string `json:"instagram_link"`
+	TelegramLink     string `json:"telegram_link"`
+	TelegramUsername string `json:"telegram_username"`
+}
 
-	// Используем метод Gin для привязки JSON
-	if err := c.ShouldBindJSON(&company); err != nil {
-		log.Printf("JSON binding error: %v", err)
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "Invalid JSON format",
-			"details": err.Error(),
-		})
+func CreateCompany(c *gin.Context) {
+	var input CompanyInput
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
+	}
+
+	company := models.Company{
+		UserID:           input.UserID,
+		Name:             input.Name,
+		Category:         input.Category,
+		Direction:        input.Direction,
+		PhotoBase64:      input.PhotoBase64,
+		Budget:           input.Budget,
+		AdComment:        input.AdComment,
+		WebsiteLink:      input.WebsiteLink,
+		InstagramLink:    input.InstagramLink,
+		TelegramLink:     input.TelegramLink,
+		TelegramUsername: input.TelegramUsername,
+		Status:           "active",
 	}
 
 	// Проверяем обязательные поля
@@ -69,7 +92,25 @@ func GetCompanies(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, companies)
+	// Форматируем ответ для каждой компании
+	formattedCompanies := make([]gin.H, len(companies))
+	for i, company := range companies {
+		formattedCompanies[i] = gin.H{
+			"ID":                company.ID,
+			"name":              company.Name,
+			"category":          company.Category,
+			"photo_base64":      company.PhotoBase64,
+			"budget":            company.Budget,
+			"ad_comment":        company.AdComment,
+			"website_link":      company.WebsiteLink,
+			"instagram_link":    company.InstagramLink,
+			"telegram_link":     company.TelegramLink,
+			"telegram_username": company.TelegramUsername,
+			"user_id":           company.UserID,
+		}
+	}
+
+	c.JSON(http.StatusOK, formattedCompanies)
 }
 
 func GetCompanyByID(c *gin.Context) {
@@ -81,7 +122,19 @@ func GetCompanyByID(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, company)
+	c.JSON(http.StatusOK, gin.H{
+		"ID":                company.ID,
+		"name":              company.Name,
+		"category":          company.Category,
+		"photo_base64":      company.PhotoBase64,
+		"budget":            company.Budget,
+		"ad_comment":        company.AdComment,
+		"website_link":      company.WebsiteLink,
+		"instagram_link":    company.InstagramLink,
+		"telegram_link":     company.TelegramLink,
+		"telegram_username": company.TelegramUsername,
+		"user_id":           company.UserID,
+	})
 }
 
 func GetUserCompanies(c *gin.Context) {

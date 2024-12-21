@@ -4,7 +4,59 @@ class BloggerLoader {
         this.limit = 10;
         this.loading = false;
         this.hasMore = true;
+        this.allBloggers = [];
+        this.currentCategory = '';
         this.initializeAcceptButtons();
+        this.initializeFilters();
+    }
+
+    initializeFilters() {
+        const categorySelect = document.getElementById('bloggerCategorySelect');
+        if (categorySelect) {
+            categorySelect.addEventListener('change', (e) => {
+                this.currentCategory = e.target.value;
+                this.filterBloggers();
+            });
+        }
+    }
+
+    filterBloggers() {
+        const grid = document.querySelector('.products-grid');
+        grid.innerHTML = '';
+
+        let filteredBloggers = this.allBloggers;
+        
+        if (this.currentCategory) {
+            console.log('Filtering by category:', this.currentCategory);
+            console.log('All bloggers:', this.allBloggers);
+            
+            filteredBloggers = this.allBloggers.filter(blogger => {
+                const bloggerDirection = (blogger.direction || '').toLowerCase().trim();
+                const selectedCategory = this.currentCategory.toLowerCase().trim();
+                
+                console.log('Comparing:', {
+                    bloggerDirection,
+                    selectedCategory,
+                    matches: bloggerDirection === selectedCategory
+                });
+                
+                return bloggerDirection === selectedCategory;
+            });
+            
+            console.log('Filtered bloggers:', filteredBloggers);
+        }
+
+        if (filteredBloggers.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.textContent = 'Нет блогеров в выбранной категории';
+            grid.appendChild(noResults);
+        } else {
+            filteredBloggers.forEach(blogger => {
+                const card = this.createBloggerCard(blogger);
+                grid.appendChild(card);
+            });
+        }
     }
 
     initializeAcceptButtons() {
@@ -26,26 +78,24 @@ class BloggerLoader {
         
         try {
             loadingIndicator.style.display = 'block';
-            const url = `https://bgweb.nurali.uz/api/ads/category/blogger?page=${this.page}&limit=${this.limit}`;
+            const url = `http://localhost:8888/api/ads/category/blogger?page=${this.page}&limit=${this.limit}`;
 
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
+            console.log('Loaded bloggers:', data);
 
             const bloggers = data.data || [];
             if (bloggers.length < this.limit) {
                 this.hasMore = false;
             }
 
-            const shuffledBloggers = bloggers.sort(() => Math.random() - 0.5);
+            this.allBloggers = [...this.allBloggers, ...bloggers];
+            console.log('Updated allBloggers:', this.allBloggers);
 
-            shuffledBloggers.forEach(blogger => {
-                const card = this.createBloggerCard(blogger);
-                grid.appendChild(card);
-            });
-
+            this.filterBloggers();
             this.page++;
 
         } catch (error) {
@@ -60,30 +110,26 @@ class BloggerLoader {
         const card = document.createElement('div');
         card.className = 'product-card animate-card';
         
+        const agreementKey = `blogger_${data.id}`;
+        const hasAgreement = window.bloggerLoader?.userAgreements?.has(agreementKey);
+        
         card.innerHTML = `
             <div class="product-image">
                 <img src="${data.photo_base64}" alt="Блогер" onerror="this.src='./img/noImage.jpg'">
-                <div class="card-type-badge">Блогер</div>
+
             </div>
             <div class="product-info">
                 <h3>${data.nickname || 'Без имени'}</h3>
                 <div class="category-tag">${data.category || 'Без категории'}</div>
-                <div class="stats">
-                    <div class="stat-item">
-                        <i class="fas fa-users"></i>
-                        <span>${this.formatNumber(data.followers)} подписчиков</span>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-chart-line"></i>
-                        <span>ER: ${data.engagement || 0}%</span>
-                    </div>
-                </div>
+                <div class="direction-tag">${data.direction || ''}</div>
+
                 <div class="btn-actions">
-                    <button class="btn-details" data-id="${data.ID}" data-type="blogger">
+                    <button class="btn-details" data-id="${data.id}" data-type="blogger">
                         <i class="fas fa-info-circle"></i> Подробнее
                     </button>
-                    <button class="btn-accept" data-id="${data.ID}" data-owner-id="${data.user_id}">
-                        <i class="fas fa-check"></i>
+                    <button class="btn-accept" data-id="${data.id}" data-owner-id="${data.user_id}"
+                        ${hasAgreement ? 'disabled style="background: linear-gradient(45deg, #32d583, #20bd6d);"' : ''}>
+                        <i class="fas ${hasAgreement ? 'fa-check' : 'fa-check'}"></i>
                     </button>
                 </div>
             </div>
@@ -96,21 +142,21 @@ class BloggerLoader {
         return `
             <div class="details-card">
                 <div class="details-header">
-                    <h4>${data.nickname || 'Без имени'}</h4>
+                    <h4>${data.name || 'Без имени'}</h4>
                     <div class="details-stats">
-                        <span><i class="fas fa-users"></i> ${this.formatNumber(data.followers)} подписчиков</span>
-                        <span><i class="fas fa-chart-line"></i> ER: ${data.engagement || 0}%</span>
+                        <span><i class="fas fa-tag"></i> ${data.category || 'Без категории'}</span>
+                        <span><i class="fas fa-compass"></i> ${data.direction || 'Без направления'}</span>
                     </div>
                 </div>
                 <div class="details-info">
                     <div class="info-item">
-                        <label><i class="fas fa-tag"></i> Категория</label>
-                        <span>${data.category || 'Не указана'}</span>
+                        <label><i class="fas fa-at"></i> Telegram Username</label>
+                        <span>${data.telegram_username || 'Не указан'}</span>
                     </div>
                     
                     <div class="info-item">
-                        <label><i class="fas fa-at"></i> Telegram Username</label>
-                        <span>${data.telegram_username || 'Не указан'}</span>
+                        <label><i class="fas fa-search"></i> Кого ищет</label>
+                        <p class="looking-for-text">${data.ad_comment || 'Не указано'}</p>
                     </div>
                     
                     <div class="info-item">
@@ -136,19 +182,13 @@ class BloggerLoader {
                                     <span>YouTube: <a href="${data.youtube_link}" target="_blank">Перейти</a></span>
                                 </div>
                             ` : ''}
-                            
                             ${data.tiktok_link ? `
                                 <div class="social-network-item">
                                     <i class="fab fa-tiktok"></i>
-                                    <span>TikTok: <a href="${data.tiktok_link}" target="_blank">Перейти</a></span>
+                                    <span>tiktok: <a href="${data.tiktok_link}" target="_blank">Перейти</a></span>
                                 </div>
                             ` : ''}
                         </div>
-                    </div>
-                    
-                    <div class="info-item">
-                        <label><i class="fas fa-comment"></i> Комментарий</label>
-                        <p class="comment-text">${data.ad_comment || 'Комментарий не добавлен'}</p>
                     </div>
                 </div>
             </div>
@@ -171,9 +211,15 @@ class BloggerLoader {
             const loadingIndicator = document.getElementById('loadingIndicator');
             loadingIndicator.style.display = 'block';
 
-            const response = await fetch(`https://bgweb.nurali.uz/api/ads/details/blogger/${id}`);
-            if (!response.ok) throw new Error('Failed to fetch details');
+            console.log('Fetching details for ID:', id);
+            const response = await fetch(`http://localhost:8888/api/ads/details/blogger/${id}`);
+            if (!response.ok) {
+                console.error('Response status:', response.status);
+                console.error('Response text:', await response.text());
+                throw new Error('Failed to fetch details');
+            }
             const data = await response.json();
+            console.log('Received data:', data);
 
             const modalHTML = `
                 <div class="modal fade custom-modal" id="detailsModal" tabindex="-1" aria-hidden="true">
@@ -276,7 +322,6 @@ class BloggerLoader {
             if (oldModal) {
                 oldModal.remove();
             }
-
             document.body.insertAdjacentHTML('beforeend', modalHTML);
 
             const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
@@ -292,6 +337,23 @@ class BloggerLoader {
         } finally {
             const loadingIndicator = document.getElementById('loadingIndicator');
             loadingIndicator.style.display = 'none';
+        }
+    }
+
+    async loadUserAgreements() {
+        const userId = localStorage.getItem('userId');
+        if (!userId) return;
+
+        try {
+            const response = await fetch(`http://localhost:8888/api/user-agreements?user_id=${userId}`);
+            if (!response.ok) throw new Error('Failed to fetch agreements');
+            const agreements = await response.json();
+            
+            agreements.forEach(agreement => {
+                this.userAgreements.add(`${agreement.ad_type}_${agreement.ad_id}`);
+            });
+        } catch (error) {
+            console.error('Error loading agreements:', error);
         }
     }
 }
@@ -315,3 +377,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+

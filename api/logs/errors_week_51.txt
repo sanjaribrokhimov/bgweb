@@ -1,0 +1,64 @@
+[2024-12-18 15:48:53] Source: Register
+Error: ERROR: null value in column "direction" of relation "users" violates not-null constraint (SQLSTATE 23502)
+Details: Failed to create user: ibrokhimov3210@gmail.com
+
+[2024-12-18 15:48:55] Source: Register
+Error: ERROR: null value in column "direction" of relation "users" violates not-null constraint (SQLSTATE 23502)
+Details: Failed to create user: ibrokhimov3210@gmail.com
+
+[2024-12-18 15:48:55] Source: Register
+Error: ERROR: null value in column "direction" of relation "users" violates not-null constraint (SQLSTATE 23502)
+Details: Failed to create user: ibrokhimov3210@gmail.com
+
+[2024-12-18 15:48:55] Source: Register
+Error: ERROR: null value in column "direction" of relation "users" violates not-null constraint (SQLSTATE 23502)
+Details: Failed to create user: ibrokhimov3210@gmail.com
+
+[2024-12-18 15:48:56] Source: Register
+Error: ERROR: null value in column "direction" of relation "users" violates not-null constraint (SQLSTATE 23502)
+Details: Failed to create user: ibrokhimov3210@gmail.com
+
+[2024-12-18 15:48:56] Source: Register
+Error: ERROR: null value in column "direction" of relation "users" violates not-null constraint (SQLSTATE 23502)
+Details: Failed to create user: ibrokhimov3210@gmail.com
+
+[2024-12-18 15:48:56] Source: Register
+Error: ERROR: null value in column "direction" of relation "users" violates not-null constraint (SQLSTATE 23502)
+Details: Failed to create user: ibrokhimov3210@gmail.com
+
+[2024-12-18 15:48:56] Source: Register
+Error: ERROR: null value in column "direction" of relation "users" violates not-null constraint (SQLSTATE 23502)
+Details: Failed to create user: ibrokhimov3210@gmail.com
+
+[2024-12-18 15:48:56] Source: Register
+Error: ERROR: null value in column "direction" of relation "users" violates not-null constraint (SQLSTATE 23502)
+Details: Failed to create user: ibrokhimov3210@gmail.com
+
+[2024-12-18 15:48:56] Source: Register
+Error: ERROR: null value in column "direction" of relation "users" violates not-null constraint (SQLSTATE 23502)
+Details: Failed to create user: ibrokhimov3210@gmail.com
+
+[2024-12-18 15:50:10] Source: Register
+Error: ERROR: null value in column "direction" of relation "users" violates not-null constraint (SQLSTATE 23502)
+Details: Failed to create user: ibrokhimov3210@gmail.com
+
+[2024-12-18 17:14:16] Source: ForgotPassword
+Error: 535 5.7.0 NEOBHODIM parol prilozheniya https://help.mail.ru/mail/security/protection/external / Application password is REQUIRED
+Details: Failed to send OTP
+
+[2024-12-18 17:14:18] Source: ForgotPassword
+Error: 535 5.7.0 NEOBHODIM parol prilozheniya https://help.mail.ru/mail/security/protection/external / Application password is REQUIRED
+Details: Failed to send OTP
+
+[2024-12-18 17:14:25] Source: ForgotPassword
+Error: 535 5.7.0 NEOBHODIM parol prilozheniya https://help.mail.ru/mail/security/protection/external / Application password is REQUIRED
+Details: Failed to send OTP
+
+[2024-12-18 17:16:55] Source: ForgotPassword
+Error: 535 5.7.0 NEOBHODIM parol prilozheniya https://help.mail.ru/mail/security/protection/external / Application password is REQUIRED
+Details: Failed to send OTP
+
+[2024-12-18 17:18:21] Source: ForgotPassword
+Error: 535 5.7.0 NEOBHODIM parol prilozheniya https://help.mail.ru/mail/security/protection/external / Application password is REQUIRED
+Details: Failed to send OTP
+

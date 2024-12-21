@@ -53,7 +53,7 @@ class TelegramBot:
             'help': r"""
 🔍 *Как использовать бота:*
 • /start \- начать работу с ботом
-• Нажмите '🌐 Открыть app' для доступа к приложению
+• Нажмите '🌐 Открыть app' ��ля доступа к приложению
 • Нажмите '📞 Контакты' для связи с нами
 
 📱 *Возможности:*
@@ -126,7 +126,7 @@ mumkin
 • Instagram: [bloger\.agency](https://www\.instagram\.com/bloger\.agency/)
 • Sayt: [bloger\.agency](https://bloger\.agency)
 
-👨‍💻 Developer: [@sanjar\_3210](https://t\.me/sanjar\_3210)
+���‍💻 Developer: [@sanjar\_3210](https://t\.me/sanjar\_3210)
             """,
             'choose_language': "🌍 Пожалуйста, выберите язык / Iltimos, tilni tanlang:",
             'language_changed': "✅ Til muvaffaqiyatli o'zbekchaga o'zgartirildi"
@@ -150,7 +150,8 @@ mumkin
 
     def create_main_keyboard(self, lang='ru'):
         keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-        web_app = WebAppInfo(url="https://bgweb.nurali.uz/index.php")
+        # Всегда отправляем на index.php, который сделает редирект если нужно
+        web_app = WebAppInfo(url=f"https://bgweb.nurali.uz/index.php?chat_id={message.chat.id}")
         
         buttons_text = {
             'ru': [
@@ -285,7 +286,7 @@ mumkin
         @self.bot.message_handler(func=lambda message: message.text in ["🇷🇺 Русский", "🇺🇿 O'zbekcha"])
         def language_choice(message):
             user_id = message.from_user.id
-            if message.text == "🇷🇺 Русский":
+            if message.text == "🇺 Русский":
                 self.user_languages[user_id] = 'ru'
                 lang_changed_text = self.TEXTS['ru']['language_changed']
             else:

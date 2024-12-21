@@ -92,29 +92,6 @@
             </div>
         </div>
 
-        <div class="form-group mb-3">
-            <div class="input-with-icon">
-                <i class="fas fa-tag"></i>
-                <select class="form-control category-select" required>
-                <option value="all" data-translate="categories.all">All Categories</option>
-                        <option value="web">Web Development</option>
-                        <option value="mobile">Mobile Development</option>
-                        <option value="design">UI/UX Design</option>
-                        <option value="graphics">Graphic Design</option>
-                        <option value="video">Video Editing</option>
-                        <option value="marketing">Digital Marketing</option>
-                        <option value="seo">SEO</option>
-                        <option value="content">Content Writing</option>
-                        <option value="translation">Translation</option>
-                        <option value="smm">SMM</option>
-                        <option value="photo">Photography</option>
-                        <option value="audio">Audio Production</option>
-                        <option value="animation">Animation</option>
-                        <option value="3d">3D Modeling</option>
-                        <option value="data">Data Analysis</option>
-                </select>
-            </div>
-        </div>
 
 
 
@@ -458,6 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Получаем ID пользователя из localStorage
                 const userId = localStorage.getItem('userId');
+                const direction = localStorage.getItem('direction');
                 if (!userId) {
                     throw new Error('Пользователь не авторизован. Пожалуйста, войдите в систему.');
                 }
@@ -465,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const postData = {
                     user_id: parseInt(userId),
                     name: addFreelancerForm.querySelector('input[placeholder*="Имя"]').value.trim(),
-                    category: addFreelancerForm.querySelector('.category-select').value,
+                    category: direction,
                     photo_base64: optimizedPhotoBase64,
                     ad_comment: addFreelancerForm.querySelector('textarea').value || "",
                     github_link: document.querySelector('#githubFields input[type="url"]')?.value?.trim() || "",
@@ -483,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Отправляем данные на API
-                const response = await fetch('https://bgweb.nurali.uz/api/freelancers', {
+                const response = await fetch('http://localhost:8888/api/freelancers', {
                     method: 'POST',
                     credentials: 'include',
                     headers: {

@@ -4,7 +4,82 @@ class CompanyLoader {
         this.limit = 10;
         this.loading = false;
         this.hasMore = true;
+        this.allCompanies = [];
+        this.currentCategory = '';
         this.initializeAcceptButtons();
+        this.initializeFilters();
+    }
+
+    initializeFilters() {
+        const categorySelect = document.getElementById('companyCategorySelect');
+        if (categorySelect) {
+            categorySelect.addEventListener('change', (e) => {
+                this.currentCategory = e.target.value;
+                this.filterCompanies();
+            });
+        }
+    }
+
+    filterCompanies() {
+        const grid = document.querySelector('.products-grid');
+        grid.innerHTML = '';
+
+        let filteredCompanies = this.allCompanies;
+        
+        if (this.currentCategory) {
+            filteredCompanies = this.allCompanies.filter(company => {
+                const companyDirection = (company.direction || '').toLowerCase().trim();
+                const selectedCategory = this.currentCategory.toLowerCase().trim();
+                return companyDirection === selectedCategory;
+            });
+        }
+
+        if (filteredCompanies.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.textContent = 'Нет компаний в выбранной категории';
+            grid.appendChild(noResults);
+        } else {
+            filteredCompanies.forEach(company => {
+                const card = this.createCompanyCard(company);
+                grid.appendChild(card);
+            });
+        }
+    }
+
+    async loadCompanies() {
+        if (this.loading || !this.hasMore) return;
+        
+        this.loading = true;
+        const grid = document.querySelector('.products-grid');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        
+        try {
+            loadingIndicator.style.display = 'block';
+            let url = `http://localhost:8888/api/ads/category/company?page=${this.page}&limit=${this.limit}`;
+
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
+            const data = await response.json();
+            const companies = data.data || [];
+            
+            if (companies.length < this.limit) {
+                this.hasMore = false;
+            }
+
+            this.allCompanies = [...this.allCompanies, ...companies];
+            
+            this.filterCompanies();
+
+            this.page++;
+
+        } catch (error) {
+            console.error('Error loading companies:', error);
+        } finally {
+            this.loading = false;
+            loadingIndicator.style.display = 'none';
+        }
     }
 
     initializeAcceptButtons() {
@@ -17,47 +92,6 @@ class CompanyLoader {
         });
     }
 
- 
-
-    async loadCompanies() {
-        if (this.loading || !this.hasMore) return;
-        
-        this.loading = true;
-        const grid = document.querySelector('.products-grid');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        
-        try {
-            loadingIndicator.style.display = 'block';
-            const url = `https://bgweb.nurali.uz/api/ads/category/company?page=${this.page}&limit=${this.limit}`;
-
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-
-            const companies = data.data || [];
-            if (companies.length < this.limit) {
-                this.hasMore = false;
-            }
-
-            const shuffledCompanies = companies.sort(() => Math.random() - 0.5);
-
-            shuffledCompanies.forEach(company => {
-                const card = this.createCompanyCard(company);
-                grid.appendChild(card);
-            });
-
-            this.page++;
-
-        } catch (error) {
-            console.error('Error loading companies:', error);
-        } finally {
-            this.loading = false;
-            loadingIndicator.style.display = 'none';
-        }
-    }
-
     createCompanyCard(data) {
         const card = document.createElement('div');
         card.className = 'product-card animate-card';
@@ -68,12 +102,13 @@ class CompanyLoader {
                 <div class="card-type-badge">Компания</div>
             </div>
             <div class="product-info">
-                <h3>${data.name || 'Без названия'}</h3>
+                <h3>${data.name || 'Без имени'}</h3>
                 <div class="category-tag">${data.category || 'Без категории'}</div>
+                <div class="direction-tag">${data.direction || 'Без направления'}</div>
                 <div class="stats">
                     <div class="stat-item">
                         <i class="fas fa-briefcase"></i>
-                        <span>Бюджет: ${data.budget ? this.formatNumber(data.budget)+'$' : 'Не указан'}</span>
+                        <span>Бюджет: ${this.formatNumber(data.budget)}$</span>
                     </div>
                 </div>
                 <div class="btn-actions">
@@ -104,6 +139,16 @@ class CompanyLoader {
                         <label><i class="fas fa-tag"></i> Категория</label>
                         <span>${data.category || 'Не указана'}</span>
                     </div>
+                    <div class="info-item">
+                        <label><i class="fas fa-compass"></i> Направление</label>
+                        <span>${data.direction || 'Не указано'}</span>
+                    </div>
+                    ${data.telegram_username ? `
+                        <div class="social-network-item">
+                            <i class="fab fa-telegram"></i>
+                            <span>Telegram: @${data.telegram_username}</span>
+                        </div>
+                    ` : ''}
                     
                     <div class="info-item">
                         <label><i class="fas fa-share-alt"></i> Социальные сети и контакты</label>
@@ -128,6 +173,8 @@ class CompanyLoader {
                                     <span>Telegram: <a href="${data.telegram_link}" target="_blank">Перейти</a></span>
                                 </div>
                             ` : ''}
+                            
+
                         </div>
                     </div>
                     
@@ -156,7 +203,7 @@ class CompanyLoader {
             const loadingIndicator = document.getElementById('loadingIndicator');
             loadingIndicator.style.display = 'block';
 
-            const response = await fetch(`https://bgweb.nurali.uz/api/ads/details/company/${id}`);
+            const response = await fetch(`http://localhost:8888/api/ads/details/company/${id}`);
             if (!response.ok) throw new Error('Failed to fetch details');
             const data = await response.json();
 
@@ -357,6 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const companyLoader = new CompanyLoader();
     companyLoader.loadCompanies();
 
+    // Добавляем обработчик прокрутки для бесконечной загрузки
     window.addEventListener('scroll', () => {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
             companyLoader.loadCompanies();

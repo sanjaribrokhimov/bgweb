@@ -74,6 +74,12 @@
 
 <div class="auth-container">
     <form id="addCompanyForm" class="auth-form active">
+        <!-- Скрытые поля для direction и telegram_username -->
+        <input type="hidden" id="directionInput" name="direction">
+        <input type="hidden" id="telegramUsernameInput" name="telegram_username">
+
+        <!-- Поле для категории будет добавлено динамически -->
+        
         <!-- Загрузка фото -->
         <div class="form-group mb-4">
             <label class="upload-photo">
@@ -93,35 +99,7 @@
             </div>
         </div>
 
-        <div class="form-group mb-3">
-            <div class="input-with-icon">
-                <i class="fas fa-tag"></i>
-                <select class="form-control category-select" required>
-                    <option value="" disabled selected>Выберите категорию</option>
-                    <option value="retail">Retail & E-commerce</option>
-                    <option value="tech">Technology & Software</option>
-                    <option value="finance">Finance & Banking</option>
-                    <option value="healthcare">Healthcare & Medical</option>
-                    <option value="education">Education & E-learning</option>
-                    <option value="food">Food & Restaurant</option>
-                    <option value="fashion">Fashion & Apparel</option>
-                    <option value="beauty">Beauty & Cosmetics</option>
-                    <option value="automotive">Automotive</option>
-                    <option value="real-estate">Real Estate</option>
-                    <option value="travel">Travel & Tourism</option>
-                    <option value="sports">Sports & Fitness</option>
-                    <option value="entertainment">Entertainment & Media</option>
-                    <option value="telecom">Telecommunications</option>
-                    <option value="manufacturing">Manufacturing</option>
-                    <option value="construction">Construction</option>
-                    <option value="agriculture">Agriculture</option>
-                    <option value="energy">Energy & Utilities</option>
-                    <option value="logistics">Logistics & Transportation</option>
-                    <option value="consulting">Consulting & Professional Services</option>
-                </select>
-            </div>
-        </div>
-
+       
         <!-- Поля для рекламы -->
         <div class="form-group mb-3">
             <div class="input-with-icon">
@@ -131,7 +109,7 @@
         </div>
 
 
-
+        <h4>комментарий</h4>
         <div class="form-group mb-3">
             <div class="input-with-icon">
                 <i class="fas fa-comment"></i>
@@ -236,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Инициализация пееключателя темы
+    // Инициализация пеек��ючателя темы
     const themeToggle = document.querySelector('.theme-toggle');
     const savedTheme = localStorage.getItem('theme') || 'dark';
 
@@ -382,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return Promise.resolve(base64String);
     }
 
-    // Валидация ссылок
+    // Валидация ссылк
     const urlInputs = document.querySelectorAll('input[type="url"]');
     urlInputs.forEach(input => {
         input.addEventListener('input', () => {
@@ -414,17 +392,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Обработчик формы
     const addCompanyForm = document.getElementById('addCompanyForm');
+    const responseBlock = document.getElementById('apiResponse');
+    const alertBlock = responseBlock.querySelector('.alert');
+
     if (addCompanyForm) {
         addCompanyForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const responseBlock = document.getElementById('apiResponse');
-            const alertBlock = responseBlock.querySelector('.alert');
-            
+            e.preventDefault(); // Предотвращаем стандартную отправку формы
+            showLoading();
+
             try {
-                showLoading();
-                
                 // Получаем сжатое изображение
                 const photoBase64 = document.querySelector('input[type="file"]').compressedImage;
                 if (!photoBase64) {
@@ -434,8 +410,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Дополнительная оптимизация перед отправкой
                 const optimizedPhotoBase64 = await checkImageSize(photoBase64);
 
-                // Получаем ID пользователя из localStorage
+                // Получаем данные из localStorage
                 const userId = localStorage.getItem('userId');
+                const category = localStorage.getItem('category');
+                const direction = localStorage.getItem('direction');
+                const telegramUsername = localStorage.getItem('telegram');
+
                 if (!userId) {
                     throw new Error('Пользователь не авторизован. Пожалуйста, войдите в систему.');
                 }
@@ -443,8 +423,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const postData = {
                     user_id: parseInt(userId),
                     name: addCompanyForm.querySelector('input[placeholder*="Название компании"]').value.trim(),
-                    category: addCompanyForm.querySelector('.category-select').value,
-                    photo_base64: optimizedPhotoBase64, // Используем оптимизированное изображение
+                    category: category,
+                    direction: direction,
+                    telegram_username: telegramUsername,
+                    photo_base64: optimizedPhotoBase64,
                     budget: parseInt(addCompanyForm.querySelector('input[name="budget"]').value) || 0,
                     ad_comment: addCompanyForm.querySelector('textarea[name="ad_comment"]').value || "",
                     website_link: document.querySelector('#websiteFields input[type="url"]')?.value?.trim() || "",
@@ -452,75 +434,76 @@ document.addEventListener('DOMContentLoaded', () => {
                     telegram_link: document.querySelector('#telegramFields input[type="url"]')?.value?.trim() || ""
                 };
 
-                console.log('Sending data:', postData);
-
-                // Перед отправкой данных
+                // Проверяем данные перед отправкой
                 if (!postData.name || !postData.category || !postData.photo_base64) {
                     throw new Error('Пожалуйста, заполните все обязательные поля');
                 }
 
+                // Проверяем валидность JSON
+                try {
+                    JSON.stringify(postData);
+                } catch (e) {
+                    console.error('Invalid JSON:', e);
+                    throw new Error('Ошибка формирования данных');
+                }
+
                 console.log('Sending data:', postData);
 
-                // Отправляем данные на API
-                const response = await fetch('https://bgweb.nurali.uz/api/companies', {
+                const response = await fetch('http://localhost:8888/api/companies', {
                     method: 'POST',
-                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(postData)
                 });
 
-                // Добавим проверку статуса
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || 'Ошибка при создании компании');
-                }
-
+                // После получения ответа
+                console.log('Response status:', response.status);
                 const data = await response.json();
-                console.log('Response:', data);
-                
+                console.log('Response data:', data);
+
                 responseBlock.style.display = 'block';
 
                 if (response.ok) {
                     alertBlock.className = 'alert alert-success';
                     alertBlock.textContent = data.message || 'Компания успешно создана';
                     
+                    // Перенаправляем на главную страницу после успешного создания
                     setTimeout(() => {
                         window.location.href = 'index.php';
                     }, 2000);
                 } else {
-                    throw new Error(data.message || 'Ошибка при создании компании');
+                    throw new Error(data.error || 'Ошибка при создании компании');
                 }
 
             } catch (error) {
                 console.error('Error:', error);
                 responseBlock.style.display = 'block';
                 alertBlock.className = 'alert alert-danger';
-                if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-                    alertBlock.textContent = 'Ошибка соединения с сервером. Пожалуйста, проверьте подключение к интернету.';
-                } else {
-                    alertBlock.textContent = error.message;
-                }
+                alertBlock.textContent = error.message;
             } finally {
                 hideLoading();
             }
         });
     }
 
-    // Добавьте функции для управления индикатором загрузки
+    // Функции для управления индикатором загрузки
     function showLoading() {
         const loader = document.getElementById('loadingIndicator');
-        loader.style.display = 'flex';
-        setTimeout(() => loader.classList.add('show'), 10);
+        if (loader) {
+            loader.style.display = 'flex';
+            setTimeout(() => loader.classList.add('show'), 10);
+        }
     }
 
     function hideLoading() {
         const loader = document.getElementById('loadingIndicator');
-        loader.classList.remove('show');
-        setTimeout(() => {
-            loader.style.display = 'none';
-        }, 300);
+        if (loader) {
+            loader.classList.remove('show');
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 300);
+        }
     }
 });
 </script>

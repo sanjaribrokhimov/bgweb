@@ -4,7 +4,10 @@ class FreelancerLoader {
         this.limit = 10;
         this.loading = false;
         this.hasMore = true;
+        this.allFreelancers = [];
+        this.currentCategory = '';
         this.initializeAcceptButtons();
+        this.initializeFilters();
     }
 
     initializeAcceptButtons() {
@@ -17,7 +20,57 @@ class FreelancerLoader {
         });
     }
 
+    initializeFilters() {
+        const categorySelect = document.getElementById('freelancerCategorySelect');
+        if (categorySelect) {
+            categorySelect.addEventListener('change', (e) => {
+                console.log('Selected category:', e.target.value);
+                this.currentCategory = e.target.value;
+                this.filterFreelancers();
+            });
+        }
+    }
 
+    filterFreelancers() {
+        const grid = document.querySelector('.products-grid');
+        grid.innerHTML = '';
+
+        let filteredFreelancers = this.allFreelancers;
+        
+        if (this.currentCategory) {
+            console.log('Filtering by category:', this.currentCategory);
+            console.log('All freelancers:', this.allFreelancers);
+            
+            filteredFreelancers = this.allFreelancers.filter(freelancer => {
+                const freelancerCategory = freelancer.category.toLowerCase().trim();
+                const selectedCategory = this.currentCategory.toLowerCase().trim();
+                
+                const categoryMatches = freelancerCategory === selectedCategory;
+                
+                console.log('Comparing categories:', {
+                    freelancerCategory,
+                    selectedCategory,
+                    matches: categoryMatches
+                });
+                
+                return categoryMatches;
+            });
+            
+            console.log('Filtered freelancers:', filteredFreelancers);
+        }
+
+        if (filteredFreelancers.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.textContent = 'Нет фрилансеров в выбранной категории';
+            grid.appendChild(noResults);
+        } else {
+            filteredFreelancers.forEach(freelancer => {
+                const card = this.createFreelancerCard(freelancer);
+                grid.appendChild(card);
+            });
+        }
+    }
 
     async loadFreelancers() {
         if (this.loading || !this.hasMore) return;
@@ -28,25 +81,24 @@ class FreelancerLoader {
         
         try {
             loadingIndicator.style.display = 'block';
-            const url = `https://bgweb.nurali.uz/api/ads/category/freelancer?page=${this.page}&limit=${this.limit}`;
+            const url = `http://localhost:8888/api/ads/category/freelancer?page=${this.page}&limit=${this.limit}`;
 
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
+            console.log('Loaded freelancers:', data);
 
             const freelancers = data.data || [];
             if (freelancers.length < this.limit) {
                 this.hasMore = false;
             }
 
-            const shuffledFreelancers = freelancers.sort(() => Math.random() - 0.5);
+            this.allFreelancers = [...this.allFreelancers, ...freelancers];
+            console.log('Updated allFreelancers:', this.allFreelancers);
 
-            shuffledFreelancers.forEach(freelancer => {
-                const card = this.createFreelancerCard(freelancer);
-                grid.appendChild(card);
-            });
+            this.filterFreelancers();
 
             this.page++;
 
@@ -61,6 +113,11 @@ class FreelancerLoader {
     createFreelancerCard(data) {
         const card = document.createElement('div');
         card.className = 'product-card animate-card';
+        
+        const itemId = data.ID || data.id;
+        const userId = data.user_id || data.userId;
+        
+        console.log('Creating freelancer card with data:', data);
         
         card.innerHTML = `
             <div class="product-image">
@@ -77,15 +134,21 @@ class FreelancerLoader {
                     </div>
                 </div>
                 <div class="btn-actions">
-                    <button class="btn-details" data-id="${data.ID}" data-type="freelancer">
+                    <button class="btn-details" data-id="${itemId}" data-type="freelancer">
                         <i class="fas fa-info-circle"></i> Подробнее
                     </button>
-                    <button class="btn-accept" data-id="${data.ID}" data-owner-id="${data.user_id}">
+                    <button class="btn-accept" data-id="${itemId}" data-owner-id="${userId}">
                         <i class="fas fa-check"></i>
                     </button>
                 </div>
             </div>
         `;
+        
+        console.log('Freelancer card data:', {
+            id: itemId,
+            userId: userId,
+            type: 'freelancer'
+        });
         
         return card;
     }
@@ -167,7 +230,7 @@ class FreelancerLoader {
             const loadingIndicator = document.getElementById('loadingIndicator');
             loadingIndicator.style.display = 'block';
 
-            const response = await fetch(`https://bgweb.nurali.uz/api/ads/details/freelancer/${id}`);
+            const response = await fetch(`http://localhost:8888/api/ads/details/freelancer/${id}`);
             if (!response.ok) throw new Error('Failed to fetch details');
             const data = await response.json();
 

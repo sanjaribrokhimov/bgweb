@@ -2,37 +2,29 @@ package utils
 
 import (
 	"fmt"
+	"log"
 	"net/smtp"
 	"os"
 )
 
-func SendOTP(to string, otp string) error {
+func SendOTP(email string, otp string) error {
+	// Конфигурация SMTP
 	from := os.Getenv("SMTP_EMAIL")
 	password := os.Getenv("SMTP_PASSWORD")
 	smtpHost := os.Getenv("SMTP_HOST")
 	smtpPort := os.Getenv("SMTP_PORT")
 
 	// Создаем сообщение
-	headers := make(map[string]string)
-	headers["From"] = from
-	headers["To"] = to
-	headers["Subject"] = "=?UTF-8?B?0JrQvtC0INC/0L7QtNGC0LLQtdGA0LbQtNC10L3QuNGP?="
-	headers["MIME-Version"] = "1.0"
-	headers["Content-Type"] = "text/plain; charset=UTF-8"
+	message := []byte(fmt.Sprintf("Subject: Код подтверждения\r\n\r\nВаш код подтверждения: %s", otp))
 
-	message := ""
-	for key, value := range headers {
-		message += fmt.Sprintf("%s: %s\r\n", key, value)
-	}
-	message += fmt.Sprintf("\r\nВаш код подтверждения: %s\r\n", otp)
-
-	// Создаем аутентификацию
+	// Настройка аутентификации
 	auth := smtp.PlainAuth("", from, password, smtpHost)
 
 	// Отправляем email
-	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, []string{to}, []byte(message))
+	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, []string{email}, message)
 	if err != nil {
-		return fmt.Errorf("ошибка отправки email: %v", err)
+		log.Printf("Ошибка отправки email: %v", err)
+		return err
 	}
 
 	return nil
@@ -44,6 +36,10 @@ func SendEmail(to, subject, body string) error {
 	password := os.Getenv("SMTP_PASSWORD")
 	smtpHost := os.Getenv("SMTP_HOST")
 	smtpPort := os.Getenv("SMTP_PORT")
+
+	// Логируем параметры для отладки
+	log.Printf("Sending email to: %s", to)
+	log.Printf("SMTP settings - Host: %s, Port: %s", smtpHost, smtpPort)
 
 	// Формируем заголовки письма
 	headers := make(map[string]string)
@@ -63,7 +59,7 @@ func SendEmail(to, subject, body string) error {
 	// Создаем аутентификацию
 	auth := smtp.PlainAuth("", from, password, smtpHost)
 
-	// Отправляем email
+	// Отправляем email с логированием
 	err := smtp.SendMail(
 		smtpHost+":"+smtpPort,
 		auth,
@@ -73,8 +69,10 @@ func SendEmail(to, subject, body string) error {
 	)
 
 	if err != nil {
+		log.Printf("Error sending email: %v", err)
 		return fmt.Errorf("failed to send email: %v", err)
 	}
 
+	log.Printf("Email sent successfully to: %s", to)
 	return nil
 }

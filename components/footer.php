@@ -198,7 +198,15 @@
 <script>
 // Функция проверки авторизации
 function checkAuth() {
-    const requiredFields = ['userId', 'category', 'userEmail'];
+    const requiredFields = [
+        'userId', 
+        'category', 
+        'userEmail',
+        'name',
+        'phone',
+        'telegram',
+        'direction'
+    ];
     const missingFields = requiredFields.filter(field => !localStorage.getItem(field));
     const isVerified = localStorage.getItem('verified');
     const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
@@ -206,7 +214,7 @@ function checkAuth() {
     
     if (!window.location.pathname.includes('login.php')) {
         if (missingFields.length > 0 || isVerified === 'false') {
-            
+            console.log('Missing fields:', missingFields);
             localStorage.clear();
             window.location.href = 'login.php';
             return false;
@@ -260,11 +268,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const isVerified = localStorage.getItem('verified');
             const userId = localStorage.getItem('userId');
             const userEmail = localStorage.getItem('userEmail');
-            const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
-            const t = translations[currentLang];
+            const userName = localStorage.getItem('name');
+            const userPhone = localStorage.getItem('phone');
+            const userTelegram = localStorage.getItem('telegram');
+            const userDirection = localStorage.getItem('direction');
             
-            if (!userCategory || !userId || !userEmail) {
-                
+            if (!userCategory || !userId || !userEmail || !userName || !userPhone || !userTelegram || !userDirection) {
                 window.location.href = 'login.php';
                 return;
             }

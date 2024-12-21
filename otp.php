@@ -48,6 +48,17 @@
 <script src="translations.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const action = urlParams.get('action');
+    const isResetPassword = localStorage.getItem('resetPassword') === 'true';
+    const email = isResetPassword ? localStorage.getItem('resetPasswordEmail') : localStorage.getItem('userEmail');
+    
+    // Обновляем текст описания в зависимости от действия
+    const otpDescription = document.getElementById('otpDescription');
+    if (isResetPassword) {
+        otpDescription.textContent = `Введите код подтверждения, отправленный на email: ${email}`;
+    }
+
     // Переключатели языка
     const langButtons = document.querySelectorAll('.lang-toggle button');
     const savedLang = localStorage.getItem('selectedLanguage') || 'ru';
@@ -162,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const userData = JSON.parse(localStorage.getItem('userRegistrationData'));
             
             // Отправляем запрос на повторную отправку OTP
-            const response = await fetch('https://bgweb.nurali.uz/api/auth/resend-otp', {
+            const response = await fetch('http://localhost:8888/api/auth/resend-otp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -222,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Получаем данные пользователя из localStorage
             const userData = JSON.parse(localStorage.getItem('userRegistrationData'));
             
-            const response = await fetch('https://bgweb.nurali.uz/api/auth/verify-otp', {
+            const response = await fetch('http://localhost:8888/api/auth/verify-otp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -242,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alertBlock.textContent = data.message;
 
                 // Получаем данные о пользователе
-                const userResponse = await fetch(`https://bgweb.nurali.uz/api/auth/user?email=${userData.email}`, {
+                const userResponse = await fetch(`http://localhost:8888/api/auth/user?email=${userData.email}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -252,10 +263,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (userResponse.ok) {
                     const userData = await userResponse.json();
                     // Сохраняем данные пользователя в localStorage
-                    localStorage.setItem('userEmail', userData.email);
-                    localStorage.setItem('category', userData.category);
-                    localStorage.setItem('verified', userData.is_verified);
-                    localStorage.setItem('userId', userData.id);
+                    localStorage.setItem('userEmail',userData.email);
+                    localStorage.setItem('category',userData.category );
+                    localStorage.setItem('verified',userData.is_verified);
+                    localStorage.setItem('userId',userData.id);
+                    localStorage.setItem('direction',userData.direction);
+                    localStorage.setItem('telegram',userData.telegram);
+                    localStorage.setItem('name',userData.name);
+                    localStorage.setItem('phone',userData.phone);
                 }
                 
                 // Очищаем поля ввода
@@ -267,9 +282,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Удаляем временные данные регистрации
                 localStorage.removeItem('userRegistrationData');
                 
-                setTimeout(() => {
+                const isResetPassword = localStorage.getItem('resetPassword') === 'true';
+                
+                if (isResetPassword) {
+                    // Если это сброс пароля, перенаправляем на edit-profile.php
+                    localStorage.removeItem('resetPasswordEmail');
+                    localStorage.removeItem('resetPassword');
+                    window.location.href = 'edit-profile.php';
+                } else {
+                    // Если это обычная регистрация, перенаправляем на index.php
                     window.location.href = 'index.php';
-                }, 1000);
+                }
             } else {
                 // Неверный код
                 alertBlock.className = 'alert alert-danger';

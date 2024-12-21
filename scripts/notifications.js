@@ -4,7 +4,6 @@ class NotificationManager {
         this.button = document.querySelector('#notificationsBtn');
         this.modal = document.querySelector('.notifications-modal');
         this.unreadCount = 0;
-        this.isTelegramWebView = this.checkIfTelegramWebView();
         this.pollingInterval = null;
         this.init();
     }
@@ -18,68 +17,19 @@ class NotificationManager {
     startPolling() {
         if (this.pollingInterval) return;
         
-        console.log('Запуск периодического обновления уведомлений');
         // Проверяем новые уведомления каждые 10 секунд
         this.pollingInterval = setInterval(() => {
             this.loadNotifications();
-        }, 10000);
-
-        // Сразу загружаем уведомления
-        this.loadNotifications();
+        }, 20000);
     }
 
-    stopPolling() {
-        if (this.pollingInterval) {
-            clearInterval(this.pollingInterval);
-            this.pollingInterval = null;
+    addEventListeners() {
+        if (this.button) {
+            this.button.addEventListener('click', () => {
+                // Перенаправляем на страницу уведомлений
+                window.location.href = 'notifications.php';
+            });
         }
-    }
-
-    async loadNotifications() {
-        const userId = localStorage.getItem('userId');
-        if (!userId) return;
-
-        try {
-            const response = await fetch(`https://bgweb.nurali.uz/api/notifications/${userId}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch notifications');
-            }
-            const notifications = await response.json();
-            
-            if (Array.isArray(notifications)) {
-                // Обновляем количество непрочитанных
-                const newUnreadCount = notifications.filter(n => !n.is_read).length;
-                
-                // Если количество непрочитанных изменилось
-                if (newUnreadCount !== this.unreadCount) {
-                    // Находим только действительно новые уведомления
-                    if (newUnreadCount > this.unreadCount) {
-                        const newNotifications = notifications
-                            .filter(n => !n.is_read)
-                            .slice(0, newUnreadCount - this.unreadCount);
-                            
-                        // Показываем уведомления, но НЕ увеличиваем счетчик
-                        newNotifications.forEach(notification => {
-                            this.showNotification(notification);
-                        });
-                    }
-                    
-                    // Обновляем счетчик после обработки
-                    this.unreadCount = newUnreadCount;
-                    this.updateBadge();
-                }
-                
-                this.renderNotifications(notifications);
-            } else {
-                console.error('Notifications is not an array:', notifications);
-            }
-        } catch (error) {
-            console.error('Error loading notifications:', error);
-        }
-    }
-
-    checkIfTelegramWebView() {
-        return window.Telegram && window.Telegram.WebApp;
     }
 
     updateBadge() {
@@ -89,174 +39,218 @@ class NotificationManager {
         }
     }
 
-    addEventListeners() {
-        if (this.button) {
-            this.button.addEventListener('click', () => {
-                if (this.modal) {
-                    this.modal.classList.toggle('active');
-                    if (this.modal.classList.contains('active')) {
-                        this.loadNotifications();
-                    }
-                }
-            });
-        }
-
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.notifications-modal') && 
-                !e.target.closest('#notificationsBtn')) {
-                this.modal?.classList.remove('active');
-            }
-        });
-    }
-
-    handleNewNotification(notification) {
-        this.updateBadge();
-        this.addNotificationToList(notification);
-        this.showNotification(notification);
-    }
-
-    renderNotifications(notifications) {
-        if (!this.modal || !Array.isArray(notifications)) return;
-
-        const content = this.modal.querySelector('.notifications-content');
-        if (!content) return;
-
-        // Фильтруем только непрочитанные уведомления для модального окна
-        const unreadNotifications = notifications.filter(n => !n.is_read);
-
-        content.innerHTML = `
-            <div class="notifications-header">
-                <h5>Новые уведомления (${unreadNotifications.length})</h5>
-                <a href="notifications.php" class="view-all-btn">
-                    <i class="fas fa-history"></i>
-                    История
-                </a>
-            </div>
-            <div class="notifications-list">
-                ${unreadNotifications.map(notification => this.renderNotificationItem(notification)).join('')}
-            </div>
-            ${unreadNotifications.length === 0 ? `
-                <div class="no-notifications">
-                    <i class="fas fa-bell-slash"></i>
-                    <p>Нет новых уведомлений</p>
-                </div>
-            ` : ''}
-        `;
-
-        content.querySelectorAll('.notification-item').forEach(item => {
-            item.addEventListener('click', () => this.markAsRead(item.dataset.id));
-        });
-    }
-
-    async markAsRead(notificationId) {
-        try {
-            const response = await fetch(`https://bgweb.nurali.uz/api/notifications/${notificationId}/read`, {
-                method: 'PUT'
-            });
-
-            if (response.ok) {
-                const item = this.modal?.querySelector(`[data-id="${notificationId}"]`);
-                if (item?.classList.contains('unread')) {
-                    item.classList.remove('unread');
-                    this.unreadCount = Math.max(0, this.unreadCount - 1);
-                    this.updateBadge();
-                }
-            }
-        } catch (error) {
-            console.error('Error marking notification as read:', error);
-        }
-    }
-
-    // Метод для страницы уведомлений
-    async loadAllNotifications() {
+    async loadNotifications() {
         const userId = localStorage.getItem('userId');
         if (!userId) return;
 
         try {
-            const response = await fetch(`https://bgweb.nurali.uz/api/notifications/${userId}`);
-            if (!response.ok) throw new Error('Failed to fetch notifications');
-            
+            const response = await fetch(`http://localhost:8888/api/notifications/${userId}`);
             const notifications = await response.json();
-            if (!Array.isArray(notifications)) return;
-
-            const container = document.querySelector('.notifications-list');
-            if (!container) return;
-
-            container.innerHTML = notifications
-                .map(notification => this.renderNotificationItem(notification))
-                .join('');
+            
+            // Обновляем количество непрочитанных
+            this.unreadCount = notifications.filter(n => !n.is_read).length;
+            this.updateBadge();
+            
+            this.renderNotifications(notifications);
         } catch (error) {
-            console.error('Error loading notifications:', error);
+            console.error('Error:', error);
+            this.showError();
         }
     }
 
-    renderNotificationItem(notification) {
-            const fromUser = notification.from_user || {};
-            const adDetails = notification.ad_details || {};
+    renderNotifications(notifications) {
+        const container = document.querySelector('.notifications-list');
+        if (!container) return;
 
-            return `
-                <div class="notification-item ${notification.is_read ? '' : 'unread'}" 
-                     data-id="${notification.id}">
-                    <div class="notification-header">
-                        <div class="notification-user">
-                            <i class="fas fa-user-circle"></i>
-                            <span>${fromUser.name || 'Пользователь'}</span>
-                        </div>
-                        <div class="notification-time">
-                            ${new Date(notification.created_at).toLocaleString()}
-                        </div>
+        if (!notifications.length) {
+            container.innerHTML = '<div class="empty-state">Нет уведомлений</div>';
+            return;
+        }
+
+        container.innerHTML = notifications.map(notification => `
+            <div class="notification-card ${!notification.is_read ? 'unread' : ''}" 
+                 data-id="${notification.id}"
+                 onclick="notificationManager.openModal(${JSON.stringify(notification).replace(/"/g, '&quot;')})">
+                <div class="notification-header">
+                    <div class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span>${notification.from_user.name}</span>
                     </div>
-                    <div class="notification-content">
+                    <div class="time">${new Date(notification.created_at).toLocaleString()}</div>
+                </div>
+                <div class="notification-ad-info">
+                    <p><i class="fas fa-bullhorn"></i> ${notification.ad_details?.nickname || notification.ad_details?.name || 'Название не указано'}</p>
+                </div>
+                <div class="notification-body">
+                    ${notification.message}
+                </div>
+            </div>
+        `).join('');
+    }
 
-                        <div class="notification-ad">
-                            <div class="ad-preview">
-                                <div class="ad-info">
-                                    <div class="ad-title">${adDetails.nickname || adDetails.name}</div>
-                                    <div class="ad-id">ID публикации: ${notification.id}</div>
-                                </div>
-                            </div>
-                            <div class="contact-info">
-                                <div class="contact-item">
-                                    <i class="fas fa-envelope"></i>
-                                    <span>${fromUser.email}</span>
-                                </div>
-                                <div class="contact-item">
-                                    <i class="fas fa-phone"></i>
-                                    <span>${fromUser.phone}</span>
-                                </div>
-                            </div>
+    async openModal(notification) {
+        if (!notification.is_read) {
+            try {
+                await this.markAsRead(notification.id);
+                const card = document.querySelector(`.notification-card[data-id="${notification.id}"]`);
+                if (card) {
+                    card.classList.remove('unread');
+                }
+                this.unreadCount = Math.max(0, this.unreadCount - 1);
+                this.updateBadge();
+            } catch (error) {
+                console.error('Error marking notification as read:', error);
+            }
+        }
+
+        const modal = document.getElementById('notificationModal');
+        const adDetails = notification.ad_details;
+        const fromUser = notification.from_user;
+        
+        modal.querySelector('.modal-body').innerHTML = `
+            <div class="modal-sections">
+                <!-- Секция с объявлением -->
+                <div class="ad-section">
+                    <div class="ad-header">
+                        <h6>Объявление</h6>
+                        <span class="ad-type ${notification.ad_type}">
+                            ${this.getAdTypeLabel(notification.ad_type)}
+                        </span>
+                    </div>
+                    <div class="ad-content">
+                        <div class="ad-image">
+                            <img src="${adDetails.photo_base64}" alt="Фото объявления" 
+                                 onerror="this.src='./img/noImage.jpg'">
+                        </div>
+                        <div class="ad-info">
+                            <h5>${adDetails.nickname || adDetails.name}</h5>
+                            <p class="ad-comment">${adDetails.ad_comment}</p>
                         </div>
                     </div>
                 </div>
-            `;
+
+                <!-- Секция с отправителем -->
+                <div class="sender-section">
+                    <div class="sender-header">
+                        <h6>Информация об отправителе</h6>
+                        <span class="date">${new Date(notification.created_at).toLocaleString()}</span>
+                    </div>
+                    <div class="sender-info">
+                        <div class="contact-item">
+                            <i class="fas fa-user"></i>
+                            <span>Имя: ${fromUser.name}</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-tag"></i>
+                            <span>Категория: ${fromUser.category || 'Не указана'}</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-compass"></i>
+                            <span>Направление: ${fromUser.direction || 'Не указано'}</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>Телефон: ${fromUser.phone}</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email: ${fromUser.email}</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-telegram"></i>
+                            <span>Telegram: <a href="https://t.me/${fromUser.telegram}" target="_blank" class="telegram-link">@${fromUser.telegram}</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        new bootstrap.Modal(modal).show();
     }
 
-    // Новый метод только для показа уведомления
+    renderAdLinks(adDetails) {
+        const links = [];
+        
+        if (adDetails.telegram_link) {
+            links.push(`
+                <a href="${adDetails.telegram_link}" target="_blank" class="social-link telegram">
+                    <i class="fab fa-telegram"></i> Telegram
+                </a>
+            `);
+        }
+        
+        if (adDetails.instagram_link) {
+            links.push(`
+                <a href="${adDetails.instagram_link}" target="_blank" class="social-link instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+            `);
+        }
+
+        if (adDetails.youtube_link) {
+            links.push(`
+                <a href="${adDetails.youtube_link}" target="_blank" class="social-link youtube">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+            `);
+        }
+
+        return links.join('') || '<span class="no-links">Ссылки не указаны</span>';
+    }
+
+    getAdTypeLabel(type) {
+        return {
+            'blogger': 'Блогер',
+            'company': 'Компания',
+            'freelancer': 'Фрилансер'
+        }[type] || type;
+    }
+
+    getAdLink(notification) {
+        const baseUrl = 'index.php';
+        const type = notification.ad_type;
+        const id = notification.ad_details?.ID || notification.ad_details?.id || notification.ad_id;
+        
+        if (!id) {
+            console.error('Ad ID not found:', notification);
+            return '#';
+        }
+
+        switch(type) {
+            case 'blogger':
+                return `${baseUrl}?page=bloggers&view=${id}`;
+            case 'company':
+                return `${baseUrl}?page=advertisers&view=${id}`;
+            case 'freelancer':
+                return `${baseUrl}?page=freelancers&view=${id}`;
+            default:
+                return '#';
+        }
+    }
+
+    showError() {
+        const container = document.querySelector('.notifications-list');
+        if (container) {
+            container.innerHTML = '<div class="error-state">Ошибка загрузки уведомлений</div>';
+        }
+    }
+
     showNotification(notification) {
-        // Специальная обработка для Telegram WebView
-        if (this.isTelegramWebView && window.Telegram.WebApp) {
-            window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
-            window.Telegram.WebApp.showPopup({
-                title: 'Новое уведомление',
-                message: 'У вас новое соглашение!',
-                buttons: [{
-                    type: 'ok'
-                }]
-            });
-        } else {
-            Utils.showNotification('У вас новое соглашение!', 'info');
+        Utils.showNotification('У вас новое соглашение!', 'info');
+    }
+
+    async markAsRead(notificationId) {
+        const response = await fetch(`http://localhost:8888/api/notifications/${notificationId}/read`, {
+            method: 'PUT'
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to mark notification as read');
         }
     }
 }
 
-// Инициализация в зависимости от страницы
+// Инициализация
 document.addEventListener('DOMContentLoaded', () => {
-    const notificationManager = new NotificationManager();
-    
-    // Если мы на странице уведомлений, загружаем все уведомления
-    if (window.location.pathname.includes('notifications.php')) {
-        notificationManager.loadAllNotifications();
-    }
+    window.notificationManager = new NotificationManager();
 });
-
-// Добавим стили в header.php 

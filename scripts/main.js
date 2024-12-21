@@ -12,6 +12,33 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // Инициализируем bloggerLoader если его нет
+    if (!window.bloggerLoader) {
+        window.bloggerLoader = {
+            userAgreements: new Set()
+        };
+        // Сразу загружаем соглашения
+        loadUserAgreements();
+    }
+
+    // Функция загрузки соглашений пользователя
+    async function loadUserAgreements() {
+        const userId = localStorage.getItem('userId');
+        if (!userId) return;
+
+        try {
+            const response = await fetch(`http://localhost:8888/api/user-agreements?user_id=${userId}`);
+            if (!response.ok) throw new Error('Failed to fetch agreements');
+            
+            const agreements = await response.json();
+            agreements.forEach(agreement => {
+                window.bloggerLoader.userAgreements.add(`${agreement.ad_type}_${agreement.ad_id}`);
+            });
+        } catch (error) {
+            console.error('Error loading agreements:', error);
+        }
+    }
+
     // Определяем глобальную функцию для показа модального окна
     window.showConfirmModal = (button) => {
         const rect = button.getBoundingClientRect();
@@ -26,6 +53,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const button = confirmModal.currentButton;
         if (!button) return;
 
+        // Сначала закрываем модалку
+        confirmModal.classList.remove('active');
+        
+        // Сохраняем оригинальные элементы кнопки
+        const originalHTML = button.innerHTML;
+        const originalBackground = button.style.background;
+        
+        // Показываем индикатор загрузки
+        button.innerHTML = `
+            <div class="spinner-wrapper">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+        `;
+        button.style.background = 'var(--gradient-1)';
+        button.disabled = true;
+
         try {
             const adId = button.dataset.id;
             const fromUserId = localStorage.getItem('userId');
@@ -33,14 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const detailsBtn = button.closest('.btn-actions').querySelector('.btn-details');
             const adType = detailsBtn ? detailsBtn.dataset.type : 'blogger';
 
-            console.log('Sending notification:', {
-                from_user_id: parseInt(fromUserId),
-                to_user_id: parseInt(toUserId),
-                ad_id: parseInt(adId),
-                ad_type: adType
-            });
-            
-            const response = await fetch('https://bgweb.nurali.uz/api/notifications/accept', {
+            // Проверяем наличие всех необходимых данных
+            if (!adId || !fromUserId || !toUserId || !adType) {
+                console.error('Missing required data:', { adId, fromUserId, toUserId, adType });
+                throw new Error('Missing required data for notification');
+            }
+
+            const response = await fetch('http://localhost:8888/api/notifications/accept', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -50,23 +92,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     to_user_id: parseInt(toUserId),
                     ad_id: parseInt(adId),
                     ad_type: adType
-                    
                 })
             });
 
             if (response.ok) {
+                // При успехе показываем галочку
+                button.innerHTML = `<div class="success-icon"><i class="fas fa-check"></i></div>`;
                 button.style.background = 'linear-gradient(45deg, #32d583, #20bd6d)';
                 button.disabled = true;
                 Utils.showNotification('Соглашение успешно отправлено', 'success');
             } else {
-                throw new Error('Failed to send notification');
+                // При ошибке показываем крестик с анимацией
+                button.innerHTML = `
+                    <div class="error-icon">
+                        <i class="fas fa-times"></i>
+                    </div>
+                `;
+                button.style.background = 'linear-gradient(45deg, #dc3545, #c82333)';
+                button.disabled = false;
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to send notification');
             }
         } catch (error) {
             console.error('Error:', error);
-            Utils.showNotification('Произошла ошибка', 'error');
+            // При ошибке показываем крестик
+            button.innerHTML = `
+                <div class="error-icon">
+                    <i class="fas fa-times"></i>
+                </div>
+            `;
+            button.style.background = 'linear-gradient(45deg, #dc3545, #c82333)';
+            button.disabled = false;
+            Utils.showNotification(error.message || 'Произошла ошибка', 'error');
         }
-
-        confirmModal.classList.remove('active');
     });
 
     // Обработчик для кнопки "Нет"
@@ -74,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         confirmModal.classList.add('shake');
         setTimeout(() => {
             confirmModal.classList.remove('active', 'shake');
-        }, 500);
+        }, 300);
     });
 
     // Закрытие при клике вне модального окна

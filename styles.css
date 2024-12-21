@@ -10,6 +10,8 @@
     --gradient-1: linear-gradient(145deg, #1a1d26, #252935);
     --gradient-2: linear-gradient(145deg, #4d7eff, #6d5dff);
     --card-hover: #252935;
+    --accent-blue-light: rgba(77, 126, 255, 0.1);
+    --accent-blue-hover: rgba(77, 126, 255, 0.15);
 }
 
 body.light-theme {
@@ -229,7 +231,7 @@ body:not(.dark-theme) {
 
 .product-card:hover {
     transform: translateY(-2px);
-    background: var(--card-hover);
+    
     box-shadow: var(--shadow);
 }
 
@@ -1366,7 +1368,7 @@ body.light-theme .auth-form .btn-primary {
     color: white;
 }
 
-/* Общие стили для полей внутри социальных секций */
+/* Общие стили для поле���� в����утри социальных секций */
 .social-fields {
     background: var(--card-bg);
     border-radius: 10px;
@@ -1446,7 +1448,7 @@ body.light-theme .auth-form .btn-primary {
     opacity: 0.8;
 }
 
-/* Стили для светлой темы */
+/* Стили ��ля светлой темы */
 body.light-theme .type-toggle {
     border-color: rgba(0, 0, 0, 0.1);
 }
@@ -1469,7 +1471,7 @@ body.light-theme .type-toggle .form-check-input:checked::after {
     color: white;
 }
 
-/* Стили для кнопки публикации */
+/* ��тили для кнопки публикации */
 .btn-primary {
     background: var(--gradient-2) !important;
     border: none;
@@ -2180,9 +2182,9 @@ body:not(.dark-theme) #addButton:hover {
     background: rgba(77, 126, 255, 0.1);
 }
 
-/* Стили для модального окна в светлой теме */
+/* Стили для модально��о ок��а в светлой теме */
 body:not(.dark-theme) .modal-content {
-    background: var(--card-bg);
+   
     color: var(--text-color);
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -2361,25 +2363,6 @@ body:not(.dark-theme) .btn-close:hover {
 
 .contact-item i {
     color: var(--accent-blue);
-}
-
-/* Стили для светлой темы */
-body:not(.dark-theme) .notification-item {
-    background: var(--card-bg);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-body:not(.dark-theme) .notification-header {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-body:not(.dark-theme) .contact-info {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-body:not(.dark-theme) .contact-item {
-    background: var(--gradient-1);
-    color: var(--text-color);
 }
 
 /* Стили для пустого состояния */
@@ -2581,8 +2564,8 @@ body:not(.dark-theme) .contact-item {
 }
 
 /* Светлая тема */
-.custom-modal .modal-content {
-    background-color: #fff;
+.custom-modal {
+ 
 }
 
 .custom-modal .modal-title {
@@ -2678,5 +2661,125 @@ body:not(.dark-theme) .contact-item {
     transform: scale(1);
 }
 
+.notifications-btn {
+    position: relative;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.notifications-btn:hover {
+    background: var(--card-hover);
+}
+
+.notifications-btn .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--accent-blue);
+    color: white;
+    border-radius: 50%;
+    min-width: 18px;
+    height: 18px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(25%, -25%);
+}
+
+.notifications-btn i {
+    font-size: 20px;
+    color: var(--text-color);
+}
+
+.filter-container {
+    background: var(--card-bg);
+    border-radius: 12px;
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+}
+
+.category-select {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    background: var(--gradient-1);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    margin-right: 15px;
+}
+
+.category-select option {
+    background: var(--card-bg);
+    color: var(--text-color);
+    padding: 8px;
+}
+
+.spinner-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner-wrapper i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.success-icon, .error-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.no-results {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-secondary);
+    background: var(--card-bg);
+    border-radius: 12px;
+    margin: 15px;
+}
+
+.filter-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-icon i {
+    color: var(--text-color);
+    font-size: 18px;
+}
+
+.filter-icon:hover {
+    transform: scale(1.05);
+    background: var(--gradient-2);
+}
+
+.filter-icon.active {
+    background: var(--gradient-2);
+}
 
 

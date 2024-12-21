@@ -62,6 +62,9 @@ func main() {
 			auth.GET("/user", handlers.GetUserByEmail)
 			auth.GET("/user/:id", handlers.GetUserByID)
 			auth.POST("/resend-otp", handlers.ResendOTP)
+			auth.POST("/forgot-password", handlers.ForgotPassword)
+			auth.POST("/reset-password", handlers.ResetPassword)
+			auth.POST("/update-profile", handlers.UpdateProfile)
 		}
 
 		// Маршруты для постов блогеров
@@ -91,12 +94,14 @@ func main() {
 			ads.DELETE("/:type/:id", handlers.DeleteAd)
 			ads.GET("/user/:category/:user_id", handlers.GetUserAdsByCategory)
 			ads.GET("/search", handlers.SearchAds)
+			ads.GET("/details/blogger/:id", handlers.GetPostBloggerByID)
 		}
 
 		// Маршруты для уведомлений
 		api.POST("/notifications/accept", handlers.CreateAcceptNotification)
 		api.GET("/notifications/:user_id", handlers.GetUserNotifications)
 		api.PUT("/notifications/:id/read", handlers.MarkNotificationAsRead)
+		api.GET("/user-agreements", handlers.CheckUserAgreements)
 
 		// WebSocket endpoint
 		api.GET("/ws/:user_id", handlers.HandleWebSocket)

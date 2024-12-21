@@ -1,4 +1,14 @@
 <?php
+// Получаем chat_id из URL
+if (isset($_GET['chat_id'])) {
+    $chat_id = $_GET['chat_id'];
+    // Добавляем JavaScript для сохранения chat_id в localStorage
+    echo "<script>
+        localStorage.setItem('telegram_chat_id', '$chat_id');
+        console.log('Saved telegram_chat_id:', '$chat_id');
+    </script>";
+}
+
 // Если нет параметра page, перенаправляем на страницу блогеров
 if (!isset($_GET['page'])) {
     header('Location: index.php?page=bloggers');
