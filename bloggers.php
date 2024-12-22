@@ -29,3 +29,12 @@
     <!-- Карточки будут добавляться динамически -->
 </div>
 <script src="scripts/bloggers.js"></script>
+
+<!-- Индикатор загрузки -->
+<div id="loadingIndicator" class="loading-indicator">
+    <div class="spinner-wrapper">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
