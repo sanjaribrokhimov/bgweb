@@ -613,7 +613,7 @@
                     console.log('Отправляемые данные:', postData);
 
                     // Отправляем данные на API
-                    const response = await fetch('http://localhost:8888/api/post-bloggers', {
+                    const response = await fetch('https://bgweb.nurali.uz/api/post-bloggers', {
                         method: 'POST',
                         credentials: 'include',
                         headers: {

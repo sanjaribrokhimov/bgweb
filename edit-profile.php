@@ -242,7 +242,7 @@
             // Получаем данные пользователя из базы
             try {
                 const email = localStorage.getItem('userEmail');
-                const response = await fetch(`http://localhost:8888/api/auth/user?email=${encodeURIComponent(email)}`);
+                const response = await fetch(`https://bgweb.nurali.uz/api/auth/user?email=${encodeURIComponent(email)}`);
                 
                 if (!response.ok) {
                     throw new Error('Ошибка получения данных пользователя');
@@ -354,7 +354,7 @@
                     }
                     if (form.password.value) formData.password = form.password.value;
 
-                    const response = await fetch('http://localhost:8888/api/auth/update-profile', {
+                    const response = await fetch('https://bgweb.nurali.uz/api/auth/update-profile', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -362,7 +362,7 @@
                         body: JSON.stringify(formData)
                     });
 
-                    console.log('Request URL:', 'http://localhost:8888/api/auth/update-profile');
+                    console.log('Request URL:', 'https://bgweb.nurali.uz/api/auth/update-profile');
                     console.log('Request method:', 'POST');
                     console.log('Request body:', formData);
                     console.log('Response status:', response.status);
