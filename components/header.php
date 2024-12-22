@@ -610,7 +610,7 @@ $IP = '144.126.128.67';
                 <div class="language-switcher">
                     <div class="notranslate lang-toggle">
                         <button class="lang-btn" data-lang="ru">RU</button>
-                        <button class="lang-btn" data-lang="uz">UZ</button>
+                        <button class="lang-btn" data-lang="uz">salom</button>
                     </div>
                 </div>
                 <div class="theme-switcher">
