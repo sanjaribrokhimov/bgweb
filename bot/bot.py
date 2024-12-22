@@ -148,10 +148,13 @@ mumkin
         keyboard.add(*buttons)
         return keyboard
 
-    def create_main_keyboard(self, lang='ru'):
+    def create_main_keyboard(self, lang='ru', chat_id=None):
         keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-        # Всегда отправляем на index.php, который сделает редирект если нужно
-        web_app = WebAppInfo(url=f"https://bgweb.nurali.uz/index.php?chat_id={message.chat.id}")
+        # Используем chat_id из параметра если он передан
+        web_app_url = f"https://bgweb.nurali.uz/index.php?v=123456789"
+        if chat_id:
+            web_app_url += f"?chat_id={chat_id}"
+        web_app = WebAppInfo(url=web_app_url)
         
         buttons_text = {
             'ru': [
@@ -188,9 +191,12 @@ mumkin
     def check_subscription(self, message):
         try:
             member = self.bot.get_chat_member(chat_id=self.channel_id, user_id=message.from_user.id)
-            if member.status in ['member', 'administrator', 'creator']:
-                return True
-            return False
+            return member.status in ['member', 'administrator', 'creator']
+        except telebot.apihelper.ApiException as e:
+            logger.error(f"API Error in check_subscription: {e}")
+            # В случае ошибки доступа к списку участников, 
+            # временно пропускаем проверку подписки
+            return True
         except Exception as e:
             logger.error(f"Error checking subscription: {e}")
             return False
@@ -286,7 +292,7 @@ mumkin
         @self.bot.message_handler(func=lambda message: message.text in ["🇷🇺 Русский", "🇺🇿 O'zbekcha"])
         def language_choice(message):
             user_id = message.from_user.id
-            if message.text == "🇺 Русский":
+            if message.text == "🇺🇺 Русский":
                 self.user_languages[user_id] = 'ru'
                 lang_changed_text = self.TEXTS['ru']['language_changed']
             else:
@@ -296,7 +302,10 @@ mumkin
             self.bot.send_message(
                 message.chat.id,
                 lang_changed_text,
-                reply_markup=self.create_main_keyboard(self.user_languages[user_id])
+                reply_markup=self.create_main_keyboard(
+                    self.user_languages[user_id], 
+                    message.chat.id
+                )
             )
             
             if self.check_subscription(message):
