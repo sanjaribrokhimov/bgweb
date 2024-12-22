@@ -21,6 +21,7 @@ type CompanyInput struct {
 	InstagramLink    string `json:"instagram_link"`
 	TelegramLink     string `json:"telegram_link"`
 	TelegramUsername string `json:"telegram_username"`
+	Status           string `json:"status"`
 }
 
 func CreateCompany(c *gin.Context) {
@@ -42,7 +43,7 @@ func CreateCompany(c *gin.Context) {
 		InstagramLink:    input.InstagramLink,
 		TelegramLink:     input.TelegramLink,
 		TelegramUsername: input.TelegramUsername,
-		Status:           "active",
+		Status:           "false",
 	}
 
 	// Проверяем обязательные поля
@@ -107,6 +108,7 @@ func GetCompanies(c *gin.Context) {
 			"telegram_link":     company.TelegramLink,
 			"telegram_username": company.TelegramUsername,
 			"user_id":           company.UserID,
+			"status":            company.Status,
 		}
 	}
 
@@ -134,6 +136,7 @@ func GetCompanyByID(c *gin.Context) {
 		"telegram_link":     company.TelegramLink,
 		"telegram_username": company.TelegramUsername,
 		"user_id":           company.UserID,
+		"status":            company.Status,
 	})
 }
 

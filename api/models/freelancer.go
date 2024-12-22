@@ -2,6 +2,7 @@ package models
 
 import (
     "gorm.io/gorm"
+    "time"
 )
 
 type Freelancer struct {
@@ -18,6 +19,9 @@ type Freelancer struct {
     InstagramLink string `json:"instagram_link,omitempty"`
     TelegramLink  string `json:"telegram_link,omitempty"`
     YoutubeLink   string `json:"youtube_link,omitempty"`
-    
-    Status     string  `json:"status" gorm:"default:'active'"`
+    Status        string `json:"status" gorm:"default:'false'"`
+    Description   string `json:"description"`
+    Skills        string `json:"skills"`
+    Experience    string `json:"experience"`
+    CreatedAt     time.Time `json:"created_at"`
 } 

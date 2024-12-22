@@ -62,3 +62,23 @@ Details: Failed to send OTP
 Error: 535 5.7.0 NEOBHODIM parol prilozheniya https://help.mail.ru/mail/security/protection/external / Application password is REQUIRED
 Details: Failed to send OTP
 
+[2024-12-22 15:21:15] Source: Login
+Error: record not found
+Details: User not found: ibrokhimov3210@gmail.vom
+
+[2024-12-22 15:21:22] Source: Login
+Error: record not found
+Details: User not found: ibrokhimov3210@gmail.vom
+
+[2024-12-22 15:21:24] Source: Login
+Error: record not found
+Details: User not found: ibrokhimov3210@gmail.vom
+
+[2024-12-22 15:21:39] Source: Login
+Error: record not found
+Details: User not found: ibrokhimov3210@gmail.vom
+
+[2024-12-22 15:21:45] Source: Login
+Error: record not found
+Details: User not found: ibrokhimov3210@gmail.vom
+

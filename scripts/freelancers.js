@@ -91,11 +91,13 @@ class FreelancerLoader {
             console.log('Loaded freelancers:', data);
 
             const freelancers = data.data || [];
-            if (freelancers.length < this.limit) {
+            const activeFreelancers = freelancers.filter(freelancer => freelancer.status === "true");
+            
+            if (activeFreelancers.length < this.limit) {
                 this.hasMore = false;
             }
 
-            this.allFreelancers = [...this.allFreelancers, ...freelancers];
+            this.allFreelancers = [...this.allFreelancers, ...activeFreelancers];
             console.log('Updated allFreelancers:', this.allFreelancers);
 
             this.filterFreelancers();

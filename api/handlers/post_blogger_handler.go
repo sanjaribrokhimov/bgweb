@@ -21,6 +21,7 @@ func CreatePostBlogger(c *gin.Context) {
 		InstagramLink    string `json:"instagram_link"`
 		TelegramLink     string `json:"telegram_link"`
 		YoutubeLink      string `json:"youtube_link"`
+		Status           string `json:"status"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -51,6 +52,7 @@ func CreatePostBlogger(c *gin.Context) {
 		InstagramLink:    input.InstagramLink,
 		TelegramLink:     input.TelegramLink,
 		YoutubeLink:      input.YoutubeLink,
+		Status:           "false",
 	}
 
 	if err := database.DB.Create(&postBlogger).Error; err != nil {
@@ -60,7 +62,7 @@ func CreatePostBlogger(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": "Пост успешно создан",
+		"message": "Post created successfully",
 		"post":    postBlogger,
 	})
 }

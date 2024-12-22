@@ -105,6 +105,18 @@ func main() {
 
 		// WebSocket endpoint
 		api.GET("/ws/:user_id", handlers.HandleWebSocket)
+
+		// Маршруты для админ-панели
+		admin := api.Group("/admin")
+		{
+			admin.POST("/login", handlers.AdminLogin)
+			admin.GET("/pending-ads", handlers.GetPendingAds)
+			admin.POST("/approve-ad", handlers.ApproveAd)
+			admin.POST("/reject-ad", handlers.RejectAd)
+			admin.GET("/statistics", handlers.GetAdminStatistics)
+			admin.GET("/users", handlers.GetAllUsers)
+			admin.POST("/toggle-user-status", handlers.ToggleUserStatus)
+		}
 	}
 
 	// Запуск сервера

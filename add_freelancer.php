@@ -69,6 +69,85 @@
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* Стили для модального окна */
+.modal-content {
+    background: rgba(33, 37, 41, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+}
+
+.modal-title {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+}
+
+.success-icon {
+    color: #28a745;
+    font-size: 64px;
+    margin-bottom: 20px;
+    animation: scaleIn 0.5s ease-out;
+}
+
+.modal-body p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.modal .btn-primary {
+    background: #0d6efd;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.modal .btn-primary:hover {
+    background: #0b5ed7;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Анимация появления модального окна */
+.modal.fade .modal-dialog {
+    transform: scale(0.7);
+    transition: transform 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+}
 </style>
 
 <div class="auth-container">
@@ -208,6 +287,27 @@
             <div class="alert" role="alert"></div>
         </div>
     </form>
+</div>
+
+<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Отлично!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <i class="fas fa-check-circle success-icon"></i>
+                <p class="mt-3">Ваше объявление успешно добавлено и отправлено на модерацию.</p>
+                <p>Уведомление будет отправлено на вашу почту.</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" onclick="window.location.href='index.php'">
+                    <i class="fas fa-check"></i> Понятно
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -482,12 +582,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 responseBlock.style.display = 'block';
 
                 if (response.ok) {
-                    alertBlock.className = 'alert alert-success';
-                    alertBlock.textContent = data.message || 'Профиль фрилансера успешно создан';
+                    // Скрываем предыдущий алерт если он был
+                    responseBlock.style.display = 'none';
                     
-                    setTimeout(() => {
+                    // Показываем модальное окно
+                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
+                    
+                    // Добавляем обработчик закрытия модального окна
+                    document.getElementById('successModal').addEventListener('hidden.bs.modal', function () {
                         window.location.href = 'index.php';
-                    }, 2000);
+                    });
                 } else {
                     throw new Error(data.message || 'Ошибка при создании профиля фрилансера');
                 }

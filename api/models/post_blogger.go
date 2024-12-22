@@ -18,4 +18,5 @@ type PostBlogger struct {
 	YoutubeLink      string    `json:"youtube_link"`
 	CreatedAt        time.Time `json:"created_at"`
 	UpdatedAt        time.Time `json:"updated_at"`
+	Status           string    `json:"status" gorm:"default:'false'"`
 }

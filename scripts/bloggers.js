@@ -88,11 +88,13 @@ class BloggerLoader {
             console.log('Loaded bloggers:', data);
 
             const bloggers = data.data || [];
-            if (bloggers.length < this.limit) {
+            const activeBloggers = bloggers.filter(blogger => blogger.status === "true");
+            
+            if (activeBloggers.length < this.limit) {
                 this.hasMore = false;
             }
 
-            this.allBloggers = [...this.allBloggers, ...bloggers];
+            this.allBloggers = [...this.allBloggers, ...activeBloggers];
             console.log('Updated allBloggers:', this.allBloggers);
 
             this.filterBloggers();

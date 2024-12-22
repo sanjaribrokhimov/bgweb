@@ -1,0 +1,177 @@
+/* Общие стили */
+:root {
+    --sidebar-width: 250px;
+    --header-height: 60px;
+    --primary-color: #4e73df;
+    --secondary-color: #858796;
+    --success-color: #1cc88a;
+    --danger-color: #e74a3b;
+    --warning-color: #f6c23e;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #f8f9fc;
+}
+
+/* Стили для страницы входа */
+.admin-login {
+    background: linear-gradient(120deg, #4e73df 0%, #224abe 100%);
+}
+
+.admin-login .card {
+    border: none;
+    border-radius: 10px;
+}
+
+.admin-login .card-body {
+    padding: 2rem;
+}
+
+/* Стили для админ-панели */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Боковое меню */
+.sidebar {
+    width: var(--sidebar-width);
+    background: #4e73df;
+    color: white;
+    transition: all 0.3s;
+    position: fixed;
+    height: 100vh;
+    z-index: 1000;
+}
+
+.sidebar.active {
+    margin-left: calc(-1 * var(--sidebar-width));
+}
+
+.sidebar-header {
+    padding: 20px;
+    background: #4e73df;
+}
+
+.sidebar ul li a {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li.active a {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/* Основной контент */
+.content {
+    width: calc(100% - var(--sidebar-width));
+    margin-left: var(--sidebar-width);
+    transition: all 0.3s;
+    padding: 20px;
+}
+
+.content.active {
+    width: 100%;
+    margin-left: 0;
+}
+
+/* Верхняя панель */
+.navbar {
+    padding: 15px 20px;
+    background: white !important;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    margin-bottom: 24px;
+}
+
+/* Карточки статистики */
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    margin-bottom: 24px;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* Таблицы */
+.table-responsive {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.table th {
+    font-weight: 600;
+    border-top: none;
+}
+
+/* Секции контента */
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+/* Кнопки */
+.btn-info {
+    color: white;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-info:hover {
+    background-color: #2e59d9;
+    border-color: #2653d4;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .sidebar {
+        margin-left: calc(-1 * var(--sidebar-width));
+    }
+    
+    .sidebar.active {
+        margin-left: 0;
+    }
+    
+    .content {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .content.active {
+        margin-left: var(--sidebar-width);
+    }
+}
+
+/* Дополнительные стили для мобильных устройств */
+@media (max-width: 576px) {
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .table-responsive {
+        padding: 10px;
+    }
+    
+    .navbar {
+        padding: 10px;
+    }
+} 

@@ -2695,13 +2695,13 @@ body:not(.dark-theme) .btn-close:hover {
 }
 
 .filter-container {
-    background: var(--card-bg);
+    background:linear-gradient(145deg, #f7eb67, #6d5dff);
     border-radius: 12px;
-    margin: 15px;
+    margin: 0px 15px 0px 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 15px;
+    padding: 10px 15px 10px 15px;
 }
 
 .category-select {

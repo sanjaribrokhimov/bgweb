@@ -64,11 +64,13 @@ class CompanyLoader {
             const data = await response.json();
             const companies = data.data || [];
             
-            if (companies.length < this.limit) {
+            const activeCompanies = companies.filter(company => company.status === "true");
+            
+            if (activeCompanies.length < this.limit) {
                 this.hasMore = false;
             }
 
-            this.allCompanies = [...this.allCompanies, ...companies];
+            this.allCompanies = [...this.allCompanies, ...activeCompanies];
             
             this.filterCompanies();
 

@@ -11,6 +11,7 @@ const getUserAds = async (category, userId) => {
         
         const data = await response.json();
         if (response.ok) {
+            console.log('Raw server response:', data);
             console.log('User ads:', data);
             return data;
         } else {
@@ -115,7 +116,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const comment = ad.ad_comment || '';
                 const photo = ad.photo_base64 || './img/noImage.jpg';
                 const budget = ad.budget || 0;
-                const id = ad.ID; // Используем большую букву ID
+                const id = ad.ID || ad.id || ad.post_id;
+                
+                if (!id) {
+                    console.error('Missing ID for ad:', ad);
+                    return;
+                }
 
                 adCard.innerHTML = `
                     <div class="product-image">
@@ -124,8 +130,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                     <div class="product-info">
                         <h3>${name}</h3>
-
-
                         <p class="ad-comment">${comment}</p>
                         <div class="btn-actions">
                             <button class="btn btn-danger delete-btn" data-id="${id}" data-type="${userCategory}">
@@ -135,9 +139,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                 `;
 
-
-
                 adsContainer.appendChild(adCard);
+                console.log('Created card with ID:', id);
             } catch (error) {
                 console.error('Error creating ad card:', error, ad);
             }
@@ -168,11 +171,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             const deleteBtn = e.target.closest('.delete-btn');
             currentDeleteId = deleteBtn.dataset.id;
             currentDeleteType = deleteBtn.dataset.type;
+            
+            console.log('Delete button clicked:', { 
+                btn: deleteBtn,
+                id: currentDeleteId, 
+                type: currentDeleteType,
+                dataset: deleteBtn.dataset 
+            });
+            
             if (!currentDeleteId || !currentDeleteType) {
                 console.error('Missing data:', { id: currentDeleteId, type: currentDeleteType });
+                alert('Ошибка: не удалось определить ID объявления');
                 return;
             }
-            console.log('Delete button clicked:', { id: currentDeleteId, type: currentDeleteType });
+            
             deleteModal.show();
         }
     });
