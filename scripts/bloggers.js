@@ -60,41 +60,12 @@ class BloggerLoader {
     }
 
     initializeAcceptButtons() {
-        if (!document.querySelector('.btn-accept')) return;
-        
-        document.addEventListener('click', async (e) => {
+        document.addEventListener('click', (e) => {
             const acceptBtn = e.target.closest('.btn-accept');
             if (!acceptBtn) return;
             
             e.preventDefault();
-            showLoading();
-            
-            try {
-                const adId = acceptBtn.dataset.id;
-                const response = await fetch('https://bgweb.nurali.uz/api/user-agreements', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        user_id: localStorage.getItem('userId'),
-                        ad_id: adId,
-                        ad_type: 'blogger'
-                    })
-                });
-                
-                if (!response.ok) throw new Error('Network response was not ok');
-                
-                acceptBtn.disabled = true;
-                acceptBtn.textContent = 'Согласие получено';
-                acceptBtn.classList.remove('btn-primary');
-                acceptBtn.classList.add('btn-success');
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Ошибка при отправке согласия');
-            } finally {
-                hideLoading();
-            }
+            showConfirmModal(acceptBtn);
         });
     }
 
@@ -102,10 +73,11 @@ class BloggerLoader {
         if (this.loading || !this.hasMore) return;
         
         this.loading = true;
-        showLoading();
         const grid = document.querySelector('.products-grid');
+        const loadingIndicator = document.getElementById('loadingIndicator');
         
         try {
+            loadingIndicator.style.display = 'block';
             const url = `https://bgweb.nurali.uz/api/ads/category/blogger?page=${this.page}&limit=${this.limit}`;
 
             const response = await fetch(url);
@@ -132,7 +104,7 @@ class BloggerLoader {
             console.error('Error loading bloggers:', error);
         } finally {
             this.loading = false;
-            hideLoading();
+            loadingIndicator.style.display = 'none';
         }
     }
 

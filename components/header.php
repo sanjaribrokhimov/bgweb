@@ -7,11 +7,12 @@ $IP = '144.126.128.67';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle; ?></title>
+    <title>Bloger Agency</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+
     <style>
         /* Фиксируем блок сверху */
         .top-bar {
@@ -281,7 +282,7 @@ $IP = '144.126.128.67';
             margin: 0;
         }
 
-        /* Стили для модального окн�� уведомлений */
+        /* Стили для модального окна уведомлений */
         .notifications-modal {
             position: fixed;
             top: 70px;
@@ -545,58 +546,6 @@ $IP = '144.126.128.67';
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* Стили для фильтрации */
-        .filter-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .category-select {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        
-        /* Стили для спиннера */
-        .loading-indicator {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        /* Стили для кнопки согласия */
-        .btn-accept {
-            background: #0d6efd;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-accept:hover {
-            background: #0b5ed7;
-            transform: translateY(-2px);
-        }
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -727,7 +676,7 @@ $IP = '144.126.128.67';
         <!-- Добавить модальное окно уведомлений -->
         <div class="notifications-modal">
             <div class="notifications-header">
-                <h5>Уведомления</h5>
+                <h5>Уведомлени��</h5>
             </div>
             <div class="notifications-content">
                 <!-- Уведомления будут добавляться здесь -->
@@ -930,7 +879,7 @@ $IP = '144.126.128.67';
         // Применяем сохраненный язык ко всем элементам
         document.querySelectorAll('[data-translate]').forEach(element => {
             const key = element.getAttribute('data-translate');
-            const icon = element.querySelector('i')?.outerHTML || ''; // Сохраняем иконку е��ли она есть
+            const icon = element.querySelector('i')?.outerHTML || ''; // Сохраняем иконку если она есть
             
             const keys = key.split('.');
             let translation = translations[savedLang];
@@ -1108,7 +1057,7 @@ $IP = '144.126.128.67';
             const labels = {
                 bloggers: 'Блогер',
                 companies: 'Компания',
-                freelancers: 'Фрилансер'
+                freelancers: 'Фрила��сер'
             };
             return labels[type] || type;
         }
@@ -1156,24 +1105,7 @@ $IP = '144.126.128.67';
     });
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Глобальные функции для спиннера
-        function showLoading() {
-            const loader = document.getElementById('loadingIndicator');
-            if (loader) {
-                loader.style.display = 'flex';
-            }
-        }
-        
-        function hideLoading() {
-            const loader = document.getElementById('loadingIndicator');
-            if (loader) {
-                loader.style.display = 'none';
-            }
-        }
-    </script>
+    
 </body>
 </html>
 
