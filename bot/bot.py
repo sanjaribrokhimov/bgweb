@@ -126,7 +126,7 @@ mumkin
 • Instagram: [bloger\.agency](https://www\.instagram\.com/bloger\.agency/)
 • Sayt: [bloger\.agency](https://bloger\.agency)
 
-‍💻 Developer: [@sanjar\_3210](https://t\.me/sanjar\_3210)
+💻 Developer: [@sanjar\_3210](https://t\.me/sanjar\_3210)
             """,
             'choose_language': "🌍 Пожалуйста, выберите язык / Iltimos, tilni tanlang:",
             'language_changed': "✅ Til muvaffaqiyatli o'zbekchaga o'zgartirildi"
@@ -151,7 +151,7 @@ mumkin
     def create_main_keyboard(self, lang='ru', chat_id=None):
         keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
         # Используем chat_id из параметра если он передан
-        web_app_url = f"https://bgweb.nurali.uz/index.php?v=123456789"
+        web_app_url = f"https://bgweb.nurali.uz/index.php"
         if chat_id:
             web_app_url += f"?chat_id={chat_id}"
         web_app = WebAppInfo(url=web_app_url)
@@ -194,7 +194,7 @@ mumkin
             return member.status in ['member', 'administrator', 'creator']
         except telebot.apihelper.ApiException as e:
             logger.error(f"API Error in check_subscription: {e}")
-            # В случае ошибки доступа к списку участников, 
+            # В случае ошибки доступа к списку частников, 
             # временно пропускаем проверку подписки
             return True
         except Exception as e:
@@ -292,21 +292,20 @@ mumkin
         @self.bot.message_handler(func=lambda message: message.text in ["🇷🇺 Русский", "🇺🇿 O'zbekcha"])
         def language_choice(message):
             user_id = message.from_user.id
-            if message.text == "🇺🇺 Русский":
+            if message.text == "🇷🇺 Русский":
                 self.user_languages[user_id] = 'ru'
-                lang_changed_text = self.TEXTS['ru']['language_changed']
+                self.bot.send_message(
+                    message.chat.id,
+                    self.TEXTS['ru']['language_changed'],
+                    reply_markup=self.create_main_keyboard('ru', message.chat.id)
+                )
             else:
                 self.user_languages[user_id] = 'uz'
-                lang_changed_text = self.TEXTS['uz']['language_changed']
-            
-            self.bot.send_message(
-                message.chat.id,
-                lang_changed_text,
-                reply_markup=self.create_main_keyboard(
-                    self.user_languages[user_id], 
-                    message.chat.id
+                self.bot.send_message(
+                    message.chat.id,
+                    self.TEXTS['uz']['language_changed'],
+                    reply_markup=self.create_main_keyboard('uz', message.chat.id)
                 )
-            )
             
             if self.check_subscription(message):
                 self.send_welcome(message)
