@@ -53,7 +53,7 @@ class TelegramBot:
             'help': r"""
 🔍 *Как использовать бота:*
 • /start \- начать работу с ботом
-• Нажмите '🌐 Открыть app' ��ля доступа к приложению
+• Нажмите '🌐 Открыть app' для доступа к приложению
 • Нажмите '📞 Контакты' для связи с нами
 
 📱 *Возможности:*
@@ -126,7 +126,7 @@ mumkin
 • Instagram: [bloger\.agency](https://www\.instagram\.com/bloger\.agency/)
 • Sayt: [bloger\.agency](https://bloger\.agency)
 
-���‍💻 Developer: [@sanjar\_3210](https://t\.me/sanjar\_3210)
+‍💻 Developer: [@sanjar\_3210](https://t\.me/sanjar\_3210)
             """,
             'choose_language': "🌍 Пожалуйста, выберите язык / Iltimos, tilni tanlang:",
             'language_changed': "✅ Til muvaffaqiyatli o'zbekchaga o'zgartirildi"
