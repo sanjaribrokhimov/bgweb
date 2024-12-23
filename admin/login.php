@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     
     // Здесь должна быть проверка через API
-    $api_url = "https://bgweb.nurali.uz/api/admin/login";
+    $api_url = "http://173.212.234.202/api/admin/login";
     
     $data = array(
         "username" => $username,

@@ -56,7 +56,7 @@ class CompanyLoader {
         
         try {
             loadingIndicator.style.display = 'block';
-            let url = `https://bgweb.nurali.uz/api/ads/category/company?page=${this.page}&limit=${this.limit}`;
+            let url = `http://173.212.234.202/api/ads/category/company?page=${this.page}&limit=${this.limit}`;
 
             const response = await fetch(url);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -205,7 +205,7 @@ class CompanyLoader {
             const loadingIndicator = document.getElementById('loadingIndicator');
             loadingIndicator.style.display = 'block';
 
-            const response = await fetch(`https://bgweb.nurali.uz/api/ads/details/company/${id}`);
+            const response = await fetch(`http://173.212.234.202/api/ads/details/company/${id}`);
             if (!response.ok) throw new Error('Failed to fetch details');
             const data = await response.json();
 

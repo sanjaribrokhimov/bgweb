@@ -78,7 +78,7 @@ class BloggerLoader {
         
         try {
             loadingIndicator.style.display = 'block';
-            const url = `https://bgweb.nurali.uz/api/ads/category/blogger?page=${this.page}&limit=${this.limit}`;
+            const url = `http://173.212.234.202/api/ads/category/blogger?page=${this.page}&limit=${this.limit}`;
 
             const response = await fetch(url);
             if (!response.ok) {
@@ -214,7 +214,7 @@ class BloggerLoader {
             loadingIndicator.style.display = 'block';
 
             console.log('Fetching details for ID:', id);
-            const response = await fetch(`https://bgweb.nurali.uz/api/ads/details/blogger/${id}`);
+            const response = await fetch(`http://173.212.234.202/api/ads/details/blogger/${id}`);
             if (!response.ok) {
                 console.error('Response status:', response.status);
                 console.error('Response text:', await response.text());
@@ -347,7 +347,7 @@ class BloggerLoader {
         if (!userId) return;
 
         try {
-            const response = await fetch(`https://bgweb.nurali.uz/api/user-agreements?user_id=${userId}`);
+            const response = await fetch(`http://173.212.234.202/api/user-agreements?user_id=${userId}`);
             if (!response.ok) throw new Error('Failed to fetch agreements');
             const agreements = await response.json();
             

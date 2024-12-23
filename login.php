@@ -582,7 +582,7 @@
                         // Логируем данные
                         console.log('Отправляемые данные (register):', formData);
 
-                        const response = await fetch('https://bgweb.nurali.uz/api/auth/register', {
+                        const response = await fetch('http://173.212.234.202/api/auth/register', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -644,7 +644,7 @@
                         // Логируем данные, которые отправляем
                         console.log('Отправляемые данные (login):', formData);
 
-                        const response = await fetch('https://bgweb.nurali.uz/api/auth/login', {
+                        const response = await fetch('http://173.212.234.202/api/auth/login', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'

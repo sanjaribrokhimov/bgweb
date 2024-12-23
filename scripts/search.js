@@ -62,7 +62,7 @@ class Search {
 
     async performSearch(query) {
         try {
-            const response = await fetch(`https://bgweb.nurali.uz/api/ads/search?q=${encodeURIComponent(query)}`);
+            const response = await fetch(`http://173.212.234.202/api/ads/search?q=${encodeURIComponent(query)}`);
             if (!response.ok) {
                 throw new Error('Ошибка сети');
             }

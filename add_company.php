@@ -528,7 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 console.log('Sending data:', postData);
 
-                const response = await fetch('https://bgweb.nurali.uz/api/companies', {
+                const response = await fetch('http://173.212.234.202/api/companies', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

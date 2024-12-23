@@ -8,7 +8,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 
 // Получение данных через API
 function fetchData($endpoint) {
-    $api_url = "https://bgweb.nurali.uz/api/" . $endpoint;
+    $api_url = "http://173.212.234.202/api/" . $endpoint;
     $response = file_get_contents($api_url);
     return json_decode($response, true);
 }
@@ -460,7 +460,7 @@ $statistics = fetchData("admin/statistics");
         function approveAd(id, type) {
             if (confirm('Вы уверены, что хотите одобрить это объявление?')) {
                 $.ajax({
-                    url: 'https://bgweb.nurali.uz/api/admin/approve-ad',
+                    url: 'http://173.212.234.202/api/admin/approve-ad',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({ 
@@ -482,7 +482,7 @@ $statistics = fetchData("admin/statistics");
             const reason = prompt('Укажите причину отклонения:');
             if (reason) {
                 $.ajax({
-                    url: 'https://bgweb.nurali.uz/api/admin/reject-ad',
+                    url: 'http://173.212.234.202/api/admin/reject-ad',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({ 
@@ -505,7 +505,7 @@ $statistics = fetchData("admin/statistics");
         function toggleUserStatus(id) {
             if (confirm('Вы уверены, что хотите изменить статус этого пользователя?')) {
                 $.ajax({
-                    url: 'https://bgweb.nurali.uz/api/admin/toggle-user-status',
+                    url: 'http://173.212.234.202/api/admin/toggle-user-status',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({ id: id }),
@@ -555,7 +555,7 @@ $statistics = fetchData("admin/statistics");
                 locale: 'ru',
                 events: async function(info, successCallback, failureCallback) {
                     try {
-                        const response = await fetch('https://bgweb.nurali.uz/api/admin/calendar-events');
+                        const response = await fetch('http://173.212.234.202/api/admin/calendar-events');
                         if (!response.ok) throw new Error('Network response was not ok');
                         const events = await response.json();
                         
