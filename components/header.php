@@ -218,7 +218,7 @@ $IP = '144.126.128.67';
             align-items: center;
         }
 
-        .search-container.search-active .search-icon {
+        .search-container.search-active {
             background: var(--card-hover);
         }
 
@@ -244,23 +244,9 @@ $IP = '144.126.128.67';
             pointer-events: auto;
         }
 
-        .search-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: var(--gradient-1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 2;
-        }
 
-        .search-icon:hover {
-            background: var(--card-hover);
-            transform: translateY(-2px);
-        }
+
+
 
         @media (max-width: 768px) {
             .search-input.active {
@@ -663,13 +649,7 @@ $IP = '144.126.128.67';
                     </button>
                 </div>
                 <!-- Поиск -->
-                <div class="search-container">
-                    <input type="text" class="search-input" id="searchInput" placeholder="Поиск...">
-                    <div class="search-icon" id="searchIcon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class="search-results" id="searchResults"></div>
-                </div>
+
             </div>
         </header>
 
