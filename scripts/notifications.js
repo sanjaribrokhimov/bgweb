@@ -148,10 +148,7 @@ class NotificationManager {
                             <i class="fas fa-compass"></i>
                             <span>Направление: ${fromUser.direction || 'Не указано'}</span>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>Телефон: ${fromUser.phone}</span>
-                        </div>
+                        
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
                             <span>Email: ${fromUser.email}</span>

@@ -86,14 +86,14 @@ func CreateAcceptNotification(c *gin.Context) {
 			"Направление: %s\n"+
 			"Email: %s\n"+
 			"Telegram: %s\n\n"+
-			"Телефон: %s\n\n"+
+			
 			"Пожалуйста, свяжитесь с пользователем через Telegram или Email для обсуждения деталей.",
 		fromUser.Name,
 		fromUser.Category,
 		fromUser.Direction,
 		fromUser.Email,
 		fromUser.Telegram,
-		fromUser.Phone,
+		
 	)
 
 	// Отправляем email
