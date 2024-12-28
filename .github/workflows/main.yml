@@ -1,0 +1,28 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main  # Или другая ветка, на которой ты хочешь развертывать
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy project to server
+        run: |
+          ssh root@173.212.234.202 << 'EOF'
+            cd /var/www/bgweb/
+            git pull origin main
+            # Или если нужно запускать команду для перезапуска, например:
+            sudo systemctl restart nginx
+          EOF
