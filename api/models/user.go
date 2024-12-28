@@ -13,6 +13,7 @@ type User struct {
 	Category   string `json:"category"`
 	Direction  string `json:"direction"`
 	Telegram   string `json:"telegram"`
+	Instagram  string `json:"instagram"`
 	OTPCode    string `json:"otp_code"`
 	IsVerified bool   `json:"is_verified" gorm:"default:false"`
 }

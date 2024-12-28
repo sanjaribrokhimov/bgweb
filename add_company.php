@@ -10,6 +10,27 @@
 </div>
 
 <style>
+.input-description {
+    color: #4CAF50;
+    font-size: 14px;
+    margin-bottom: 12px;
+    padding: 10px 15px;
+    background: rgba(76, 175, 80, 0.1);
+    border-left: 3px solid #4CAF50;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.3s ease;
+}
+
+.input-description:hover {
+    background: rgba(76, 175, 80, 0.15);
+    transform: translateX(5px);
+}
+
+.input-description i {
+    margin-right: 8px;
+    color: #4CAF50;
+}
+
 .loading-indicator {
     position: fixed;
     top: 0;
@@ -157,9 +178,11 @@
         <input type="hidden" id="directionInput" name="direction">
         <input type="hidden" id="telegramUsernameInput" name="telegram_username">
 
-        <!-- Поле для категории будет добавлено динамически -->
-        
         <!-- Загрузка фото -->
+        <div class="input-description">
+            <i class="fas fa-image"></i>
+            Загрузите логотип или фото вашей компании
+        </div>
         <div class="form-group mb-4">
             <label class="upload-photo">
                 <input type="file" name="photo" accept="image/*" hidden required>
@@ -170,7 +193,11 @@
             </label>
         </div>
 
-        <!-- Основная информация -->
+        <!-- Название компании -->
+        <div class="input-description">
+            <i class="fas fa-building"></i>
+            Укажите название вашей компании
+        </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
                 <i class="fas fa-building"></i>
@@ -178,8 +205,11 @@
             </div>
         </div>
 
-       
-        <!-- Поля для рекламы -->
+        <!-- Бюджет -->
+        <div class="input-description">
+            <i class="fas fa-dollar-sign"></i>
+            Укажите ваш рекламный бюджет в долларах если вы хотите на бартер поставьте 0
+        </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
                 <i class="fas fa-dollar"></i>
@@ -187,8 +217,11 @@
             </div>
         </div>
 
-
-        <h4>комментарий</h4>
+        <!-- Комментарий -->
+        <div class="input-description">
+            <i class="fas fa-comment"></i>
+            Опишите ваши требования или добавьте комментарий к рекламе
+        </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
                 <i class="fas fa-comment"></i>
@@ -197,6 +230,12 @@
         </div>
 
         <!-- Социальные сети -->
+        <div class="input-description">
+            <i class="fas fa-share-alt"></i>
+            Добавьте ссылки на ваши социальные сети и сайт
+        </div>
+
+        <!-- Веб-сайт секция -->
         <div class="social-section mb-4">
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="social-header">
@@ -215,24 +254,7 @@
             </div>
         </div>
 
-        <!-- Instagram секция -->
-        <div class="social-section mb-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <div class="social-header">
-                    <i class="fab fa-instagram"></i>
-                    <span>Instagram</span>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="instagramSwitch">
-                </div>
-            </div>
-            <div class="social-fields" id="instagramFields" style="display: none;">
-                <div class="input-with-icon">
-                    <i class="fas fa-link"></i>
-                    <input type="url" name="instagram_link" class="form-control" placeholder="Ссылка на Instagram">
-                </div>
-            </div>
-        </div>
+       
 
         <!-- Telegram секция -->
         <div class="social-section mb-4">
@@ -453,7 +475,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Обработка переключателей социальных сетей
     const switches = {
         website: document.getElementById('websiteSwitch'),
-        instagram: document.getElementById('instagramSwitch'),
         telegram: document.getElementById('telegramSwitch')
     };
 
@@ -486,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error('Пожалуйста, выберите фото');
                 }
 
-                // Дополнительная оптимизация перед отправкой
+                // Дополнительная ��птимизация перед отправкой
                 const optimizedPhotoBase64 = await checkImageSize(photoBase64);
 
                 // Получаем данные из localStorage
@@ -509,7 +530,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     budget: parseInt(addCompanyForm.querySelector('input[name="budget"]').value) || 0,
                     ad_comment: addCompanyForm.querySelector('textarea[name="ad_comment"]').value || "",
                     website_link: document.querySelector('#websiteFields input[type="url"]')?.value?.trim() || "",
-                    instagram_link: document.querySelector('#instagramFields input[type="url"]')?.value?.trim() || "",
                     telegram_link: document.querySelector('#telegramFields input[type="url"]')?.value?.trim() || ""
                 };
 
@@ -528,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 console.log('Sending data:', postData);
 
-                const response = await fetch('http://173.212.234.202/api/companies', {
+                const response = await fetch('https://173.212.234.202/api/companies', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -547,7 +567,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Скрываем предыдущий алерт если он был
                     responseBlock.style.display = 'none';
                     
-                    // Показываем модальное окно
+                    // Показывае�� модальное окно
                     const successModal = new bootstrap.Modal(document.getElementById('successModal'));
                     successModal.show();
                     

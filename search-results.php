@@ -118,7 +118,7 @@ class SearchResultsLoader {
         if (loadingIndicator) loadingIndicator.style.display = 'block';
         
         try {
-            const url = `http://173.212.234.202/api/ads/search?q=${encodeURIComponent(this.query)}&type=${this.type}&page=${this.page}&limit=${this.limit}`;
+            const url = `https://173.212.234.202/api/ads/search?q=${encodeURIComponent(this.query)}&type=${this.type}&page=${this.page}&limit=${this.limit}`;
             const response = await fetch(url);
             if (!response.ok) throw new Error('Failed to fetch search results');
             
@@ -272,7 +272,7 @@ class SearchResultsLoader {
                 throw new Error('Missing id or type');
             }
 
-            const response = await fetch(`http://173.212.234.202/api/ads/details/${type}/${id}`);
+            const response = await fetch(`https://173.212.234.202/api/ads/details/${type}/${id}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const detailsBtn = button.closest('.btn-actions').querySelector('.btn-details');
                 const adType = detailsBtn ? detailsBtn.dataset.type : 'blogger';
 
-                const response = await fetch('http://173.212.234.202/api/notifications/accept', {
+                const response = await fetch('https://173.212.234.202/api/notifications/accept', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

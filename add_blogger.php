@@ -190,11 +190,36 @@
 .modal.show .modal-dialog {
     transform: scale(1);
 }
+
+.input-description {
+    color: #4CAF50;
+    font-size: 14px;
+    margin-bottom: 12px;
+    padding: 10px 15px;
+    background: rgba(76, 175, 80, 0.1);
+    border-left: 3px solid #4CAF50;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.3s ease;
+}
+
+.input-description:hover {
+    background: rgba(76, 175, 80, 0.15);
+    transform: translateX(5px);
+}
+
+.input-description i {
+    margin-right: 8px;
+    color: #4CAF50;
+}
 </style>
 
 <div class="auth-container">
     <form id="addBloggerForm" class="auth-form active">
         <!-- Загрузка фото -->
+         <div class="input-description">
+            <i class="fas fa-image"></i>
+            Пожалуйста, загрузите фотографию вашего профиля
+        </div>
         <div class="form-group mb-4">
             <label class="upload-photo">
                 <input type="file" name="photo" accept="image/*" hidden required>
@@ -206,48 +231,33 @@
         </div>
 
         <!-- Основная информация -->
+        <div class="input-description">
+            <i class="fas fa-user"></i>
+            Укажите ваш никнейм или название вашего профиля
+        </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
-                <i class="fas fa-user"></i>
                 <input type="text" name="title" class="form-control" placeholder="Заголовок" required>
             </div>
         </div>
 
         <!-- Условия бартера / Комментарий к рекламе -->
+        <div class="input-description">
+            <i class="fas fa-comment-dots"></i>
+            Укажите условия бартера или напишите комментарий к рекламе
+        </div>
         <div class="form-group mb-4 conditions-field">
-            <h4>Кого вы ищете или условия бартера</h4>
             <div class="input-with-icon">
                 <i class="fas fa-handshake barter-icon"></i>
                 <textarea  class="form-control" rows="4"  required></textarea>
             </div>
         </div>
-        <h4>Ваши социальные сети</h4>
-        <!-- Instagram секция -->
-        <div class="social-section mb-4">
-           
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <div class="social-header">
-                    <i class="fab fa-instagram"></i>
-                    <span>Instagram</span>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="instagramSwitch">
-                </div>
-            </div>
-            <div class="social-fields" id="instagramFields" style="display: none;">
-                <div class="input-with-icon mb-2">
-                    <i class="fas fa-link"></i>
-                    <input type="url" name="instagram_link" class="form-control" placeholder="Ссылка на Instagram" data-translate="addBlogger.instagram.link">
-                </div>
-                
-                <div class="form-group mb-3 comment-field" style="display: none;">
-                    <div class="input-with-icon">
-                        <i class="fas fa-comment"></i>
-                        <textarea class="form-control" rows="4" placeholder="Комментарий к рекламе" data-translate="addBlogger.adComment"></textarea>
-                    </div>
-                </div>
-            </div>
+        <div class="input-description">
+            <i class="fas fa-share-alt"></i>
+            Укажите ваши социальные сети (если есть)
         </div>
+        <!-- Instagram секция -->
+        
 
         <!-- Telegram секция -->
         <div class="social-section mb-4">
@@ -322,7 +332,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         // Обработка переключателей социальных сетей
         const switches = {
-            instagram: document.getElementById('instagramSwitch'),
+            
             telegram: document.getElementById('telegramSwitch'),
             youtube: document.getElementById('youtubeSwitch'),
          
@@ -418,7 +428,7 @@
                             element.firstElementChild.textContent = translation;
                         }
                     } else if (element.tagName === 'OPTION') {
-                        // Для option обновляем т��кст
+                        // Для option обновляем текст
                         element.textContent = translation;
                     } else {
                         // Для остальных элеентов обновляем текст
@@ -435,10 +445,6 @@
                 'addBlogger.followers': 'input[data-translate="addBlogger.followers"]',
                 'addBlogger.engagement': 'input[data-translate="addBlogger.engagement"]',
                 'addBlogger.telegramUsername': 'input[data-translate="addBlogger.telegramUsername"]',
-                'addBlogger.instagram.link': 'input[data-translate="addBlogger.instagram.link"]',
-                'addBlogger.instagram.postPrice': 'input[data-translate="addBlogger.instagram.postPrice"]',
-                'addBlogger.instagram.storyPrice': 'input[data-translate="addBlogger.instagram.storyPrice"]',
-                'addBlogger.instagram.photoPrice': 'input[data-translate="addBlogger.instagram.photoPrice"]',
                 'addBlogger.telegram.link': 'input[data-translate="addBlogger.telegram.link"]',
                 'addBlogger.telegram.postPrice': 'input[data-translate="addBlogger.telegram.postPrice"]',
                 'addBlogger.youtube.link': 'input[data-translate="addBlogger.youtube.link"]',
@@ -585,7 +591,7 @@
                     // Используйте эту функцию в обработчике формы перед отправкой
                     const optimizedPhotoBase64 = await checkImageSize(photoBase64);
 
-                    // Получаем ID ползователя из localStorage
+                    // П��лучаем ID ползователя из localStorage
                     const userId = localStorage.getItem('userId');
                     if (!userId) {
                         throw new Error('Пользователь не авторизован');
@@ -600,7 +606,7 @@
                         category: localStorage.getItem('category') || "",
                         direction: localStorage.getItem('direction') || "",
                         telegram_username: localStorage.getItem('telegram') || "",
-                        instagram_link: document.querySelector('#instagramFields input[type="url"]')?.value?.trim() || "",
+
                         telegram_link: document.querySelector('#telegramFields input[type="url"]')?.value?.trim() || "",
                         youtube_link: document.querySelector('#youtubeFields input[type="url"]')?.value?.trim() || ""
                     };
@@ -613,7 +619,7 @@
                     console.log('Отправляемые данные:', postData);
 
                     // Отправляем данные на API
-                    const response = await fetch('http://173.212.234.202/api/post-bloggers', {
+                    const response = await fetch('https://173.212.234.202/api/post-bloggers', {
                         method: 'POST',
                         credentials: 'include',
                         headers: {

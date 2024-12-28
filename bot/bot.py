@@ -151,7 +151,7 @@ mumkin
     def create_main_keyboard(self, lang='ru', chat_id=None):
         keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
         # Используем chat_id из параметра если он передан
-        web_app_url = f"https://bgweb.nurali.uz/index.php"
+        web_app_url = f"https://public-maps-show.loca.lt"
         if chat_id:
             web_app_url += f"?chat_id={chat_id}"
         web_app = WebAppInfo(url=web_app_url)

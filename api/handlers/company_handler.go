@@ -52,11 +52,7 @@ func CreateCompany(c *gin.Context) {
 		return
 	}
 
-	// Проверяем бюджет
-	if company.Budget <= 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Budget is required"})
-		return
-	}
+	
 
 	// Проверяем количество постов пользователя
 	var count int64

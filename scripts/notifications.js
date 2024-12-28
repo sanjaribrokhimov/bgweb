@@ -2,9 +2,8 @@ class NotificationManager {
     constructor() {
         this.badge = document.querySelector('#notificationCount');
         this.button = document.querySelector('#notificationsBtn');
-        this.modal = document.querySelector('.notifications-modal');
+        this.container = document.querySelector('.notifications-list');
         this.unreadCount = 0;
-        this.pollingInterval = null;
         this.init();
     }
 
@@ -44,7 +43,7 @@ class NotificationManager {
         if (!userId) return;
 
         try {
-            const response = await fetch(`http://173.212.234.202/api/notifications/${userId}`);
+            const response = await fetch(`https://173.212.234.202/api/notifications/${userId}`);
             const notifications = await response.json();
             
             // Обновляем количество непрочитанных
@@ -59,110 +58,101 @@ class NotificationManager {
     }
 
     renderNotifications(notifications) {
-        const container = document.querySelector('.notifications-list');
-        if (!container) return;
+        if (!this.container) return;
 
         if (!notifications.length) {
-            container.innerHTML = '<div class="empty-state">Нет уведомлений</div>';
+            this.container.innerHTML = '<div class="empty-state">Нет уведомлений</div>';
             return;
         }
 
-        container.innerHTML = notifications.map(notification => `
-            <div class="notification-card ${!notification.is_read ? 'unread' : ''}" 
-                 data-id="${notification.id}"
-                 onclick="notificationManager.openModal(${JSON.stringify(notification).replace(/"/g, '&quot;')})">
-                <div class="notification-header">
+        this.container.innerHTML = notifications.map(notification => `
+            <div class="notification-card ${!notification.is_read ? 'unread' : ''}" data-id="${notification.id}">
+                <div class="notification-main" onclick="notificationManager.toggleNotification(this.closest('.notification-card'), ${JSON.stringify(notification).replace(/"/g, '&quot;')})">
                     <div class="user-info">
                         <i class="fas fa-user-circle"></i>
-                        <span>${notification.from_user.name}</span>
+                        <span class="${!notification.is_read ? 'heavy-blur' : ''}">${notification.from_user.name}</span>
+                        <span class="date">${new Date(notification.created_at).toLocaleString()}</span>
                     </div>
-                    <div class="time">${new Date(notification.created_at).toLocaleString()}</div>
-                </div>
-                <div class="notification-ad-info">
-                    <p><i class="fas fa-bullhorn"></i> ${notification.ad_details?.nickname || notification.ad_details?.name || 'Название не указано'}</p>
-                </div>
-                <div class="notification-body">
-                    ${notification.message}
+
+                    <div class="ad-content">
+                        <div class="ad-image">
+                            <img src="${notification.ad_details.photo_base64}" 
+                                 alt="Фото объявления" 
+                                 onerror="this.src='./img/noImage.jpg'">
+                        </div>
+                        <div class="ad-info">
+                            <h3 class="${!notification.is_read ? 'heavy-blur' : ''}">${notification.ad_details.nickname || notification.ad_details.name}</h3>
+                            <span class="ad-type ${notification.ad_type} ${!notification.is_read ? 'heavy-blur' : ''}">
+                                ${this.getAdTypeLabel(notification.ad_type)}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="details-content">
+                        <div class="info-item ${!notification.is_read ? 'heavy-blur' : ''}">
+                            <i class="fas fa-tag"></i>
+                            <span>Категория: ${notification.from_user.category || 'Не указана'}</span>
+                        </div>
+                        <div class="info-item ${!notification.is_read ? 'heavy-blur' : ''}">
+                            <i class="fas fa-compass"></i>
+                            <span>Направление: ${notification.from_user.direction || 'Не указано'}</span>
+                        </div>
+                        <div class="social-links ${!notification.is_read ? 'heavy-blur' : ''}">
+                            ${notification.from_user.telegram ? 
+                                `<a href="tg://resolve?domain=${notification.from_user.telegram.replace('@', '').replace('https://t.me/', '')}" target="_blank">
+                                    <i class="fab fa-telegram"></i> Telegram
+                                </a>` : ''
+                            }
+                            ${notification.from_user.instagram ? 
+                                `<a href="${notification.from_user.instagram}" target="_blank">
+                                    <i class="fab fa-instagram"></i> Instagram
+                                </a>` : ''
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         `).join('');
     }
 
-    async openModal(notification) {
+    async toggleNotification(card, notification) {
         if (!notification.is_read) {
             try {
                 await this.markAsRead(notification.id);
-                const card = document.querySelector(`.notification-card[data-id="${notification.id}"]`);
-                if (card) {
-                    card.classList.remove('unread');
-                }
+                card.classList.remove('unread');
+                card.querySelectorAll('.blurred').forEach(el => el.classList.remove('blurred'));
+                notification.is_read = true;
                 this.unreadCount = Math.max(0, this.unreadCount - 1);
                 this.updateBadge();
             } catch (error) {
                 console.error('Error marking notification as read:', error);
             }
         }
+    }
 
-        const modal = document.getElementById('notificationModal');
-        const adDetails = notification.ad_details;
-        const fromUser = notification.from_user;
-        
-        modal.querySelector('.modal-body').innerHTML = `
-            <div class="modal-sections">
-                <!-- Секция с объявлением -->
-                <div class="ad-section">
-                    <div class="ad-header">
-                        <h6>Объявление</h6>
-                        <span class="ad-type ${notification.ad_type}">
-                            ${this.getAdTypeLabel(notification.ad_type)}
-                        </span>
-                    </div>
-                    <div class="ad-content">
-                        <div class="ad-image">
-                            <img src="${adDetails.photo_base64}" alt="Фото объявления" 
-                                 onerror="this.src='./img/noImage.jpg'">
-                        </div>
-                        <div class="ad-info">
-                            <h5>${adDetails.nickname || adDetails.name}</h5>
-                            <p class="ad-comment">${adDetails.ad_comment}</p>
-                        </div>
-                    </div>
-                </div>
+    async markAsRead(notificationId) {
+        const userId = localStorage.getItem('userId');
+        if (!userId) return;
 
-                <!-- Секция с отправителем -->
-                <div class="sender-section">
-                    <div class="sender-header">
-                        <h6>Информация об отправителе</h6>
-                        <span class="date">${new Date(notification.created_at).toLocaleString()}</span>
-                    </div>
-                    <div class="sender-info">
-                        <div class="contact-item">
-                            <i class="fas fa-user"></i>
-                            <span>Имя: ${fromUser.name}</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-tag"></i>
-                            <span>Категория: ${fromUser.category || 'Не указана'}</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-compass"></i>
-                            <span>Направление: ${fromUser.direction || 'Не указано'}</span>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>Email: ${fromUser.email}</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-telegram"></i>
-                            <span>Telegram: <a href="https://t.me/${fromUser.telegram}" target="_blank" class="telegram-link">@${fromUser.telegram}</a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        new bootstrap.Modal(modal).show();
+        try {
+            const response = await fetch(`https://173.212.234.202/api/notifications/${notificationId}/read`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || 'Failed to mark notification as read');
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
     }
 
     renderAdLinks(adDetails) {
@@ -234,16 +224,6 @@ class NotificationManager {
 
     showNotification(notification) {
         Utils.showNotification('У вас новое соглашение!', 'info');
-    }
-
-    async markAsRead(notificationId) {
-        const response = await fetch(`http://173.212.234.202/api/notifications/${notificationId}/read`, {
-            method: 'PUT'
-        });
-        
-        if (!response.ok) {
-            throw new Error('Failed to mark notification as read');
-        }
     }
 }
 

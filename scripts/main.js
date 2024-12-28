@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!userId) return;
 
         try {
-            const response = await fetch(`http://173.212.234.202/api/user-agreements?user_id=${userId}`);
+            const response = await fetch(`https://173.212.234.202/api/user-agreements?user_id=${userId}`);
             if (!response.ok) throw new Error('Failed to fetch agreements');
             
             const agreements = await response.json();
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Missing required data for notification');
             }
 
-            const response = await fetch('http://173.212.234.202/api/notifications/accept', {
+            const response = await fetch('https://173.212.234.202/api/notifications/accept', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

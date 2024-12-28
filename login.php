@@ -350,6 +350,19 @@
                                autocomplete="off">
                     </div>
                 </div>
+                <div class="form-group mb-3">
+                    <div class="input-with-icon">
+                        <i class="fab fa-instagram"></i>
+                        <input type="text" 
+                               class="form-control" 
+                               name="instagram"
+                               placeholder="ссылка на Instagram"
+                               data-placeholder="instagram"
+                               required 
+                               autocomplete="off">
+                               
+                    </div>
+                </div>
 
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
@@ -360,7 +373,7 @@
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-lock"></i>
-                        <input type="password" class="form-control" placeholder="Пароь" required autocomplete="new-password">
+                        <input name="password" type="password" class="form-control" placeholder="Пароь" required autocomplete="new-password">
                         <button type="button" class="password-toggle">
                             <i class="far fa-eye"></i>
                         </button>
@@ -369,7 +382,7 @@
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-lock"></i>
-                        <input type="password" class="form-control" placeholder="Подтвердите пароль" required autocomplete="new-password">
+                        <input name="confirm_password" type="password" class="form-control" placeholder="Подтвердите пароль" required autocomplete="new-password">
                         <button type="button" class="password-toggle">
                             <i class="far fa-eye"></i>
                         </button>
@@ -572,17 +585,18 @@
                             name: registerForm.querySelector('input[type="text"]').value.trim(),
                             phone: registerForm.querySelector('input[type="tel"]').value.trim(),
                             email: registerForm.querySelector('input[type="email"]').value.trim(),
-                            password: registerForm.querySelector('input[type="password"]').value,
+                            password: registerForm.querySelector('input[name="password"]').value,
                             category: registerForm.querySelector('.category-select').value,
                             // Добавляем новые поля
                             direction: registerForm.querySelector(`[name="direction"]`)?.value || '',
-                            telegram: registerForm.querySelector('input[name="telegram"]')?.value.trim()
+                            telegram: registerForm.querySelector('input[name="telegram"]')?.value.trim(),
+                            instagram: registerForm.querySelector('input[name="instagram"]')?.value.trim()
                         };
 
                         // Логируем данные
                         console.log('Отправляемые данные (register):', formData);
 
-                        const response = await fetch('http://173.212.234.202/api/auth/register', {
+                        const response = await fetch('https://173.212.234.202/api/auth/register', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -644,7 +658,7 @@
                         // Логируем данные, которые отправляем
                         console.log('Отправляемые данные (login):', formData);
 
-                        const response = await fetch('http://173.212.234.202/api/auth/login', {
+                        const response = await fetch('https://173.212.234.202/api/auth/login', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -670,6 +684,7 @@
                             localStorage.setItem('userId',data.user.id);
                             localStorage.setItem('direction',data.user.direction);
                             localStorage.setItem('telegram',data.user.telegram);
+                            localStorage.setItem('instagram',data.user.instagram);
                             localStorage.setItem('name',data.user.name);
                             localStorage.setItem('phone',data.user.phone);
                             
@@ -789,6 +804,58 @@
                 }
             `;
             document.head.appendChild(style);
+
+            // Проверка Telegram username
+            const telegramInput = document.querySelector('input[name="telegram"]');
+            if (telegramInput) {
+                telegramInput.addEventListener('input', function() {
+                    const username = this.value.replace('https://t.me/', '');
+                    
+                    // Проверка формата username
+                    if (username.length < 5 || !/^[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(username)) {
+                        this.classList.add('is-invalid');
+                        this.classList.remove('is-valid');
+                        
+                        // Добавляем сообщение об ошибке
+                        let feedback = this.nextElementSibling;
+                        if (!feedback || !feedback.classList.contains('invalid-feedback')) {
+                            feedback = document.createElement('div');
+                            feedback.className = 'invalid-feedback';
+                            this.parentNode.appendChild(feedback);
+                        }
+                        feedback.textContent = 'Введите корректный username Telegram';
+                    } else {
+                        this.classList.remove('is-invalid');
+                        this.classList.add('is-valid');
+                    }
+                });
+            }
+
+            // Проверка Instagram ссылки
+            const instagramInput = document.querySelector('input[name="instagram"]');
+            if (instagramInput) {
+                instagramInput.addEventListener('input', function() {
+                    const value = this.value.trim();
+                    
+                    // Проверка формата ссылки Instagram
+                    if (!value.match(/^(https?:\/\/)?(www\.)?instagram\.com\/[a-zA-Z0-9_\.]+\/?$/)) {
+                        this.classList.add('is-invalid');
+                        this.classList.remove('is-valid');
+                        
+                        // Добавляем сообщение об ошибке
+                        let feedback = this.nextElementSibling;
+                        if (!feedback || !feedback.classList.contains('invalid-feedback')) {
+                            feedback = document.createElement('div');
+                            feedback.className = 'invalid-feedback';
+                            this.parentNode.appendChild(feedback);
+                        }
+                        feedback.textContent = 'Введите корректную ссылку на профиль Instagram';
+                    } else {
+                        this.classList.remove('is-invalid');
+                        this.classList.add('is-valid');
+                    }
+                });
+            }
         });
     </script>
     <script>

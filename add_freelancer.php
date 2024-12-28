@@ -148,11 +148,36 @@
 .modal.show .modal-dialog {
     transform: scale(1);
 }
+
+.input-description {
+    color: #4CAF50;
+    font-size: 14px;
+    margin-bottom: 12px;
+    padding: 10px 15px;
+    background: rgba(76, 175, 80, 0.1);
+    border-left: 3px solid #4CAF50;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.3s ease;
+}
+
+.input-description:hover {
+    background: rgba(76, 175, 80, 0.15);
+    transform: translateX(5px);
+}
+
+.input-description i {
+    margin-right: 8px;
+    color: #4CAF50;
+}
 </style>
 
 <div class="auth-container">
     <form id="addFreelancerForm" class="auth-form active">
         <!-- Загрузка фото -->
+        <div class="input-description">
+            <i class="fas fa-image"></i>
+            Загрузите вашу фотографию или логотип
+        </div>
         <div class="form-group mb-4">
             <label class="upload-photo">
                 <input type="file" accept="image/*" hidden required>
@@ -163,26 +188,35 @@
             </label>
         </div>
 
-        <!-- Основная информация -->
+        <!-- Имя -->
+        <div class="input-description">
+            <i class="fas fa-user"></i>
+            Укажите ваше имя или кем вы работаете
+        </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
                 <i class="fas fa-user"></i>
-                <input type="text" class="form-control" placeholder="Имя" data-translate="addFreelancer.name" required>
+                <input type="text" class="form-control"  data-translate="addFreelancer.name" required>
             </div>
         </div>
 
-
-
-
-        
-
-        <!-- Условия бартера / Комментарий к рекламе -->
+        <!-- Комментарий -->
+        <div class="input-description">
+            <i class="fas fa-comment-dots"></i>
+            Расскажите о своих навыках и опыте работы
+        </div>
         <div class="form-group mb-4 conditions-field">
             <div class="input-with-icon">
                 <i class="fas fa-handshake barter-icon"></i>
                 <i class="fas fa-comment ad-icon" style="display: none;"></i>
                 <textarea class="form-control" rows="4" placeholder="Комментарий" data-translate-barter="addFreelancer.barterConditions" data-translate-ad="addFreelancer.adComment"></textarea>
             </div>
+        </div>
+
+        <!-- Социальные сети -->
+        <div class="input-description">
+            <i class="fas fa-share-alt"></i>
+            Добавьте ссылки на ваши проекты и социальные сети
         </div>
 
         <!-- GitHub секция -->
@@ -223,24 +257,7 @@
             </div>
         </div>
 
-        <!-- Instagram секция -->
-        <div class="social-section mb-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <div class="social-header">
-                    <i class="fab fa-instagram"></i>
-                    <span>Instagram</span>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="instagramSwitch">
-                </div>
-            </div>
-            <div class="social-fields" id="instagramFields" style="display: none;">
-                <div class="input-with-icon mb-2">
-                    <i class="fas fa-link"></i>
-                    <input type="url" class="form-control" placeholder="Ссылка на Instagram" data-translate="addFreelancer.instagram">
-                </div>
-            </div>
-        </div>
+        
 
         <!-- Telegram секция -->
         <div class="social-section mb-4">
@@ -325,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Обработчики для кнопок языка
+    // Обраб��тчики для кнопок языка
     langButtons.forEach(button => {
         button.addEventListener('click', () => {
             const lang = button.textContent.toLowerCase();
@@ -494,7 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const switches = {
         github: document.getElementById('githubSwitch'),
         portfolio: document.getElementById('portfolioSwitch'),
-        instagram: document.getElementById('instagramSwitch'),
+    
         telegram: document.getElementById('telegramSwitch'),
         youtube: document.getElementById('youtubeSwitch')
     };
@@ -548,7 +565,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     ad_comment: addFreelancerForm.querySelector('textarea').value || "",
                     github_link: document.querySelector('#githubFields input[type="url"]')?.value?.trim() || "",
                     portfolio_link: document.querySelector('#portfolioFields input[type="url"]')?.value?.trim() || "",
-                    instagram_link: document.querySelector('#instagramFields input[type="url"]')?.value?.trim() || "",
                     telegram_link: document.querySelector('#telegramFields input[type="url"]')?.value?.trim() || "",
                     youtube_link: document.querySelector('#youtubeFields input[type="url"]')?.value?.trim() || ""
                 };
@@ -561,7 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Отправляем данные на API
-                const response = await fetch('http://173.212.234.202/api/freelancers', {
+                const response = await fetch('https://173.212.234.202/api/freelancers', {
                     method: 'POST',
                     credentials: 'include',
                     headers: {

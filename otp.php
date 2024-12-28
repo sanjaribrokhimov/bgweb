@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const userData = JSON.parse(localStorage.getItem('userRegistrationData'));
             
             // Отправляем запрос на повторную отправку OTP
-            const response = await fetch('http://173.212.234.202/api/auth/resend-otp', {
+            const response = await fetch('https://173.212.234.202/api/auth/resend-otp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Получаем данные пользователя из localStorage
             const userData = JSON.parse(localStorage.getItem('userRegistrationData'));
             
-            const response = await fetch('http://173.212.234.202/api/auth/verify-otp', {
+            const response = await fetch('https://173.212.234.202/api/auth/verify-otp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alertBlock.textContent = data.message;
 
                 // Получаем данные о пользователе
-                const userResponse = await fetch(`http://173.212.234.202/api/auth/user?email=${userData.email}`, {
+                const userResponse = await fetch(`https://173.212.234.202/api/auth/user?email=${userData.email}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -269,6 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('userId',userData.id);
                     localStorage.setItem('direction',userData.direction);
                     localStorage.setItem('telegram',userData.telegram);
+                    localStorage.setItem('instagram',userData.instagram);
                     localStorage.setItem('name',userData.name);
                     localStorage.setItem('phone',userData.phone);
                 }

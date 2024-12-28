@@ -59,6 +59,12 @@
                         <input type="text" class="form-control" name="telegram" placeholder="Telegram" required>
                     </div>
                 </div>
+                <div class="form-group mb-3">
+                    <div class="input-with-icon">
+                        <i class="fab fa-instagram"></i>
+                        <input type="text" class="form-control" name="instagram" placeholder="Instagram" required>
+                    </div>
+                </div>
 
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
@@ -242,7 +248,7 @@
             // Получаем данные пользователя из базы
             try {
                 const email = localStorage.getItem('userEmail');
-                const response = await fetch(`http://173.212.234.202/api/auth/user?email=${encodeURIComponent(email)}`);
+                const response = await fetch(`https://173.212.234.202/api/auth/user?email=${encodeURIComponent(email)}`);
                 
                 if (!response.ok) {
                     throw new Error('Ошибка получения данных пользователя');
@@ -255,6 +261,7 @@
                 form.name.value = userData.name || '';
                 form.phone.value = userData.phone || '';
                 form.telegram.value = userData.telegram || ''; // Исправлено имя поля
+                form.instagram.value = userData.instagram || '';
                 form.category.value = userData.category || '';
                 
                 // Показываем соответствующий select направления
@@ -345,6 +352,7 @@
                     if (form.name.value) formData.name = form.name.value;
                     if (form.phone.value) formData.phone = form.phone.value;
                     if (form.telegram.value) formData.telegram = form.telegram.value;
+                    if (form.instagram.value) formData.instagram = form.instagram.value;
                     if (form.category.value) {
                         formData.category = form.category.value;
                         const directionSelect = document.querySelector(`.direction-${form.category.value}`);
@@ -354,7 +362,7 @@
                     }
                     if (form.password.value) formData.password = form.password.value;
 
-                    const response = await fetch('http://173.212.234.202/api/auth/update-profile', {
+                    const response = await fetch('https://173.212.234.202/api/auth/update-profile', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -362,7 +370,7 @@
                         body: JSON.stringify(formData)
                     });
 
-                    console.log('Request URL:', 'http://173.212.234.202/api/auth/update-profile');
+                    console.log('Request URL:', 'https://173.212.234.202/api/auth/update-profile');
                     console.log('Request method:', 'POST');
                     console.log('Request body:', formData);
                     console.log('Response status:', response.status);

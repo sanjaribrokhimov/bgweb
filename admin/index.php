@@ -8,7 +8,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 
 // Получение данных через API
 function fetchData($endpoint) {
-    $api_url = "http://173.212.234.202/api/" . $endpoint;
+    $api_url = "https://173.212.234.202/api/" . $endpoint;
     $response = file_get_contents($api_url);
     return json_decode($response, true);
 }
@@ -335,7 +335,8 @@ $statistics = fetchData("admin/statistics");
                                     <td>
                                         Email: <?php echo $ad['user_email']; ?><br>
                                         Телефон: <?php echo $ad['user_phone']; ?><br>
-                                        Telegram: <?php echo $ad['user_telegram']; ?>
+                                        Telegram: <?php echo $ad['user_telegram']; ?><br>
+                                        Instagram: <?php echo $ad['user_instagram']; ?>
                                     </td>
                                     <td>
                                         <?php echo $ad['category']; ?><br>
@@ -385,7 +386,8 @@ $statistics = fetchData("admin/statistics");
                                     <td>
                                         Email: <?php echo $user['email']; ?><br>
                                         Телефон: <?php echo $user['phone']; ?><br>
-                                        Telegram: <?php echo $user['telegram']; ?>
+                                        Telegram: <?php echo $user['telegram']; ?><br>
+                                        Instagram: <?php echo $user['instagram']; ?>
                                     </td>
                                     <td><?php echo $user['category']; ?></td>
                                     <td><?php echo $user['direction']; ?></td>
@@ -460,7 +462,7 @@ $statistics = fetchData("admin/statistics");
         function approveAd(id, type) {
             if (confirm('Вы уверены, что хотите одобрить это объявление?')) {
                 $.ajax({
-                    url: 'http://173.212.234.202/api/admin/approve-ad',
+                    url: 'https://173.212.234.202/api/admin/approve-ad',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({ 
@@ -482,7 +484,7 @@ $statistics = fetchData("admin/statistics");
             const reason = prompt('Укажите причину отклонения:');
             if (reason) {
                 $.ajax({
-                    url: 'http://173.212.234.202/api/admin/reject-ad',
+                    url: 'https://173.212.234.202/api/admin/reject-ad',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({ 
@@ -505,7 +507,7 @@ $statistics = fetchData("admin/statistics");
         function toggleUserStatus(id) {
             if (confirm('Вы уверены, что хотите изменить статус этого пользователя?')) {
                 $.ajax({
-                    url: 'http://173.212.234.202/api/admin/toggle-user-status',
+                    url: 'https://173.212.234.202/api/admin/toggle-user-status',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({ id: id }),
@@ -555,7 +557,7 @@ $statistics = fetchData("admin/statistics");
                 locale: 'ru',
                 events: async function(info, successCallback, failureCallback) {
                     try {
-                        const response = await fetch('http://173.212.234.202/api/admin/calendar-events');
+                        const response = await fetch('https://173.212.234.202/api/admin/calendar-events');
                         if (!response.ok) throw new Error('Network response was not ok');
                         const events = await response.json();
                         

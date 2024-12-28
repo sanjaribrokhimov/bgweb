@@ -162,7 +162,7 @@
                     throw new Error('User ID or token not found');
                 }
                 
-                const response = await fetch(`http://173.212.234.202/api/auth/user/${this.userId}`, {
+                const response = await fetch(`https://173.212.234.202/api/auth/user/${this.userId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
