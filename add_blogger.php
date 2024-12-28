@@ -619,7 +619,7 @@
                     console.log('Отправляемые данные:', postData);
 
                     // Отправляем данные на API
-                    const response = await fetch('https://173.212.234.202/api/post-bloggers', {
+                    const response = await fetch('https://blogy.uz/api/post-bloggers', {
                         method: 'POST',
                         credentials: 'include',
                         headers: {

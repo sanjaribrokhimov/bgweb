@@ -248,7 +248,7 @@
             // Получаем данные пользователя из базы
             try {
                 const email = localStorage.getItem('userEmail');
-                const response = await fetch(`https://173.212.234.202/api/auth/user?email=${encodeURIComponent(email)}`);
+                const response = await fetch(`https://blogy.uz/api/auth/user?email=${encodeURIComponent(email)}`);
                 
                 if (!response.ok) {
                     throw new Error('Ошибка получения данных пользователя');
@@ -362,7 +362,7 @@
                     }
                     if (form.password.value) formData.password = form.password.value;
 
-                    const response = await fetch('https://173.212.234.202/api/auth/update-profile', {
+                    const response = await fetch('https://blogy.uz/api/auth/update-profile', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -370,7 +370,7 @@
                         body: JSON.stringify(formData)
                     });
 
-                    console.log('Request URL:', 'https://173.212.234.202/api/auth/update-profile');
+                    console.log('Request URL:', 'https://blogy.uz/api/auth/update-profile');
                     console.log('Request method:', 'POST');
                     console.log('Request body:', formData);
                     console.log('Response status:', response.status);

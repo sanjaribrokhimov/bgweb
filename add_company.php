@@ -548,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 console.log('Sending data:', postData);
 
-                const response = await fetch('https://173.212.234.202/api/companies', {
+                const response = await fetch('https://blogy.uz/api/companies', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

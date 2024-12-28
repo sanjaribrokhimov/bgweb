@@ -36,7 +36,7 @@
             const password = e.target.querySelector('input[type="password"]').value;
             
             try {
-                const response = await fetch('https://173.212.234.202/api/auth/reset-password', {
+                const response = await fetch('https://blogy.uz/api/auth/reset-password', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

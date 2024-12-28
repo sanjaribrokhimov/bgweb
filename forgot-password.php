@@ -97,7 +97,7 @@
                     submitButton.disabled = true;
                     submitButton.innerHTML = 'Отправка...';
                     
-                    const response = await fetch('https://173.212.234.202/api/auth/forgot-password', {
+                    const response = await fetch('https://blogy.uz/api/auth/forgot-password', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -114,7 +114,7 @@
                         alertBlock.textContent = data.message;
                         
                         // Сохраняем данные пользователя
-                        const userResponse = await fetch(`https://173.212.234.202/api/auth/user?email=${encodeURIComponent(email)}`);
+                        const userResponse = await fetch(`https://blogy.uz/api/auth/user?email=${encodeURIComponent(email)}`);
                         if (userResponse.ok) {
                             const userData = await userResponse.json();
                             const userRegistrationData = {

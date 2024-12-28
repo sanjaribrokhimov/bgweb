@@ -2,7 +2,7 @@
 const getUserAds = async (category, userId) => {
     console.log('Getting ads for:', { category, userId });
     try {
-        const response = await fetch(`https://173.212.234.202/api/ads/user/${category}/${userId}`, {
+        const response = await fetch(`https://blogy.uz/api/ads/user/${category}/${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ const deleteAd = async (type, adId) => {
     }
     
     try {
-        const response = await fetch(`https://173.212.234.202/api/ads/${type}/${adId}`, {
+        const response = await fetch(`https://blogy.uz/api/ads/${type}/${adId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'

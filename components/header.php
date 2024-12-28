@@ -986,7 +986,7 @@ $IP = '144.126.128.67';
         // Функция поиска
         async function performSearch(query) {
             try {
-                const response = await fetch(`https://173.212.234.202/api/ads/search?q=${encodeURIComponent(query)}`);
+                const response = await fetch(`https://blogy.uz/api/ads/search?q=${encodeURIComponent(query)}`);
                 if (!response.ok) throw new Error('Ошибка сети');
                 
                 const data = await response.json();

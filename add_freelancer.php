@@ -577,7 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Отправляем данные на API
-                const response = await fetch('https://173.212.234.202/api/freelancers', {
+                const response = await fetch('https://blogy.uz/api/freelancers', {
                     method: 'POST',
                     credentials: 'include',
                     headers: {

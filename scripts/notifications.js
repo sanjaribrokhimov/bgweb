@@ -43,7 +43,7 @@ class NotificationManager {
         if (!userId) return;
 
         try {
-            const response = await fetch(`https://173.212.234.202/api/notifications/${userId}`);
+            const response = await fetch(`https://blogy.uz/api/notifications/${userId}`);
             const notifications = await response.json();
             
             // Обновляем количество непрочитанных
@@ -135,7 +135,7 @@ class NotificationManager {
         if (!userId) return;
 
         try {
-            const response = await fetch(`https://173.212.234.202/api/notifications/${notificationId}/read`, {
+            const response = await fetch(`https://blogy.uz/api/notifications/${notificationId}/read`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

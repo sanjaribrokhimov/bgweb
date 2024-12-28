@@ -45,7 +45,7 @@ class AdsLoader {
             
             const apiType = typeMapping[type] || type;
             
-            let url = `https://173.212.234.202/api/ads/category/${apiType}?page=${this.page}&limit=${this.limit}`;
+            let url = `https://blogy.uz/api/ads/category/${apiType}?page=${this.page}&limit=${this.limit}`;
             
             // Если есть поисковый запрос, добавляем его к URL
             if (this.searchQuery) {
@@ -184,7 +184,7 @@ class AdsLoader {
 
     async showDetails(id, type) {
         try {
-            const response = await fetch(`https://173.212.234.202/api/ads/details/${type}/${id}`);
+            const response = await fetch(`https://blogy.uz/api/ads/details/${type}/${id}`);
             if (!response.ok) throw new Error('Failed to fetch details');
             const data = await response.json();
 
