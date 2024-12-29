@@ -530,7 +530,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     budget: parseInt(addCompanyForm.querySelector('input[name="budget"]').value) || 0,
                     ad_comment: addCompanyForm.querySelector('textarea[name="ad_comment"]').value || "",
                     website_link: document.querySelector('#websiteFields input[type="url"]')?.value?.trim() || "",
-                    telegram_link: document.querySelector('#telegramFields input[type="url"]')?.value?.trim() || ""
+                    telegram_link: document.querySelector('#telegramFields input[type="url"]')?.value?.trim() || "",
+                    instagram_link: localStorage.getItem('instagram') || "",
                 };
 
                 // Проверяем данные перед отправкой

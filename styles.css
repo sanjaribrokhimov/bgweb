@@ -2190,7 +2190,7 @@ body:not(.dark-theme) .modal-content {
 }
 
 body:not(.dark-theme) .modal-header {
-    background: var(--gradient-1);
+    
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -2198,8 +2198,10 @@ body:not(.dark-theme) .modal-title {
     color: var(--text-color);
 }
 
-body:not(.dark-theme) .details-card {
+body:not(.dark-theme) .details-card  {
     background: var(--card-bg);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 body:not(.dark-theme) .details-header h4 {
@@ -2563,33 +2565,16 @@ body:not(.dark-theme) .btn-close:hover {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* Светлая тема */
-.custom-modal {
- 
-}
+
 
 .custom-modal .modal-title {
-    color: #333;
+    
     font-weight: 600;
 }
 
-.custom-modal .modal-body {
-    color: #444;
-}
 
-.custom-modal .text-muted {
-    color: #666 !important;
-}
 
-.custom-modal .btn-secondary {
-    background-color: #f0f0f0;
-    border: none;
-    color: #333;
-}
 
-.custom-modal .btn-secondary:hover {
-    background-color: #e0e0e0;
-}
 
 .custom-modal .btn-danger {
     background-color: #dc3545;
@@ -2602,34 +2587,17 @@ body:not(.dark-theme) .btn-close:hover {
 
 /* Тёмная тема */
 @media (prefers-color-scheme: dark) {
-    .custom-modal .modal-content {
-        background-color: #2d2d2d;
-    }
-
-    .custom-modal .modal-title {
-        color: #fff;
-    }
-
-    .custom-modal .modal-body {
-        color: #e0e0e0;
-    }
-
-    .custom-modal .text-muted {
-        color: #aaa !important;
-    }
+    
 
     .custom-modal .btn-close {
         filter: invert(1) grayscale(100%) brightness(200%);
     }
 
     .custom-modal .btn-secondary {
-        background-color: #404040;
-        color: #fff;
-    }
+       
+        
 
-    .custom-modal .btn-secondary:hover {
-        background-color: #505050;
-    }
+ 
 
     .custom-modal .btn-danger {
         background-color: #dc3545;
@@ -2783,3 +2751,4 @@ body:not(.dark-theme) .btn-close:hover {
 }
 
 
+}

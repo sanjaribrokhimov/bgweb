@@ -63,12 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const langButtons = document.querySelectorAll('.lang-toggle button');
     const savedLang = localStorage.getItem('selectedLanguage') || 'ru';
 
-    // Устанавливаем активную кнопку языка
-    langButtons.forEach(button => {
-        if (button.textContent.toLowerCase() === savedLang) {
-            button.classList.add('active');
-        }
-    });
+    
 
     // Обработчик переключения языка
     langButtons.forEach(button => {
@@ -85,16 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.querySelector('.theme-toggle');
     const savedTheme = localStorage.getItem('theme') || 'dark';
 
-    // Устанавливаем сохраненную тему
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-theme');
-    }
+    
 
-    // Обработчик переключения темы
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('light-theme');
-        localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
-    });
+   
 
     // Функция обновления переводов
     function updateTranslations(lang) {

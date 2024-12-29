@@ -33,7 +33,7 @@ const translations = {
             myProfile: 'Мой профиль',
             settings: 'Настройки',
             myAds: 'Мои объявления',
-            favorites: 'Изб��анное',
+            favorites: 'Избранное',
             logout: 'Выйти'
         },
         categories: {
@@ -65,7 +65,7 @@ const translations = {
             },
             phone: 'Номер телефона',
             otpTitle: 'Подтверждение',
-            otpDescription: 'Введите код подтверждения, отпра��ленный на ваш номер телефона',
+            otpDescription: 'Введите код подтверждения, отправленный на ваш номер телефона',
             otpTimer: 'Повторная отправка через:',
             otpResend: 'Отправить код повторно',
             otpVerify: 'Подтвердить',
@@ -73,7 +73,12 @@ const translations = {
             emailPlaceholder: "Введите ваш email",
             sendCode: "Отправить код",
             emailRequired: "Пожалуйста, введите email",
-            serverError: "Произошла ошибка при отправке запроса"
+            serverError: "Произошла ошибка при отправке запроса",
+            hints: {
+                telegram: 'Например: https://t.me/sanjar_3210',
+                instagram: 'Вставьте ссылку на ваш Instagram',
+                email: 'На email придет код подтверждения'
+            }
         },
         notifications: {
             success: 'Успешно подтверждено!',
@@ -267,7 +272,12 @@ const translations = {
             emailPlaceholder: "Email manzilingizni kiriting",
             sendCode: "Kodni yuborish",
             emailRequired: "Iltimos, email manzilingizni kiriting",
-            serverError: "Xatolik yuz berdi"
+            serverError: "Xatolik yuz berdi",
+            hints: {
+                telegram: 'Misol: https://t.me/sanjar_3210',
+                instagram: 'Instagram profilingiz havolasini kiriting',
+                email: 'Email manzilingizga tasdiqlash kodi yuboriladi'
+            }
         },
         notifications: {
             success: 'Muvaffaqiyatli tasdiqlandi!',

@@ -566,6 +566,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     github_link: document.querySelector('#githubFields input[type="url"]')?.value?.trim() || "",
                     portfolio_link: document.querySelector('#portfolioFields input[type="url"]')?.value?.trim() || "",
                     telegram_link: document.querySelector('#telegramFields input[type="url"]')?.value?.trim() || "",
+                    instagram_link: localStorage.getItem('instagram') || "",
                     youtube_link: document.querySelector('#youtubeFields input[type="url"]')?.value?.trim() || ""
                 };
 

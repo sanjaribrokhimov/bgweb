@@ -144,17 +144,14 @@ class BloggerLoader {
         return `
             <div class="details-card">
                 <div class="details-header">
-                    <h4>${data.name || 'Без имени'}</h4>
+                    <h4>${data.nickname || 'Без имени'}</h4>
                     <div class="details-stats">
                         <span><i class="fas fa-tag"></i> ${data.category || 'Без категории'}</span>
                         <span><i class="fas fa-compass"></i> ${data.direction || 'Без направления'}</span>
                     </div>
                 </div>
                 <div class="details-info">
-                    <div class="info-item">
-                        <label><i class="fas fa-at"></i> Telegram Username</label>
-                        <span>${data.telegram_username || 'Не указан'}</span>
-                    </div>
+                    
                     
                     <div class="info-item">
                         <label><i class="fas fa-search"></i> Кого ищет</label>
@@ -245,14 +242,14 @@ class BloggerLoader {
 
             const styles = `
                 .custom-modal .modal-content {
-                    background: #2c2c2c;
+                    background: var(--gradient-2);
                     border: 1px solid rgba(255,255,255,0.1);
                     border-radius: 20px;
                     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
                 }
 
                 .custom-modal .modal-header {
-                    background: #333333;
+                    
                     border-bottom: 1px solid rgba(255,255,255,0.1);
                     border-radius: 20px 20px 0 0;
                     padding: 20px 30px;
@@ -274,23 +271,23 @@ class BloggerLoader {
                     justify-content: center;
                     cursor: pointer;
                     transition: all 0.3s ease;
-                    color: #fff;
+                  
                     font-size: 16px;
                 }
 
                 .modal-close-btn:hover {
-                    background: rgba(255, 255, 255, 0.2);
+                    
                     transform: rotate(90deg);
                 }
 
                 .custom-modal .modal-body {
-                    
+                    background: #0f1116;
                     border-radius: 0 0 20px 20px;
                     padding: 30px;
                 }
 
                 .info-item {
-                    background: #333333;
+                    
                     border-radius: 12px;
                     padding: 15px;
                     margin-bottom: 15px;
@@ -298,12 +295,12 @@ class BloggerLoader {
                 }
 
                 .info-item:hover {
-                    background: #3c3c3c;
+                    
                     transform: translateY(-2px);
                 }
 
                 .social-network-item {
-                    background: #333333;
+                   
                     padding: 12px;
                     border-radius: 8px;
                     transition: all 0.3s ease;
@@ -311,7 +308,7 @@ class BloggerLoader {
                 }
 
                 .social-network-item:hover {
-                    background: #3c3c3c;
+                   
                     transform: translateX(5px);
                 }
             `;

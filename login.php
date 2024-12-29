@@ -162,42 +162,63 @@ $params = array(
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Стили для подсказок полей */
+        .input-hint {
+            color: #4B8BF4;
+            font-size: 11px;
+            margin: 4px 0 12px 2px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .input-hint i {
+            color: #4B8BF4;
+            font-size: 12px;
+            width: 12px;
+            height: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+        }
+
+        /* Стили для input-with-icon */
+        .input-with-icon {
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        /* Обновляем стили для form-group */
+        .form-group {
+            margin-bottom: 4px;
+        }
+
+        /* Стили для dark-theme */
+        .dark-theme .input-hint,
+        .dark-theme .input-hint i,
+        .dark-theme .input-with-icon i {
+            color: #4B8BF4;
+        }
+
+        .dark-theme .input-hint {
+            opacity: 0.7;
+        }
+
+        /* Убираем анимацию для более чистого вида */
+        .input-hint {
+            animation: none;
+        }
     </style>
 </head>
 <body>
-   <!-- Индикатор загрузки -->
-<div id="loadingIndicator" class="loading-indicator" style="display: none;">
-    <div class="spinner-wrapper">
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <div class="loading-text">Пожалуйста, подождите...</div>
-    </div>
-</div>
+  
 
     <div class="container-fluid p-3 app-container">
-        <!-- Верхняя панель с переключателями -->
-        <div class="top-bar d-flex justify-content-between align-items-center mb-4">
-            <div class="d-flex align-items-center gap-3">
-                <div class="language-switcher">
-                    <div class="lang-toggle">
-                        <button class="active">RU</button>
-                        <button>UZ</button>
-                    </div>
-                </div>
-                <div class="theme-switcher">
-                    <div class="theme-toggle" role="button" aria-label="Переключить тему">
-                        <i class="fas fa-sun"></i>
-                        <i class="fas fa-moon"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Логотип -->
-        <div class="text-center mb-4">
-            <img src="img/bga.png" alt="BGA" class="header-logo">
-        </div>
+       
+    <?php include 'components/miniHeader.php'; ?>
+    
 
         <!-- Форма входа/регистрации -->
         <div class="auth-container">
@@ -353,24 +374,31 @@ $params = array(
                         <input type="text" 
                                class="form-control" 
                                name="telegram"
-                               value="https://t.me/username"
+                               value="https://t.me/"
                                data-prefix="https://t.me/"
-                               data-placeholder="username"
                                required 
                                autocomplete="off">
                     </div>
+                    <div class="input-hint">
+                        <i class="fas fa-circle-info"></i>
+                        Например: https://t.me/sanjar_3210
+                    </div>
                 </div>
+
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fab fa-instagram"></i>
                         <input type="text" 
                                class="form-control" 
                                name="instagram"
-                               placeholder="ссылка на Instagram"
+                               placeholder="сылка на Instagram"
                                data-placeholder="instagram"
                                required 
                                autocomplete="off">
-                               
+                    </div>
+                    <div class="input-hint">
+                        <i class="fas fa-circle-info"></i>
+                        Вставьте ссылку на ваш Instagram
                     </div>
                 </div>
 
@@ -379,7 +407,12 @@ $params = array(
                         <i class="fas fa-envelope"></i>
                         <input type="email" class="form-control" placeholder="Email" required autocomplete="off">
                     </div>
+                    <div class="input-hint">
+                        <i class="fas fa-circle-info"></i>
+                        На email придет код подтверждения
+                    </div>
                 </div>
+
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-lock"></i>

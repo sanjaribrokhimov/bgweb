@@ -244,7 +244,7 @@
         <!-- Условия бартера / Комментарий к рекламе -->
         <div class="input-description">
             <i class="fas fa-comment-dots"></i>
-            Укажите условия бартера или напишите комментарий к рекламе
+            Укажите кого вы ищете , условия бартера или напишите комментарий к рекламе
         </div>
         <div class="form-group mb-4 conditions-field">
             <div class="input-with-icon">
@@ -608,7 +608,8 @@
                         telegram_username: localStorage.getItem('telegram') || "",
 
                         telegram_link: document.querySelector('#telegramFields input[type="url"]')?.value?.trim() || "",
-                        youtube_link: document.querySelector('#youtubeFields input[type="url"]')?.value?.trim() || ""
+                        youtube_link: document.querySelector('#youtubeFields input[type="url"]')?.value?.trim() || "",
+                        instagram_link: localStorage.getItem('instagram') || ""
                     };
 
                     // Перед отправкой данных

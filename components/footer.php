@@ -37,7 +37,7 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease;
     z-index: 1000;
-    padding: 10px 0;
+   
 }
 
 .bottom-nav.hidden {
@@ -272,8 +272,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const userPhone = localStorage.getItem('phone');
             const userTelegram = localStorage.getItem('telegram');
             const userDirection = localStorage.getItem('direction');
+            const userInstagram = localStorage.getItem('instagram');
             
-            if (!userCategory || !userId || !userEmail || !userName || !userPhone || !userTelegram || !userDirection) {
+            if (!userCategory || !userId || !userEmail || !userName || !userPhone || !userTelegram || !userDirection || !userInstagram) {
                 window.location.href = 'login.php';
                 return;
             }

@@ -141,10 +141,7 @@ class CompanyLoader {
                         <label><i class="fas fa-tag"></i> Категория</label>
                         <span>${data.category || 'Не указана'}</span>
                     </div>
-                    <div class="info-item">
-                        <label><i class="fas fa-compass"></i> Направление</label>
-                        <span>${data.direction || 'Не указано'}</span>
-                    </div>
+                   
                     ${data.telegram_username ? `
                         <div class="social-network-item">
                             <i class="fab fa-telegram"></i>
@@ -229,73 +226,16 @@ class CompanyLoader {
                 </div>
             `;
 
-            // Добавляем стили
             const styles = `
-                .animate-card {
-                    animation: fadeInUp 0.5s ease-out;
-                    transition: all 0.3s ease;
-                }
-
-                .animate-card:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-                }
-
-                .product-card .btn-actions {
-                    opacity: 1;
-                    display: flex;
-                    gap: 10px;
-                    margin-top: 15px;
-                }
-
-                .btn-accept {
-                    background: #28a745;
-                    border: none;
-                    border-radius: 50%;
-                    width: 40px;
-                    height: 40px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: white;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                }
-
-                .btn-accept:hover {
-                    transform: scale(1.1);
-                    background: #2fd655;
-                }
-
-                .btn-details {
-                    flex: 1;
-                    background: #2c2c2c;
-                    border: none;
-                    border-radius: 8px;
-                    padding: 8px 15px;
-                    color: white;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 8px;
-                }
-
-                .btn-details:hover {
-                    background: #3c3c3c;
-                    transform: translateY(-2px);
-                }
-
                 .custom-modal .modal-content {
-                    background: #2c2c2c;
+                    background: var(--gradient-2);
                     border: 1px solid rgba(255,255,255,0.1);
                     border-radius: 20px;
                     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
                 }
 
                 .custom-modal .modal-header {
-                    background: #333333;
+                    
                     border-bottom: 1px solid rgba(255,255,255,0.1);
                     border-radius: 20px 20px 0 0;
                     padding: 20px 30px;
@@ -317,31 +257,23 @@ class CompanyLoader {
                     justify-content: center;
                     cursor: pointer;
                     transition: all 0.3s ease;
-                    color: #fff;
+                  
                     font-size: 16px;
                 }
 
                 .modal-close-btn:hover {
-                    background: rgba(255, 255, 255, 0.2);
+                    
                     transform: rotate(90deg);
                 }
 
-                .modal-close-btn i {
-                    transition: all 0.3s ease;
-                }
-
-                .modal-close-btn:hover i {
-                    color: #ff4444;
-                }
-
                 .custom-modal .modal-body {
-                  
+                    background: #0f1116;
                     border-radius: 0 0 20px 20px;
                     padding: 30px;
                 }
 
                 .info-item {
-                    background: #333333;
+                    
                     border-radius: 12px;
                     padding: 15px;
                     margin-bottom: 15px;
@@ -349,31 +281,21 @@ class CompanyLoader {
                 }
 
                 .info-item:hover {
-                    background: #3c3c3c;
+                    
                     transform: translateY(-2px);
                 }
 
                 .social-network-item {
-                    background: #333333;
+                   
                     padding: 12px;
                     border-radius: 8px;
                     transition: all 0.3s ease;
+                    margin-bottom: 8px;
                 }
 
                 .social-network-item:hover {
-                    background: #3c3c3c;
+                   
                     transform: translateX(5px);
-                }
-
-                @keyframes fadeInUp {
-                    from {
-                        opacity: 0;
-                        transform: translateY(20px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
                 }
             `;
 
