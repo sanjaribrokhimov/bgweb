@@ -599,12 +599,12 @@ $IP = '144.126.128.67';
                         <button class="lang-btn" data-lang="uz">UZ</button>
                     </div>
                 </div>
-                <!-- <div class="theme-switcher">
+                <div class="theme-switcher">
                     <div class="theme-toggle" role="button" aria-label="Переключить тему">
                         <i class="fas fa-sun"></i>
                         <i class="fas fa-moon"></i>
                     </div>
-                </div> -->
+                </div>
 
             </div>
             <div class="profile-btn">

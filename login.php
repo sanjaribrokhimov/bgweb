@@ -903,33 +903,14 @@ $params = array(
     </script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Переключатель темы с анимацией
+        // Находим переключатель темы
         const themeToggle = document.querySelector('.theme-toggle');
-        if (themeToggle) {
-            // Устанавливаем тёмную тему по умолчанию
-            document.body.classList.add('dark-theme');
-            document.documentElement.classList.add('dark-theme');
-
-            themeToggle.addEventListener('click', () => {
-                themeToggle.classList.add('switching');
-                document.body.classList.toggle('dark-theme');
-                document.documentElement.classList.toggle('dark-theme');
-                const isDark = document.body.classList.contains('dark-theme');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                
-                setTimeout(() => {
-                    themeToggle.classList.remove('switching');
-                }, 500);
-            });
-
-            // Применяем сохраненную тему при загрузке
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-theme');
-                document.documentElement.classList.add('dark-theme');
-            } else {
-                document.body.classList.remove('dark-theme');
-                document.documentElement.classList.remove('dark-theme');
+        
+        // Если мы на странице логина (проверяем по URL)
+        if (window.location.pathname.includes('login.php')) {
+            // Скрываем переключатель темы
+            if (themeToggle) {
+                themeToggle.style.display = 'none';
             }
         }
     });
