@@ -150,17 +150,19 @@ mumkin
 
     def create_main_keyboard(self, lang='ru', chat_id=None):
         keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-        # Добавляем все необходимые параметры в URL
         web_app_url = f"https://blogy.uz/index.php"
+        
         if chat_id:
-            user = self.bot.get_chat_member(chat_id, chat_id).user
-            params = {
-                'chat_id': chat_id,
-                'phone': user.contact.phone_number if hasattr(user, 'contact') else '',
-                'username': user.username or '',
-                'user_id': user.id
-            }
-            web_app_url += '?' + '&'.join(f"{k}={v}" for k, v in params.items() if v)
+            try:
+                user = self.bot.get_chat_member(chat_id, chat_id).user
+                # Передаем только самые важные параметры
+                web_app_url += f"?chat_id={chat_id}&user_id={user.id}"
+                if user.username:
+                    web_app_url += f"&username={user.username}"
+                logger.info(f"Created URL: {web_app_url}")
+            except Exception as e:
+                logger.error(f"Error: {e}")
+                web_app_url += f"?chat_id={chat_id}"
         
         web_app = WebAppInfo(url=web_app_url)
         
