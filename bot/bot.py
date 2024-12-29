@@ -150,10 +150,18 @@ mumkin
 
     def create_main_keyboard(self, lang='ru', chat_id=None):
         keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-        # Используем chat_id из параметра если он передан
-        web_app_url = f"https://public-maps-show.loca.lt"
+        # Добавляем все необходимые параметры в URL
+        web_app_url = f"https://blogy.uz/index.php"
         if chat_id:
-            web_app_url += f"?chat_id={chat_id}"
+            user = self.bot.get_chat_member(chat_id, chat_id).user
+            params = {
+                'chat_id': chat_id,
+                'phone': user.contact.phone_number if hasattr(user, 'contact') else '',
+                'username': user.username or '',
+                'user_id': user.id
+            }
+            web_app_url += '?' + '&'.join(f"{k}={v}" for k, v in params.items() if v)
+        
         web_app = WebAppInfo(url=web_app_url)
         
         buttons_text = {

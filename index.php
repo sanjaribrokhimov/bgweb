@@ -1,11 +1,22 @@
 <?php
-// Получаем chat_id из URL
-if (isset($_GET['chat_id'])) {
-    $chat_id = $_GET['chat_id'];
-    // Добавляем JavaScript для сохранения chat_id в localStorage
+// В начале файла добавим:
+$params = array(
+    'telegram_chat_id' => $_GET['chat_id'] ?? null,
+    'telegram_phone' => $_GET['phone'] ?? null,
+    'telegram_username' => $_GET['username'] ?? null,
+    'telegram_user_id' => $_GET['user_id'] ?? null
+);
+
+// Добавляем JavaScript для сохранения всех параметров
+if (array_filter($params)) {
     echo "<script>
-        localStorage.setItem('telegram_chat_id', '$chat_id');
-        console.log('Saved telegram_chat_id:', '$chat_id');
+        const telegramParams = " . json_encode($params) . ";
+        Object.entries(telegramParams).forEach(([key, value]) => {
+            if (value) {
+                localStorage.setItem(key, value);
+                console.log('Saved ' + key + ':', value);
+            }
+        });
     </script>";
 }
 

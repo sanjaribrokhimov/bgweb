@@ -149,3 +149,11 @@
 2024-12-28 13:07:25.789 | INFO     | __main__:send_welcome:235 - Welcome message with logo sent to user 5789133679
 2024-12-28 13:16:02.530 | ERROR    | __main__:check_subscription:196 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
 2024-12-28 13:16:02.943 | INFO     | __main__:send_welcome:235 - Welcome message with logo sent to user 5789133679
+2024-12-29 15:39:41.874 | INFO     | __main__:run:386 - Бот запущен
+2024-12-29 15:40:08.623 | ERROR    | __main__:check_subscription:196 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
+2024-12-29 15:40:09.042 | INFO     | __main__:send_welcome:235 - Welcome message with logo sent to user 5789133679
+2024-12-29 15:49:17.834 | INFO     | __main__:run:394 - Бот запущен
+2024-12-29 15:49:27.681 | ERROR    | __main__:check_subscription:204 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
+2024-12-29 15:49:28.043 | INFO     | __main__:send_welcome:243 - Welcome message with logo sent to user 5789133679
+2024-12-29 15:53:39.049 | ERROR    | __main__:check_subscription:204 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
+2024-12-29 15:53:39.478 | INFO     | __main__:send_welcome:243 - Welcome message with logo sent to user 5789133679

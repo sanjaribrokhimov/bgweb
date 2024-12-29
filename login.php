@@ -1,3 +1,13 @@
+<?php
+// Добавим в начало файла:
+$params = array(
+    'telegram_chat_id' => $_GET['chat_id'] ?? null,
+    'telegram_phone' => $_GET['phone'] ?? null,
+    'telegram_username' => $_GET['username'] ?? null,
+    'telegram_user_id' => $_GET['user_id'] ?? null
+);
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <script>
@@ -955,6 +965,26 @@ document.addEventListener('DOMContentLoaded', () => {
             // продолжаем обычную обработку формы
         });
     }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Получаем параметры из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const telegramParams = {
+        telegram_chat_id: urlParams.get('chat_id'),
+        telegram_phone: urlParams.get('phone'),
+        telegram_username: urlParams.get('username'),
+        telegram_user_id: urlParams.get('user_id')
+    };
+    
+    // Сохраняем все параметры в localStorage
+    Object.entries(telegramParams).forEach(([key, value]) => {
+        if (value) {
+            localStorage.setItem(key, value);
+            console.log('Saved ' + key + ':', value);
+        }
+    });
 });
 </script>
 </body>
