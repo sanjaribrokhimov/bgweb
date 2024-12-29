@@ -160,3 +160,7 @@
 2024-12-29 15:55:42.702 | INFO     | __main__:run:394 - Бот запущен
 2024-12-29 15:55:52.126 | ERROR    | __main__:check_subscription:204 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
 2024-12-29 15:55:52.495 | INFO     | __main__:send_welcome:243 - Welcome message with logo sent to user 5789133679
+2024-12-29 16:02:06.504 | INFO     | __main__:run:396 - Бот запущен
+2024-12-29 16:02:17.599 | INFO     | __main__:create_main_keyboard:162 - Created URL: https://blogy.uz/index.php?chat_id=5789133679&user_id=5789133679&username=Sanjar_3210
+2024-12-29 16:02:18.115 | ERROR    | __main__:check_subscription:206 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
+2024-12-29 16:02:18.995 | INFO     | __main__:send_welcome:245 - Welcome message with logo sent to user 5789133679
