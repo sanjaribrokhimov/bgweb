@@ -168,3 +168,28 @@
 2024-12-29 16:12:01.212 | INFO     | __main__:create_main_keyboard:162 - Created URL: https://blogy.uz/index.php?chat_id=5789133679&user_id=5789133679&username=Sanjar_3210
 2024-12-29 16:12:01.702 | ERROR    | __main__:check_subscription:206 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
 2024-12-29 16:12:02.138 | INFO     | __main__:send_welcome:245 - Welcome message with logo sent to user 5789133679
+2024-12-30 12:32:25.753 | INFO     | __main__:run:396 - Бот запущен
+2024-12-30 12:32:46.835 | INFO     | __main__:create_main_keyboard:162 - Created URL: https://blogy.uz/index.php?chat_id=5789133679&user_id=5789133679&username=Sanjar_3210
+2024-12-30 12:32:47.160 | ERROR    | __main__:check_subscription:206 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
+2024-12-30 12:32:47.465 | INFO     | __main__:send_welcome:245 - Welcome message with logo sent to user 5789133679
+2024-12-30 12:32:53.844 | INFO     | __main__:create_main_keyboard:162 - Created URL: https://blogy.uz/index.php?chat_id=5789133679&user_id=5789133679&username=Sanjar_3210
+2024-12-30 12:32:54.115 | ERROR    | __main__:check_subscription:206 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
+2024-12-30 12:32:54.292 | INFO     | __main__:send_welcome:245 - Welcome message with logo sent to user 5789133679
+2024-12-30 12:32:58.495 | INFO     | __main__:create_main_keyboard:162 - Created URL: https://blogy.uz/index.php?chat_id=5789133679&user_id=5789133679&username=Sanjar_3210
+2024-12-30 12:32:58.733 | ERROR    | __main__:check_subscription:206 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
+2024-12-30 12:32:59.057 | INFO     | __main__:send_welcome:245 - Welcome message with logo sent to user 5789133679
+2024-12-30 12:33:12.452 | ERROR    | __main__:check_subscription:206 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
+2024-12-30 12:33:12.896 | INFO     | __main__:send_welcome:245 - Welcome message with logo sent to user 5789133679
+2024-12-30 12:33:38.360 | ERROR    | __main__:check_subscription:206 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
+2024-12-30 12:33:38.525 | INFO     | __main__:send_welcome:245 - Welcome message with logo sent to user 5789133679
+2024-12-30 12:33:43.797 | INFO     | __main__:create_main_keyboard:162 - Created URL: https://blogy.uz/index.php?chat_id=5789133679&user_id=5789133679&username=Sanjar_3210
+2024-12-30 12:33:44.023 | ERROR    | __main__:check_subscription:206 - API Error in check_subscription: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: member list is inaccessible
+2024-12-30 12:33:44.179 | INFO     | __main__:send_welcome:245 - Welcome message with logo sent to user 5789133679
+2024-12-30 12:37:25.119 | INFO     | __main__:run:424 - Бот запущен
+2024-12-30 12:37:40.876 | INFO     | __main__:send_welcome:273 - Welcome message with logo sent to user 5789133679
+2024-12-30 12:37:50.506 | INFO     | __main__:send_welcome:273 - Welcome message with logo sent to user 5789133679
+2024-12-30 12:41:33.339 | INFO     | __main__:run:479 - Бот запущен
+2024-12-30 12:42:57.630 | INFO     | __main__:send_welcome:296 - Welcome message with logo sent to user 7589092516
+2024-12-30 12:43:06.215 | INFO     | __main__:send_welcome:296 - Welcome message with logo sent to user 7589092516
+2024-12-30 12:43:46.519 | INFO     | __main__:send_welcome:296 - Welcome message with logo sent to user 7589092516
+2024-12-30 12:44:51.638 | INFO     | __main__:send_welcome:296 - Welcome message with logo sent to user 7589092516

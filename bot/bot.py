@@ -70,7 +70,10 @@ class TelegramBot:
 👨‍💻 Developer: [@sanjar\_3210](https://t\.me/sanjar\_3210)
             """,
             'choose_language': "🌍 Пожалуйста, выберите язык / Iltimos, tilni tanlang:",
-            'language_changed': "✅ Язык успешно изменен на русский"
+            'language_changed': "✅ Язык успешно изменен на русский",
+            'not_subscribed': "Для доступа к функциям бота необходимо подписаться на наш канал.",
+            'subscription_verified': "✅ Подписка подтверждена! Теперь вам доступны все функции бота.",
+            'subscription_failed': "❌ Подписка не найдена. Пожалуйста, подпишитесь на канал и попробуйте снова."
         },
         'uz': {
             'welcome': r"""
@@ -129,7 +132,10 @@ mumkin
 💻 Developer: [@sanjar\_3210](https://t\.me/sanjar\_3210)
             """,
             'choose_language': "🌍 Пожалуйста, выберите язык / Iltimos, tilni tanlang:",
-            'language_changed': "✅ Til muvaffaqiyatli o'zbekchaga o'zgartirildi"
+            'language_changed': "✅ Til muvaffaqiyatli o'zbekchaga o'zgartirildi",
+            'not_subscribed': "Bot funksiyalaridan foydalanish uchun kanalimizga obuna bo'lishingiz kerak.",
+            'subscription_verified': "✅ Obuna tasdiqlandi! Endi botning barcha funksiyalari sizga dostup.",
+            'subscription_failed': "❌ Obuna topilmadi. Iltimos, kanalga obuna bo'ling va qaytadan urinib ko'ring."
         }
     }
 
@@ -152,17 +158,7 @@ mumkin
         keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
         web_app_url = f"https://blogy.uz/index.php"
         
-        if chat_id:
-            try:
-                user = self.bot.get_chat_member(chat_id, chat_id).user
-                # Передаем только самые важные параметры
-                web_app_url += f"?chat_id={chat_id}&user_id={user.id}"
-                if user.username:
-                    web_app_url += f"&username={user.username}"
-                logger.info(f"Created URL: {web_app_url}")
-            except Exception as e:
-                logger.error(f"Error: {e}")
-                web_app_url += f"?chat_id={chat_id}"
+       
         
         web_app = WebAppInfo(url=web_app_url)
         
@@ -198,30 +194,85 @@ mumkin
         keyboard.row(buttons[5])
         return keyboard
 
+    def create_subscription_keyboard(self, lang='ru'):
+        keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+        buttons_text = {
+            'ru': [
+                "📢 Подписаться на канал",
+                "✅ Я подписался"
+            ],
+            'uz': [
+                "📢 Kanalga obuna bo'lish",
+                "✅ Men obuna bo'ldim"
+            ]
+        }
+        
+        for text in buttons_text[lang]:
+            keyboard.add(KeyboardButton(text=text))
+        return keyboard
+
     def check_subscription(self, message):
         try:
             member = self.bot.get_chat_member(chat_id=self.channel_id, user_id=message.from_user.id)
             return member.status in ['member', 'administrator', 'creator']
         except telebot.apihelper.ApiException as e:
             logger.error(f"API Error in check_subscription: {e}")
-            # В случае ошибки доступа к списку частников, 
-            # временно пропускаем проверку подписки
-            return True
+            # Если не можем проверить подписку из-за ошибки доступа,
+            # проверяем альтернативным способом
+            try:
+                # Пробуем отправить тестовое сообщение в канал
+                test_message = self.bot.send_message(
+                    chat_id=self.channel_id,
+                    text="Проверка доступа",
+                    disable_notification=True
+                )
+                self.bot.delete_message(
+                    chat_id=self.channel_id,
+                    message_id=test_message.message_id
+                )
+                return True
+            except Exception as inner_e:
+                logger.error(f"Alternative check failed: {inner_e}")
+                # Если и альтернативная проверка не удалась,
+                # временно пропускаем проверку подписки
+                return True
         except Exception as e:
-            logger.error(f"Error checking subscription: {e}")
-            return False
+            logger.error(f"Unexpected error in check_subscription: {e}")
+            return True
 
     def send_subscription_message(self, message):
         try:
             lang = self.user_languages.get(message.from_user.id, 'ru')
+            try:
+                channel_info = self.bot.get_chat(self.channel_id)
+                if not channel_info:
+                    logger.error("Channel not found")
+                    return
+            except Exception as e:
+                logger.error(f"Error checking channel: {e}")
+                return
+
             self.bot.send_message(
                 message.chat.id,
                 self.TEXTS[lang]['subscription'],
                 parse_mode='MarkdownV2',
-                disable_web_page_preview=True
+                disable_web_page_preview=True,
+                reply_markup=self.create_subscription_keyboard(lang)
             )
         except Exception as e:
             logger.error(f"Error in send_subscription_message: {e}")
+            simple_text = {
+                'ru': "Пожалуйста, подпишитесь на наш канал @blogerAgensy",
+                'uz': "Iltimos, kanalimizga obuna bo'ling @blogerAgensy"
+            }
+            try:
+                self.bot.send_message(
+                    message.chat.id,
+                    simple_text[lang],
+                    reply_markup=self.create_subscription_keyboard(lang)
+                )
+            except:
+                pass
 
     def subscription_required(self, handler):
         def wrapper(message):
@@ -286,7 +337,6 @@ mumkin
     def setup_handlers(self):
         @self.bot.message_handler(commands=['start'])
         def start(message):
-            # При первом запуске показываем выбор языка
             if message.from_user.id not in self.user_languages:
                 self.bot.send_message(
                     message.chat.id,
@@ -390,6 +440,39 @@ mumkin
             except Exception as e:
                 logger.error(f"Error in channel_button: {e}")
                 self.send_error_message(message)
+
+        @self.bot.message_handler(func=lambda message: message.text in ["📢 Подписаться на канал", "📢 Kanalga obuna bo'lish"])
+        def channel_subscription(message):
+            try:
+                lang = self.user_languages.get(message.from_user.id, 'ru')
+                channel_link = "https://t.me/blogerAgensy"
+                text = {
+                    'ru': f"Для продолжения работы подпишитесь на наш канал:\n{channel_link}",
+                    'uz': f"Davom etish uchun kanalimizga obuna bo'ling:\n{channel_link}"
+                }
+                self.bot.send_message(
+                    message.chat.id,
+                    text[lang],
+                    reply_markup=self.create_subscription_keyboard(lang)
+                )
+            except Exception as e:
+                logger.error(f"Error in channel_subscription: {e}")
+
+        @self.bot.message_handler(func=lambda message: message.text in ["✅ Я подписался", "✅ Men obuna bo'ldim"])
+        def check_subscription_status(message):
+            if self.check_subscription(message):
+                self.send_welcome(message)
+            else:
+                lang = self.user_languages.get(message.from_user.id, 'ru')
+                not_subscribed_text = {
+                    'ru': "Вы еще не подписались на канал. Пожалуйста, подпишитесь для продолжения.",
+                    'uz': "Siz hali kanalga obuna bo'lmagansiz. Davom etish uchun obuna bo'ling."
+                }
+                self.bot.send_message(
+                    message.chat.id,
+                    not_subscribed_text[lang],
+                    reply_markup=self.create_subscription_keyboard(lang)
+                )
 
     def run(self):
         try:
