@@ -911,7 +911,11 @@
             if (telegramInput && username) {
                 telegramInput.value = `https://t.me/${username}`;
                 telegramInput.classList.add('is-valid');
-                console.log('Filled telegram input with:', username);
+                
+            }else{
+                telegramInput.value = `https://t.me/`;
+               
+                
             }
 
             // Заполняем поле телефона
@@ -1079,6 +1083,43 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error details:', error);
         }
     }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Функция проверки наличия всех необходимых данных
+    function checkRequiredData() {
+        const requiredKeys = [
+            'userEmail',
+            'category',
+            'verified',
+            'userId',
+            'direction',
+            'telegram',
+            'instagram',
+            'name',
+            'phone'
+        ];
+        
+        // Проверяем наличие всех ключей
+        const hasAllData = requiredKeys.every(key => {
+            const value = localStorage.getItem(key);
+            return value && value !== 'null' && value !== 'undefined';
+        });
+        
+        console.log('Checking required data:', hasAllData);
+        
+        if (hasAllData) {
+            console.log('All required data found, redirecting to index.php');
+            window.location.href = 'index.php';
+        }
+    }
+    
+    // Проверяем данные при загрузке страницы
+    checkRequiredData();
+    
+    // Также можно проверять при изменении localStorage
+    window.addEventListener('storage', checkRequiredData);
 });
 </script>
 </body>

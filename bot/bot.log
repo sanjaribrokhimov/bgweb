@@ -566,3 +566,253 @@
 2025-01-10 17:37:37.939 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
 2025-01-10 17:38:15.368 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: uz
 2025-01-10 17:38:18.214 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-11 01:21:51.306 | INFO     | __main__:run:497 - Бот запущен
+2025-01-11 01:22:15.592 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-11 01:22:17.598 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-11 01:22:20.796 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-11 01:22:22.009 | INFO     | __main__:check_subscription:319 - Subscription check for user 505987025: False
+2025-01-11 01:22:22.142 | INFO     | __main__:send_subscription_message:352 - Subscription message sent to user 505987025
+2025-01-11 01:22:40.209 | INFO     | __main__:check_subscription:319 - Subscription check for user 505987025: False
+2025-01-11 01:22:40.432 | INFO     | __main__:send_subscription_message:352 - Subscription message sent to user 505987025
+2025-01-11 01:22:47.913 | INFO     | __main__:check_subscription:319 - Subscription check for user 505987025: False
+2025-01-11 01:22:48.047 | INFO     | __main__:send_subscription_message:352 - Subscription message sent to user 505987025
+2025-01-11 01:23:11.560 | INFO     | __main__:check_subscription:319 - Subscription check for user 505987025: True
+2025-01-11 01:23:14.269 | INFO     | __main__:handle_language_selection:205 - User 505987025 selected language: ru
+2025-01-11 01:23:17.587 | INFO     | __main__:handle_contact:229 - Received contact: 998935117409 from user Gofurova_Laziza
+2025-01-11 01:35:30.076 | INFO     | __main__:run:503 - Бот запущен
+2025-01-11 01:35:52.874 | INFO     | __main__:check_subscription:325 - Subscription check for user 5789133679: True
+2025-01-11 01:35:54.548 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-11 01:35:57.944 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-11 01:35:57.945 | INFO     | __main__:handle_contact:252 - Generated web_app_url: https://blogy.uz/index.php?tgdata=tg_chat_id%3D5789133679%26tg_username%3DSanjar_3210%26tg_user_id%3D5789133679%26tg_first_name%3DSandzhar%26tg_phone%3D998331108810%26tg_auth_date%3D1736541357
+2025-01-11 01:42:28.837 | INFO     | __main__:run:503 - Бот запущен
+2025-01-11 01:42:48.741 | INFO     | __main__:check_subscription:325 - Subscription check for user 5789133679: True
+2025-01-11 01:42:50.636 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-11 01:42:53.805 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-11 01:42:53.805 | INFO     | __main__:handle_contact:252 - Generated web_app_url: https://a6eb-84-54-122-32.ngrok-free.app/index.php?tgdata=tg_chat_id%3D5789133679%26tg_username%3DSanjar_3210%26tg_user_id%3D5789133679%26tg_first_name%3DSandzhar%26tg_phone%3D998331108810%26tg_auth_date%3D1736541773
+2025-01-11 01:46:27.524 | INFO     | __main__:run:497 - Бот запущен
+2025-01-11 01:46:33.765 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-11 01:46:35.545 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-11 01:46:39.059 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-11 01:47:51.879 | INFO     | __main__:run:488 - Бот запущен
+2025-01-11 01:47:58.305 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-11 01:48:00.257 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-11 01:48:03.683 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-11 01:48:47.639 | INFO     | __main__:run:488 - Бот запущен
+2025-01-11 01:48:54.543 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-11 01:48:56.108 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-11 01:48:59.098 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-11 01:49:41.757 | INFO     | __main__:run:488 - Бот запущен
+2025-01-11 01:49:48.656 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-11 01:49:50.541 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-11 01:49:53.763 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-11 02:06:01.803 | INFO     | __main__:run:488 - Бот запущен
+2025-01-11 02:06:09.030 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-11 02:06:10.854 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-11 02:06:13.962 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-11 02:18:04.814 | INFO     | __main__:run:488 - Бот запущен
+2025-01-11 02:18:10.629 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-11 02:18:12.547 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-11 02:18:15.744 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-11 02:25:23.959 | INFO     | __main__:run:488 - Бот запущен
+2025-01-11 02:26:12.302 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-11 02:26:14.060 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-11 02:26:17.269 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-11 02:32:32.730 | INFO     | __main__:run:488 - Бот запущен
+2025-01-11 02:33:25.174 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:33:25.287 | ERROR    | __main__:send_subscription_message:346 - Error in send_subscription_message: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+2025-01-11 02:34:35.628 | INFO     | __main__:run:488 - Бот запущен
+2025-01-11 02:34:43.118 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:34:43.257 | INFO     | __main__:send_subscription_message:344 - Subscription message sent to user 7622539570
+2025-01-11 02:35:17.388 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:35:17.550 | INFO     | __main__:send_subscription_message:344 - Subscription message sent to user 7622539570
+2025-01-11 02:41:26.200 | INFO     | __main__:run:504 - Бот запущен
+2025-01-11 02:41:39.831 | INFO     | __main__:start_handler:424 - Sent language selection to user 7622539570
+2025-01-11 02:41:44.320 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:41:44.458 | INFO     | __main__:send_subscription_message:344 - Subscription message sent to user 7622539570
+2025-01-11 02:41:49.106 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:41:49.226 | INFO     | __main__:subscription_handler:486 - Subscription check failed for user 7622539570
+2025-01-11 02:41:54.225 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:41:54.345 | INFO     | __main__:subscription_handler:486 - Subscription check failed for user 7622539570
+2025-01-11 02:41:55.619 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:41:55.743 | INFO     | __main__:subscription_handler:486 - Subscription check failed for user 7622539570
+2025-01-11 02:41:59.785 | INFO     | __main__:start_handler:424 - Sent language selection to user 7622539570
+2025-01-11 02:42:01.156 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:42:01.447 | ERROR    | __main__:send_subscription_message:346 - Error in send_subscription_message: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+2025-01-11 02:42:06.377 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:42:06.484 | ERROR    | __main__:send_subscription_message:346 - Error in send_subscription_message: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+2025-01-11 02:55:36.414 | INFO     | __main__:run:503 - Бот запущен
+2025-01-11 02:55:53.881 | INFO     | __main__:start_handler:423 - Sent language selection to user 7622539570
+2025-01-11 02:55:55.793 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:55:55.922 | INFO     | __main__:send_subscription_message:343 - Subscription message sent to user 7622539570
+2025-01-11 02:55:58.974 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:55:59.097 | INFO     | __main__:subscription_handler:485 - Subscription check failed for user 7622539570
+2025-01-11 02:56:08.397 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:56:08.596 | INFO     | __main__:subscription_handler:485 - Subscription check failed for user 7622539570
+2025-01-11 02:56:10.596 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:56:10.747 | INFO     | __main__:subscription_handler:485 - Subscription check failed for user 7622539570
+2025-01-11 02:56:12.496 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:56:12.659 | INFO     | __main__:subscription_handler:485 - Subscription check failed for user 7622539570
+2025-01-11 02:56:14.723 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:56:14.933 | INFO     | __main__:subscription_handler:485 - Subscription check failed for user 7622539570
+2025-01-11 02:56:17.616 | INFO     | __main__:start_handler:423 - Sent language selection to user 7622539570
+2025-01-11 02:56:20.067 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:56:20.190 | INFO     | __main__:send_subscription_message:343 - Subscription message sent to user 7622539570
+2025-01-11 02:56:21.401 | INFO     | __main__:check_subscription:319 - Subscription check for user 7622539570: False
+2025-01-11 02:56:21.584 | INFO     | __main__:subscription_handler:485 - Subscription check failed for user 7622539570
+2025-01-11 02:57:59.089 | INFO     | __main__:run:547 - Бот запущен
+2025-01-11 02:58:09.486 | INFO     | __main__:start_handler:436 - Sent language selection to user 7622539570
+2025-01-11 02:58:10.971 | INFO     | __main__:check_subscription:332 - Subscription check for user 7622539570: False
+2025-01-11 02:58:11.129 | INFO     | __main__:send_subscription_message:356 - Subscription message sent to user 7622539570
+2025-01-11 02:58:18.124 | INFO     | __main__:check_subscription:332 - Subscription check for user 7622539570: False
+2025-01-11 02:58:18.302 | INFO     | __main__:send_subscription_message:356 - Subscription message sent to user 7622539570
+2025-01-11 02:58:23.773 | INFO     | __main__:check_subscription:332 - Subscription check for user 7690904808: True
+2025-01-11 02:58:23.878 | ERROR    | __main__:check_subscription_callback:542 - Error in subscription callback: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: inline keyboard expected
+2025-01-11 02:59:27.363 | INFO     | __main__:run:554 - Бот запущен
+2025-01-11 02:59:34.777 | INFO     | __main__:start_handler:436 - Sent language selection to user 7622539570
+2025-01-11 02:59:36.633 | INFO     | __main__:check_subscription:332 - Subscription check for user 7622539570: False
+2025-01-11 02:59:36.816 | INFO     | __main__:send_subscription_message:356 - Subscription message sent to user 7622539570
+2025-01-11 02:59:39.658 | INFO     | __main__:check_subscription:332 - Subscription check for user 7690904808: True
+2025-01-11 02:59:40.058 | INFO     | __main__:check_subscription_callback:539 - Subscription verified for user 7622539570
+2025-01-11 02:59:56.581 | INFO     | __main__:handle_contact:229 - Received contact: 306997492045 from user None
+2025-01-11 02:59:56.742 | INFO     | __main__:contact_handler:509 - Processed contact for user 7622539570
+2025-01-11 03:04:03.701 | INFO     | __main__:run:568 - Бот запущен
+2025-01-11 03:04:11.834 | INFO     | __main__:start_handler:445 - Sent language selection to user 5789133679
+2025-01-11 03:04:14.529 | INFO     | __main__:check_subscription:339 - Checking subscription for user 5789133679: True
+2025-01-11 03:04:14.529 | INFO     | __main__:check_subscription:340 - User status: creator
+2025-01-11 03:04:14.717 | INFO     | __main__:language_handler:476 - Requested phone number from user 5789133679
+2025-01-11 03:04:28.437 | INFO     | __main__:start_handler:445 - Sent language selection to user 7622539570
+2025-01-11 03:04:30.478 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:04:30.479 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:04:30.677 | INFO     | __main__:send_subscription_message:365 - Subscription message sent to user 7622539570
+2025-01-11 03:04:35.183 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:04:35.302 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:04:35.302 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:04:35.303 | INFO     | __main__:check_subscription_callback:531 - Subscription status: False
+2025-01-11 03:04:35.418 | INFO     | __main__:check_subscription_callback:561 - Subscription check failed for user 7622539570
+2025-01-11 03:04:39.584 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:04:39.726 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:04:39.726 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:04:39.727 | INFO     | __main__:check_subscription_callback:531 - Subscription status: False
+2025-01-11 03:04:39.938 | INFO     | __main__:check_subscription_callback:561 - Subscription check failed for user 7622539570
+2025-01-11 03:04:41.757 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:04:41.758 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:04:41.896 | INFO     | __main__:send_subscription_message:365 - Subscription message sent to user 7622539570
+2025-01-11 03:04:43.782 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:04:43.905 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:04:43.905 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:04:43.906 | INFO     | __main__:check_subscription_callback:531 - Subscription status: False
+2025-01-11 03:04:44.020 | INFO     | __main__:check_subscription_callback:561 - Subscription check failed for user 7622539570
+2025-01-11 03:04:56.275 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:04:56.382 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: True
+2025-01-11 03:04:56.383 | INFO     | __main__:check_subscription:340 - User status: member
+2025-01-11 03:04:56.383 | INFO     | __main__:check_subscription_callback:531 - Subscription status: True
+2025-01-11 03:04:56.703 | INFO     | __main__:check_subscription_callback:553 - Subscription verified for user 7622539570
+2025-01-11 03:07:00.462 | INFO     | __main__:run:568 - Бот запущен
+2025-01-11 03:07:06.467 | INFO     | __main__:start_handler:445 - Sent language selection to user 7622539570
+2025-01-11 03:07:15.957 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:07:15.958 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:07:16.088 | INFO     | __main__:send_subscription_message:365 - Subscription message sent to user 7622539570
+2025-01-11 03:07:18.808 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:07:18.917 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:07:18.918 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:07:18.918 | INFO     | __main__:check_subscription_callback:531 - Subscription status: False
+2025-01-11 03:07:19.034 | INFO     | __main__:check_subscription_callback:561 - Subscription check failed for user 7622539570
+2025-01-11 03:07:33.561 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:07:33.671 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: True
+2025-01-11 03:07:33.672 | INFO     | __main__:check_subscription:340 - User status: member
+2025-01-11 03:07:33.672 | INFO     | __main__:check_subscription_callback:531 - Subscription status: True
+2025-01-11 03:07:34.073 | INFO     | __main__:check_subscription_callback:553 - Subscription verified for user 7622539570
+2025-01-11 03:09:39.120 | INFO     | __main__:run:568 - Бот запущен
+2025-01-11 03:09:50.820 | INFO     | __main__:start_handler:445 - Sent language selection to user 7622539570
+2025-01-11 03:09:53.654 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:09:53.655 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:09:53.783 | INFO     | __main__:send_subscription_message:365 - Subscription message sent to user 7622539570
+2025-01-11 03:09:55.900 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:09:56.005 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:09:56.006 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:09:56.006 | INFO     | __main__:check_subscription_callback:531 - Subscription status: False
+2025-01-11 03:09:56.207 | INFO     | __main__:check_subscription_callback:561 - Subscription check failed for user 7622539570
+2025-01-11 03:10:03.786 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:10:03.902 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: True
+2025-01-11 03:10:03.903 | INFO     | __main__:check_subscription:340 - User status: member
+2025-01-11 03:10:03.903 | INFO     | __main__:check_subscription_callback:531 - Subscription status: True
+2025-01-11 03:10:04.194 | INFO     | __main__:check_subscription_callback:553 - Subscription verified for user 7622539570
+2025-01-11 03:11:09.285 | INFO     | __main__:run:575 - Бот запущен
+2025-01-11 03:11:22.019 | INFO     | __main__:start_handler:445 - Sent language selection to user 7622539570
+2025-01-11 03:11:24.194 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:11:24.195 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:11:24.375 | INFO     | __main__:send_subscription_message:365 - Subscription message sent to user 7622539570
+2025-01-11 03:11:27.928 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:11:28.037 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:11:28.038 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:11:28.039 | INFO     | __main__:check_subscription_callback:531 - Subscription status: False
+2025-01-11 03:11:28.156 | INFO     | __main__:check_subscription_callback:567 - Subscription check failed for user 7622539570
+2025-01-11 03:11:34.000 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:11:34.108 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: True
+2025-01-11 03:11:34.108 | INFO     | __main__:check_subscription:340 - User status: member
+2025-01-11 03:11:34.109 | INFO     | __main__:check_subscription_callback:531 - Subscription status: True
+2025-01-11 03:11:34.469 | INFO     | __main__:check_subscription_callback:558 - Requested phone number from user 7622539570
+2025-01-11 03:11:45.429 | INFO     | __main__:handle_contact:229 - Received contact: 306997492045 from user None
+2025-01-11 03:11:45.562 | INFO     | __main__:contact_handler:518 - Processed contact for user 7622539570
+2025-01-11 03:13:23.966 | INFO     | __main__:run:650 - Бот запущен
+2025-01-11 03:13:31.456 | INFO     | __main__:start_handler:445 - Sent language selection to user 7622539570
+2025-01-11 03:13:33.306 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: True
+2025-01-11 03:13:33.307 | INFO     | __main__:check_subscription:340 - User status: member
+2025-01-11 03:13:33.501 | INFO     | __main__:language_handler:476 - Requested phone number from user 7622539570
+2025-01-11 03:13:36.079 | INFO     | __main__:handle_contact:229 - Received contact: 306997492045 from user None
+2025-01-11 03:13:36.368 | INFO     | __main__:contact_handler:518 - Processed contact for user 7622539570
+2025-01-11 03:14:00.388 | INFO     | __main__:change_language_handler:643 - Language selection shown to user 7622539570
+2025-01-11 03:14:04.534 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: True
+2025-01-11 03:14:04.535 | INFO     | __main__:check_subscription:340 - User status: member
+2025-01-11 03:14:04.657 | INFO     | __main__:language_handler:476 - Requested phone number from user 7622539570
+2025-01-11 03:14:07.395 | INFO     | __main__:handle_contact:229 - Received contact: 306997492045 from user None
+2025-01-11 03:14:07.523 | INFO     | __main__:contact_handler:518 - Processed contact for user 7622539570
+2025-01-11 03:15:14.094 | INFO     | __main__:run:650 - Бот запущен
+2025-01-11 03:15:53.746 | INFO     | __main__:start_handler:445 - Sent language selection to user 7622539570
+2025-01-11 03:15:57.850 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:15:57.851 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:15:57.976 | INFO     | __main__:send_subscription_message:365 - Subscription message sent to user 7622539570
+2025-01-11 03:16:00.562 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:16:00.884 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:16:00.884 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:16:00.885 | INFO     | __main__:check_subscription_callback:531 - Subscription status: False
+2025-01-11 03:16:01.098 | INFO     | __main__:check_subscription_callback:567 - Subscription check failed for user 7622539570
+2025-01-11 03:16:03.121 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:16:03.225 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:16:03.226 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:16:03.226 | INFO     | __main__:check_subscription_callback:531 - Subscription status: False
+2025-01-11 03:16:03.428 | INFO     | __main__:check_subscription_callback:567 - Subscription check failed for user 7622539570
+2025-01-11 03:16:11.213 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:16:11.317 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: True
+2025-01-11 03:16:11.318 | INFO     | __main__:check_subscription:340 - User status: member
+2025-01-11 03:16:11.318 | INFO     | __main__:check_subscription_callback:531 - Subscription status: True
+2025-01-11 03:16:11.547 | INFO     | __main__:check_subscription_callback:558 - Requested phone number from user 7622539570
+2025-01-11 03:16:16.890 | INFO     | __main__:handle_contact:229 - Received contact: 306997492045 from user None
+2025-01-11 03:16:17.064 | INFO     | __main__:contact_handler:518 - Processed contact for user 7622539570
+2025-01-11 03:16:31.127 | INFO     | __main__:change_language_handler:643 - Language selection shown to user 7622539570
+2025-01-11 03:16:45.004 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:16:45.005 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:16:45.186 | INFO     | __main__:send_subscription_message:365 - Subscription message sent to user 7622539570
+2025-01-11 03:16:50.020 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:16:50.125 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:16:50.126 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:16:50.127 | INFO     | __main__:check_subscription_callback:531 - Subscription status: False
+2025-01-11 03:16:50.243 | INFO     | __main__:check_subscription_callback:567 - Subscription check failed for user 7622539570
+2025-01-11 03:16:51.861 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:16:51.966 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: False
+2025-01-11 03:16:51.966 | INFO     | __main__:check_subscription:340 - User status: left
+2025-01-11 03:16:51.967 | INFO     | __main__:check_subscription_callback:531 - Subscription status: False
+2025-01-11 03:16:52.075 | INFO     | __main__:check_subscription_callback:567 - Subscription check failed for user 7622539570
+2025-01-11 03:16:59.645 | INFO     | __main__:check_subscription_callback:527 - Checking subscription callback for user 7622539570
+2025-01-11 03:16:59.753 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: True
+2025-01-11 03:16:59.754 | INFO     | __main__:check_subscription:340 - User status: member
+2025-01-11 03:16:59.754 | INFO     | __main__:check_subscription_callback:531 - Subscription status: True
+2025-01-11 03:17:00.156 | INFO     | __main__:check_subscription_callback:558 - Requested phone number from user 7622539570
+2025-01-11 03:17:03.538 | INFO     | __main__:handle_contact:229 - Received contact: 306997492045 from user None
+2025-01-11 03:17:03.682 | INFO     | __main__:contact_handler:518 - Processed contact for user 7622539570
+2025-01-11 03:17:14.611 | INFO     | __main__:change_language_handler:643 - Language selection shown to user 7622539570
+2025-01-11 03:17:16.343 | INFO     | __main__:check_subscription:339 - Checking subscription for user 7622539570: True
+2025-01-11 03:17:16.343 | INFO     | __main__:check_subscription:340 - User status: member
+2025-01-11 03:17:16.541 | INFO     | __main__:language_handler:476 - Requested phone number from user 7622539570
+2025-01-11 03:17:18.814 | INFO     | __main__:handle_contact:229 - Received contact: 306997492045 from user None
+2025-01-11 03:17:18.942 | INFO     | __main__:contact_handler:518 - Processed contact for user 7622539570
