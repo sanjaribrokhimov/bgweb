@@ -126,10 +126,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 adCard.innerHTML = `
                     <div class="product-image">
                         <img src="${photo}" alt="${name}" onerror="this.src='./img/noImage.jpg'">
-                        <div class="card-type-badge">${category}</div>
+                       
                     </div>
                     <div class="product-info">
-                        <h3>${name}</h3>
+                        
                         <p class="ad-comment">${comment}</p>
                         <div class="btn-actions">
                             <button class="btn btn-danger delete-btn" data-id="${id}" data-type="${userCategory}">

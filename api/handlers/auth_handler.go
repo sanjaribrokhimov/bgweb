@@ -27,6 +27,8 @@ func Register(c *gin.Context) {
 		Direction string `json:"direction" binding:"required"`
 		Telegram  string `json:"telegram" binding:"required"`
 		Instagram string `json:"instagram" binding:"required"`
+		TgChatID  string `json:"tg_chat_id" binding:"required"`
+		TgUserID  string `json:"tg_user_id" binding:"required"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -83,6 +85,8 @@ func Register(c *gin.Context) {
 		Instagram:  input.Instagram,
 		OTPCode:    otp,
 		IsVerified: false,
+		TgChatID:   input.TgChatID,
+		TgUserID:   input.TgUserID,
 	}
 
 	// Сохранение пользователя
@@ -178,6 +182,8 @@ func Login(c *gin.Context) {
 			"instagram":   user.Instagram,
 			"is_verified": user.IsVerified,
 			"phone":       user.Phone,
+			"tg_chat_id":  user.TgChatID,
+			"tg_user_id":  user.TgUserID,
 		},
 	})
 }
@@ -245,6 +251,8 @@ func GetUserByEmail(c *gin.Context) {
 			"instagram":   user.Instagram,
 			"is_verified": user.IsVerified,
 			"phone":       user.Phone,
+			"tg_chat_id":  user.TgChatID,
+			"tg_user_id":  user.TgUserID,
 	}
 
 	c.JSON(http.StatusOK, userResponse)
@@ -271,6 +279,8 @@ func GetUserByID(c *gin.Context) {
 			"instagram":   user.Instagram,
 			"is_verified": user.IsVerified,
 			"phone":       user.Phone,
+			"tg_chat_id":  user.TgChatID,
+			"tg_user_id":  user.TgUserID,
 	}
 
 	c.JSON(http.StatusOK, userResponse)
@@ -397,6 +407,8 @@ func GetUserProfile(c *gin.Context) {
 		"telegram":    user.Telegram,
 		"instagram":   user.Instagram,
 		"is_verified": user.IsVerified,
+		"tg_chat_id":  user.TgChatID,
+		"tg_user_id":  user.TgUserID,
 	})
 }
 
@@ -410,6 +422,8 @@ func UpdateUserProfile(c *gin.Context) {
 		Direction string `json:"direction" binding:"required"`
 		Telegram  string `json:"telegram" binding:"required"`
 		Instagram string `json:"instagram" binding:"required"`
+		TgChatID  string `json:"tg_chat_id" binding:"required"`
+		TgUserID  string `json:"tg_user_id" binding:"required"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -448,6 +462,8 @@ func UpdateUserProfile(c *gin.Context) {
 			"telegram":    user.Telegram,
 			"instagram":   user.Instagram,
 			"is_verified": user.IsVerified,
+			"tg_chat_id":  user.TgChatID,
+			"tg_user_id":  user.TgUserID,
 		},
 	})
 }
@@ -463,6 +479,8 @@ func UpdateProfile(c *gin.Context) {
 		Category    string `json:"category,omitempty"`
 		Direction   string `json:"direction,omitempty"`
 		Password    string `json:"password,omitempty"`
+		TgChatID   string `json:"tg_chat_id" binding:"required"`
+		TgUserID   string `json:"tg_user_id" binding:"required"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -521,6 +539,8 @@ func UpdateProfile(c *gin.Context) {
 			"category":    user.Category,
 			"direction":   user.Direction,
 			"is_verified": user.IsVerified,
+			"tg_chat_id":  user.TgChatID,
+			"tg_user_id":  user.TgUserID,
 		},
 	})
 } 

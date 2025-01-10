@@ -121,8 +121,7 @@ class BloggerLoader {
 
             </div>
             <div class="product-info">
-                <h3>${data.nickname || 'Без имени'}</h3>
-                <div class="category-tag">${data.category || 'Без категории'}</div>
+                <p style="color:dodgerblue; padding:0px; margin:0px;">${data.nickname || 'Без имени'}</p>
                 <div class="direction-tag">${data.direction || ''}</div>
 
                 <div class="btn-actions">

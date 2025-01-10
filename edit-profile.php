@@ -66,7 +66,7 @@
                     </div>
                 </div>
 
-                <div class="form-group mb-3">
+                <div hidden class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-users"></i>
                         <select class="form-select" name="category" required>

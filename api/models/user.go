@@ -16,6 +16,8 @@ type User struct {
 	Instagram  string `json:"instagram"`
 	OTPCode    string `json:"otp_code"`
 	IsVerified bool   `json:"is_verified" gorm:"default:false"`
+	TgChatID   string `json:"tg_chat_id" gorm:"default:null"`
+	TgUserID   string `json:"tg_user_id" gorm:"default:null"`
 }
 
 type Like struct {

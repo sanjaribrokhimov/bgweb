@@ -124,11 +124,11 @@ class FreelancerLoader {
         card.innerHTML = `
             <div class="product-image">
                 <img src="${data.photo_base64}" alt="Фрилансер" onerror="this.src='./img/noImage.jpg'">
-                <div class="card-type-badge">Фрилансер</div>
+                
             </div>
             <div class="product-info">
                 <h3>${data.name || 'Без имени'}</h3>
-                <div class="category-tag">${data.category || 'Без категории'}</div>
+               
                 <div class="stats">
                     <div class="stat-item">
                         <i class="fas fa-laptop-code"></i>

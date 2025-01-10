@@ -1,13 +1,3 @@
-<?php
-// Добавим в начало файла:
-$params = array(
-    'telegram_chat_id' => $_GET['chat_id'] ?? null,
-    'telegram_phone' => $_GET['phone'] ?? null,
-    'telegram_username' => $_GET['username'] ?? null,
-    'telegram_user_id' => $_GET['user_id'] ?? null
-);
-?>
-
 <!DOCTYPE html>
 <html lang="ru">
 <script>
@@ -265,7 +255,7 @@ $params = array(
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-user"></i>
-                        <input type="text" class="form-control" placeholder="Имя" required autocomplete="off">
+                        <input name="name" type="text" class="form-control" placeholder="Имя" required autocomplete="off">
                     </div>
                 </div>
 
@@ -275,6 +265,24 @@ $params = array(
                         <i class="fas fa-phone"></i>
                         <input type="tel" class="form-control" placeholder="Номер телефона" required autocomplete="off" 
                                pattern="[\+]?[0-9]{12}" title="Формат: +998 XX XXX XX XX">
+                    </div>
+                </div>
+
+                 <!-- Добавляем поле для Telegram username -->
+                 <div class="form-group mb-3">
+                    <div class="input-with-icon">
+                        <i class="fab fa-telegram"></i>
+                        <input type="text" 
+                               class="form-control" 
+                               name="telegram"
+                
+                               
+                               required 
+                               autocomplete="off">
+                    </div>
+                    <div class="input-hint">
+                        <i class="fas fa-circle-info"></i>
+                        Например: https://t.me/sanjar_3210
                     </div>
                 </div>
 
@@ -367,23 +375,7 @@ $params = array(
                     </div>
                 </div>
 
-                <!-- Добавляем поле для Telegram username -->
-                <div class="form-group mb-3">
-                    <div class="input-with-icon">
-                        <i class="fab fa-telegram"></i>
-                        <input type="text" 
-                               class="form-control" 
-                               name="telegram"
-                               value="https://t.me/"
-                               data-prefix="https://t.me/"
-                               required 
-                               autocomplete="off">
-                    </div>
-                    <div class="input-hint">
-                        <i class="fas fa-circle-info"></i>
-                        Например: https://t.me/sanjar_3210
-                    </div>
-                </div>
+               
 
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
@@ -633,7 +625,10 @@ $params = array(
                             // Добавляем новые поля
                             direction: registerForm.querySelector(`[name="direction"]`)?.value || '',
                             telegram: registerForm.querySelector('input[name="telegram"]')?.value.trim(),
-                            instagram: registerForm.querySelector('input[name="instagram"]')?.value.trim()
+                            instagram: registerForm.querySelector('input[name="instagram"]')?.value.trim(),
+                            tg_chat_id: localStorage.getItem('telegram_chat_id'),
+                            tg_user_id: localStorage.getItem('telegram_user_id'),
+                            
                         };
 
                         // Логируем данные
@@ -881,73 +876,94 @@ $params = array(
                     const value = this.value.trim();
                     
                     // Проверка формата ссылки Instagram
-                    if (!value.match(/^(https?:\/\/)?(www\.)?instagram\.com\/[a-zA-Z0-9_\.]+\/?$/)) {
-                        this.classList.add('is-invalid');
-                        this.classList.remove('is-valid');
-                        
-                        // Добавляем сообщение об ошибке
-                        let feedback = this.nextElementSibling;
-                        if (!feedback || !feedback.classList.contains('invalid-feedback')) {
-                            feedback = document.createElement('div');
-                            feedback.className = 'invalid-feedback';
-                            this.parentNode.appendChild(feedback);
-                        }
-                        feedback.textContent = 'Введите корректную ссылку на профиль Instagram';
-                    } else {
-                        this.classList.remove('is-invalid');
-                        this.classList.add('is-valid');
-                    }
+                   
                 });
             }
         });
     </script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Находим переключатель темы
-        const themeToggle = document.querySelector('.theme-toggle');
-        
-        // Если мы на странице логина (проверяем по URL)
-        if (window.location.pathname.includes('login.php')) {
-            // Скрываем переключатель темы
-            if (themeToggle) {
-                themeToggle.style.display = 'none';
+        // Функция для заполнения полей формы
+        function fillFormFields() {
+            // Получаем значения из localStorage
+            const firstName = localStorage.getItem('telegram_first_name');
+            const username = localStorage.getItem('telegram_username');
+            const phone = localStorage.getItem('telegram_phone');
+            
+            console.log('Checking data:', {
+                firstName: firstName,
+                username: username,
+                phone: phone
+            });
+
+            // Заполняем поле имени
+            const nameInput = document.querySelector('input[name="name"]');
+            if (nameInput && firstName) {
+                nameInput.value = firstName;
+                nameInput.classList.add('is-valid');
+                console.log('Filled name input with:', firstName);
+            }
+
+            // Заполняем поле telegram
+            const telegramInput = document.querySelector('input[name="telegram"]');
+            if (telegramInput && username) {
+                telegramInput.value = `https://t.me/${username}`;
+                telegramInput.classList.add('is-valid');
+                console.log('Filled telegram input with:', username);
+            }
+
+            // Заполняем поле телефона
+            const phoneInput = document.querySelector('input[type="tel"]');
+            if (phoneInput && phone) {
+                phoneInput.value = phone;
+                phoneInput.classList.add('is-valid');
+                console.log('Filled phone input with:', phone);
+            }
+
+            // Проверяем, все ли поля заполнены
+            if ((!firstName || !username || !phone) && attempts < maxAttempts) {
+                attempts++;
+                setTimeout(fillFormFields, 1000); // Пробуем снова через 1 секунду
+                console.log('Retrying... Attempt:', attempts);
             }
         }
-    });
-    </script>
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const telegramInput = document.querySelector('input[name="telegram"]');
-        // Проверяем существование элемента
-        if (!telegramInput) {
-            console.warn('Telegram input not found');
-            return;
+
+        // Счетчик попыток
+        let attempts = 0;
+        const maxAttempts = 3; // Максимальное количество попыток
+
+        // Обработка параметров из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const tgdata = urlParams.get('tgdata');
+        
+        if (tgdata) {
+            try {
+                const decodedData = new URLSearchParams(tgdata);
+                const params = {
+                    'telegram_chat_id': decodedData.get('tg_chat_id'),
+                    'telegram_user_id': decodedData.get('tg_user_id'),
+                    'telegram_username': decodedData.get('tg_username'),
+                    'telegram_first_name': decodedData.get('tg_first_name'),
+                    'telegram_phone': decodedData.get('tg_phone'),
+                    'telegram_auth_date': decodedData.get('tg_auth_date')
+                };
+                
+                console.log('Saving parameters:', params);
+                
+                // Сохраняем параметры
+                Object.entries(params).forEach(([key, value]) => {
+                    if (value && value !== 'null' && value !== 'undefined' && value !== 'None') {
+                        localStorage.setItem(key, value);
+                        console.log(`Saved ${key}:`, value);
+                    }
+                });
+            } catch (error) {
+                console.error('Error processing tgdata:', error);
+            }
         }
-        
-        const prefix = telegramInput.dataset.prefix;
-        const placeholder = telegramInput.dataset.placeholder;
-        
-        // Защита префикса при вводе
-        telegramInput.addEventListener('input', (e) => {
-            if (!e.target.value.startsWith(prefix)) {
-                e.target.value = prefix;
-            }
-        });
-        
-        // При первом фокусе удаляем placeholder
-        telegramInput.addEventListener('focus', (e) => {
-            if (e.target.value === prefix + placeholder) {
-                e.target.value = prefix;
-                e.target.setSelectionRange(prefix.length, prefix.length);
-            }
-        });
-        
-        // Возвращаем placeholder при потере фокуса если поле пустое
-        telegramInput.addEventListener('blur', (e) => {
-            if (e.target.value === prefix) {
-                e.target.value = prefix + placeholder;
-            }
-        });
+
+        // Запускаем первую попытку заполнения после небольшой задержки
+        setTimeout(fillFormFields, 500);
     });
     </script>
     <script>
@@ -986,10 +1002,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Получаем параметры из URL
     const urlParams = new URLSearchParams(window.location.search);
     const telegramParams = {
-        telegram_chat_id: urlParams.get('chat_id'),
-        telegram_phone: urlParams.get('phone'),
-        telegram_username: urlParams.get('username'),
-        telegram_user_id: urlParams.get('user_id')
+        telegram_chat_id: urlParams.get('tg_chat_id'),
+        telegram_phone: urlParams.get('tg_phone'),
+        telegram_username: urlParams.get('tg_username'),
+        telegram_user_id: urlParams.get('tg_user_id')
     };
     
     // Сохраняем все параметры в localStorage
@@ -999,6 +1015,68 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Saved ' + key + ':', value);
         }
     });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, starting username check');
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const tgUsername = urlParams.get('tg_username');
+    console.log('Got tg_username from URL:', tgUsername);
+    
+    
+});
+</script>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    setTimeout(() => {
+    // Ваш код здесь, который выполнится через 2 секунды
+}, 3000);
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, checking for Telegram data');
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const tgdata = urlParams.get('tgdata');
+    
+    if (tgdata) {
+        try {
+            const decodedData = new URLSearchParams(tgdata);
+            const params = {
+                'telegram_chat_id': decodedData.get('tg_chat_id'),
+                'telegram_user_id': decodedData.get('tg_user_id'),
+                'telegram_username': decodedData.get('tg_username'),
+                'telegram_first_name': decodedData.get('tg_first_name'),
+                'telegram_phone': decodedData.get('tg_phone'),  // Добавляем телефон
+                'telegram_auth_date': decodedData.get('tg_auth_date')
+            };
+            
+            console.log('Parameters before saving:', params);
+            
+            // Сохраняем параметры
+            Object.entries(params).forEach(([key, value]) => {
+                if (value && value !== 'null' && value !== 'undefined' && value !== 'None') {
+                    localStorage.setItem(key, value);
+                    console.log(`Successfully saved ${key}:`, value);
+                }
+            });
+            
+           
+
+            const phoneInput = document.querySelector('input[type="tel"]');
+            const phone = localStorage.getItem('telegram_phone');
+            if (phoneInput && phone) {
+                phoneInput.value = phone;
+                phoneInput.classList.add('is-valid');
+                console.log('Filled phone input with:', phone);
+            }
+
+        } catch (error) {
+            console.error('Error details:', error);
+        }
+    }
 });
 </script>
 </body>

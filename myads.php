@@ -101,7 +101,7 @@
             <!-- Объявления -->
             <div class="tab-content">
                 <div class="tab-pane active" id="my-ads">
-                    <div class="products-grid" id="adsContainer">
+                    <div class="products-gridd" id="adsContainer">
                         <!-- Объявления будут добавлены через JavaScript -->
                     </div>
                     <div id="loadingIndicator" class="text-center" style="display: none;">

@@ -65,54 +65,101 @@ class NotificationManager {
             return;
         }
 
-        this.container.innerHTML = notifications.map(notification => `
-            <div class="notification-card ${!notification.is_read ? 'unread' : ''}" data-id="${notification.id}">
+        this.container.innerHTML = notifications.map(notification => this.createNotificationCard(notification)).join('');
+    }
+
+    createNotificationCard(notification) {
+        const isUnread = !notification.is_read;
+        const blurClass = isUnread ? 'heavy-blur' : '';
+        
+        return `
+            <div class="notification-card ${isUnread ? 'unread' : ''}" data-id="${notification.id}">
                 <div class="notification-main" onclick="notificationManager.toggleNotification(this.closest('.notification-card'), ${JSON.stringify(notification).replace(/"/g, '&quot;')})">
-                    <div class="user-info">
-                        <i class="fas fa-user-circle"></i>
-                        <span class="${!notification.is_read ? 'heavy-blur' : ''}">${notification.from_user.name}</span>
+                    <div class="notification-header">
+                        <h3>У вас новое соглашение!</h3>
                         <span class="date">${new Date(notification.created_at).toLocaleString()}</span>
                     </div>
 
-                    <div class="ad-content">
-                        <div class="ad-image">
-                            <img src="${notification.ad_details.photo_base64}" 
-                                 alt="Фото объявления" 
-                                 onerror="this.src='./img/noImage.jpg'">
-                        </div>
-                        <div class="ad-info">
-                            <h3 class="${!notification.is_read ? 'heavy-blur' : ''}">${notification.ad_details.nickname || notification.ad_details.name}</h3>
-                            <span class="ad-type ${notification.ad_type} ${!notification.is_read ? 'heavy-blur' : ''}">
-                                ${this.getAdTypeLabel(notification.ad_type)}
-                            </span>
+                    <div class="sender-info">
+                        
+                        <div class="user-details">
+                        от
+                             <i class="fas fa-user-circle"></i>
+                            <span class="username ${blurClass}">${notification.from_user.name}</span>
                         </div>
                     </div>
 
-                    <div class="details-content">
-                        <div class="info-item ${!notification.is_read ? 'heavy-blur' : ''}">
-                            <i class="fas fa-tag"></i>
-                            <span>Категория: ${notification.from_user.category || 'Не указана'}</span>
-                        </div>
-                        <div class="info-item ${!notification.is_read ? 'heavy-blur' : ''}">
-                            <i class="fas fa-compass"></i>
-                            <span>Направление: ${notification.from_user.direction || 'Не указано'}</span>
-                        </div>
-                        <div class="social-links ${!notification.is_read ? 'heavy-blur' : ''}">
-                            ${notification.from_user.telegram ? 
-                                `<a href="tg://resolve?domain=${notification.from_user.telegram.replace('@', '').replace('https://t.me/', '')}" target="_blank">
-                                    <i class="fab fa-telegram"></i> Telegram
-                                </a>` : ''
-                            }
-                            ${notification.from_user.instagram ? 
-                                `<a href="${notification.from_user.instagram}" target="_blank">
-                                    <i class="fab fa-instagram"></i> Instagram
-                                </a>` : ''
-                            }
-                        </div>
-                    </div>
+                    ${this.createAdPreview(notification.ad_details, blurClass)}
+                    ${this.createDetailsSection(notification.from_user, blurClass)}
                 </div>
             </div>
-        `).join('');
+        `;
+    }
+
+    createAdPreview(adDetails, blurClass) {
+        return `
+            <div class="ad-preview">
+                <div class="ad-image">
+                    <img src="${adDetails.photo_base64}" 
+                         alt="Фото объявления" 
+                         onerror="this.src='./img/noImage.jpg'">
+                </div>
+                
+                <div class="ad-info">
+                <p style="font-size: 12px;"> на объявление</p>
+                    <h4 class="${blurClass}">${adDetails.nickname || adDetails.name}</h4>
+                    
+                </div>
+            </div>
+        `;
+    }
+
+    createDetailsSection(userDetails, blurClass) {
+        return `
+        <p style="color:green;"> Данные пользователя</p>
+            <div class="details-section">
+                <div class="category-direction ${blurClass}">
+                    <div class="info-row">
+                        <i class="fas fa-tag"></i>
+                        <span>Категория: ${userDetails.category || 'Не указана'}</span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-compass"></i>
+                        <span>Направление: ${userDetails.direction || 'Не указано'}</span>
+                    </div>
+                </div>
+                
+                ${this.createSocialLinks(userDetails, blurClass)}
+            </div>
+        `;
+    }
+
+    createSocialLinks(userDetails, blurClass) {
+        const links = [];
+        
+        if (userDetails.telegram) {
+            const telegramUsername = userDetails.telegram.replace('@', '').replace('https://t.me/', '');
+            links.push(`
+                <a href="tg://resolve?domain=${telegramUsername}" class="social-link telegram">
+                    <i class="fab fa-telegram"></i> Telegram
+                </a>
+                <br>
+            `);
+        }
+        
+        if (userDetails.instagram) {
+            links.push(`
+                <a href="${userDetails.instagram}" class="social-link instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+            `);
+        }
+
+        return links.length ? `
+            <div class="social-links ${blurClass}">
+                ${links.join('')}
+            </div>
+        ` : '';
     }
 
     async toggleNotification(card, notification) {

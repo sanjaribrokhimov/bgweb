@@ -14,6 +14,88 @@
     --accent-blue-hover: rgba(77, 126, 255, 0.15);
 }
 
+
+/* Стили для карточки блогера */
+.product-card {
+    background: var(--gradient-1);
+    border-radius: 16px;
+    margin-left: 5px;
+    margin-right: 5px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    flex: 1 1 calc(50% - 20px); /* Две карточки в ряд с учетом отступов */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрируем содержимое */
+}
+
+/* Стили для изображения блогера */
+.product-image {
+    width: 100%; /* Занимает всю ширину карточки */
+    height: 200px; /* Фиксированная высота */
+    border-radius: 12px; /* Скругление углов */
+    overflow: hidden; /* Скрываем переполнение */
+    display: flex;
+    align-items: center; /* Центрируем изображение по вертикали */
+    justify-content: center; /* Центрируем изображение по горизонтали */
+}
+
+.product-image img {
+    width: 100%; /* Занимает всю ширину контейнера */
+    height: 100%; /* Занимает всю высоту контейнера */
+    object-fit: cover; /* Сохраняем пропорции изображения */
+}
+
+/* Остальные стили для карточки остаются без изменений */
+
+* Контейнер для уведомлений */
+.notifications-list {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет карточкам переноситься на следующую строку */
+    gap: 20px; /* Отступ между карточками */
+}
+
+/* Стили для карточки уведомления */
+.notification-item {
+    background: var(--gradient-1);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    flex: 1 1 calc(50% - 20px); /* Две карточки в ряд с учетом отступов */
+    max-width: calc(50% - 20px); /* Максимальная ширина карточки */
+}
+
+/* Контейнер для блогеров */
+.products-grid {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет карточкам переноситься на следующую строку */
+}
+
+/* Стили для карточки блогера */
+.product-card {
+    background: var(--gradient-1);
+    border-radius: 16px;
+    padding: 5px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    flex: 1 1 calc(50% - 20px); /* Две карточки в ряд с учетом отступов */
+   
+}
+
+/* Остальные стили для карточки остаются без изменений */
+
+/* Заголовок уведомления */
+.notification-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
 body.light-theme {
     --primary-bg: #f0f2f5;
     --card-bg: #ffffff;
@@ -222,7 +304,7 @@ body:not(.dark-theme) {
 .product-card {
     background: var(--gradient-1);
     border-radius: 16px;
-    padding: 15px;
+   
     margin-bottom: 20px;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
@@ -1088,17 +1170,17 @@ body.light-theme input:-webkit-autofill:active {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 15px;
+    
 }
 
 .product-card .btn-details {
     flex-grow: 1;
     background: var(--gradient-1);
     border: none;
-    padding: 8px 16px;
+    padding: 6px 14px;
     border-radius: 10px;
     color: var(--text-color);
-    font-size: 14px;
+    font-size: 10px;
     transition: all 0.3s ease;
 }
 
@@ -1109,8 +1191,8 @@ body.light-theme input:-webkit-autofill:active {
 }
 
 .product-card .btn-accept {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     background: var(--gradient-2);
     border: none;
     border-radius: 50%;
@@ -2561,7 +2643,7 @@ body:not(.dark-theme) .btn-close:hover {
 /* Стили для модального окна */
 .custom-modal .modal-content {
     border: none;
-    border-radius: 15px;
+   
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
@@ -2610,7 +2692,7 @@ body:not(.dark-theme) .btn-close:hover {
 
 /* Общие стили для кнопок */
 .custom-modal .btn {
-    padding: 8px 20px;
+   
     font-weight: 500;
     border-radius: 8px;
     transition: all 0.2s ease;
@@ -2670,6 +2752,7 @@ body:not(.dark-theme) .btn-close:hover {
     align-items: center;
     justify-content: space-between;
     padding: 10px 15px 10px 15px;
+    margin-bottom: 15px;
 }
 
 .category-select {

@@ -101,11 +101,10 @@ class CompanyLoader {
         card.innerHTML = `
             <div class="product-image">
                 <img src="${data.photo_base64}" alt="Компания" onerror="this.src='./img/noImage.jpg'">
-                <div class="card-type-badge">Компания</div>
+               
             </div>
             <div class="product-info">
                 <h3>${data.name || 'Без имени'}</h3>
-                <div class="category-tag">${data.category || 'Без категории'}</div>
                 <div class="direction-tag">${data.direction || 'Без направления'}</div>
                 <div class="stats">
                     <div class="stat-item">
