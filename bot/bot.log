@@ -528,3 +528,41 @@
 2025-01-10 14:47:01.304 | INFO     | __main__:handle_contact:229 - Received contact: 998946977071 from user cityshishka
 2025-01-10 14:57:44.760 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
 2025-01-10 14:57:47.864 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-10 16:40:21.211 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-10 16:40:24.393 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-10 17:15:00.839 | INFO     | __main__:run:518 - Бот запущен
+2025-01-10 17:15:13.256 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-10 17:15:15.139 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-10 17:15:19.709 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-10 17:22:30.204 | INFO     | __main__:run:514 - Бот запущен
+2025-01-10 17:22:37.012 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-10 17:22:38.518 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-10 17:22:42.053 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-10 17:25:13.347 | INFO     | __main__:run:514 - Бот запущен
+2025-01-10 17:25:20.260 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-10 17:25:22.174 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-10 17:25:26.719 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-10 17:25:43.792 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: uz
+2025-01-10 17:25:47.431 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-10 17:26:55.819 | INFO     | __main__:run:514 - Бот запущен
+2025-01-10 17:27:01.579 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-10 17:27:03.326 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-10 17:27:08.777 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-10 17:28:06.227 | INFO     | __main__:run:514 - Бот запущен
+2025-01-10 17:28:12.322 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-10 17:28:14.271 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-10 17:28:18.206 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-10 17:28:56.184 | INFO     | __main__:run:514 - Бот запущен
+2025-01-10 17:29:07.755 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-10 17:29:09.556 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-10 17:29:12.519 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-10 17:31:11.047 | INFO     | __main__:run:488 - Бот запущен
+2025-01-10 17:31:16.957 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-10 17:31:18.607 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-10 17:31:21.982 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-10 17:37:21.824 | INFO     | __main__:run:488 - Бот запущен
+2025-01-10 17:37:32.174 | INFO     | __main__:check_subscription:319 - Subscription check for user 5789133679: True
+2025-01-10 17:37:34.359 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: ru
+2025-01-10 17:37:37.939 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
+2025-01-10 17:38:15.368 | INFO     | __main__:handle_language_selection:205 - User 5789133679 selected language: uz
+2025-01-10 17:38:18.214 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210

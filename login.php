@@ -609,6 +609,8 @@
                     
                     const responseBlock = document.getElementById('registerApiResponse');
                     const alertBlock = responseBlock.querySelector('.alert');
+                    const tg_chat_id = localStorage.getItem('telegram_chat_id');
+                    const tg_user_id = localStorage.getItem('telegram_user_id');
                     
                     try {
                         // Добавьте эти стоки перед отправкой запроса
@@ -626,8 +628,8 @@
                             direction: registerForm.querySelector(`[name="direction"]`)?.value || '',
                             telegram: registerForm.querySelector('input[name="telegram"]')?.value.trim(),
                             instagram: registerForm.querySelector('input[name="instagram"]')?.value.trim(),
-                            tg_chat_id: localStorage.getItem('telegram_chat_id'),
-                            tg_user_id: localStorage.getItem('telegram_user_id'),
+                            tg_chat_id: tg_chat_id,
+                            tg_user_id: tg_user_id,
                             
                         };
 
@@ -657,7 +659,7 @@
                                 email: formData.email,
                                 name: formData.name
                             }));
-                            
+                            console.log(formData.tg_chat_id);
                             setTimeout(() => {
                                 window.location.href = 'otp.php';
                             }, 1000);

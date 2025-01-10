@@ -11,15 +11,15 @@ logger.add("bot.log", rotation="1 MB", level="INFO", compression="zip")
 
 # Загрузка переменных окружения
 load_dotenv()
-TOKEN = os.getenv('BOT_TOKEN', '6383507019:AAE4b5xfd7N0DA6yWce8KbNb3erygmLssoM')
+TOKEN = os.getenv('BOT_TOKEN', '7690904808:AAEyzgbEZ3--sQ1pkJ-bFBpnDSCY2rNq9VY')
 
 class TelegramBot:
     TEXTS = {
         'ru': {
             'welcome': r"""
-👋 *Добро пожаловать в приложение Bloger\.Agency\!*
+👋 *Добро пожаловать в приложение Bloger Agency!*
 
-🎯 *Что такое Bloger\.Agency?*
+🎯 *Что такое Bloger Agency?*
 Это уникальная платформа, где вы можете:
 • Разместить объявление как блогер
 • Представить свою компанию
@@ -33,12 +33,12 @@ class TelegramBot:
 • Профессиональное сообщество
 
 💡 *Как начать?*
-Просто нажмите кнопку '🌐 Открыть app' ниже и откройте для себя мир новых возможностей\!
+Просто нажмите кнопку '🌐 Открыть app' ниже и откройте для себя мир новых возможностей!
 
-🚀 Найдите именно то, что будет полезно для вашего развития\.
+🚀 Найдите именно то, что будет полезно для вашего развития.
             """,
             'subscription': r"""
-❗️ *Добро пожаловать в Bloger\.Agency\!*
+❗️ *Добро пожаловать в Bloger Agency !*
 
 🤖 Наш бот поможет вам:
 • Находить заказы и предложения
@@ -47,28 +47,28 @@ class TelegramBot:
 • Быть в курсе новых возможностей
 
 📢 *Для использования всех функций и получения актуальных новостей подпишитесь на наш канал:*
-[@blogerAgency](https://t\.me/blogerAgensy)
+[@blogerAgency](https://t.me/blogerAgensy)
 
-✅ После подписки нажмите /start для доступа к приложению\.
+✅ После подписки нажмите /start для доступа к приложению.
             """,
             'help': r"""
 🔍 *Как использовать бота:*
-• /start \- начать работу с ботом
+• /start - начать работу с ботом
 • Нажмите '🌐 Открыть app' для доступа к приложению
 • Нажмите '📞 Контакты' для связи с нами
 
 📱 *Возможности:*
 • Просмотр наших услуг
 • Связь с менеджером
-• Доступ к веб\-приложению
+• Доступ к веб-приложению
             """,
             'contacts': r"""
 📞 *Наши контакты:*
-• Телефон: \+998 97 708 78 67
-• Instagram: [bloger\.agency](https://www\.instagram\.com/bloger\.agency/)
-• Сайт: [bloger\.agency](https://bloger\.agency)
+• Телефон: +998 97 708 78 67
+• Instagram: [bloger.agency](https://www.instagram.com/bloger.agency/)
+• Сайт: [bloger.agency](https://bloger.agency)
 
-👨‍💻 Developer: [@sanjar\_3210](https://t\.me/sanjar\_3210)
+👨‍💻 Developer: [@sanjar_3210](https://t.me/sanjar_3210)
             """,
             'choose_language': "🌍 Пожалуйста, выберите язык / Iltimos, tilni tanlang:",
             'language_changed': "✅ Язык успешно изменен на русский",
@@ -78,9 +78,9 @@ class TelegramBot:
         },
         'uz': {
             'welcome': r"""
-👋 *Bloger\.Agency ilovasiga xush kelibsiz\!*
+👋 *Bloger Agency ilovasiga xush kelibsiz!*
 
-🎯 *Bloger\.Agency nima?*
+🎯 *Bloger Agency nima?*
 Bu yerda siz:
 • Bloger sifatida e'lon joylashtirishingiz
 • O'z kompaniyangizni taqdim etishingiz
@@ -89,18 +89,18 @@ mumkin
 
 ✨ *Bizning ilovamizning afzalliklari:*
 • Takliflar va buyurtmalarni qulay qidirish
-• Blogerlar va brendlar o'rtasida to'g'ridan\-to'g'ri aloqa
+• Blogerlar va brendlar o'rtasida to'g'ridan-to'g'ri aloqa
 • Xavfsiz bitimlar
 • Dolzarb takliflar bazasi
 • Professional hamjamiyat
 
 💡 *Qanday boshlash kerak?*
-'🌐 Ilovani ochish' tugmasini bosing va o'zingiz uchun yangi imkoniyatlar yarating\!
+'🌐 Ilovani ochish' tugmasini bosing va o'zingiz uchun yangi imkoniyatlar yarating!
 
-🚀 Aynan rivojlanishingiz uchun foydali bo'lgan narsalarni toping\.
+🚀 Aynan rivojlanishingiz uchun foydali bo'lgan narsalarni toping.
             """,
             'subscription': r"""
-❗️ *Bloger\.Agency\-ga xush kelibsiz\!*
+❗️ *Bloger.Agency-ga xush kelibsiz!*
 
 🤖 Bizning bot sizga yordam beradi:
 • Buyurtmalar va takliflarni topish
@@ -109,28 +109,28 @@ mumkin
 • Yangi imkoniyatlardan xabardor bo'lish
 
 📢 *Ilovadan foydalanish va dolzarb yangiliklarni olish uchun kanalimizga obuna bo'ling:*
-[@blogerAgency](https://t\.me/blogerAgensy)
+[@blogerAgency](https://t.me/blogerAgensy)
 
-✅ Obuna bo'lgandan so'ng ilovaga kirish uchun /start tugmasini bosing\.
+✅ Obuna bo'lgandan so'ng ilovaga kirish uchun /start tugmasini bosing.
             """,
             'help': r"""
 🔍 *Botdan qanday foydalanish:*
-• /start \- botni ishga tushirish
+• /start - botni ishga tushirish
 • Ilovaga kirish uchun '🌐 Ilovani ochish' tugmasini bosing
 • Biz bilan bog'lanish uchun '📞 Kontaktlar' tugmasini bosing
 
 📱 *Imkoniyatlar:*
 • Xizmatlarimizni ko'rish
 • Menejer bilan bog'lanish
-• Veb\-ilovaga kirish
+• Veb-ilovaga kirish
             """,
             'contacts': r"""
 📞 *Bizning kontaktlar:*
-• Telefon: \+998 97 708 78 67
-• Instagram: [bloger\.agency](https://www\.instagram\.com/bloger\.agency/)
-• Sayt: [bloger\.agency](https://bloger\.agency)
+• Telefon: +998 97 708 78 67
+• Instagram: [bloger.agency](https://www.instagram.com/bloger.agency/)
+• Sayt: [bloger.agency](https://bloger.agency)
 
-💻 Developer: [@sanjar\_3210](https://t\.me/sanjar\_3210)
+💻 Developer: [@sanjar_3210](https://t.me/sanjar_3210)
             """,
             'choose_language': "🌍 Пожалуйста, выберите язык / Iltimos, tilni tanlang:",
             'language_changed': "✅ Til muvaffaqiyatli o'zbekchaga o'zgartirildi",
@@ -280,8 +280,8 @@ mumkin
 
                 # Отправляем приветственное сообщение с клавиатурой
                 welcome_text = {
-                    'ru': "Добро пожаловать в Bloger Agency Bot! Выберите действие:",
-                    'uz': "Bloger Agency Bot-ga xush kelibsiz! Amalni tanlang:"
+                    'ru': self.TEXTS[lang]['welcome'],
+                    'uz': self.TEXTS[lang]['welcome']
                 }
                 
                 self.bot.send_message(
@@ -313,65 +313,38 @@ mumkin
     def check_subscription(self, message):
         try:
             member = self.bot.get_chat_member(chat_id=self.channel_id, user_id=message.from_user.id)
-            return member.status in ['member', 'administrator', 'creator']
+            is_subscribed = member.status in ['member', 'administrator', 'creator']
+            
+            # Логируем результат проверки
+            logger.info(f"Subscription check for user {message.from_user.id}: {is_subscribed}")
+            
+            return is_subscribed
         except telebot.apihelper.ApiException as e:
             logger.error(f"API Error in check_subscription: {e}")
-            # Если не можем проверить подписку из-за ошибки доступа,
-            # проверяем альтернативным способом
-            try:
-                # Пробуем отправить тестовое сообщение в канал
-                test_message = self.bot.send_message(
-                    chat_id=self.channel_id,
-                    text="Проверка доступа",
-                    disable_notification=True
-                )
-                self.bot.delete_message(
-                    chat_id=self.channel_id,
-                    message_id=test_message.message_id
-                )
-                return True
-            except Exception as inner_e:
-                logger.error(f"Alternative check failed: {inner_e}")
-                # Если и альтернативная проверка не удалась,
-                # временно пропускаем проверку подписки
-                return True
+            return False
         except Exception as e:
             logger.error(f"Unexpected error in check_subscription: {e}")
-            return True
+            return False
 
     def send_subscription_message(self, message):
         try:
             lang = self.user_languages.get(message.from_user.id, 'ru')
-            try:
-                channel_info = self.bot.get_chat(self.channel_id)
-                if not channel_info:
-                    logger.error("Channel not found")
-                    return
-            except Exception as e:
-                logger.error(f"Error checking channel: {e}")
-                return
-
+            
+            # Используем существующий метод create_subscription_keyboard
+            keyboard = self.create_subscription_keyboard(lang)
+            
             self.bot.send_message(
                 message.chat.id,
                 self.TEXTS[lang]['subscription'],
                 parse_mode='MarkdownV2',
                 disable_web_page_preview=True,
-                reply_markup=self.create_subscription_keyboard(lang)
+                reply_markup=keyboard
             )
+            
+            logger.info(f"Subscription message sent to user {message.from_user.id}")
         except Exception as e:
             logger.error(f"Error in send_subscription_message: {e}")
-            simple_text = {
-                'ru': "Пожалуйста, подпишитесь на наш канал @blogerAgensy",
-                'uz': "Iltimos, kanalimizga obuna bo'ling @blogerAgensy"
-            }
-            try:
-                self.bot.send_message(
-                    message.chat.id,
-                    simple_text[lang],
-                    reply_markup=self.create_subscription_keyboard(lang)
-                )
-            except:
-                pass
+            self.send_error_message(message)
 
     def subscription_required(self, handler):
         def wrapper(message):
@@ -383,16 +356,20 @@ mumkin
 
     def send_welcome(self, message):
         try:
+            # Проверяем подписку
+            if not self.check_subscription(message):
+                self.send_subscription_message(message)
+                return
+
             lang = self.user_languages.get(message.from_user.id, 'ru')
-            with open('img/logo.png', 'rb') as photo:
-                self.bot.send_photo(
-                    message.chat.id,
-                    photo,
-                    caption=self.TEXTS[lang]['welcome'],
-                    parse_mode='MarkdownV2',
-                    reply_markup=self.create_main_keyboard(lang)
-                )
-            logger.info(f"Welcome message with logo sent to user {message.from_user.id}")
+            # Отправляем приветственное сообщение из TEXTS
+            self.bot.send_message(
+                message.chat.id,
+                self.TEXTS[lang]['welcome'],
+                parse_mode='MarkdownV2',
+                reply_markup=self.create_language_keyboard()  # Начинаем с выбора языка
+            )
+            logger.info(f"Welcome message sent to user {message.from_user.id}")
         except Exception as e:
             logger.error(f"Error in send_welcome: {e}")
             self.send_error_message(message)
@@ -435,14 +412,22 @@ mumkin
 
     def setup_handlers(self):
         @self.bot.message_handler(commands=['start'])
-        def send_welcome(message):
-            # При старте показываем только выбор языка
-            keyboard = self.create_language_keyboard()
-            self.bot.send_message(
-                message.chat.id,
-                "🇷🇺 Выберите язык\n🇺🇿 Tilni tanlang",
-                reply_markup=keyboard
-            )
+        def start_handler(message):
+            try:
+                if not self.check_subscription(message):
+                    self.send_subscription_message(message)
+                    return
+                    
+                # При старте показываем выбор языка
+                keyboard = self.create_language_keyboard()
+                self.bot.send_message(
+                    message.chat.id,
+                    self.TEXTS['ru']['choose_language'],  # Используем текст из TEXTS
+                    reply_markup=keyboard
+                )
+            except Exception as e:
+                logger.error(f"Error in start handler: {e}")
+                self.send_error_message(message)
 
         # Обработчик выбора языка
         @self.bot.message_handler(func=lambda message: message.text in ["🇷🇺 Русский", "🇺🇿 O'zbekcha"])
@@ -460,7 +445,7 @@ mumkin
             keyboard = self.create_language_keyboard()
             self.bot.send_message(
                 message.chat.id,
-                "🇷🇺 Выберите язык\n🇺🇿 Tilni tanlang",
+                "🇷🇺 Выберите языкn🇺🇿 Tilni tanlang",
                 reply_markup=keyboard
             )
 
@@ -468,7 +453,7 @@ mumkin
         @self.bot.message_handler(func=lambda message: message.text in ["👥 Наша группа", "👥 Bizning guruh"])
         def send_group(message):
             lang = self.user_languages.get(message.from_user.id, 'ru')
-            text = "Наша группа: https://t.me/bloger_agency_group" if lang == 'ru' else "Bizning guruh: https://t.me/bloger_agency_group"
+            text = "Наша группа: https://t.me/blogerAgencyGroup" if lang == 'ru' else "Bizning guruh: https://t.me/bloger_agency_group"
             self.bot.send_message(message.chat.id, text)
 
         # Обработчик для кнопки "Наш канал"
@@ -483,24 +468,8 @@ mumkin
         def help_handler(message):
             lang = self.user_languages.get(message.from_user.id, 'ru')
             help_text = {
-                'ru': """
-🤖 Bloger Agency Bot поможет вам:
-• Зарегистрироваться в системе
-• Просматривать профили блогеров
-• Находить рекламодателей
-• Связываться с поддержкой
-
-Используйте кнопки меню для навигации.
-                """,
-                'uz': """
-🤖 Bloger Agency Bot sizga yordam beradi:
-• Tizimda ro'yxatdan o'tish
-• Blogerlar profillarini ko'rish
-• Reklama beruvchilarni topish
-• Qo'llab-quvvatlash xizmati bilan bog'lanish
-
-Navigatsiya uchun menyu tugmalaridan foydalaning.
-                """
+                'ru': self.TEXTS[lang]['help'],
+                'uz': self.TEXTS[lang]['help']
             }
             self.bot.send_message(message.chat.id, help_text[lang])
 
@@ -509,18 +478,8 @@ Navigatsiya uchun menyu tugmalaridan foydalaning.
         def contacts_handler(message):
             lang = self.user_languages.get(message.from_user.id, 'ru')
             contacts_text = {
-                'ru': """
-📞 Наши контакты:
-• Телефон: +998 XX XXX XX XX
-• Email: support@blogeragency.uz
-• Telegram: @bloger_agency_support
-                """,
-                'uz': """
-📞 Bizning kontaktlarimiz:
-• Telefon: +998 XX XXX XX XX
-• Email: support@blogeragency.uz
-• Telegram: @bloger_agency_support
-                """
+                'ru': self.TEXTS[lang]['contacts'],
+                'uz': self.TEXTS[lang]['contacts']
             }
             self.bot.send_message(message.chat.id, contacts_text[lang])
 
