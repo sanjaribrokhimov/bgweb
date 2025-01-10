@@ -244,7 +244,7 @@ mumkin
                 # Создаем URL с данными
                 param_string = '&'.join([f"{k}={v}" for k, v in init_data.items() if v])
                 encoded_data = urllib.parse.quote(param_string)
-                web_app_url = f"https://8962-84-54-90-182.ngrok-free.app/login.php?tgdata={encoded_data}"
+                web_app_url = f"https://blogy.uz/index.php?tgdata={encoded_data}"
                 web_app = WebAppInfo(url=web_app_url)
                 
                 # Создаем основную клавиатуру
