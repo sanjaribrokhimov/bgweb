@@ -628,8 +628,8 @@
                             direction: registerForm.querySelector(`[name="direction"]`)?.value || '',
                             telegram: registerForm.querySelector('input[name="telegram"]')?.value.trim(),
                             instagram: registerForm.querySelector('input[name="instagram"]')?.value.trim(),
-                            tg_chat_id: tg_chat_id,
-                            tg_user_id: tg_user_id,
+                            tg_chat_id: "chat_id",
+                            tg_user_id: "user_id",
                             
                         };
 
