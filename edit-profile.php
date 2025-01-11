@@ -349,6 +349,8 @@
                     };
 
                     // Добавляем только заполненные поля
+                    formData.tg_chat_id = "chat_id";
+                    formData.tg_user_id = "user_id";
                     if (form.name.value) formData.name = form.name.value;
                     if (form.phone.value) formData.phone = form.phone.value;
                     if (form.telegram.value) formData.telegram = form.telegram.value;
