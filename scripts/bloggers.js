@@ -117,7 +117,7 @@ class BloggerLoader {
         
         card.innerHTML = `
             <div class="product-image">
-                <img src="${data.photo_base64}" alt="Блогер" onerror="this.src='./img/noImage.jpg'">
+                <img id="myImg" src="${data.photo_base64}" alt="Блогер" onerror="this.src='./img/noImage.jpg'">
 
             </div>
             <div class="product-info">

@@ -233,7 +233,7 @@
         <!-- Основная информация -->
         <div class="input-description">
             <i class="fas fa-user"></i>
-            Укажите ваш никнейм или название вашего профиля
+            Укажите кого вы ищете (Заголовок)
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
@@ -244,7 +244,7 @@
         <!-- Условия бартера / Комментарий к рекламе -->
         <div class="input-description">
             <i class="fas fa-comment-dots"></i>
-            Укажите кого вы ищете , условия бартера или напишите комментарий к рекламе
+            Укажите кого вы ищете подробно (пустой строкой не заполняйте будет отказано)
         </div>
         <div class="form-group mb-4 conditions-field">
             <div class="input-with-icon">

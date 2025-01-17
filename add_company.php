@@ -196,7 +196,7 @@
         <!-- Название компании -->
         <div class="input-description">
             <i class="fas fa-building"></i>
-            Укажите название вашей компании
+            Укажите кого вы ищете (Заголовок)
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
@@ -208,7 +208,7 @@
         <!-- Бюджет -->
         <div class="input-description">
             <i class="fas fa-dollar-sign"></i>
-            Укажите ваш рекламный бюджет в долларах если вы хотите на бартер поставьте 0
+            Укажите ваш рекламный бюджет в долларах (если вы хотите на бартер поставьте 0)
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
@@ -220,7 +220,7 @@
         <!-- Комментарий -->
         <div class="input-description">
             <i class="fas fa-comment"></i>
-            Опишите ваши требования или добавьте комментарий к рекламе
+            Укажите кого вы ищете и о компании подробно (пустой строкой не заполняйте будет отказано)
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">

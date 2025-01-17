@@ -191,7 +191,7 @@
         <!-- Имя -->
         <div class="input-description">
             <i class="fas fa-user"></i>
-            Укажите ваше имя или кем вы работаете
+            Укажите кто вы кого ищете (Заголовок)
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
@@ -203,7 +203,7 @@
         <!-- Комментарий -->
         <div class="input-description">
             <i class="fas fa-comment-dots"></i>
-            Расскажите о своих навыках и опыте работы
+            Расскажите о своих навыках и опыте работы и о том кого вы ищете (пустой строкой не заполняйте будет отказано)
         </div>
         <div class="form-group mb-4 conditions-field">
             <div class="input-with-icon">
