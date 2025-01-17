@@ -14,6 +14,9 @@ $IP = '144.126.128.67';
     
 
     <style>
+        .product-card {
+            max-width: 180px;
+        }
         /* Фиксируем блок сверху */
         .top-bar {
             position: fixed;

@@ -76,7 +76,7 @@
 
 /* Стили для карточки блогера */
 .product-card {
-    max-width: 180px;
+    
     background: var(--gradient-1);
     border-radius: 16px;
     padding: 5px;

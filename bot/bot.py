@@ -19,7 +19,7 @@ class TelegramBot:
             'welcome': r"""
 👋 *Добро пожаловать в приложение Bloger Agency\!*
 
-🎯 *Что такое Bloger Agency\?*
+🎯 *Что такое Bloger Agency?*
 Это уникальная платформа, где вы можете:
 • Разместить объявление как блогер
 • Представить свою компанию
@@ -32,13 +32,13 @@ class TelegramBot:
 • Актуальная база предложений
 • Профессиональное сообщество
 
-💡 *Как начать\?*
-Просто нажмите кнопку '🌐 Открыть app' ниже и откройте для себя мир новых возможностей\!
+💡 *Как начать?*
+Просто нажмите кнопку '🌐 Открыть app' ниже и откройте для себя мир новых возможностей!
 
-🚀 Найдите именно то, что будет полезно для вашего развития\.
+🚀 Найдите именно то, что будет полезно для вашего развития.
             """,
             'subscription': r"""
-❗️ *Добро пожаловать в Bloger Agency\!*
+❗️ *Добро пожаловать в Bloger Agency!*
 
 🤖 Наш бот поможет вам:
 • Находить заказы и предложения
@@ -53,7 +53,7 @@ class TelegramBot:
             """,
             'help': r"""
 🔍 *Как использовать бота:*
-• /start \- начать работу с ботом
+• /start - начать работу с ботом
 • Нажмите '🌐 Открыть app' для доступа к приложению
 • Нажмите '📞 Контакты' для связи с нами
 
@@ -64,7 +64,7 @@ class TelegramBot:
             """,
             'contacts': r"""
 📞 *Наши контакты:*
-• Телефон: \+998 97 708 78 67
+• Телефон: +998 97 708 78 67
 • Instagram: [bloger\.agency](https://www\.instagram\.com/bloger\.agency/)
 • Сайт: [bloger\.agency](https://bloger\.agency)
 
@@ -78,9 +78,9 @@ class TelegramBot:
         },
         'uz': {
             'welcome': r"""
-👋 *Bloger Agency ilovasiga xush kelibsiz\!*
+👋 *Bloger Agency ilovasiga xush kelibsiz!*
 
-🎯 *Bloger Agency nima\?*
+🎯 *Bloger Agency nima ?*
 Bu yerda siz:
 • Bloger sifatida e'lon joylashtirishingiz
 • O'z kompaniyangizni taqdim etishingiz
@@ -94,13 +94,13 @@ mumkin
 • Dolzarb takliflar bazasi
 • Professional hamjamiyat
 
-💡 *Qanday boshlash kerak\?*
-'🌐 Ilovani ochish' tugmasini bosing va o'zingiz uchun yangi imkoniyatlar yarating\!
+💡 *Qanday boshlash kerak ?*
+'🌐 Ilovani ochish' tugmasini bosing va o'zingiz uchun yangi imkoniyatlar yarating !
 
 🚀 Aynan rivojlanishingiz uchun foydali bo'lgan narsalarni toping\.
             """,
             'subscription': r"""
-❗️ *Bloger\.Agency\-ga xush kelibsiz\!*
+❗️ *Bloger\.Agency\-ga xush kelibsiz !*
 
 🤖 Bizning bot sizga yordam beradi:
 • Buyurtmalar va takliflarni topish
@@ -111,7 +111,7 @@ mumkin
 📢 *Ilovadan foydalanish va dolzarb yangiliklarni olish uchun kanalimizga obuna bo'ling:*
 [@blogerAgency](https://t\.me/blogerAgensy)
 
-✅ Obuna bo'lgandan so'ng ilovaga kirish uchun /start tugmasini bosing\.
+✅ Obuna bo'lgandan so'ng ilovaga kirish uchun /start tugmasini bosing .
             """,
             'help': r"""
 🔍 *Botdan qanday foydalanish:*
