@@ -1,7 +1,7 @@
 class FreelancerLoader {
     constructor() {
         this.page = 1;
-        this.limit = 10;
+        this.limit = 20;
         this.loading = false;
         this.hasMore = true;
         this.allFreelancers = [];
