@@ -1175,13 +1175,13 @@ body.light-theme input:-webkit-autofill:active {
 }
 
 .product-card .btn-details {
-    flex-grow: 1;
-    background: var(--gradient-1);
+    
+    
     border: none;
     padding: 6px 14px;
     border-radius: 10px;
-    color: var(--text-color);
-    font-size: 10px;
+   
+    font-size: 12px;
     transition: all 0.3s ease;
 }
 
