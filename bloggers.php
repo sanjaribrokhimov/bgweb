@@ -29,3 +29,4 @@
     <!-- Карточки будут добавляться динамически -->
 </div>
 <script src="scripts/bloggers.js?v=1.0.1"></script>
+
