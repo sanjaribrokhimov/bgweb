@@ -1,7 +1,7 @@
 class BloggerLoader {
     constructor() {
         this.page = 1;
-        this.limit = 20;
+        this.limit = 100;
         this.loading = false;
         this.hasMore = true;
         this.allBloggers = [];
