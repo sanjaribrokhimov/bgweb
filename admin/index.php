@@ -195,6 +195,48 @@ $statistics = fetchData("admin/statistics");
             border-radius: 4px;
             font-size: 0.8em;
         }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px; /* Увеличиваем расстояние между кнопками */
+        }
+        .action-btn {
+            min-width: 120px; /* Фиксированная ширина для всех кнопок */
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+        .action-btn i {
+            font-size: 16px;
+        }
+        .btn-approve {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-approve:hover {
+            background-color: #218838;
+        }
+        .btn-edit {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-edit:hover {
+            background-color: #0056b3;
+        }
+        .btn-reject {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-reject:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -351,15 +393,20 @@ $statistics = fetchData("admin/statistics");
                                     
                                     <td><?php echo $ad['created_at']; ?></td>
                                     <td>
-                                        <button class="btn btn-sm btn-success" onclick="approveAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
-                                            Одобрить
-                                        </button>
-                                        <button class="btn btn-sm btn-danger" onclick="rejectAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
-                                            Отклонить
-                                        </button>
-                                        <button class="btn btn-sm btn-primary" onclick="editAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
-                                            Редактировать
-                                        </button>
+                                        <div class="action-buttons">
+                                            <button class="btn btn-sm btn-approve action-btn" onclick="approveAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
+                                                <i class='bx bxs-check-circle'></i>
+                                                Одобрить
+                                            </button>
+                                            <button class="btn btn-sm btn-reject action-btn" onclick="rejectAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
+                                                <i class='bx bxs-x-circle'></i>
+                                                Отклонить
+                                            </button>
+                                            <button class="btn btn-sm btn-edit action-btn" onclick="editAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
+                                                <i class='bx bxs-edit'></i>
+                                                Редактировать
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>

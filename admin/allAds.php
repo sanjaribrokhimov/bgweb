@@ -249,15 +249,14 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     case 'bloggers':
                         row.innerHTML = `
                             <td>${ad.id}</td>
-                            <td><img src="${ad.photo || './img/noImage.jpg'}" class="ad-image" onclick="showFullImage(this.src)"></td>
-                            <td>${ad.user_name}</td>
+                            <td><img src="${ad.photo_base64 || './img/noImage.jpg'}" class="ad-image" onclick="showFullImage(this.src)"></td>
+                            <td>${ad.nickname}</td>
                             <td>${ad.category}</td>
-                            <td>${ad.direction || '-'}</td>
+                            <td>${ad.user_direction || '-'}</td>
                             <td>
-                                ${ad.user_email}<br>
-                                ${ad.user_phone}<br>
-                                ${ad.user_telegram || '-'}<br>
-                                ${ad.user_instagram || '-'}
+                                Instagram: ${ad.instagram_link || '-'}<br>
+                                Telegram: ${ad.telegram_link || '-'}<br>
+                                YouTube: ${ad.youtube_link || '-'}
                             </td>
                             <td><span class="badge ${statusClass} status-badge">${statusText}</span></td>
                             <td class="action-buttons">
@@ -273,16 +272,15 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     case 'companies':
                         row.innerHTML = `
                             <td>${ad.id}</td>
-                            <td><img src="${ad.photo || './img/noImage.jpg'}" class="ad-image" onclick="showFullImage(this.src)"></td>
+                            <td><img src="${ad.photo_base64 || './img/noImage.jpg'}" class="ad-image" onclick="showFullImage(this.src)"></td>
                             <td>${ad.name}</td>
                             <td>${ad.category}</td>
                             <td>${ad.direction || '-'}</td>
                             <td>${ad.budget || '-'}</td>
                             <td>
-                                ${ad.user_email}<br>
-                                ${ad.user_phone}<br>
-                                ${ad.telegram || '-'}<br>
-                                ${ad.website || '-'}
+                                Website: ${ad.website_link || '-'}<br>
+                                Instagram: ${ad.instagram_link || '-'}<br>
+                                Telegram: ${ad.telegram_link || '-'}
                             </td>
                             <td><span class="badge ${statusClass} status-badge">${statusText}</span></td>
                             <td class="action-buttons">
@@ -298,15 +296,14 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     case 'freelancers':
                         row.innerHTML = `
                             <td>${ad.id}</td>
-                            <td><img src="${ad.photo || './img/noImage.jpg'}" class="ad-image" onclick="showFullImage(this.src)"></td>
+                            <td><img src="${ad.photo_base64 || './img/noImage.jpg'}" class="ad-image" onclick="showFullImage(this.src)"></td>
                             <td>${ad.name}</td>
                             <td>${ad.category}</td>
-                            <td><a href="${ad.portfolio_link || '#'}" target="_blank">${ad.portfolio_link ? 'Открыть' : '-'}</a></td>
                             <td>
-                                ${ad.user_email}<br>
-                                ${ad.user_phone}<br>
-                                ${ad.telegram || '-'}<br>
-                                ${ad.github_link ? `<a href="${ad.github_link}" target="_blank">GitHub</a>` : '-'}
+                                Portfolio: <a href="${ad.portfolio_link || '#'}" target="_blank">${ad.portfolio_link ? 'Открыть' : '-'}</a><br>
+                                GitHub: <a href="${ad.github_link || '#'}" target="_blank">${ad.github_link ? 'Открыть' : '-'}</a><br>
+                                Instagram: ${ad.instagram_link || '-'}<br>
+                                Telegram: ${ad.telegram_link || '-'}
                             </td>
                             <td><span class="badge ${statusClass} status-badge">${statusText}</span></td>
                             <td class="action-buttons">

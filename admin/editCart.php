@@ -126,7 +126,6 @@ if (!isset($_SESSION['admin_logged_in'])) {
         // Загружаем данные объявления
         async function loadAdData() {
             try {
-                // Исправляем URL для получения данных объявления
                 const response = await fetch(`https://blogy.uz/api/admin/pending-ads?id=${adId}&type=${adType}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -139,6 +138,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 if (!ad) {
                     throw new Error('Объявление не найдено');
                 }
+
+                // Сохраняем текущее фото в глобальной переменной
+                window.currentPhoto = ad.photo || ad.photo_base64;
 
                 // Заполняем форму данными
                 document.getElementById('name').value = ad.user_name;
@@ -161,9 +163,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 }
 
                 // Показываем текущее фото
-                if (ad.photo) {
+                if (ad.photo || ad.photo_base64) {
                     const imgElement = document.createElement('img');
-                    imgElement.src = ad.photo;
+                    imgElement.src = ad.photo || ad.photo_base64;
                     imgElement.style.maxWidth = '200px';
                     imgElement.style.maxHeight = '200px';
                     document.getElementById('currentPhoto').innerHTML = '';
@@ -179,41 +181,53 @@ if (!isset($_SESSION['admin_logged_in'])) {
         document.getElementById('adEditForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const formData = new FormData();
-            formData.append('id', adId);
-            formData.append('type', adType);
-            formData.append('name', document.getElementById('name').value);
-            formData.append('category', document.getElementById('category').value);
-            formData.append('direction', document.getElementById('direction').value);
-            formData.append('ad_comment', document.getElementById('adComment').value);
-
-            const photoInput = document.getElementById('photo');
-            if (photoInput.files[0]) {
-                formData.append('photo', photoInput.files[0]);
-            }
-
-            // Добавляем ссылки
-            const links = {
-                instagram_link: document.getElementById('instagramLink').value,
-                telegram_link: document.getElementById('telegramLink').value
+            const data = {
+                id: parseInt(adId),
+                type: adType,
+                name: document.getElementById('name').value,
+                category: document.getElementById('category').value,
+                direction: document.getElementById('direction').value,
+                ad_comment: document.getElementById('adComment').value,
+                photo: window.currentPhoto,
+                links: {
+                    instagram_link: document.getElementById('instagramLink').value,
+                    telegram_link: document.getElementById('telegramLink').value
+                }
             };
 
             if (adType === 'blogger') {
-                links.youtube_link = document.getElementById('youtubeLink').value;
+                data.links.youtube_link = document.getElementById('youtubeLink').value;
             } else if (adType === 'company') {
-                links.website_link = document.getElementById('websiteLink').value;
-                links.budget = document.getElementById('budget').value;
+                data.links.website_link = document.getElementById('websiteLink').value;
+                data.budget = document.getElementById('budget').value;
             } else if (adType === 'freelancer') {
-                links.github_link = document.getElementById('githubLink').value;
-                links.portfolio_link = document.getElementById('portfolioLink').value;
+                data.links.github_link = document.getElementById('githubLink').value;
+                data.links.portfolio_link = document.getElementById('portfolioLink').value;
             }
 
-            formData.append('links', JSON.stringify(links));
+            // Если выбрано новое фото, читаем его
+            const photoInput = document.getElementById('photo');
+            if (photoInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    data.photo = e.target.result;
+                    await sendData(data);
+                };
+                reader.readAsDataURL(photoInput.files[0]);
+            } else {
+                await sendData(data);
+            }
+        });
 
+        // Функция отправки данных на сервер
+        async function sendData(data) {
             try {
                 const response = await fetch('https://blogy.uz/api/admin/edit-ad', {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
                 });
 
                 const result = await response.json();
@@ -227,7 +241,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 console.error('Ошибка при отправке данных:', error);
                 alert('Ошибка при обновлении объявления');
             }
-        });
+        }
 
         // Инициализация
         showRelevantFields();
