@@ -6,6 +6,7 @@ import (
 	"bloger_agencyBackend/utils"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
@@ -57,23 +58,23 @@ func GetPendingAds(c *gin.Context) {
 	for _, b := range bloggers {
 		var user models.User
 		database.DB.First(&user, b.UserID)
-		
+
 		pendingAds = append(pendingAds, gin.H{
-			"id":               b.ID,
-			"type":            "blogger",
-			"user_name":       b.Nickname,
-			"user_email":      user.Email,
-			"user_phone":      user.Phone,
-			"user_telegram":   user.Telegram,
-			"user_instagram":  user.Instagram,
-			"category":        b.Category,
-			"direction":       b.UserDirection,
-			"photo":           b.PhotoBase64,
-			"ad_comment":      b.AdComment,
-			"instagram_link":  b.InstagramLink,
-			"telegram_link":   b.TelegramLink,
-			"youtube_link":    b.YoutubeLink,
-			"created_at":      b.CreatedAt,
+			"id":             b.ID,
+			"type":           "blogger",
+			"user_name":      b.Nickname,
+			"user_email":     user.Email,
+			"user_phone":     user.Phone,
+			"user_telegram":  user.Telegram,
+			"user_instagram": user.Instagram,
+			"category":       b.Category,
+			"direction":      b.UserDirection,
+			"photo":          b.PhotoBase64,
+			"ad_comment":     b.AdComment,
+			"instagram_link": b.InstagramLink,
+			"telegram_link":  b.TelegramLink,
+			"youtube_link":   b.YoutubeLink,
+			"created_at":     b.CreatedAt,
 		})
 	}
 
@@ -83,24 +84,24 @@ func GetPendingAds(c *gin.Context) {
 	for _, comp := range companies {
 		var user models.User
 		database.DB.First(&user, comp.UserID)
-		
+
 		pendingAds = append(pendingAds, gin.H{
-			"id":               comp.ID,
-			"type":            "company",
-			"user_name":       comp.Name,
-			"user_email":      user.Email,
-			"user_phone":      user.Phone,
-			"user_telegram":   user.Telegram,
-			"user_instagram":  user.Instagram,
-			"category":        comp.Category,
-			"direction":       comp.Direction,
+			"id":             comp.ID,
+			"type":           "company",
+			"user_name":      comp.Name,
+			"user_email":     user.Email,
+			"user_phone":     user.Phone,
+			"user_telegram":  user.Telegram,
+			"user_instagram": user.Instagram,
+			"category":       comp.Category,
+			"direction":      comp.Direction,
 			"photo":          comp.PhotoBase64,
 			"budget":         comp.Budget,
-			"ad_comment":      comp.AdComment,
-			"website_link":    comp.WebsiteLink,
-			"instagram_link":  comp.InstagramLink,
-			"telegram_link":   comp.TelegramLink,
-			"created_at":      comp.CreatedAt,
+			"ad_comment":     comp.AdComment,
+			"website_link":   comp.WebsiteLink,
+			"instagram_link": comp.InstagramLink,
+			"telegram_link":  comp.TelegramLink,
+			"created_at":     comp.CreatedAt,
 		})
 	}
 
@@ -110,23 +111,23 @@ func GetPendingAds(c *gin.Context) {
 	for _, f := range freelancers {
 		var user models.User
 		database.DB.First(&user, f.UserID)
-		
+
 		pendingAds = append(pendingAds, gin.H{
-			"id":               f.ID,
-			"type":            "freelancer",
-			"user_name":       f.Name,
-			"user_email":      user.Email,
-			"user_phone":      user.Phone,
-			"user_telegram":   user.Telegram,
-			"user_instagram":  user.Instagram,
-			"category":        f.Category,
+			"id":             f.ID,
+			"type":           "freelancer",
+			"user_name":      f.Name,
+			"user_email":     user.Email,
+			"user_phone":     user.Phone,
+			"user_telegram":  user.Telegram,
+			"user_instagram": user.Instagram,
+			"category":       f.Category,
 			"photo":          f.PhotoBase64,
-			"ad_comment":      f.AdComment,
-			"github_link":     f.GithubLink,
-			"portfolio_link":  f.PortfolioLink,
-			"instagram_link":  f.InstagramLink,
-			"telegram_link":   f.TelegramLink,
-			"created_at":      f.CreatedAt,
+			"ad_comment":     f.AdComment,
+			"github_link":    f.GithubLink,
+			"portfolio_link": f.PortfolioLink,
+			"instagram_link": f.InstagramLink,
+			"telegram_link":  f.TelegramLink,
+			"created_at":     f.CreatedAt,
 		})
 	}
 
@@ -304,20 +305,20 @@ func GetAllUsers(c *gin.Context) {
 		database.DB.Model(&models.Freelancer{}).Where("user_id = ?", user.ID).Count(&freelancerCount)
 
 		response = append(response, gin.H{
-			"id":              user.ID,
-			"name":            user.Name,
-			"email":           user.Email,
-			"phone":           user.Phone,
-			"telegram":        user.Telegram,
-			"instagram":       user.Instagram,
-			"category":        user.Category,
-			"direction":       user.Direction,
-			"status":          user.IsVerified,
-			"created_at":      user.CreatedAt,
+			"id":         user.ID,
+			"name":       user.Name,
+			"email":      user.Email,
+			"phone":      user.Phone,
+			"telegram":   user.Telegram,
+			"instagram":  user.Instagram,
+			"category":   user.Category,
+			"direction":  user.Direction,
+			"status":     user.IsVerified,
+			"created_at": user.CreatedAt,
 			"posts_count": gin.H{
-				"blogger":     bloggerCount,
-				"company":     companyCount,
-				"freelancer":  freelancerCount,
+				"blogger":    bloggerCount,
+				"company":    companyCount,
+				"freelancer": freelancerCount,
 			},
 		})
 	}
@@ -355,6 +356,107 @@ func ToggleUserStatus(c *gin.Context) {
 	}
 	utils.SendEmail(user.Email, "Изменение статуса аккаунта",
 		"Ваш аккаунт был "+status+" администратором.")
+
+	c.JSON(http.StatusOK, gin.H{"success": true})
+}
+
+// EditAd обрабатывает редактирование объявления администратором
+func EditAd(c *gin.Context) {
+	var input struct {
+		ID          uint   `json:"id"`
+		Type        string `json:"type"`
+		Name        string `json:"name"`
+		Category    string `json:"category"`
+		Direction   string `json:"direction,omitempty"`
+		AdComment   string `json:"ad_comment"`
+		PhotoBase64 string `json:"photo"`
+		Links       struct {
+			Instagram string `json:"instagram_link,omitempty"`
+			Telegram  string `json:"telegram_link,omitempty"`
+			Youtube   string `json:"youtube_link,omitempty"`
+			Website   string `json:"website_link,omitempty"`
+			Github    string `json:"github_link,omitempty"`
+			Portfolio string `json:"portfolio_link,omitempty"`
+		} `json:"links"`
+		Budget string `json:"budget,omitempty"`
+	}
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Неверные данные"})
+		return
+	}
+
+	var err error
+	var userEmail string
+
+	switch input.Type {
+	case "blogger":
+		var post models.PostBlogger
+		if err = database.DB.First(&post, input.ID).Error; err == nil {
+			post.Nickname = input.Name
+			post.Category = input.Category
+			post.UserDirection = input.Direction
+			post.AdComment = input.AdComment
+			post.PhotoBase64 = input.PhotoBase64
+			post.InstagramLink = input.Links.Instagram
+			post.TelegramLink = input.Links.Telegram
+			post.YoutubeLink = input.Links.Youtube
+
+			err = database.DB.Save(&post).Error
+
+			var user models.User
+			database.DB.First(&user, post.UserID)
+			userEmail = user.Email
+		}
+	case "company":
+		var company models.Company
+		if err = database.DB.First(&company, input.ID).Error; err == nil {
+			company.Name = input.Name
+			company.Category = input.Category
+			company.Direction = input.Direction
+			company.AdComment = input.AdComment
+			company.PhotoBase64 = input.PhotoBase64
+			company.InstagramLink = input.Links.Instagram
+			company.TelegramLink = input.Links.Telegram
+			company.WebsiteLink = input.Links.Website
+			company.Budget, _ = strconv.Atoi(input.Budget) // Преобразование строки в int
+
+			err = database.DB.Save(&company).Error
+
+			var user models.User
+			database.DB.First(&user, company.UserID)
+			userEmail = user.Email
+		}
+	case "freelancer":
+		var freelancer models.Freelancer
+		if err = database.DB.First(&freelancer, input.ID).Error; err == nil {
+			freelancer.Name = input.Name
+			freelancer.Category = input.Category
+			freelancer.AdComment = input.AdComment
+			freelancer.PhotoBase64 = input.PhotoBase64
+			freelancer.InstagramLink = input.Links.Instagram
+			freelancer.TelegramLink = input.Links.Telegram
+			freelancer.GithubLink = input.Links.Github
+			freelancer.PortfolioLink = input.Links.Portfolio
+
+			err = database.DB.Save(&freelancer).Error
+
+			var user models.User
+			database.DB.First(&user, freelancer.UserID)
+			userEmail = user.Email
+		}
+	}
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при обновлении объявления"})
+		return
+	}
+
+	// Отправляем уведомление на email
+	if userEmail != "" {
+		utils.SendEmail(userEmail, "Объявление отредактировано",
+			"Ваше объявление было отредактировано администратором.")
+	}
 
 	c.JSON(http.StatusOK, gin.H{"success": true})
 }

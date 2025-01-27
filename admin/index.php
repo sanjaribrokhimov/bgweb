@@ -352,6 +352,9 @@ $statistics = fetchData("admin/statistics");
                                         <button class="btn btn-sm btn-danger" onclick="rejectAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
                                             Отклонить
                                         </button>
+                                        <button class="btn btn-sm btn-primary" onclick="editAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
+                                            Редактировать
+                                        </button>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -503,7 +506,7 @@ $statistics = fetchData("admin/statistics");
             }
         }
 
-        // Фу��кция для управления статусом пользователя
+        // Функция для управления статусом пользователя
         function toggleUserStatus(id) {
             if (confirm('Вы уверены, что хотите изменить статус этого пользователя?')) {
                 $.ajax({
@@ -595,6 +598,10 @@ $statistics = fetchData("admin/statistics");
             
             calendar.render();
         });
+
+        function editAd(id, type) {
+            window.location.href = `editCart.php?id=${id}&type=${type}`;
+        }
     </script>
 </body>
 </html>
