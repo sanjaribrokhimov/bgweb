@@ -464,7 +464,7 @@ func EditAd(c *gin.Context) {
 // GetAllAdsAdmin возвращает все объявления определенного типа
 func GetAllAdsAdmin(c *gin.Context) {
 	adType := c.Query("type")
-	
+
 	switch adType {
 	case "bloggers":
 		var posts []models.PostBlogger
@@ -473,7 +473,7 @@ func GetAllAdsAdmin(c *gin.Context) {
 			return
 		}
 		c.JSON(http.StatusOK, posts)
-		
+
 	case "companies":
 		var companies []models.Company
 		if err := database.DB.Find(&companies).Error; err != nil {
@@ -481,7 +481,7 @@ func GetAllAdsAdmin(c *gin.Context) {
 			return
 		}
 		c.JSON(http.StatusOK, companies)
-		
+
 	case "freelancers":
 		var freelancers []models.Freelancer
 		if err := database.DB.Find(&freelancers).Error; err != nil {
@@ -489,7 +489,7 @@ func GetAllAdsAdmin(c *gin.Context) {
 			return
 		}
 		c.JSON(http.StatusOK, freelancers)
-		
+
 	default:
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Неверный тип объявления"})
 	}
