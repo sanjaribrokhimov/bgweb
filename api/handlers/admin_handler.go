@@ -460,3 +460,70 @@ func EditAd(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"success": true})
 }
+
+// GetAllAdsAdmin возвращает все объявления определенного типа
+func GetAllAdsAdmin(c *gin.Context) {
+	adType := c.Query("type")
+	
+	switch adType {
+	case "bloggers":
+		var posts []models.PostBlogger
+		if err := database.DB.Find(&posts).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при получении объявлений блогеров"})
+			return
+		}
+		c.JSON(http.StatusOK, posts)
+		
+	case "companies":
+		var companies []models.Company
+		if err := database.DB.Find(&companies).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при получении объявлений компаний"})
+			return
+		}
+		c.JSON(http.StatusOK, companies)
+		
+	case "freelancers":
+		var freelancers []models.Freelancer
+		if err := database.DB.Find(&freelancers).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при получении объявлений фрилансеров"})
+			return
+		}
+		c.JSON(http.StatusOK, freelancers)
+		
+	default:
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Неверный тип объявления"})
+	}
+}
+
+// DeleteAdAdmin удаляет объявление через админ-панель
+func DeleteAdAdmin(c *gin.Context) {
+	var input struct {
+		ID   uint   `json:"id"`
+		Type string `json:"type"`
+	}
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Неверные данные"})
+		return
+	}
+
+	var err error
+	switch input.Type {
+	case "blogger":
+		err = database.DB.Delete(&models.PostBlogger{}, input.ID).Error
+	case "company":
+		err = database.DB.Delete(&models.Company{}, input.ID).Error
+	case "freelancer":
+		err = database.DB.Delete(&models.Freelancer{}, input.ID).Error
+	default:
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Неверный тип объявления"})
+		return
+	}
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при удалении объявления"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"success": true})
+}

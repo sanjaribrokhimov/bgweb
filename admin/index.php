@@ -224,7 +224,12 @@ $statistics = fetchData("admin/statistics");
                         Пользователи
                     </a>
                 </li>
-                
+                <li>
+                    <a href="allAds.php">
+                        <i class='bx bxs-collection'></i>
+                        Все объявления
+                    </a>
+                </li>
                 <li>
                     <a href="logout.php">
                         <i class='bx bxs-log-out'></i>

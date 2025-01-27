@@ -31,13 +31,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 
                 <div class="mb-3">
                     <label for="category" class="form-label">Категория</label>
-                    <select class="form-control" id="category" required>
-                        <option value="">Выберите категорию</option>
-                        <option value="IT">IT</option>
-                        <option value="Маркетинг">Маркетинг</option>
-                        <option value="Дизайн">Дизайн</option>
-                        <!-- Добавьте другие категории по необходимости -->
-                    </select>
+                    <input type="text" class="form-control" id="category" readonly>
                 </div>
 
                 <div class="mb-3" id="directionBlock">
@@ -132,32 +126,44 @@ if (!isset($_SESSION['admin_logged_in'])) {
         // Загружаем данные объявления
         async function loadAdData() {
             try {
-                const response = await fetch(`https://blogy.uz/api/admin/get-ad?id=${adId}&type=${adType}`);
+                // Исправляем URL для получения данных объявления
+                const response = await fetch(`https://blogy.uz/api/admin/pending-ads?id=${adId}&type=${adType}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 const data = await response.json();
 
-                document.getElementById('name').value = data.name;
-                document.getElementById('category').value = data.category;
-                document.getElementById('direction').value = data.direction || '';
-                document.getElementById('adComment').value = data.ad_comment;
+                // Находим нужное объявление в массиве
+                const ad = data.find(item => item.id === parseInt(adId) && item.type === adType);
+                
+                if (!ad) {
+                    throw new Error('Объявление не найдено');
+                }
+
+                // Заполняем форму данными
+                document.getElementById('name').value = ad.user_name;
+                document.getElementById('category').value = ad.category;
+                document.getElementById('direction').value = ad.direction || '';
+                document.getElementById('adComment').value = ad.ad_comment;
                 
                 // Заполняем ссылки
-                document.getElementById('instagramLink').value = data.instagram_link || '';
-                document.getElementById('telegramLink').value = data.telegram_link || '';
+                document.getElementById('instagramLink').value = ad.user_instagram || '';
+                document.getElementById('telegramLink').value = ad.user_telegram || '';
                 
                 if (adType === 'blogger') {
-                    document.getElementById('youtubeLink').value = data.youtube_link || '';
+                    document.getElementById('youtubeLink').value = ad.youtube_link || '';
                 } else if (adType === 'company') {
-                    document.getElementById('websiteLink').value = data.website_link || '';
-                    document.getElementById('budget').value = data.budget || '';
+                    document.getElementById('websiteLink').value = ad.website_link || '';
+                    document.getElementById('budget').value = ad.budget || '';
                 } else if (adType === 'freelancer') {
-                    document.getElementById('githubLink').value = data.github_link || '';
-                    document.getElementById('portfolioLink').value = data.portfolio_link || '';
+                    document.getElementById('githubLink').value = ad.github_link || '';
+                    document.getElementById('portfolioLink').value = ad.portfolio_link || '';
                 }
 
                 // Показываем текущее фото
-                if (data.photo) {
+                if (ad.photo) {
                     const imgElement = document.createElement('img');
-                    imgElement.src = data.photo;
+                    imgElement.src = ad.photo;
                     imgElement.style.maxWidth = '200px';
                     imgElement.style.maxHeight = '200px';
                     document.getElementById('currentPhoto').innerHTML = '';

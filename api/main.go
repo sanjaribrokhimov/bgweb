@@ -117,6 +117,8 @@ func main() {
 			admin.GET("/users", handlers.GetAllUsers)
 			admin.POST("/toggle-user-status", handlers.ToggleUserStatus)
 			admin.POST("/edit-ad", handlers.EditAd)
+			admin.GET("/all-ads", handlers.GetAllAdsAdmin)
+			admin.POST("/delete-ad", handlers.DeleteAdAdmin)
 		}
 	}
 
