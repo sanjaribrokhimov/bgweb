@@ -54,7 +54,7 @@ func GetPendingAds(c *gin.Context) {
 
 	// Получаем объявления блогеров
 	var bloggers []models.PostBlogger
-	database.DB.Where("status = ?", "false").Find(&bloggers)
+	database.DB.Find(&bloggers)
 	for _, b := range bloggers {
 		var user models.User
 		database.DB.First(&user, b.UserID)
@@ -80,7 +80,7 @@ func GetPendingAds(c *gin.Context) {
 
 	// Получаем объявления компаний
 	var companies []models.Company
-	database.DB.Where("status = ?", "false").Find(&companies)
+	database.DB.Find(&companies)
 	for _, comp := range companies {
 		var user models.User
 		database.DB.First(&user, comp.UserID)
@@ -107,7 +107,7 @@ func GetPendingAds(c *gin.Context) {
 
 	// Получаем объявления фрилансеров
 	var freelancers []models.Freelancer
-	database.DB.Where("status = ?", "false").Find(&freelancers)
+	database.DB.Find(&freelancers)
 	for _, f := range freelancers {
 		var user models.User
 		database.DB.First(&user, f.UserID)
