@@ -126,7 +126,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
         // Загружаем данные объявления
         async function loadAdData() {
             try {
-                const response = await fetch(`https://blogy.uz/api/admin/pending-ads?id=${adId}&type=${adType}`);
+                const response = await fetch(`https://blogy.uz/api/admin/pending-old-ads?id=${adId}&type=${adType}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

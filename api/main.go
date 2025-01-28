@@ -111,6 +111,7 @@ func main() {
 		{
 			admin.POST("/login", handlers.AdminLogin)
 			admin.GET("/pending-ads", handlers.GetPendingAds)
+			admin.GET("/pending-old-ads", handlers.GetPendingOldAds)
 			admin.POST("/approve-ad", handlers.ApproveAd)
 			admin.POST("/reject-ad", handlers.RejectAd)
 			admin.GET("/statistics", handlers.GetAdminStatistics)

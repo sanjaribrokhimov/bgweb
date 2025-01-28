@@ -54,6 +54,92 @@ func GetPendingAds(c *gin.Context) {
 
 	// Получаем объявления блогеров
 	var bloggers []models.PostBlogger
+	database.DB.Where("status = ?", "false").Find(&bloggers)
+	for _, b := range bloggers {
+		var user models.User
+		database.DB.First(&user, b.UserID)
+
+		pendingAds = append(pendingAds, gin.H{
+			"id":             b.ID,
+			"type":           "blogger",
+			"user_name":      b.Nickname,
+			"user_email":     user.Email,
+			"user_phone":     user.Phone,
+			"user_telegram":  user.Telegram,
+			"user_instagram": user.Instagram,
+			"category":       b.Category,
+			"direction":      b.UserDirection,
+			"photo":          b.PhotoBase64,
+			"ad_comment":     b.AdComment,
+			"instagram_link": b.InstagramLink,
+			"telegram_link":  b.TelegramLink,
+			"youtube_link":   b.YoutubeLink,
+			"created_at":     b.CreatedAt,
+		})
+	}
+
+	// Получаем объявления компаний
+	var companies []models.Company
+	database.DB.Where("status = ?", "false").Find(&companies)
+	for _, comp := range companies {
+		var user models.User
+		database.DB.First(&user, comp.UserID)
+
+		pendingAds = append(pendingAds, gin.H{
+			"id":             comp.ID,
+			"type":           "company",
+			"user_name":      comp.Name,
+			"user_email":     user.Email,
+			"user_phone":     user.Phone,
+			"user_telegram":  user.Telegram,
+			"user_instagram": user.Instagram,
+			"category":       comp.Category,
+			"direction":      comp.Direction,
+			"photo":          comp.PhotoBase64,
+			"budget":         comp.Budget,
+			"ad_comment":     comp.AdComment,
+			"website_link":   comp.WebsiteLink,
+			"instagram_link": comp.InstagramLink,
+			"telegram_link":  comp.TelegramLink,
+			"created_at":     comp.CreatedAt,
+		})
+	}
+
+	// Получаем объявления фрилансеров
+	var freelancers []models.Freelancer
+	database.DB.Where("status = ?", "false").Find(&freelancers)
+	for _, f := range freelancers {
+		var user models.User
+		database.DB.First(&user, f.UserID)
+
+		pendingAds = append(pendingAds, gin.H{
+			"id":             f.ID,
+			"type":           "freelancer",
+			"user_name":      f.Name,
+			"user_email":     user.Email,
+			"user_phone":     user.Phone,
+			"user_telegram":  user.Telegram,
+			"user_instagram": user.Instagram,
+			"category":       f.Category,
+			"photo":          f.PhotoBase64,
+			"ad_comment":     f.AdComment,
+			"github_link":    f.GithubLink,
+			"portfolio_link": f.PortfolioLink,
+			"instagram_link": f.InstagramLink,
+			"telegram_link":  f.TelegramLink,
+			"created_at":     f.CreatedAt,
+		})
+	}
+
+	c.JSON(http.StatusOK, pendingAds)
+}
+
+
+func GetPendingOldAds(c *gin.Context) {
+	var pendingAds []gin.H
+
+	// Получаем объявления блогеров
+	var bloggers []models.PostBlogger
 	database.DB.Find(&bloggers)
 	for _, b := range bloggers {
 		var user models.User
