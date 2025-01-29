@@ -134,90 +134,86 @@ func GetPendingAds(c *gin.Context) {
 	c.JSON(http.StatusOK, pendingAds)
 }
 
-
 func GetPendingOldAds(c *gin.Context) {
-	var pendingAds []gin.H
+	// Получаем query параметры
+	adID := c.Query("id")
+	adType := c.Query("type")
 
-	// Получаем объявления блогеров
-	var bloggers []models.PostBlogger
-	database.DB.Find(&bloggers)
-	for _, b := range bloggers {
+	// Проверяем наличие параметров
+	if adID == "" || adType == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID and type are required"})
+		return
+	}
+
+	// Конвертируем ID в uint
+	id, err := strconv.ParseUint(adID, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format"})
+		return
+	}
+
+	// В зависимости от типа ищем объявление
+	if adType == "blogger" {
+		var blogger models.PostBlogger
+		if err := database.DB.First(&blogger, id).Error; err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Blogger ad not found"})
+			return
+		}
+
 		var user models.User
-		database.DB.First(&user, b.UserID)
+		database.DB.First(&user, blogger.UserID)
 
-		pendingAds = append(pendingAds, gin.H{
-			"id":             b.ID,
+		c.JSON(http.StatusOK, gin.H{
+			"id":             blogger.ID,
 			"type":           "blogger",
-			"user_name":      b.Nickname,
-			"user_email":     user.Email,
+			"user_name":      blogger.Nickname,
+			"user_email":     user.Email, 
 			"user_phone":     user.Phone,
 			"user_telegram":  user.Telegram,
 			"user_instagram": user.Instagram,
-			"category":       b.Category,
-			"direction":      b.UserDirection,
-			"photo":          b.PhotoBase64,
-			"ad_comment":     b.AdComment,
-			"instagram_link": b.InstagramLink,
-			"telegram_link":  b.TelegramLink,
-			"youtube_link":   b.YoutubeLink,
-			"created_at":     b.CreatedAt,
+			"category":       blogger.Category,
+			"direction":      blogger.UserDirection,
+			"photo":          blogger.PhotoBase64,
+			"ad_comment":     blogger.AdComment,
+			"instagram_link": blogger.InstagramLink,
+			"telegram_link":  blogger.TelegramLink,
+			"portfolio_link": blogger.PortfolioLink,
+			"created_at":     blogger.CreatedAt,
 		})
+		return
 	}
 
-	// Получаем объявления компаний
-	var companies []models.Company
-	database.DB.Find(&companies)
-	for _, comp := range companies {
+	if adType == "freelancer" {
+		var freelancer models.PostFreelancer
+		if err := database.DB.First(&freelancer, id).Error; err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Freelancer ad not found"})
+			return
+		}
+
 		var user models.User
-		database.DB.First(&user, comp.UserID)
+		database.DB.First(&user, freelancer.UserID)
 
-		pendingAds = append(pendingAds, gin.H{
-			"id":             comp.ID,
-			"type":           "company",
-			"user_name":      comp.Name,
+		c.JSON(http.StatusOK, gin.H{
+			"id":             freelancer.ID,
+			"type":           "freelancer", 
+			"user_name":      freelancer.Name,
 			"user_email":     user.Email,
 			"user_phone":     user.Phone,
 			"user_telegram":  user.Telegram,
 			"user_instagram": user.Instagram,
-			"category":       comp.Category,
-			"direction":      comp.Direction,
-			"photo":          comp.PhotoBase64,
-			"budget":         comp.Budget,
-			"ad_comment":     comp.AdComment,
-			"website_link":   comp.WebsiteLink,
-			"instagram_link": comp.InstagramLink,
-			"telegram_link":  comp.TelegramLink,
-			"created_at":     comp.CreatedAt,
+			"category":       freelancer.Category,
+			"photo":          freelancer.PhotoBase64,
+			"ad_comment":     freelancer.AdComment,
+			"github_link":    freelancer.GithubLink,
+			"portfolio_link": freelancer.PortfolioLink,
+			"instagram_link": freelancer.InstagramLink,
+			"telegram_link":  freelancer.TelegramLink,
+			"created_at":     freelancer.CreatedAt,
 		})
+		return
 	}
 
-	// Получаем объявления фрилансеров
-	var freelancers []models.Freelancer
-	database.DB.Find(&freelancers)
-	for _, f := range freelancers {
-		var user models.User
-		database.DB.First(&user, f.UserID)
-
-		pendingAds = append(pendingAds, gin.H{
-			"id":             f.ID,
-			"type":           "freelancer",
-			"user_name":      f.Name,
-			"user_email":     user.Email,
-			"user_phone":     user.Phone,
-			"user_telegram":  user.Telegram,
-			"user_instagram": user.Instagram,
-			"category":       f.Category,
-			"photo":          f.PhotoBase64,
-			"ad_comment":     f.AdComment,
-			"github_link":    f.GithubLink,
-			"portfolio_link": f.PortfolioLink,
-			"instagram_link": f.InstagramLink,
-			"telegram_link":  f.TelegramLink,
-			"created_at":     f.CreatedAt,
-		})
-	}
-
-	c.JSON(http.StatusOK, pendingAds)
+	c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ad type"})
 }
 
 // ApproveAd одобряет объявление

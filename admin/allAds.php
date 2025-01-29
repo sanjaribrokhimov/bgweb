@@ -68,16 +68,16 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         Новые объявления
                     </a>
                 </li>
-                <li class="active">
-                    <a href="allAds.php">
-                        <i class='bx bxs-collection'></i>
-                        Все объявления
-                    </a>
-                </li>
                 <li>
                     <a href="index.php#users">
                         <i class='bx bxs-user-detail'></i>
                         Пользователи
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="allAds.php">
+                        <i class='bx bxs-collection'></i>
+                        Все объявления
                     </a>
                 </li>
                 <li>
