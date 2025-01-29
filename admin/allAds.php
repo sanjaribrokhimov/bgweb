@@ -286,10 +286,10 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             </td>
                             <td><span class="badge ${statusClass} status-badge">${statusText}</span></td>
                             <td class="action-buttons">
-                                <button class="btn btn-sm btn-primary" onclick="editAd(${ad.id}, 'company')">
+                                <button class="btn btn-sm btn-primary" onclick="editAd(${ad.ID}, 'company')">
                                     <i class='bx bxs-edit'></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger" onclick="deleteAd(${ad.id}, 'company')">
+                                <button class="btn btn-sm btn-danger" onclick="deleteAd(${ad.ID}, 'company')">
                                     <i class='bx bxs-trash'></i>
                                 </button>
                             </td>
@@ -311,10 +311,10 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             </td>
                             <td><span class="badge ${statusClass} status-badge">${statusText}</span></td>
                             <td class="action-buttons">
-                                <button class="btn btn-sm btn-primary" onclick="editAd(${ad.id}, 'freelancer')">
+                                <button class="btn btn-sm btn-primary" onclick="editAd(${ad.ID}, 'freelancer')">
                                     <i class='bx bxs-edit'></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger" onclick="deleteAd(${ad.id}, 'freelancer')">
+                                <button class="btn btn-sm btn-danger" onclick="deleteAd(${ad.ID}, 'freelancer')">
                                     <i class='bx bxs-trash'></i>
                                 </button>
                             </td>
