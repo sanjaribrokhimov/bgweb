@@ -133,7 +133,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 const data = await response.json();
 
                 // Находим нужное объявление в массиве
-                const ad = data.find(item => item.id === parseInt(adId) && item.type === adType);
+                const ad = data;
                 
                 if (!ad) {
                     throw new Error('Объявление не найдено');
