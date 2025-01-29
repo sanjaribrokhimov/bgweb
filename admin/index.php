@@ -239,6 +239,31 @@ $statistics = fetchData("admin/statistics");
         .btn-reject:hover {
             background-color: #c82333;
         }
+        .nav-tabs {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-tabs .nav-link {
+            color: #8c8c8c;
+            border: none;
+            border-bottom: 2px solid transparent;
+            padding: 10px 20px;
+        }
+
+        .nav-tabs .nav-link:hover {
+            border-color: transparent;
+            color: #fff;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: #fff;
+            background: var(--accent-blue);
+            border-bottom: 2px solid #0d6efd;
+        }
+
+        .tab-content {
+            padding-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -409,56 +434,64 @@ $statistics = fetchData("admin/statistics");
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($pending_ads as $ad): ?>
-                                <tr>
-                                    <td><?php echo $ad['id']; ?></td>
-                                    <td><?php echo $ad['type']; ?></td>
-                                    <td>
-                                        <?php if(!empty($ad['photo'])): ?>
-                                            <img src="<?php echo $ad['photo']; ?>" 
-                                                 alt="Фото объявления" 
-                                                 style="width: 150px; height: 150px; object-fit: cover; cursor: pointer; border-radius: 8px;"
-                                                 onclick="showFullImage(this.src)"
-                                            />
-                                        <?php else: ?>
-                                            <img src="./img/noImage.jpg" 
-                                                 alt="Нет фото" 
-                                                 style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px;"
-                                            />
-                                        <?php endif; ?>
-                                    </td>
-                                    <td><?php echo $ad['user_name']; ?></td>
-                                    <td>
-                                        Email: <?php echo $ad['user_email']; ?><br>
-                                        Телефон: <?php echo $ad['user_phone']; ?><br>
-                                        Telegram: <?php echo $ad['user_telegram']; ?><br>
-                                        Instagram: <?php echo $ad['user_instagram']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $ad['category']; ?><br>
-                                        <?php echo isset($ad['direction']) ? $ad['direction'] : ''; ?>
-                                    </td>
-                                    <td><?php echo $ad['ad_comment']; ?></td>
-                                    
-                                    <td><?php echo $ad['created_at']; ?></td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button class="btn btn-sm btn-approve action-btn" onclick="approveAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
-                                                <i class='bx bxs-check-circle'></i>
-                                                Одобрить
-                                            </button>
-                                            <button class="btn btn-sm btn-reject action-btn" onclick="rejectAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
-                                                <i class='bx bxs-x-circle'></i>
-                                                Отклонить
-                                            </button>
-                                            <button class="btn btn-sm btn-edit action-btn" onclick="editAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
-                                                <i class='bx bxs-edit'></i>
-                                                Редактировать
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
+                            <?php if (!empty($pending_ads) && is_array($pending_ads)): ?>
+                                    <?php foreach ($pending_ads as $ad): ?>
+                                    <tr>
+                                        <td><?php echo $ad['id']; ?></td>
+                                        <td><?php echo $ad['type']; ?></td>
+                                        <td>
+                                            <?php if(!empty($ad['photo'])): ?>
+                                                <img src="<?php echo $ad['photo']; ?>" 
+                                                     alt="Фото объявления" 
+                                                     style="width: 150px; height: 150px; object-fit: cover; cursor: pointer; border-radius: 8px;"
+                                                     onclick="showFullImage(this.src)"
+                                                />
+                                            <?php else: ?>
+                                                <img src="./img/noImage.jpg" 
+                                                     alt="Нет фото" 
+                                                     style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px;"
+                                                />
+                                            <?php endif; ?>
+                                        </td>
+                                        <td><?php echo $ad['user_name']; ?></td>
+                                        <td>
+                                            Email: <?php echo $ad['user_email']; ?><br>
+                                            Телефон: <?php echo $ad['user_phone']; ?><br>
+                                            Telegram: <?php echo $ad['user_telegram']; ?><br>
+                                            Instagram: <?php echo $ad['user_instagram']; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $ad['category']; ?><br>
+                                            <?php echo isset($ad['direction']) ? $ad['direction'] : ''; ?>
+                                        </td>
+                                        <td><?php echo $ad['ad_comment']; ?></td>
+                                        
+                                        <td><?php echo $ad['created_at']; ?></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-sm btn-approve action-btn" onclick="approveAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
+                                                    <i class='bx bxs-check-circle'></i>
+                                                    Одобрить
+                                                </button>
+                                                <button class="btn btn-sm btn-reject action-btn" onclick="rejectAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
+                                                    <i class='bx bxs-x-circle'></i>
+                                                    Отклонить
+                                                </button>
+                                                <button class="btn btn-sm btn-edit action-btn" onclick="editAd(<?php echo $ad['id']; ?>, '<?php echo $ad['type']; ?>')">
+                                                    <i class='bx bxs-edit'></i>
+                                                    Редактировать
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="9" class="text-center">
+                                            <p class="my-3">Новых объявлений пока нет</p>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -467,61 +500,97 @@ $statistics = fetchData("admin/statistics");
                 <!-- Пользователи -->
                 <section id="users" class="content-section">
                     <h2>Пользователи</h2>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Имя</th>
-                                    <th>Контакты</th>
-                                    <th>Категория</th>
-                                    <th>Направление</th>
-                                    <th>Объявления</th>
-                                    <th>Статус</th>
-                                    <th>Дата регистрации</th>
-                                    <th>Действия</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($users as $user): ?>
-                                <tr>
-                                    <td><?php echo $user['id']; ?></td>
-                                    <td><?php echo $user['name']; ?></td>
-                                    <td>
-                                        Email: <?php echo $user['email']; ?><br>
-                                        Телефон: <?php echo $user['phone']; ?><br>
-                                        Telegram: <?php echo $user['telegram']; ?><br>
-                                        Instagram: <?php echo $user['instagram']; ?>
-                                    </td>
-                                    <td><?php echo $user['category']; ?></td>
-                                    <td><?php echo $user['direction']; ?></td>
-                                    <td>
-                                        Блогер: <?php echo $user['posts_count']['blogger']; ?><br>
-                                        Компания: <?php echo $user['posts_count']['company']; ?><br>
-                                        Фрилансер: <?php echo $user['posts_count']['freelancer']; ?>
-                                    </td>
-                                    <td>
-                                        <span class="badge <?php echo $user['status'] ? 'bg-success' : 'bg-danger'; ?>">
-                                            <?php echo $user['status'] ? 'Активен' : 'Заблокирован'; ?>
-                                        </span>
-                                    </td>
-                                    <td><?php echo $user['created_at']; ?></td>
-                                    <td>
-                                        <button class="btn btn-sm <?php echo $user['status'] ? 'btn-danger' : 'btn-success'; ?>"
-                                        style="margin: 10px 0;"
-                                                onclick="toggleUserStatus(<?php echo $user['id']; ?>)">
-                                            <?php echo $user['status'] ? 'Заблокировать' : 'Разблокировать'; ?>
-                                        </button>
-                                        <button class="btn btn-sm btn-warning" 
-                                                onclick="addSomething(<?php echo $user['id']; ?>, '<?php echo $user['category']; ?>', '<?php echo $user['direction']; ?>', '<?php echo $user['telegram']; ?>', '<?php echo $user['instagram']; ?>')">
-                                                <i class='bx bxs-plus-circle'></i>
-                                                Добавить
-                                        </button>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                    
+                    <!-- Добавляем табы для категорий -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#all">Все</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#bloggers">Блогеры</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#companies">Компании</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#freelancers">Фрилансеры</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <?php
+                        // Группируем пользователей по категориям
+                        $categorized_users = [
+                            'all' => $users,
+                            'bloggers' => array_filter($users, function($user) { return $user['category'] === 'blogger'; }),
+                            'companies' => array_filter($users, function($user) { return $user['category'] === 'company'; }),
+                            'freelancers' => array_filter($users, function($user) { return $user['category'] === 'freelancer'; })
+                        ];
+
+                        $tab_ids = ['all', 'bloggers', 'companies', 'freelancers'];
+                        
+                        foreach ($tab_ids as $tab_id):
+                            $is_active = $tab_id === 'all' ? ' show active' : '';
+                        ?>
+                            <div class="tab-pane fade<?php echo $is_active; ?>" id="<?php echo $tab_id; ?>">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Имя</th>
+                                                <th>Контакты</th>
+                                                <th>Категория</th>
+                                                <th>Направление</th>
+                                                <th>Объявления</th>
+                                                <th>Статус</th>
+                                                <th>Дата регистрации</th>
+                                                <th>Действия</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($categorized_users[$tab_id] as $user): ?>
+                                            <tr>
+                                                <td><?php echo $user['id']; ?></td>
+                                                <td><?php echo $user['name']; ?></td>
+                                                <td>
+                                                    Email: <?php echo $user['email']; ?><br>
+                                                    Телефон: <?php echo $user['phone']; ?><br>
+                                                    Telegram: <?php echo $user['telegram']; ?><br>
+                                                    Instagram: <?php echo $user['instagram']; ?>
+                                                </td>
+                                                <td><?php echo $user['category']; ?></td>
+                                                <td><?php echo $user['direction']; ?></td>
+                                                <td>
+                                                    Блогер: <?php echo $user['posts_count']['blogger']; ?><br>
+                                                    Компания: <?php echo $user['posts_count']['company']; ?><br>
+                                                    Фрилансер: <?php echo $user['posts_count']['freelancer']; ?>
+                                                </td>
+                                                <td>
+                                                    <span class="badge <?php echo $user['status'] ? 'bg-success' : 'bg-danger'; ?>">
+                                                        <?php echo $user['status'] ? 'Активен' : 'Заблокирован'; ?>
+                                                    </span>
+                                                </td>
+                                                <td><?php echo $user['created_at']; ?></td>
+                                                <td>
+                                                    <button class="btn btn-sm <?php echo $user['status'] ? 'btn-danger' : 'btn-success'; ?>"
+                                                            style="margin: 10px 0;"
+                                                            onclick="toggleUserStatus(<?php echo $user['id']; ?>)">
+                                                        <?php echo $user['status'] ? 'Заблокировать' : 'Разблокировать'; ?>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-warning" 
+                                                            onclick="addSomething(<?php echo $user['id']; ?>, '<?php echo $user['category']; ?>', '<?php echo $user['direction']; ?>', '<?php echo $user['telegram']; ?>', '<?php echo $user['instagram']; ?>')">
+                                                        <i class='bx bxs-plus-circle'></i>
+                                                        Добавить
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </section>
             </div>

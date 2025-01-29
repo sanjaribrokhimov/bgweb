@@ -129,6 +129,13 @@ body {
     box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
 }
 
+#users .table-responsive {
+    border-radius: 0 8px 8px 8px;
+}
+#users .tab-content {
+    padding-top: 0;
+}
+
 .table th {
     font-weight: 600;
     border-top: none;
