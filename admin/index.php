@@ -26,9 +26,11 @@ $statistics = fetchData("admin/statistics");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Админ панель</title>
+    <script src="modalForms.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="styles.css" rel="stylesheet">
     <style>
         .ad-image {
@@ -240,6 +242,53 @@ $statistics = fetchData("admin/statistics");
     </style>
 </head>
 <body>
+    <!-- После существующих модальных окон, перед закрывающим тегом body -->
+    <!-- Модальное окно для добавления контента -->
+    <div class="modal fade" id="addContentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Добавить контент</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="dynamicModalContent">
+                    <!-- Сюда будет динамически добавляться содержимое из modalForms.js -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Отлично!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fas fa-check-circle success-icon"></i>
+                    <p class="mt-3">Ваше объявление успешно добавлено и отправлено на модерацию.</p>
+                    <p>Уведомление будет отправлено на почту.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='index.php'">
+                        <i class="fas fa-check"></i> Понятно
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Индикатор загрузки -->
+    <div id="loadingIndicator" class="loading-indicator">
+        <div class="spinner-wrapper">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="loading-text">Пожалуйста, подождите...</div>
+        </div>
+    </div>
+
     <div class="admin-wrapper">
         <!-- Боковое меню -->
         <nav id="sidebar" class="sidebar">
@@ -458,9 +507,15 @@ $statistics = fetchData("admin/statistics");
                                     </td>
                                     <td><?php echo $user['created_at']; ?></td>
                                     <td>
-                                        <button class="btn btn-sm <?php echo $user['status'] ? 'btn-danger' : 'btn-success'; ?>" 
+                                        <button class="btn btn-sm <?php echo $user['status'] ? 'btn-danger' : 'btn-success'; ?>"
+                                        style="margin: 10px 0;"
                                                 onclick="toggleUserStatus(<?php echo $user['id']; ?>)">
                                             <?php echo $user['status'] ? 'Заблокировать' : 'Разблокировать'; ?>
+                                        </button>
+                                        <button class="btn btn-sm btn-warning" 
+                                                onclick="addSomething(<?php echo $user['id']; ?>, '<?php echo $user['category']; ?>', '<?php echo $user['direction']; ?>', '<?php echo $user['telegram']; ?>', '<?php echo $user['instagram']; ?>')">
+                                                <i class='bx bxs-plus-circle'></i>
+                                                Добавить
                                         </button>
                                     </td>
                                 </tr>
@@ -576,6 +631,18 @@ $statistics = fetchData("admin/statistics");
                 });
             }
         }
+
+        function addSomething(id, type, user_direction, userTelegram, userInstagram) {
+            // Получаем соответствующую форму из modalForms.js
+            const form = getFormByType(type);
+            // Вставляем форму в модальное окно
+            document.getElementById('dynamicModalContent').innerHTML = form;
+            // Показываем модальное окно
+            new bootstrap.Modal(document.getElementById('addContentModal')).show();
+
+            domContentOnMinimalize(id, type, user_direction, userTelegram, userInstagram);
+        }
+
 
         // Переключение между секциями
         document.querySelectorAll('.sidebar a[data-section]').forEach(link => {

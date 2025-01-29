@@ -7,6 +7,20 @@
     --success-color: #1cc88a;
     --danger-color: #e74a3b;
     --warning-color: #f6c23e;
+
+    --primary-bg: #0f1116;
+    --card-bg: #1a1d26;
+    --text-color: #ffffff;
+    --text-secondary: #9ba1b0;
+    --accent-blue: #4d7eff;
+    --accent-purple: #9d50ff;
+    --accent-green: #32d583;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    --gradient-1: linear-gradient(145deg, #1a1d26, #252935);
+    --gradient-2: linear-gradient(145deg, #4d7eff, #6d5dff);
+    --card-hover: #252935;
+    --accent-blue-light: rgba(77, 126, 255, 0.1);
+    --accent-blue-hover: rgba(77, 126, 255, 0.15);
 }
 
 body {
@@ -362,4 +376,602 @@ body {
     .btn-sm {
         font-size: 0.75rem;
     }
-} 
+}
+
+
+
+.input-description {
+    color: #4CAF50;
+    font-size: 14px;
+    margin-bottom: 12px;
+    padding: 10px 15px;
+    background: rgba(76, 175, 80, 0.1);
+    border-left: 3px solid #4CAF50;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.3s ease;
+}
+
+.input-description:hover {
+    background: rgba(76, 175, 80, 0.15);
+    transform: translateX(5px);
+}
+
+.input-description i {
+    margin-right: 8px;
+    color: #4CAF50;
+}
+
+
+.loading-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loading-indicator.show {
+    opacity: 1;
+}
+
+.spinner-wrapper {
+    text-align: center;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: var(--accent-blue);
+}
+
+.loading-text {
+    color: #fff;
+    margin-top: 1rem;
+    font-size: 14px;
+}
+
+.alert {
+    margin-top: 15px;
+    border-radius: 8px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.loading-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.loading-indicator.show {
+    opacity: 1;
+}
+
+.spinner-wrapper {
+    text-align: center;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: var(--accent-blue);
+}
+
+.loading-text {
+    color: #fff;
+    margin-top: 1rem;
+    font-size: 14px;
+}
+
+.alert {
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    animation: fadeIn 0.3s;
+}
+
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.alert-success {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+.form-control{
+    color:white;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Стили для модального окна */
+.modal-content {
+    background: rgba(33, 37, 41, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+}
+
+.modal-title {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+}
+
+.success-icon {
+    color: #28a745;
+    font-size: 64px;
+    margin-bottom: 20px;
+    animation: scaleIn 0.5s ease-out;
+}
+
+.modal-body p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.modal .btn-primary {
+    background: #0d6efd;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.modal .btn-primary:hover {
+    background: #0b5ed7;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+}
+
+.btn-close {
+    color: white;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Анимация появления модального окна */
+.modal.fade .modal-dialog {
+    transform: scale(0.7);
+    transition: transform 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+}
+
+.input-description {
+    color: #4CAF50;
+    font-size: 14px;
+    margin-bottom: 12px;
+    padding: 10px 15px;
+    background: rgba(76, 175, 80, 0.1);
+    border-left: 3px solid #4CAF50;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.3s ease;
+}
+
+.input-description:hover {
+    background: rgba(76, 175, 80, 0.15);
+    transform: translateX(5px);
+}
+
+.input-description i {
+    margin-right: 8px;
+    color: #4CAF50;
+}
+
+/* Стили для загрузки фото */
+.upload-photo {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed var(--accent-blue);
+    border-radius: 16px;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.upload-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Стили для социальных секций */
+.social-section {
+    background: var(--gradient-1);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+
+/* Обновляем стили для Website секции */
+.social-section:has(.fa-globe) {
+    background: linear-gradient(45deg, #4CAF50, #8BC34A);
+}
+
+.social-section:has(.fa-globe) .social-header {
+    color: white;
+}
+
+.social-section:has(.fa-globe) .social-fields {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+/* Обновляем стили для иконки и текста */
+.social-section:has(.fa-globe) .social-header i,
+.social-section:has(.fa-globe) .social-header span {
+    color: white;
+}
+
+/* Стили для светлой темы */
+body.light-theme .social-section:has(.fa-globe) .social-fields {
+    background: #fff;
+}
+
+/* GitHub секция */
+.social-section:has(.fa-github) {
+    background: linear-gradient(45deg, #24292e, #404448);
+}
+
+.social-section:has(.fa-github) .social-header {
+    color: white;
+}
+
+/* Portfolio секция */
+.social-section:has(.fa-briefcase) {
+    background: linear-gradient(45deg, #FF9800, #FFC107);
+}
+
+.social-section:has(.fa-briefcase) .social-header {
+    color: white;
+}
+
+/* Instagram стили */
+.social-section:has(.fa-instagram) {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.social-section:has(.fa-instagram) .social-header {
+    color: white;
+}
+
+/* Telegram стили */
+.social-section:has(.fa-telegram) {
+    background: linear-gradient(45deg, #0088cc, #00a2ff);
+}
+
+.social-section:has(.fa-telegram) .social-header {
+    color: white;
+}
+
+/* YouTube стили */
+.social-section:has(.fa-youtube) {
+    background: linear-gradient(45deg, #FF0000, #FF5555);
+}
+
+.social-section:has(.fa-youtube) .social-header {
+    color: white;
+}
+
+/* TikTok стили */
+.social-section:has(.fa-tiktok) {
+    background: linear-gradient(45deg, #000000, #25F4EE);
+}
+
+.social-section:has(.fa-tiktok) .social-header {
+    color: white;
+}
+
+/* Общие стили для поле���� в����утри социальных секций */
+.social-fields {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+/* Стили для переключателя тиа объявлени */
+.type-toggle {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.type-toggle .d-flex {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 30px !important;
+    flex-wrap: nowrap !important;
+    width: 100%;
+}
+
+.type-toggle .form-check {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.type-toggle .form-check-label {
+    cursor: pointer;
+    padding: 8px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    margin: 0;
+}
+
+/* Стили для радио кнопок в переключателе */
+.form-check-input {
+    position: relative;
+    margin-right: 8px;
+    border-color: var(--accent-blue);
+}
+
+.form-check-input:checked {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+.form-check-input:checked::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: white;
+    font-size: 11px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.addSomethingForm input,
+.addSomethingForm select,
+.addSomethingForm textarea {
+    color: var(--text-color) !important;
+    background: var(--card-bg) !important;
+}
+
+/* Стили для социальных ссылок */
+.social-link .input-with-icon {
+    border-radius: 12px;
+    padding: 2px;
+}
+
+.social-link .input-with-icon input {
+    border-radius: 10px;
+    height: 45px; /* Увеличиваем высоту инпута */
+    font-size: 15px; /* Увеличиваем размер шрифта */
+}
+
+.social-link .input-with-icon i {
+    font-size: 18px; /* Увеличиваем размер иконки */
+    z-index: 1;
+}
+
+/* Instagram стили */
+.social-link.instagram-link .input-with-icon {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-link.instagram-link .input-with-icon i {
+    color: #e1306c; /* Цвет Instagram */
+}
+
+/* Telegram стили */
+.social-link.telegram-link .input-with-icon {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-link.telegram-link .input-with-icon i {
+    color: #0088cc; /* Цвет Telegram */
+}
+
+/* Эффект при наведении */
+.social-link .input-with-icon:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Стили для светлой темы */
+body.light-theme .social-link .input-with-icon {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .social-link .input-with-icon input {
+    background: #fff !important;
+}
+
+/* Добавляем стили для ссылки на сайт */
+.social-link.website-link .input-with-icon {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2px;
+}
+
+.social-link.website-link .input-with-icon input {
+    border-radius: 10px;
+    height: 45px;
+    font-size: 15px;
+}
+
+.social-link.website-link .input-with-icon i {
+    font-size: 18px;
+    z-index: 1;
+    color: #2196F3; /* Гоубой цвет для иконки глобуса */
+}
+
+/* Эффект при наведении */
+.social-link.website-link .input-with-icon:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Стили для светлой темы */
+body.light-theme .social-link.website-link .input-with-icon {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .social-link.website-link .input-with-icon input {
+    background: #fff !important;
+}
+
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+}
+
+.input-with-icon input {
+    padding-left: 40px;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+}
+
+.input-with-icon input:focus {
+    box-shadow: none;
+    border-color: var(--accent-blue);
+}
+
+.forgot-password {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.social-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue);
+    transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+    background: var(--gradient-2);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+}
+
+/* 
+.form-check-input:checked::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: white;
+    font-size: 11px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} */

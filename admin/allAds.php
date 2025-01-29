@@ -146,6 +146,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                         <th>ID</th>
                                         <th>Фото</th>
                                         <th>Имя</th>
+                                        <th>Описание</th>
                                         <th>Категория</th>
                                         <th>Направление</th>
                                         <th>Контакты</th>
@@ -191,7 +192,6 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                         <th>Имя</th>
                                         <th>Категория</th>
                                         <th>Портфолио</th>
-                                        <th>Контакты</th>
                                         <th>Статус</th>
                                         <th>Действия</th>
                                     </tr>
@@ -237,6 +237,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 
         // Отображение данных в таблицах
         function displayAds(ads, type) {
+            console.log(ads, type);
             const table = document.getElementById(`${type}Table`).getElementsByTagName('tbody')[0];
             table.innerHTML = '';
 
@@ -251,12 +252,13 @@ if (!isset($_SESSION['admin_logged_in'])) {
                             <td>${ad.id}</td>
                             <td><img src="${ad.photo_base64 || './img/noImage.jpg'}" class="ad-image" onclick="showFullImage(this.src)"></td>
                             <td>${ad.nickname}</td>
+                            <td>${ad.ad_comment}</td>
                             <td>${ad.category}</td>
-                            <td>${ad.user_direction || '-'}</td>
+                            <td>${ad.direction || '-'}</td>
                             <td>
-                                Instagram: ${ad.instagram_link || '-'}<br>
-                                Telegram: ${ad.telegram_link || '-'}<br>
-                                YouTube: ${ad.youtube_link || '-'}
+                                <a href="${ad.instagram_link || '#'}" target="_blank">Instagram<br></a>
+                                <a href="${ad.telegram_link || '#'}" target="_blank">Telegram<br></a>
+                                <a href="${ad.youtube_link || '#'}" target="_blank">YouTube<br></a>
                             </td>
                             <td><span class="badge ${statusClass} status-badge">${statusText}</span></td>
                             <td class="action-buttons">
@@ -271,16 +273,16 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         break;
                     case 'companies':
                         row.innerHTML = `
-                            <td>${ad.id}</td>
+                            <td>${ad.ID}</td>
                             <td><img src="${ad.photo_base64 || './img/noImage.jpg'}" class="ad-image" onclick="showFullImage(this.src)"></td>
                             <td>${ad.name}</td>
                             <td>${ad.category}</td>
                             <td>${ad.direction || '-'}</td>
                             <td>${ad.budget || '-'}</td>
                             <td>
-                                Website: ${ad.website_link || '-'}<br>
-                                Instagram: ${ad.instagram_link || '-'}<br>
-                                Telegram: ${ad.telegram_link || '-'}
+                                <a href="${ad.website_link || '#'}" target="_blank">Website<br></a>
+                                <a href="${ad.instagram_link || '#'}" target="_blank">Instagram<br></a>
+                                <a href="${ad.telegram_link || '#'}" target="_blank">Telegram<br></a>
                             </td>
                             <td><span class="badge ${statusClass} status-badge">${statusText}</span></td>
                             <td class="action-buttons">
@@ -295,15 +297,17 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         break;
                     case 'freelancers':
                         row.innerHTML = `
-                            <td>${ad.id}</td>
+                            <td>${ad.ID}</td>
                             <td><img src="${ad.photo_base64 || './img/noImage.jpg'}" class="ad-image" onclick="showFullImage(this.src)"></td>
                             <td>${ad.name}</td>
                             <td>${ad.category}</td>
                             <td>
-                                Portfolio: <a href="${ad.portfolio_link || '#'}" target="_blank">${ad.portfolio_link ? 'Открыть' : '-'}</a><br>
-                                GitHub: <a href="${ad.github_link || '#'}" target="_blank">${ad.github_link ? 'Открыть' : '-'}</a><br>
-                                Instagram: ${ad.instagram_link || '-'}<br>
-                                Telegram: ${ad.telegram_link || '-'}
+                                <a href="${ad.portfolio_link || '#'}" target="_blank">Portfolio<br></a>
+                                <a href="${ad.github_link || '#'}" target="_blank">GitHub<br></a>
+                            </td>
+                            <td>
+                                <a href="${ad.telegram_link || '#'}" target="_blank">Telegram<br></a>
+                                <a href="${ad.instagram_link || '#'}" target="_blank">Instagram<br></a>
                             </td>
                             <td><span class="badge ${statusClass} status-badge">${statusText}</span></td>
                             <td class="action-buttons">
