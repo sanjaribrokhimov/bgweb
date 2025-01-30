@@ -616,3 +616,86 @@ func DeleteAdAdmin(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"success": true})
 }
+
+// GetUserAdsWithAgreements возвращает все объявления пользователя с количеством соглашений
+func GetUserAdsWithAgreements(c *gin.Context) {
+    userID := c.Param("user_id")
+    
+    var response struct {
+        Bloggers    []gin.H `json:"bloggers"`
+        Companies   []gin.H `json:"companies"`
+        Freelancers []gin.H `json:"freelancers"`
+    }
+
+    // Получаем объявления блогеров
+    var bloggerPosts []models.PostBlogger
+    database.DB.Where("user_id = ?", userID).Find(&bloggerPosts)
+    for _, post := range bloggerPosts {
+        var agreementCount int64
+        database.DB.Model(&models.Notification{}).
+            Where("ad_id = ? AND ad_type = ? AND type = ?", post.ID, "blogger", "accept").
+            Count(&agreementCount)
+
+        response.Bloggers = append(response.Bloggers, gin.H{
+            "id":               post.ID,
+            "nickname":         post.Nickname,
+            "category":         post.Category,
+            "user_direction":   post.UserDirection,
+            "status":          post.Status,
+            "created_at":       post.CreatedAt,
+            "agreement_count":  agreementCount,
+            "instagram_link":   post.InstagramLink,
+            "telegram_link":    post.TelegramLink,
+            "youtube_link":     post.YoutubeLink,
+        })
+    }
+
+    // Получаем объявления компаний
+    var companies []models.Company
+    database.DB.Where("user_id = ?", userID).Find(&companies)
+    for _, company := range companies {
+        var agreementCount int64
+        database.DB.Model(&models.Notification{}).
+            Where("ad_id = ? AND ad_type = ? AND type = ?", company.ID, "company", "accept").
+            Count(&agreementCount)
+
+        response.Companies = append(response.Companies, gin.H{
+            "id":              company.ID,
+            "name":            company.Name,
+            "category":        company.Category,
+            "direction":       company.Direction,
+            "status":         company.Status,
+            "budget":          company.Budget,
+            "created_at":      company.CreatedAt,
+            "agreement_count": agreementCount,
+            "website_link":    company.WebsiteLink,
+            "instagram_link":  company.InstagramLink,
+            "telegram_link":   company.TelegramLink,
+        })
+    }
+
+    // Получаем объявления фрилансеров
+    var freelancers []models.Freelancer
+    database.DB.Where("user_id = ?", userID).Find(&freelancers)
+    for _, freelancer := range freelancers {
+        var agreementCount int64
+        database.DB.Model(&models.Notification{}).
+            Where("ad_id = ? AND ad_type = ? AND type = ?", freelancer.ID, "freelancer", "accept").
+            Count(&agreementCount)
+
+        response.Freelancers = append(response.Freelancers, gin.H{
+            "id":              freelancer.ID,
+            "name":            freelancer.Name,
+            "category":        freelancer.Category,
+            "status":         freelancer.Status,
+            "created_at":      freelancer.CreatedAt,
+            "agreement_count": agreementCount,
+            "github_link":     freelancer.GithubLink,
+            "portfolio_link":  freelancer.PortfolioLink,
+            "instagram_link":  freelancer.InstagramLink,
+            "telegram_link":   freelancer.TelegramLink,
+        })
+    }
+
+    c.JSON(http.StatusOK, response)
+}

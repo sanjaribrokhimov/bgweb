@@ -120,6 +120,7 @@ func main() {
 			admin.POST("/edit-ad", handlers.EditAd)
 			admin.GET("/all-ads", handlers.GetAllAdsAdmin)
 			admin.POST("/delete-ad", handlers.DeleteAdAdmin)
+			admin.GET("/user-ads/:user_id", handlers.GetUserAdsWithAgreements)
 		}
 	}
 

@@ -518,6 +518,9 @@ $statistics = fetchData("admin/statistics");
                     </ul>
 
                     <div class="tab-content">
+                        <script>
+                            const Allusers = <?php echo json_encode($users); ?>;
+                        </script>
                         <?php
                         // Группируем пользователей по категориям
                         $categorized_users = [
