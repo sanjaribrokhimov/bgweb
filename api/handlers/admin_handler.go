@@ -647,6 +647,8 @@ func GetUserAdsWithAgreements(c *gin.Context) {
             "instagram_link":   post.InstagramLink,
             "telegram_link":    post.TelegramLink,
             "youtube_link":     post.YoutubeLink,
+            "photo":           post.PhotoBase64,
+            "ad_comment":      post.AdComment,
         })
     }
 
@@ -671,6 +673,8 @@ func GetUserAdsWithAgreements(c *gin.Context) {
             "website_link":    company.WebsiteLink,
             "instagram_link":  company.InstagramLink,
             "telegram_link":   company.TelegramLink,
+            "photo":          company.PhotoBase64,
+            "ad_comment":     company.AdComment,
         })
     }
 
@@ -694,6 +698,8 @@ func GetUserAdsWithAgreements(c *gin.Context) {
             "portfolio_link":  freelancer.PortfolioLink,
             "instagram_link":  freelancer.InstagramLink,
             "telegram_link":   freelancer.TelegramLink,
+            "photo":          freelancer.PhotoBase64,
+            "ad_comment":     freelancer.AdComment,
         })
     }
 
