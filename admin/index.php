@@ -46,51 +46,7 @@ $statistics = fetchData("admin/statistics");
             max-height: 80vh;
             object-fit: contain;
         }
-        /* Стили для модального окна с изображением */
-        .image-modal {
-            display: flex;
-            position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .image-modal-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90vh;
-        }
-
-        .image-modal-content img {
-            max-width: 100%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: #fff;
-            font-size: 35px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
+        
 
         .close-modal:hover {
             background: rgba(255,255,255,0.2);
@@ -323,19 +279,19 @@ $statistics = fetchData("admin/statistics");
 
             <ul class="list-unstyled components">
                 <li class="active">
-                    <a href="#" data-section="dashboard">
+                    <a href="#dashboard" data-section="dashboard">
                         <i class='bx bxs-dashboard'></i>
                         Дашборд
                     </a>
                 </li>
                 <li>
-                    <a href="#" data-section="pending-ads">
+                    <a href="#pending-ads" data-section="pending-ads">
                         <i class='bx bxs-message-square-detail'></i>
                         Новые объявления
                     </a>
                 </li>
                 <li>
-                    <a href="#" data-section="users">
+                    <a href="#users" data-section="users">
                         <i class='bx bxs-user-detail'></i>
                         Пользователи
                     </a>
@@ -577,15 +533,19 @@ $statistics = fetchData("admin/statistics");
                                                 <td><?php echo $user['created_at']; ?></td>
                                                 <td>
                                                     <button class="btn btn-sm <?php echo $user['status'] ? 'btn-danger' : 'btn-success'; ?>"
-                                                            style="margin: 10px 0;"
+                                                            style="margin-bottom: 10px;"
                                                             onclick="toggleUserStatus(<?php echo $user['id']; ?>)">
                                                         <?php echo $user['status'] ? 'Заблокировать' : 'Разблокировать'; ?>
                                                     </button>
                                                     <button class="btn btn-sm btn-warning" 
+                                                            style="margin-bottom: 10px"
                                                             onclick="addSomething(<?php echo $user['id']; ?>, '<?php echo $user['category']; ?>', '<?php echo $user['direction']; ?>', '<?php echo $user['telegram']; ?>', '<?php echo $user['instagram']; ?>')">
                                                         <i class='bx bxs-plus-circle'></i>
                                                         Добавить
                                                     </button>
+                                                    <a href="userAds.php?user_id=<?php echo $user['id']; ?>" class="btn btn-info btn-sm">
+                                                        <i class="fas fa-chart-line"></i> Аналитика
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -716,20 +676,33 @@ $statistics = fetchData("admin/statistics");
         }
 
 
-        // Переключение между секциями
+        // Функция для переключения секций
+        function switchSection(sectionId) {
+            // Убираем активный класс со всех секций и ссылок
+            document.querySelectorAll('.content-section, .sidebar li').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Добавляем активный класс нужной секции и соответствующей ссылке
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelector(`.sidebar a[data-section="${sectionId}"]`).parentElement.classList.add('active');
+        }
+
+        // Проверяем хэш при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash.substring(1); // Убираем # из начала
+            if (hash) {
+                switchSection(hash);
+            }
+        });
+
+        // Обработчик кликов по ссылкам в сайдбаре
         document.querySelectorAll('.sidebar a[data-section]').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const sectionId = this.dataset.section;
-                
-                // Убираем активный класс со всех секций и ссылок
-                document.querySelectorAll('.content-section, .sidebar li').forEach(el => {
-                    el.classList.remove('active');
-                });
-                
-                // Добавляем активный класс нужной секции и ссылке
-                document.getElementById(sectionId).classList.add('active');
-                this.parentElement.classList.add('active');
+                window.location.hash = sectionId; // Обновляем хэш в URL
+                switchSection(sectionId);
             });
         });
 
