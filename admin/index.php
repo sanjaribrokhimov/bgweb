@@ -543,6 +543,12 @@ $statistics = fetchData("admin/statistics");
                                                         <i class='bx bxs-plus-circle'></i>
                                                         Добавить
                                                     </button>
+                                                    <button class="btn btn-sm btn-primary" 
+                                                            style="margin-bottom: 10px"
+                                                            onclick="editUserProfile('<?php echo $user['email']; ?>')">
+                                                        <i class="fas fa-user-edit"></i> 
+                                                        Редактировать
+                                                    </button>
                                                     <a href="userAds.php?user_id=<?php echo $user['id']; ?>" class="btn btn-info btn-sm">
                                                         <i class="fas fa-chart-line"></i> Аналитика
                                                     </a>
@@ -765,6 +771,11 @@ $statistics = fetchData("admin/statistics");
 
         function editAd(id, type) {
             window.location.href = `editCart.php?id=${id}&type=${type}`;
+        }
+
+        // Добавляем JavaScript функцию для редактирования профиля (в секцию <script>)
+        function editUserProfile(userEmail) {
+            window.location.href = `editProfile.php?email=${encodeURIComponent(userEmail)}`;
         }
     </script>
 </body>

@@ -1,18 +1,18 @@
 package handlers
 
 import (
+	"fmt"
+	"log"
 	"math/rand"
 	"net/http"
 	"strconv"
-	"log"
-	"fmt"
-	
 
-	"github.com/gin-gonic/gin"
-	"golang.org/x/crypto/bcrypt"
 	"bloger_agencyBackend/database"
 	"bloger_agencyBackend/models"
 	"bloger_agencyBackend/utils"
+
+	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var logger = utils.NewLogger()
@@ -38,10 +38,10 @@ func Register(c *gin.Context) {
 	}
 
 	// Проверяем все обязательные поля
-	if input.Name == "" || input.Email == "" || input.Password == "" || 
-	   input.Phone == "" || input.Category == "" || input.Direction == "" || 
-	   input.Telegram == "" {
-		logger.LogError("Register", fmt.Errorf("missing required fields"), 
+	if input.Name == "" || input.Email == "" || input.Password == "" ||
+		input.Phone == "" || input.Category == "" || input.Direction == "" ||
+		input.Telegram == "" {
+		logger.LogError("Register", fmt.Errorf("missing required fields"),
 			fmt.Sprintf("User data: %+v", input))
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Все поля обязательны для заполнения"})
 		return
@@ -66,7 +66,7 @@ func Register(c *gin.Context) {
 	// Генерация OTP
 	otp := strconv.Itoa(1000 + rand.Intn(9000))
 
-	// Хешир��вание пароля
+	// Хеширование пароля
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при обработке пароля"})
@@ -159,7 +159,7 @@ func Login(c *gin.Context) {
 
 	if !user.IsVerified {
 		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": "Email не подтвержден",
+			"error":      "Email не подтвержден",
 			"isVerified": false,
 		})
 		return
@@ -242,17 +242,17 @@ func GetUserByEmail(c *gin.Context) {
 	log.Printf("Пользователь найден: %+v", user)
 
 	userResponse := gin.H{
-			"id":          user.ID,
-			"email":       user.Email,
-			"name":        user.Name,
-			"category":    user.Category,
-			"direction":   user.Direction,
-			"telegram":    user.Telegram,
-			"instagram":   user.Instagram,
-			"is_verified": user.IsVerified,
-			"phone":       user.Phone,
-			"tg_chat_id":  user.TgChatID,
-			"tg_user_id":  user.TgUserID,
+		"id":          user.ID,
+		"email":       user.Email,
+		"name":        user.Name,
+		"category":    user.Category,
+		"direction":   user.Direction,
+		"telegram":    user.Telegram,
+		"instagram":   user.Instagram,
+		"is_verified": user.IsVerified,
+		"phone":       user.Phone,
+		"tg_chat_id":  user.TgChatID,
+		"tg_user_id":  user.TgUserID,
 	}
 
 	c.JSON(http.StatusOK, userResponse)
@@ -260,7 +260,7 @@ func GetUserByEmail(c *gin.Context) {
 
 func GetUserByID(c *gin.Context) {
 	userID := c.Param("id")
-	
+
 	var user models.User
 	if err := database.DB.First(&user, userID).Error; err != nil {
 		logger.LogError("GetUserByID", err, fmt.Sprintf("User not found with ID: %s", userID))
@@ -270,17 +270,17 @@ func GetUserByID(c *gin.Context) {
 
 	// Формируем ответ без конфиденциальных данных
 	userResponse := gin.H{
-			"id":          user.ID,
-			"email":       user.Email,
-			"name":        user.Name,
-			"category":    user.Category,
-			"direction":   user.Direction,
-			"telegram":    user.Telegram,
-			"instagram":   user.Instagram,
-			"is_verified": user.IsVerified,
-			"phone":       user.Phone,
-			"tg_chat_id":  user.TgChatID,
-			"tg_user_id":  user.TgUserID,
+		"id":          user.ID,
+		"email":       user.Email,
+		"name":        user.Name,
+		"category":    user.Category,
+		"direction":   user.Direction,
+		"telegram":    user.Telegram,
+		"instagram":   user.Instagram,
+		"is_verified": user.IsVerified,
+		"phone":       user.Phone,
+		"tg_chat_id":  user.TgChatID,
+		"tg_user_id":  user.TgUserID,
 	}
 
 	c.JSON(http.StatusOK, userResponse)
@@ -341,7 +341,7 @@ func ForgotPassword(c *gin.Context) {
 	log.Printf("OTP код успешно отправлен на email: %s", input.Email)
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Код подтверждения отправлен на ваш email",
-		"email": input.Email,
+		"email":   input.Email,
 	})
 }
 
@@ -471,16 +471,16 @@ func UpdateUserProfile(c *gin.Context) {
 // UpdateProfile обновляет данные профиля пользователя
 func UpdateProfile(c *gin.Context) {
 	var input struct {
-		Email       string `json:"email"`
-		Name        string `json:"name,omitempty"`
-		Phone       string `json:"phone,omitempty"`
-		Telegram    string `json:"telegram,omitempty"`
-		Instagram   string `json:"instagram,omitempty"`
-		Category    string `json:"category,omitempty"`
-		Direction   string `json:"direction,omitempty"`
-		Password    string `json:"password,omitempty"`
-		TgChatID   string `json:"tg_chat_id" binding:"required"`
-		TgUserID   string `json:"tg_user_id" binding:"required"`
+		Email     string `json:"email"`
+		Name      string `json:"name,omitempty"`
+		Phone     string `json:"phone,omitempty"`
+		Telegram  string `json:"telegram,omitempty"`
+		Instagram string `json:"instagram,omitempty"`
+		Category  string `json:"category,omitempty"`
+		Direction string `json:"direction,omitempty"`
+		Password  string `json:"password,omitempty"`
+		TgChatID  string `json:"tg_chat_id" binding:"required"`
+		TgUserID  string `json:"tg_user_id" binding:"required"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -543,4 +543,67 @@ func UpdateProfile(c *gin.Context) {
 			"tg_user_id":  user.TgUserID,
 		},
 	})
-} 
+}
+
+// AdminUpdateUser обновляет профиль пользователя через админку
+func AdminUpdateUser(c *gin.Context) {
+	var input struct {
+		Email     string `json:"email" binding:"required"`
+		Name      string `json:"name" binding:"required"`
+		Phone     string `json:"phone" binding:"required"`
+		Telegram  string `json:"telegram" binding:"required"`
+		Instagram string `json:"instagram" binding:"required"`
+		Category  string `json:"category" binding:"required"`
+		Direction string `json:"direction" binding:"required"`
+	}
+
+	// Логируем входящие данные
+	body, _ := c.GetRawData()
+	log.Printf("Received data: %s", string(body))
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		log.Printf("Error binding JSON: %v", err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":   "Некорректные данные",
+			"details": err.Error(),
+		})
+		return
+	}
+
+	var user models.User
+	if err := database.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
+		log.Printf("Error finding user: %v", err)
+		c.JSON(http.StatusNotFound, gin.H{"error": "Пользователь не найден"})
+		return
+	}
+
+	// Обновляем поля
+	user.Name = input.Name
+	user.Phone = input.Phone
+	user.Telegram = input.Telegram
+	user.Instagram = input.Instagram
+	user.Category = input.Category
+	user.Direction = input.Direction
+
+	if err := database.DB.Save(&user).Error; err != nil {
+		log.Printf("Error saving user: %v", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при обновлении профиля"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"message": "Профиль успешно обновлен",
+		"user": gin.H{
+			"id":          user.ID,
+			"name":        user.Name,
+			"email":       user.Email,
+			"phone":       user.Phone,
+			"category":    user.Category,
+			"direction":   user.Direction,
+			"telegram":    user.Telegram,
+			"instagram":   user.Instagram,
+			"is_verified": user.IsVerified,
+		},
+	})
+}
