@@ -259,12 +259,15 @@ if (!isset($_SESSION['admin_logged_in'])) {
                     telegram: form.telegram.value,
                     instagram: form.instagram.value,
                     category: form.category.value,
-                    direction: document.getElementById('direction').value
+                    direction: document.getElementById('direction').value,
                 };
+                
+                formData.tg_chat_id = "chat_id";
+                formData.tg_user_id = "user_id";
 
                 console.log('Отправляемые данные:', formData); // Для отладки
 
-                const response = await fetch('https://blogy.uz/api/admin/update-user', {
+                const response = await fetch('https://blogy.uz/api/auth/update-profile', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
