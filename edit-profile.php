@@ -123,6 +123,7 @@
                             <option value="media">Медиа и развлечения</option>
                             <option value="consulting">Консалтинг</option>
                             <option value="automotive">Автомобильный бизнес</option>
+                            <option value="mall">Торговые центры</option>
                         </select>
 
                         <select class="form-select direction-freelancer" style="display: none;">

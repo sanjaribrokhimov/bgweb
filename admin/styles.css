@@ -1029,3 +1029,9 @@ body.light-theme .social-link.website-link .input-with-icon input {
     border-radius: 50%;
     transition: all 0.3s ease;
 }
+
+#fc-dom-1
+{
+    color: var(--text-color);
+    text-transform: capitalize;
+}

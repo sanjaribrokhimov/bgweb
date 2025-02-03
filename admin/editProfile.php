@@ -154,7 +154,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 energy: "Энергетика",
                 media: "Медиа и развлечения",
                 consulting: "Консалтинг",
-                automotive: "Автомобильный бизнес"
+                automotive: "Автомобильный бизнес",
+                mall: "Торговые центры",
+
             },
             freelancer: {
                 webdev: "Веб-разработка",

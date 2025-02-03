@@ -19,6 +19,7 @@
                             <option value="media">Медиа и развлечения</option>
                             <option value="consulting">Консалтинг</option>
                             <option value="automotive">Автомобильный бизнес</option>
+                            <option value="mall">Торговые центры</option>
     </select>
     <div class="filter-icon" id="companyFilterIcon">
         <i class="fas fa-filter"></i>
