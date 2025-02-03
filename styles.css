@@ -2678,161 +2678,175 @@ body:not(.dark-theme) .btn-close:hover {
 
     .custom-modal .btn-secondary {
        
-        
+            
 
- 
+    
 
-    .custom-modal .btn-danger {
-        background-color: #dc3545;
+        .custom-modal .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .custom-modal .btn-danger:hover {
+            background-color: #bb2d3b;
+        }
     }
 
-    .custom-modal .btn-danger:hover {
-        background-color: #bb2d3b;
+    /* Общие стили для кнопок */
+    .custom-modal .btn {
+    
+        font-weight: 500;
+        border-radius: 8px;
+        transition: all 0.2s ease;
     }
+
+    /* Анимация появления модального окна */
+    .modal.fade .modal-dialog {
+        transition: transform 0.2s ease-out;
+    }
+
+    .modal.fade .modal-dialog {
+        transform: scale(0.95);
+    }
+
+    .modal.show .modal-dialog {
+        transform: scale(1);
+    }
+
+    .notifications-btn {
+        position: relative;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+
+    .notifications-btn:hover {
+        background: var(--card-hover);
+    }
+
+    .notifications-btn .badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: var(--accent-blue);
+        color: white;
+        border-radius: 50%;
+        min-width: 18px;
+        height: 18px;
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate(25%, -25%);
+    }
+
+    .notifications-btn i {
+        font-size: 20px;
+        color: var(--text-color);
+    }
+
+    .filter-container {
+        background:linear-gradient(145deg, #f7eb67, #6d5dff);
+        border-radius: 12px;
+        margin: 0px 15px 0px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 15px 10px 15px;
+        margin-bottom: 15px;
+    }
+
+    .category-select {
+        flex: 1;
+        padding: 10px;
+        border-radius: 8px;
+        background: var(--gradient-1);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        margin-right: 15px;
+    }
+
+    .category-select option {
+        background: var(--card-bg);
+        color: var(--text-color);
+        padding: 8px;
+    }
+
+    .spinner-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .spinner-wrapper i {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .success-icon, .error-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 20px;
+        color: var(--text-secondary);
+        background: var(--card-bg);
+        border-radius: 12px;
+        margin: 15px;
+    }
+
+    .filter-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--gradient-1);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .filter-icon i {
+        color: var(--text-color);
+        font-size: 18px;
+    }
+
+    .filter-icon:hover {
+        transform: scale(1.05);
+        background: var(--gradient-2);
+    }
+
+    .filter-icon.active {
+        background: var(--gradient-2);
+    }
+
+
 }
 
-/* Общие стили для кнопок */
-.custom-modal .btn {
-   
-    font-weight: 500;
-    border-radius: 8px;
-    transition: all 0.2s ease;
+.product-info p
+{
+        display: -webkit-box; /* Включаем старую модель flexbox для WebKit */
+        -webkit-box-orient: vertical; /* Вертикальное направление содержимого */
+        -webkit-line-clamp: 3; /* Ограничение в 3 строки */
+        overflow: hidden; /* Скрываем текст, выходящий за границы */
+        text-overflow: ellipsis; /* Добавляем многоточие (...) в конце */
 }
-
-/* Анимация появления модального окна */
-.modal.fade .modal-dialog {
-    transition: transform 0.2s ease-out;
-}
-
-.modal.fade .modal-dialog {
-    transform: scale(0.95);
-}
-
-.modal.show .modal-dialog {
-    transform: scale(1);
-}
-
-.notifications-btn {
-    position: relative;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-}
-
-.notifications-btn:hover {
-    background: var(--card-hover);
-}
-
-.notifications-btn .badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: var(--accent-blue);
-    color: white;
-    border-radius: 50%;
-    min-width: 18px;
-    height: 18px;
-    font-size: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translate(25%, -25%);
-}
-
-.notifications-btn i {
-    font-size: 20px;
-    color: var(--text-color);
-}
-
-.filter-container {
-    background:linear-gradient(145deg, #f7eb67, #6d5dff);
-    border-radius: 12px;
-    margin: 0px 15px 0px 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 15px 10px 15px;
-    margin-bottom: 15px;
-}
-
-.category-select {
-    flex: 1;
-    padding: 10px;
-    border-radius: 8px;
-    background: var(--gradient-1);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    margin-right: 15px;
-}
-
-.category-select option {
-    background: var(--card-bg);
-    color: var(--text-color);
-    padding: 8px;
-}
-
-.spinner-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.spinner-wrapper i {
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.success-icon, .error-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.no-results {
-    text-align: center;
-    padding: 20px;
-    color: var(--text-secondary);
-    background: var(--card-bg);
-    border-radius: 12px;
-    margin: 15px;
-}
-
-.filter-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--gradient-1);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.filter-icon i {
-    color: var(--text-color);
-    font-size: 18px;
-}
-
-.filter-icon:hover {
-    transform: scale(1.05);
-    background: var(--gradient-2);
-}
-
-.filter-icon.active {
-    background: var(--gradient-2);
-}
-
-
+.product-info h3
+{
+    font-size: large;
+    color: dodgerblue;
 }

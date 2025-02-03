@@ -121,8 +121,10 @@ class BloggerLoader {
 
             </div>
             <div class="product-info">
-                <p style="color:dodgerblue; padding:0px; margin:0px;">${data.nickname || 'Без имени'}</p>
-                <div class="direction-tag">${data.direction || ''}</div>
+                <div>
+                    <p style="color:dodgerblue; padding:0px; margin:0px;">${data.nickname || 'Без имени'}</p>
+                    <div class="direction-tag">${data.direction || ''}</div>
+                </div>
 
                 <div class="btn-actions">
                     <button class="btn-details" data-id="${data.id}" data-type="blogger">

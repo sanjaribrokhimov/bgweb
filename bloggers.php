@@ -1,3 +1,13 @@
+<style>
+    .product-info
+    {
+        height: 135px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+</style>
+
 <div class="filter-container">
     <select class="form-select category-select" id="bloggerCategorySelect">
         <option value="">Все категории</option>
@@ -28,5 +38,5 @@
 <div class="products-grid">
     <!-- Карточки будут добавляться динамически -->
 </div>
-<script src="scripts/bloggers.js?v=1.0.1"></script>
+<script src="scripts/bloggers.js?v=1.0.2"></script>
 
