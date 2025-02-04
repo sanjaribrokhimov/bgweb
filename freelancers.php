@@ -1,3 +1,13 @@
+<style>
+    .product-info
+    {
+        height: 135px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+</style>
+
 <div class="filter-container">
     <select class="form-select category-select" id="freelancerCategorySelect">
         <option value="">Все категории</option>
