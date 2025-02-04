@@ -94,9 +94,9 @@
     padding: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    transform: translate(0, 200%);
+    transform: translate(0, -200%);
     width: 100%;
-    bottom: 0%;
+    top: 0%;
     left: 0;
     transition: all 0.3s ease;
 }
@@ -108,7 +108,7 @@
     visibility: visible;
     opacity: 1;
     gap: 15px;
-    transform: translate(0, 0);
+    transform: translate(0, 200%);
 
 }
 
