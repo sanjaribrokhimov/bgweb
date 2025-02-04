@@ -129,16 +129,17 @@ func GetUserNotifications(c *gin.Context) {
 	var enrichedNotifications []gin.H
 	for _, notification := range notifications {
 		enriched := gin.H{
-			"id":            notification.ID,
-			"from_user":     notification.FromUser,
-			"to_user":       notification.ToUser,
-			"type":          notification.Type,
-			"message":       notification.Message,
-			"user_message": notification.UserMessage,
-			"is_read":       notification.IsRead,
-			"created_at":    notification.CreatedAt,
-			"ad_type":       notification.AdType,
+			"id":         notification.ID,
+			"from_user":  notification.FromUser,
+			"to_user":    notification.ToUser,
+			"type":       notification.Type,
+			"message":    notification.Message,
+			"is_read":    notification.IsRead,
+			"created_at": notification.CreatedAt,
+			"ad_type":    notification.AdType,
+			"user_message": notification.MessageToUser,
 		}
+
 
 		// Поучаем детали объявления
 		var adDetails interface{}
