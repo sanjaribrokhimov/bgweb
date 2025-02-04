@@ -42,16 +42,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Определяем глобальную функцию для показа модального окна
     window.showConfirmModal = (button) => {
         const rect = button.getBoundingClientRect();
-        confirmModal.style.top = `${rect.top}px`;
-        confirmModal.style.left = `${rect.left}px`;
+        // confirmModal.style.top = `${rect.top}px`;
+        // confirmModal.style.left = `${rect.left}px`;
         confirmModal.classList.add('active');
         confirmModal.currentButton = button;
     };
 
+
     // Обработчик для кнопки "Да"
     confirmYes.addEventListener('click', async () => {
         const button = confirmModal.currentButton;
+        const userMessage = document.querySelector('.user-message').value.trim() || '';
+        document.querySelector('.user-message').value = '';
         if (!button) return;
+
 
         // Сначала закрываем модалку
         confirmModal.classList.remove('active');
@@ -77,10 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const adType = detailsBtn ? detailsBtn.dataset.type : 'blogger';
 
             // Проверяем наличие всех необходимых данных
-            if (!adId || !fromUserId || !toUserId || !adType) {
-                console.error('Missing required data:', { adId, fromUserId, toUserId, adType });
+            if (!adId || !fromUserId || !toUserId || !adType || !userMessage) {
+                console.error('Missing required data:', { adId, fromUserId, toUserId, adType, userMessage });
                 throw new Error('Missing required data for notification');
             }
+
 
             const response = await fetch('https://blogy.uz/api/notifications/accept', {
                 method: 'POST',
@@ -92,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     to_user_id: parseInt(toUserId),
                     ad_id: parseInt(adId),
                     ad_type: adType,
-                    user_message: document.querySelector('.user-message').value.trim() || ''
+                    user_message: userMessage
                 })
             });
 
@@ -102,9 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.style.background = 'linear-gradient(45deg, #32d583, #20bd6d)';
                 button.disabled = true;
                 Utils.showNotification('Соглашение успешно отправлено', 'success');
+                document.querySelector('.user-message').value = '';
             } else {
                 // При ошибке показываем крестик с анимацией
                 button.innerHTML = `
+
                     <div class="error-icon">
                         <i class="fas fa-times"></i>
                     </div>

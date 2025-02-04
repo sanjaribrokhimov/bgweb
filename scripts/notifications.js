@@ -8,6 +8,98 @@ class NotificationManager {
     }
 
     init() {
+        // Добавляем стили для состояний
+        const style = document.createElement('style');
+        style.textContent = `
+            .error-state, .empty-state {
+                text-align: center;
+                padding: 20px;
+                color: var(--text-color);
+            }
+
+            .error-state i, .empty-state i {
+                font-size: 24px;
+                margin-bottom: 10px;
+                color: var(--text-secondary);
+            }
+
+            .error-state p, .empty-state p {
+                margin: 10px 0;
+                color: var(--text-secondary);
+            }
+
+            .retry-btn {
+                background: var(--accent-blue);
+                border: none;
+                padding: 8px 16px;
+                border-radius: 8px;
+                color: white;
+                cursor: pointer;    
+                transition: all 0.3s ease;
+                margin-top: 10px;
+            }
+
+            .retry-btn:hover {
+                opacity: 0.9;
+                transform: translateY(-1px);
+            }
+
+            .retry-btn i {
+                margin-right: 5px;
+            }
+
+            .message-section {
+                margin-top: 10px;
+                padding: 10px;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 8px;
+            }
+
+            .message-label {
+                color: var(--text-secondary);
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+
+            .user-message {
+                color: var(--text-color);
+                margin: 0;
+                font-size: 20px;
+                line-height: 1.4;
+            }
+
+            .notification-card {
+                background: var(--card-bg);
+                border-radius: 12px;
+                padding: 15px;
+                margin-bottom: 10px;
+                transition: all 0.3s ease;
+            }
+
+            .notification-card:hover {
+                background: var(--card-hover);
+            }
+
+            .notification-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .notification-header h3 {
+                margin: 0;
+                font-size: 16px;
+                color: var(--text-color);
+            }
+
+            .date {
+                font-size: 12px;
+                color: var(--text-secondary);
+            }
+        `;
+        document.head.appendChild(style);
+
         this.startPolling();
         this.addEventListeners();
         this.loadNotifications();
@@ -40,32 +132,77 @@ class NotificationManager {
 
     async loadNotifications() {
         const userId = localStorage.getItem('userId');
-        if (!userId) return;
+        if (!userId) {
+            console.log('No userId found');
+            return;
+        }
 
         try {
+            // Добавим логирование для отладки
+            console.log('Fetching notifications for user:', userId);
+            
             const response = await fetch(`https://blogy.uz/api/notifications/${userId}`);
+            
+            // Проверяем статус ответа
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             const notifications = await response.json();
+            console.log('Received notifications:', notifications);
+            
+            // Проверяем, что notifications это массив
+            if (!Array.isArray(notifications)) {
+                throw new Error('Received invalid notifications data');
+            }
             
             // Обновляем количество непрочитанных
             this.unreadCount = notifications.filter(n => !n.is_read).length;
             this.updateBadge();
             
-            this.renderNotifications(notifications);
+            // Проверяем наличие контейнера перед рендерингом
+            if (this.container) {
+                this.renderNotifications(notifications);
+            } else {
+                console.log('Notifications container not found');
+            }
         } catch (error) {
-            console.error('Error:', error);
-            this.showError();
+            console.error('Error loading notifications:', error);
+            
+            // Более информативное сообщение об ошибке
+            if (this.container) {
+                this.container.innerHTML = `
+                    <div class="error-state">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Не удалось загрузить уведомления</p>
+                        <button onclick="notificationManager.loadNotifications()" class="retry-btn">
+                            <i class="fas fa-redo"></i> Повторить
+                        </button>
+                    </div>
+                `;
+            }
         }
     }
 
     renderNotifications(notifications) {
-        if (!this.container) return;
-
-        if (!notifications.length) {
-            this.container.innerHTML = '<div class="empty-state">Нет уведомлений</div>';
+        if (!this.container) {
+            console.log('Container not found');
             return;
         }
 
-        this.container.innerHTML = notifications.map(notification => this.createNotificationCard(notification)).join('');
+        if (!notifications || notifications.length === 0) {
+            this.container.innerHTML = `
+                <div class="empty-state">
+                    <i class="far fa-bell-slash"></i>
+                    <p>У вас пока нет уведомлений</p>
+                </div>
+            `;
+            return;
+        }
+
+        this.container.innerHTML = notifications.map(notification => 
+            this.createNotificationCard(notification)
+        ).join('');
     }
 
     createNotificationCard(notification) {
@@ -81,42 +218,52 @@ class NotificationManager {
                     </div>
 
                     <div class="sender-info">
-                        
                         <div class="user-details">
-                        от
-                             <i class="fas fa-user-circle"></i>
+                            от
+                            <i class="fas fa-user-circle"></i>
                             <span class="username ${blurClass}">${notification.from_user.name}</span>
                         </div>
                     </div>
+                    
+                    ${notification.user_message ? `
+                        <div class="message-section">
+                            <p class="message-label">Сообщение от пользователя:</p> 
+                            <p class="user-message ${blurClass}">${notification.user_message}</p>
+                        </div>
+                    ` : ''}
 
-                    ${this.createAdPreview(notification.ad_details, blurClass)}
+                    ${notification.ad_details ? this.createAdPreview(notification.ad_details, blurClass) : ''}
                     ${this.createDetailsSection(notification.from_user, blurClass)}
+                                        
                 </div>
             </div>
         `;
     }
 
     createAdPreview(adDetails, blurClass) {
+        if (!adDetails) return '';
+        
         return `
             <div class="ad-preview">
                 <div class="ad-image">
-                    <img src="${adDetails.photo_base64}" 
+                    <img src="${adDetails.photo_base64 || './img/noImage.jpg'}" 
                          alt="Фото объявления" 
                          onerror="this.src='./img/noImage.jpg'">
                 </div>
                 
                 <div class="ad-info">
-                <p style="font-size: 12px;"> на объявление</p>
-                    <h4 class="${blurClass}">${adDetails.nickname || adDetails.name}</h4>
-                    
+                    <p style="font-size: 12px;"> на объявление</p>
+                    <h4 class="${blurClass}">${adDetails.nickname || adDetails.name || 'Без названия'}</h4>
                 </div>
             </div>
         `;
     }
 
     createDetailsSection(userDetails, blurClass) {
+        if (!userDetails) return '';
+        
         return `
-        <p style="color:green;"> Данные пользователя</p>
+            <p style="color:green;"> Данные пользователя</p>
             <div class="details-section">
                 <div class="category-direction ${blurClass}">
                     <div class="info-row">
@@ -265,7 +412,15 @@ class NotificationManager {
     showError() {
         const container = document.querySelector('.notifications-list');
         if (container) {
-            container.innerHTML = '<div class="error-state">Ошибка загрузки уведомлений</div>';
+            container.innerHTML = `
+                <div class="error-state">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p>Не удалось загрузить уведомления</p>
+                    <button onclick="notificationManager.loadNotifications()" class="retry-btn">
+                        <i class="fas fa-redo"></i> Повторить
+                    </button>
+                </div>
+            `;
         }
     }
 

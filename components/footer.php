@@ -84,22 +84,38 @@
 /* Остальные стили остаются без изменений */
 .confirm-modal {
     position: fixed;
-    display: none;
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    opacity: 0;
+    /* display: none; */
     background: var(--card-bg);
     border-radius: 12px;
     padding: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    transform: translate(-50%, -50%);
-    min-width: 250px;
+    transform: translate(0, 200%);
+    width: 100%;
+    bottom: 0%;
+    left: 0;
+    transition: all 0.3s ease;
 }
+
 
 .confirm-modal.active {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
+    visibility: visible;
+    opacity: 1;
     gap: 15px;
+    transform: translate(0, 0);
+
 }
 
+body.add-active {
+    filter: blur(1px);
+    transform: transalteZ(200px)
+}
 .confirm-content {
     display: flex;
     gap: 15px;
@@ -181,9 +197,12 @@
 <!-- Модальные окна и скрипты -->
 <div class="confirm-modal">
     <div class="message-container">
-        <input type="text" class="user-message" placeholder="Сообщение">
+        <p style="font-size: 12px; color: var(--bs-blue); text-align: center;">Напишите сообщение пользователю</p>
+        <input type="text" class="user-message" placeholder="Сообщение пользователю">
     </div>
     <div class="confirm-content">
+
+
         <button class="confirm-yes">
             <i class="fas fa-check"></i>
         </button>
