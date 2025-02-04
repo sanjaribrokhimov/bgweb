@@ -91,7 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     from_user_id: parseInt(fromUserId),
                     to_user_id: parseInt(toUserId),
                     ad_id: parseInt(adId),
-                    ad_type: adType
+                    ad_type: adType,
+                    user_message: document.querySelector('.user-message').value.trim() || ''
                 })
             });
 

@@ -1,7 +1,7 @@
 <style>
     .product-info
     {
-        height: 135px;
+        min-height: 135px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;

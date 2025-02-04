@@ -91,15 +91,30 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     transform: translate(-50%, -50%);
+    min-width: 250px;
 }
 
 .confirm-modal.active {
     display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .confirm-content {
     display: flex;
     gap: 15px;
+    justify-content: center;
+}
+
+.user-message {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    font-size: 14px;
+    outline: none;
 }
 
 .confirm-yes, .confirm-no {
@@ -165,6 +180,9 @@
 <!-- Остальной код остается без изменений -->
 <!-- Модальные окна и скрипты -->
 <div class="confirm-modal">
+    <div class="message-container">
+        <input type="text" class="user-message" placeholder="Сообщение">
+    </div>
     <div class="confirm-content">
         <button class="confirm-yes">
             <i class="fas fa-check"></i>

@@ -104,12 +104,14 @@ class CompanyLoader {
                
             </div>
             <div class="product-info">
-                <h3>${data.name || 'Без имени'}</h3>
-                <div class="direction-tag">${data.direction || 'Без направления'}</div>
-                <div class="stats">
-                    <div class="stat-item">
-                        <i class="fas fa-briefcase"></i>
-                        <span>Бюджет: ${this.formatNumber(data.budget)}$</span>
+                <div style="height: 120px;">
+                    <h3>${data.name || 'Без имени'}</h3>
+                    <div class="direction-tag">${data.direction || 'Без направления'}</div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Бюджет: ${this.formatNumber(data.budget)}$</span>
+                        </div>
                     </div>
                 </div>
                 <div class="btn-actions">

@@ -2838,6 +2838,7 @@ body:not(.dark-theme) .btn-close:hover {
 }
 
 .product-info p
+/* .product-info h3 */
 {
         display: -webkit-box; /* Включаем старую модель flexbox для WebKit */
         -webkit-box-orient: vertical; /* Вертикальное направление содержимого */
