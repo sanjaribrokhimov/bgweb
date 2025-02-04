@@ -82,7 +82,7 @@ if (!isset($_GET['page'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="translations.js"></script>
     <script src="scripts/utils.js"></script>
-    <script src="scripts/main.js?v=1.0.1"></script>
+    <script src="scripts/main.js?v=1.0.2"></script>
     <!-- После utils.js -->
 <script src="scripts/notifications.js?v=1.0.1"></script>
     <?php

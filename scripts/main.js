@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Проверяем наличие всех необходимых данных
             if (!adId || !fromUserId || !toUserId || !adType || !userMessage) {
                 console.error('Missing required data:', { adId, fromUserId, toUserId, adType, userMessage });
-                throw new Error('Missing required data for notification');
+                throw new Error('Пожалуйста напишите сообщение');
             }
 
 
