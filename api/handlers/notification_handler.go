@@ -19,6 +19,7 @@ func CreateAcceptNotification(c *gin.Context) {
 		ToUserID   uint   `json:"to_user_id"`
 		AdID       uint   `json:"ad_id"`
 		AdType     string `json:"ad_type"`
+		UserMessage    string `json:"user_message"` 
 	}
 
 	// Логируем входящие данные ДО привязки JSON
@@ -69,6 +70,7 @@ func CreateAcceptNotification(c *gin.Context) {
 		AdType:     input.AdType,
 		Type:       "accept",
 		Message:    "У вас новое соглашение по вашему объявлению",
+		MessageToUser:  input.UserMessage,
 		IsRead:     false,
 	}
 
@@ -77,9 +79,9 @@ func CreateAcceptNotification(c *gin.Context) {
 		return
 	}
 
-	// Формируем текст письма с данными отправителя
 	emailText := fmt.Sprintf(
 		"У вас новое соглашение по вашему объявлению!\n\n"+
+			"Сообщение от пользователя:\n%s\n\n"+  // Добавляем блок с сообщением
 			"Данные пользователя:\n"+
 			"Имя: %s\n"+
 			"Категория: %s\n"+
@@ -88,6 +90,7 @@ func CreateAcceptNotification(c *gin.Context) {
 			"Telegram: %s\n"+
 			"Instagram: %s\n\n"+
 			"Пожалуйста, свяжитесь с пользователем через Telegram или Email для обсуждения деталей.",
+		input.UserMessage,  // Добавляем пользовательское сообщение первым аргументом
 		fromUser.Name,
 		fromUser.Category,
 		fromUser.Direction,

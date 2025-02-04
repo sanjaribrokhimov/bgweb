@@ -15,4 +15,5 @@ type Notification struct {
 	IsRead     bool   `json:"is_read" gorm:"default:false"`
 	FromUser   User   `json:"from_user" gorm:"foreignKey:FromUserID"`
 	ToUser     User   `json:"to_user" gorm:"foreignKey:ToUserID"`
+	MessageToUser  string `json:"message_to_user" gorm:"type:text"` 
 }
