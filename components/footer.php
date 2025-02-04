@@ -108,7 +108,7 @@
     visibility: visible;
     opacity: 1;
     gap: 15px;
-    transform: translate(0, 200%);
+    transform: translate(0, 100%);
 
 }
 
