@@ -97,6 +97,7 @@
     transform: translate(-50%, -200%);
     top: 0%;
     left: 50%;
+    width: 70%;
     transition: all 0.3s ease;
 }
 
