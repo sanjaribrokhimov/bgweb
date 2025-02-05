@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Сначала закрываем модалку
         confirmModal.classList.remove('active');
-        modalOverlay.classList.remove('active');
+        document.querySelector('.modal-overlay').classList.remove('active');
 
         
         // Сохраняем оригинальные элементы кнопки
