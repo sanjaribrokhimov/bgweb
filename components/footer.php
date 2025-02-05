@@ -164,10 +164,11 @@ body.add-active {
 }
 
 @keyframes shake {
-    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-    25% { transform: translate(-50%, -50%) rotate(-5deg); }
-    75% { transform: translate(-50%, -50%) rotate(5deg); }
+    0%, 100% { transform: translate(-50%, 100%) rotate(0deg); }
+    25% { transform: translate(-50%, 100%) rotate(-5deg); }
+    75% { transform: translate(-50%, 100%) rotate(5deg); }
 }
+
 
 /* Стили для уведомлений */
 .notification-toast {
@@ -191,10 +192,31 @@ body.add-active {
     transform: translateX(0);
     opacity: 1;
 }
+
+/* Добавляем оверлей для затемнения */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(3px);
+    z-index: 999;
+}
+
+.modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
 </style>
 
-<!-- Остальной код остается без изменений -->
-<!-- Модальные окна и скрипты -->
+<!-- Добавляем оверлей перед модальным окном -->
+<div class="modal-overlay"></div>
+
 <div class="confirm-modal">
     <div class="message-container">
         <p style="font-size: 12px; color: var(--bs-blue); text-align: center;">Напишите сообщение пользователю</p>

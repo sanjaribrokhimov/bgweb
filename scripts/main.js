@@ -41,9 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Определяем глобальную функцию для показа модального окна
     window.showConfirmModal = (button) => {
-        const rect = button.getBoundingClientRect();
-        // confirmModal.style.top = `${rect.top}px`;
-        // confirmModal.style.left = `${rect.left}px`;
+        const modalOverlay = document.querySelector('.modal-overlay');
+        modalOverlay.classList.add('active');
         confirmModal.classList.add('active');
         confirmModal.currentButton = button;
     };
@@ -137,17 +136,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Обработчик для кнопки "Нет"
     confirmNo.addEventListener('click', () => {
+        const modalOverlay = document.querySelector('.modal-overlay');
         confirmModal.classList.add('shake');
         setTimeout(() => {
             confirmModal.classList.remove('active', 'shake');
+            modalOverlay.classList.remove('active');
         }, 300);
     });
 
     // Закрытие при клике вне модального окна
     document.addEventListener('click', (e) => {
+        const modalOverlay = document.querySelector('.modal-overlay');
         if (!e.target.closest('.confirm-modal') && 
             !e.target.closest('.btn-accept')) {
             confirmModal.classList.remove('active');
+            modalOverlay.classList.remove('active');
         }
     });
 

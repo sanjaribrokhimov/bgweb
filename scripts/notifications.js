@@ -133,14 +133,16 @@ class NotificationManager {
     async loadNotifications() {
         const userId = localStorage.getItem('userId');
         if (!userId) {
-            console.log('No userId found');
+            // console.log('No userId found');
             return;
         }
 
+
         try {
             // Добавим логирование для отладки
-            console.log('Fetching notifications for user:', userId);
+            // console.log('Fetching notifications for user:', userId);
             
+
             const response = await fetch(`https://blogy.uz/api/notifications/${userId}`);
             
             // Проверяем статус ответа
@@ -149,8 +151,9 @@ class NotificationManager {
             }
             
             const notifications = await response.json();
-            console.log('Received notifications:', notifications);
+            // console.log('Received notifications:', notifications);
             
+
             // Проверяем, что notifications это массив
             if (!Array.isArray(notifications)) {
                 throw new Error('Received invalid notifications data');
@@ -164,8 +167,9 @@ class NotificationManager {
             if (this.container) {
                 this.renderNotifications(notifications);
             } else {
-                console.log('Notifications container not found');
+                // console.log('Notifications container not found');
             }
+
         } catch (error) {
             console.error('Error loading notifications:', error);
             

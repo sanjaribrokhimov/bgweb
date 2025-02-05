@@ -52,7 +52,7 @@ if (!isset($_GET['page'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloger Agency</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.0.2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -82,17 +82,17 @@ if (!isset($_GET['page'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="translations.js"></script>
     <script src="scripts/utils.js"></script>
-    <script src="scripts/main.js?v=1.0.2"></script>
+    <script src="scripts/main.js?v=1.0.3"></script>
     <!-- После utils.js -->
-<script src="scripts/notifications.js?v=1.0.1"></script>
+<script src="scripts/notifications.js?v=1.0.2"></script>
     <?php
     // Подключаем нужные скрипты в зависимости от страницы
     switch($page) {
         case 'advertisers':
-            echo '<script src="scripts/companies.js"></script>';
+            echo '<script src="scripts/companies.js?v=1.0.2"></script>';
             break;
         case 'freelancers':
-            echo '<script src="scripts/freelancers.js"></script>';
+            echo '<script src="scripts/freelancers.js?v=1.0.2"></script>';
             break;
         default:
             echo '<script src="scripts/ads.js"></script>';

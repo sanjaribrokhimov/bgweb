@@ -104,7 +104,7 @@ class CompanyLoader {
                
             </div>
             <div class="product-info">
-                <div style="height: 120px;">
+                <div style="height: 135px;">
                     <h3>${data.name || 'Без имени'}</h3>
                     <div class="direction-tag">${data.direction || 'Без направления'}</div>
                     <div class="stats">

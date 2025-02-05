@@ -24,7 +24,7 @@ class FreelancerLoader {
         const categorySelect = document.getElementById('freelancerCategorySelect');
         if (categorySelect) {
             categorySelect.addEventListener('change', (e) => {
-                console.log('Selected category:', e.target.value);
+                // console.log('Selected category:', e.target.value);
                 this.currentCategory = e.target.value;
                 this.filterFreelancers();
             });
@@ -38,8 +38,8 @@ class FreelancerLoader {
         let filteredFreelancers = this.allFreelancers;
         
         if (this.currentCategory) {
-            console.log('Filtering by category:', this.currentCategory);
-            console.log('All freelancers:', this.allFreelancers);
+            // console.log('Filtering by category:', this.currentCategory);
+            // console.log('All freelancers:', this.allFreelancers);
             
             filteredFreelancers = this.allFreelancers.filter(freelancer => {
                 const freelancerCategory = freelancer.category.toLowerCase().trim();
@@ -47,17 +47,19 @@ class FreelancerLoader {
                 
                 const categoryMatches = freelancerCategory === selectedCategory;
                 
-                console.log('Comparing categories:', {
-                    freelancerCategory,
-                    selectedCategory,
-                    matches: categoryMatches
-                });
+                // console.log('Comparing categories:', {
+                //     freelancerCategory,
+                //     selectedCategory,
+                //     matches: categoryMatches
+                // });
+
                 
                 return categoryMatches;
             });
             
-            console.log('Filtered freelancers:', filteredFreelancers);
+            // console.log('Filtered freelancers:', filteredFreelancers);
         }
+
 
         if (filteredFreelancers.length === 0) {
             const noResults = document.createElement('div');
@@ -88,7 +90,8 @@ class FreelancerLoader {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            console.log('Loaded freelancers:', data);
+            // console.log('Loaded freelancers:', data);
+
 
             const freelancers = data.data || [];
             const activeFreelancers = freelancers.filter(freelancer => freelancer.status === "true");
@@ -98,7 +101,8 @@ class FreelancerLoader {
             }
 
             this.allFreelancers = [...this.allFreelancers, ...activeFreelancers];
-            console.log('Updated allFreelancers:', this.allFreelancers);
+            // console.log('Updated allFreelancers:', this.allFreelancers);
+
 
             this.filterFreelancers();
 
@@ -119,8 +123,9 @@ class FreelancerLoader {
         const itemId = data.ID || data.id;
         const userId = data.user_id || data.userId;
         
-        console.log('Creating freelancer card with data:', data);
+        // console.log('Creating freelancer card with data:', data);
         
+
         card.innerHTML = `
             <div class="product-image">
                 <img src="${data.photo_base64}" alt="Фрилансер" onerror="this.src='./img/noImage.jpg'">
@@ -146,11 +151,12 @@ class FreelancerLoader {
             </div>
         `;
         
-        console.log('Freelancer card data:', {
-            id: itemId,
-            userId: userId,
-            type: 'freelancer'
-        });
+        // console.log('Freelancer card data:', {
+        //     id: itemId,
+        //     userId: userId,
+        //     type: 'freelancer'
+        // });
+
         
         return card;
     }
