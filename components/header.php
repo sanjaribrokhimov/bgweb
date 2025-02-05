@@ -595,12 +595,12 @@ $IP = '144.126.128.67';
                 <button class="btn back-btn" onclick="window.history.back()">
                     <i class="fas fa-arrow-left"></i>
                 </button>
-                <div class="language-switcher">
+                <!-- <div class="language-switcher">
                     <div class="notranslate lang-toggle">
                         <button class="lang-btn" data-lang="ru">RU</button>
                         <button class="lang-btn" data-lang="uz">UZ</button>
                     </div>
-                </div>
+                </div> -->
                 <div class="theme-switcher">
                     <div class="theme-toggle" role="button" aria-label="Переключить тему">
                         <i class="fas fa-sun"></i>
