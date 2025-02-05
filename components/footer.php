@@ -89,15 +89,18 @@
     visibility: hidden;
     opacity: 0;
     /* display: none; */
-    background: var(--card-bg);
+    background: linear-gradient(to bottom, #4d7eff 45px, var(--card-bg) 45px, var(--card-bg));
     border-radius: 12px;
+    border-bottom-right-radius: 0px;
     padding: 15px;
+    padding-bottom: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     transform: translate(-50%, -200%);
     top: 0%;
     left: 50%;
-    width: 70%;
+    width: 80%;
+    max-width: 400px;
     transition: all 0.3s ease;
 }
 
@@ -119,8 +122,32 @@ body.add-active {
 .confirm-content {
     display: flex;
     gap: 15px;
-    justify-content: center;
+    justify-content: flex-end;
+    position: absolute;
+    top: 99%;
+    right: 0;
+    background: var(--card-bg);
+    padding: 0 15px 15px 0;
+    border-radius: 0 0 12px 12px;
 }
+
+
+.confirm-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: skewX(45deg);
+    transform-origin: bottom left;
+    z-index: -1;
+    border-radius: 0 0 12px 12px;
+    border-bottom-right-radius: 0px;
+    background: var(--card-bg);
+}
+
 
 .user-message {
     width: 100%;
@@ -219,19 +246,15 @@ body.add-active {
 
 <div class="confirm-modal">
     <div class="message-container">
-        <p style="font-size: 12px; color: var(--bs-blue); text-align: center;">Напишите сообщение пользователю</p>
+        <p style="font-size: 12px; text-align: center;">Напишите сообщение пользователю</p>
         <textarea rows="3" type="text" class="user-message" placeholder="Сообщение пользователю" style="resize: none;"></textarea>
     </div>
     <div class="confirm-content">
-
-
-
-
-        <button class="confirm-yes">
-            <i class="fas fa-check"></i>
-        </button>
         <button class="confirm-no">
             <i class="fas fa-times"></i>
+        </button>
+        <button class="confirm-yes">
+            <i class="fas fa-check"></i>
         </button>
     </div>
 </div>
