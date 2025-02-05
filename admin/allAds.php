@@ -268,7 +268,14 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                 <button class="btn btn-sm btn-danger" onclick="deleteAd(${ad.id}, 'blogger')">
                                     <i class='bx bxs-trash'></i>
                                 </button>
+                                <a class="btn btn-sm btn-primary" href="userAds.php?user_id=${ad.user_id}" target="_blank">
+                                    <i class="bx bxs-chart"></i>
+                                </a>
                             </td>
+
+
+
+
                         `;
                         break;
                     case 'companies':
@@ -292,9 +299,17 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                 <button class="btn btn-sm btn-danger" onclick="deleteAd(${ad.ID}, 'company')">
                                     <i class='bx bxs-trash'></i>
                                 </button>
+                                <a class="btn btn-sm btn-primary" href="userAds.php?user_id=${ad.user_id}" target="_blank">
+                                    <i class="bx bxs-chart"></i>
+                                </a>
                             </td>
+
+
                         `;
+
+
                         break;
+
                     case 'freelancers':
                         row.innerHTML = `
                             <td>${ad.ID}</td>
@@ -317,9 +332,13 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                 <button class="btn btn-sm btn-danger" onclick="deleteAd(${ad.ID}, 'freelancer')">
                                     <i class='bx bxs-trash'></i>
                                 </button>
+                                <a class="btn btn-sm btn-primary" href="userAds.php?user_id=${ad.user_id}" target="_blank">
+                                    <i class="bx bxs-chart"></i>
+                                </a>
                             </td>
                         `;
                         break;
+
                 }
             });
         }
@@ -362,6 +381,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
         }
 
         // Загрузка и отображение всех объявлений
+
         async function loadAndDisplayAds() {
             const types = ['bloggers', 'companies', 'freelancers'];
             for (const type of types) {

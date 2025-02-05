@@ -27,24 +27,27 @@ class BloggerLoader {
         let filteredBloggers = this.allBloggers;
         
         if (this.currentCategory) {
-            console.log('Filtering by category:', this.currentCategory);
-            console.log('All bloggers:', this.allBloggers);
+            // console.log('Filtering by category:', this.currentCategory);
+            // console.log('All bloggers:', this.allBloggers);
             
+
             filteredBloggers = this.allBloggers.filter(blogger => {
                 const bloggerDirection = (blogger.direction || '').toLowerCase().trim();
                 const selectedCategory = this.currentCategory.toLowerCase().trim();
                 
-                console.log('Comparing:', {
-                    bloggerDirection,
-                    selectedCategory,
-                    matches: bloggerDirection === selectedCategory
-                });
+                // console.log('Comparing:', {
+                //     bloggerDirection,
+                //     selectedCategory,
+                //     matches: bloggerDirection === selectedCategory
+                // });
+
                 
                 return bloggerDirection === selectedCategory;
             });
             
-            console.log('Filtered bloggers:', filteredBloggers);
+            // console.log('Filtered bloggers:', filteredBloggers);
         }
+
 
         if (filteredBloggers.length === 0) {
             const noResults = document.createElement('div');
@@ -85,7 +88,8 @@ class BloggerLoader {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            console.log('Loaded bloggers:', data);
+            // console.log('Loaded bloggers:', data);
+
 
             const bloggers = data.data || [];
             const activeBloggers = bloggers.filter(blogger => blogger.status === "true");
@@ -95,7 +99,8 @@ class BloggerLoader {
             }
 
             this.allBloggers = [...this.allBloggers, ...activeBloggers];
-            console.log('Updated allBloggers:', this.allBloggers);
+            // console.log('Updated allBloggers:', this.allBloggers);
+
 
             this.filterBloggers();
             this.page++;
@@ -211,7 +216,7 @@ class BloggerLoader {
             const loadingIndicator = document.getElementById('loadingIndicator');
             loadingIndicator.style.display = 'block';
 
-            console.log('Fetching details for ID:', id);
+            // console.log('Fetching details for ID:', id);
             const response = await fetch(`https://blogy.uz/api/ads/details/blogger/${id}`);
             if (!response.ok) {
                 console.error('Response status:', response.status);
@@ -219,7 +224,8 @@ class BloggerLoader {
                 throw new Error('Failed to fetch details');
             }
             const data = await response.json();
-            console.log('Received data:', data);
+            // console.log('Received data:', data);
+
 
             const modalHTML = `
                 <div class="modal fade custom-modal" id="detailsModal" tabindex="-1" aria-hidden="true">

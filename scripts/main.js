@@ -58,6 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Сначала закрываем модалку
         confirmModal.classList.remove('active');
+        modalOverlay.classList.remove('active');
+
         
         // Сохраняем оригинальные элементы кнопки
         const originalHTML = button.innerHTML;

@@ -52,7 +52,7 @@ class AdsLoader {
                 url += `&q=${encodeURIComponent(this.searchQuery)}`;
             }
 
-            console.log('Fetching URL:', url); // Для отладки
+            // console.log('Fetching URL:', url); // Для отладки
 
             const response = await fetch(url);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);

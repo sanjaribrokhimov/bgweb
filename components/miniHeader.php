@@ -861,7 +861,7 @@ $IP = '144.126.128.67';
     </script>
 
     <!-- Подключаем скрипт поиска -->
-    <script src="scripts/search.js"></script>
+    <script src="scripts/search.js?v=1.0.3"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             new Search();

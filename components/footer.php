@@ -220,9 +220,11 @@ body.add-active {
 <div class="confirm-modal">
     <div class="message-container">
         <p style="font-size: 12px; color: var(--bs-blue); text-align: center;">Напишите сообщение пользователю</p>
-        <input type="text" class="user-message" placeholder="Сообщение пользователю">
+        <textarea rows="3" type="text" class="user-message" placeholder="Сообщение пользователю" style="resize: none;"></textarea>
     </div>
     <div class="confirm-content">
+
+
 
 
         <button class="confirm-yes">

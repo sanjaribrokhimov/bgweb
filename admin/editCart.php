@@ -17,7 +17,14 @@ if (!isset($_SESSION['admin_logged_in'])) {
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
+    <style>
+        #editForm .form-control
+        {
+            color: var(--text-secondary);
+        }
+    </style>
     <div class="container mt-4">
+
         <h2>Редактирование объявления</h2>
         <div id="editForm" class="card p-4">
             <form id="adEditForm">
