@@ -90,14 +90,20 @@ func GetPaginatedPostBloggers(c *gin.Context) {
     var posts []models.PostBlogger
     var total int64
 
-    // Считаем общее количество записей
-    if err := database.DB.Model(&models.PostBlogger{}).Count(&total).Error; err != nil {
+    // Фильтруем по статусу "true" при подсчете
+    if err := database.DB.Model(&models.PostBlogger{}).
+        Where("status = ?", "true").
+        Count(&total).Error; err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка получения данных"})
         return
     }
 
-    // Получаем данные с пагинацией
-    if err := database.DB.Order("created_at DESC").Offset(offset).Limit(limit).Find(&posts).Error; err != nil {
+    // Добавляем фильтр статуса в основной запрос
+    if err := database.DB.Where("status = ?", "true").
+        Order("created_at DESC").
+        Offset(offset).
+        Limit(limit).
+        Find(&posts).Error; err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка загрузки постов"})
         return
     }
