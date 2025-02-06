@@ -10,16 +10,35 @@ class BloggerLoader {
         this.initializeAcceptButtons();
         this.initializeFilters();
         this.initializePagination();
+        this.initializeInfiniteScroll();
+        this.loadBloggers();
     }
 
     initializeFilters() {
         const categorySelect = document.getElementById('bloggerCategorySelect');
         if (categorySelect) {
             categorySelect.addEventListener('change', (e) => {
+                const grid = document.querySelector('.products-grid');
+                grid.innerHTML = ''; // Очищаем грид перед сменой категории
+                
                 this.currentCategory = e.target.value;
-                this.filterBloggers();
+                this.page = 1;
+                this.allBloggers = [];
+                this.hasMore = true;
+                this.loadBloggers();
             });
         }
+    }
+
+    initializeInfiniteScroll() {
+        window.addEventListener('scroll', () => {
+            // Проверяем, достиг ли пользователь конца страницы
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 500) {
+                if (!this.loading && this.hasMore) {
+                    this.loadBloggers();
+                }
+            }
+        });
     }
 
     filterBloggers() {
@@ -35,7 +54,8 @@ class BloggerLoader {
             });
         }
 
-        if (filteredBloggers.length === 0 && this.page === 1) {
+        if (filteredBloggers.length === 0) {
+            console.log(this.allBloggers)
             grid.innerHTML = '<div class="no-results">Нет блогеров в выбранной категории</div>';
         } else {
             // Получаем только новые карточки (последние this.limit элементов)
@@ -134,71 +154,33 @@ class BloggerLoader {
     }
 
     async loadBloggers() {
-        if (this.loading || !this.hasMore) return;
-        
-        this.loading = true;
-        const grid = document.querySelector('.products-grid');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        
         try {
-            loadingIndicator.style.display = 'block';
+            if (this.loading || !this.hasMore) return;
             
-            // Удаляем старый индикатор загрузки перед запросом
-            const oldLoadMore = document.querySelector('.load-more');
-            if (oldLoadMore) {
-                oldLoadMore.remove();
-            }
+            this.loading = true;
+            console.log('Loading bloggers for page:', this.page);
 
-            const url = `https://blogy.uz/api/post-bloggers/paginated?page=${this.page}&limit=${this.limit}`;
-            const response = await fetch(url);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
+            const response = await fetch(`https://blogy.uz/api/post-bloggers/paginated?page=${this.page}&limit=${this.limit}`);
             const data = await response.json();
-            const bloggers = data.posts || [];
             
-            // Проверяем, есть ли ещё страницы
-            this.hasMore = this.page < data.totalPages;
-            
-            // Фильтруем активные объявления
-            const activeBloggers = bloggers.filter(blogger => blogger.status === "true");
-            
-            // Добавляем новые данные к существующим
-            this.allBloggers = [...this.allBloggers, ...activeBloggers];
-            
-            // Отображаем только новые блогеры
-            this.filterBloggers();
-            
-            // Увеличиваем номер страницы для следующей загрузки
-            this.page++;
+            console.log('Received data:', data);
 
-            // Если есть ещё страницы, показываем индикатор загрузки
-            if (this.hasMore) {
-                this.showLoadMoreIndicator();
+            if (data && data.posts) {
+                this.allBloggers = [...this.allBloggers, ...data.posts];
+                this.hasMore = this.page < data.totalPages;
+                this.page++;
+                
+                console.log('Updated allBloggers:', this.allBloggers);
+                this.filterBloggers();
             }
-
         } catch (error) {
             console.error('Error loading bloggers:', error);
             if (this.page === 1) {
+                const grid = document.querySelector('.products-grid');
                 grid.innerHTML = '<div class="error-message">Ошибка загрузки данных</div>';
             }
         } finally {
             this.loading = false;
-            loadingIndicator.style.display = 'none';
-        }
-    }
-
-    showLoadMoreIndicator() {
-        const grid = document.querySelector('.products-grid');
-        let loadMore = document.querySelector('.load-more');
-        
-        if (!loadMore) {
-            loadMore = document.createElement('div');
-            loadMore.className = 'load-more';
-            loadMore.innerHTML = '<i class="fas fa-sync"></i>';
-            grid.insertAdjacentElement('afterend', loadMore);
         }
     }
 
