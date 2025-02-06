@@ -70,6 +70,7 @@ func main() {
 		// Маршруты для постов блогеров
 		api.POST("/post-bloggers", handlers.CreatePostBlogger)
 		api.GET("/post-bloggers", handlers.GetPostBloggers)
+		api.GET("/post-bloggers/paginated", handlers.GetPaginatedPostBloggers) 
 		api.GET("/post-bloggers/:id", handlers.GetPostBloggerByID)
 		api.GET("/user-posts/:user_id", handlers.GetUserPosts)
 

@@ -5,7 +5,8 @@ import (
 	"bloger_agencyBackend/models"
 	"log"
 	"net/http"
-
+	"math"
+	"strconv"
 	"github.com/gin-gonic/gin"
 )
 
@@ -77,6 +78,39 @@ func GetPostBloggers(c *gin.Context) {
 
 	c.JSON(http.StatusOK, posts)
 }
+
+// ... существующий код ...
+
+// Новая функция с пагинацией
+func GetPaginatedPostBloggers(c *gin.Context) {
+    page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+    limit, _ := strconv.Atoi(c.DefaultQuery("limit", "10"))
+    offset := (page - 1) * limit
+
+    var posts []models.PostBlogger
+    var total int64
+
+    // Считаем общее количество записей
+    if err := database.DB.Model(&models.PostBlogger{}).Count(&total).Error; err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка получения данных"})
+        return
+    }
+
+    // Получаем данные с пагинацией
+    if err := database.DB.Order("created_at DESC").Offset(offset).Limit(limit).Find(&posts).Error; err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка загрузки постов"})
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{
+        "posts":      posts,
+        "total":      total,
+        "page":       page,
+        "totalPages": int(math.Ceil(float64(total) / float64(limit))),
+        "limit":      limit,
+    })
+}
+
 
 func GetPostBloggerByID(c *gin.Context) {
 	id := c.Param("id")
