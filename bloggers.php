@@ -38,5 +38,5 @@
 <div class="products-grid">
     <!-- Карточки будут добавляться динамически -->
 </div>
-<script src="scripts/bloggers.js?v=1.0.2"></script>
+<script src="scripts/bloggers.js?v=1.0.3"></script>
 

@@ -1,13 +1,15 @@
 class BloggerLoader {
     constructor() {
         this.page = 1;
-        this.limit = 100;
+        this.limit = 10;
         this.loading = false;
         this.hasMore = true;
         this.allBloggers = [];
         this.currentCategory = '';
+        this.totalPages = 0;
         this.initializeAcceptButtons();
         this.initializeFilters();
+        this.initializePagination();
     }
 
     initializeFilters() {
@@ -22,43 +24,35 @@ class BloggerLoader {
 
     filterBloggers() {
         const grid = document.querySelector('.products-grid');
-        grid.innerHTML = '';
-
+        
         let filteredBloggers = this.allBloggers;
         
         if (this.currentCategory) {
-            // console.log('Filtering by category:', this.currentCategory);
-            // console.log('All bloggers:', this.allBloggers);
-            
-
             filteredBloggers = this.allBloggers.filter(blogger => {
                 const bloggerDirection = (blogger.direction || '').toLowerCase().trim();
                 const selectedCategory = this.currentCategory.toLowerCase().trim();
-                
-                // console.log('Comparing:', {
-                //     bloggerDirection,
-                //     selectedCategory,
-                //     matches: bloggerDirection === selectedCategory
-                // });
-
-                
                 return bloggerDirection === selectedCategory;
             });
-            
-            // console.log('Filtered bloggers:', filteredBloggers);
         }
 
-
-        if (filteredBloggers.length === 0) {
-            const noResults = document.createElement('div');
-            noResults.className = 'no-results';
-            noResults.textContent = 'Нет блогеров в выбранной категории';
-            grid.appendChild(noResults);
+        if (filteredBloggers.length === 0 && this.page === 1) {
+            grid.innerHTML = '<div class="no-results">Нет блогеров в выбранной категории</div>';
         } else {
-            filteredBloggers.forEach(blogger => {
-                const card = this.createBloggerCard(blogger);
-                grid.appendChild(card);
-            });
+            // Получаем только новые карточки (последние this.limit элементов)
+            const newBloggers = filteredBloggers.slice(-this.limit);
+            
+            // Создаем HTML для новых карточек
+            const newCardsHTML = newBloggers
+                .map(blogger => this.createBloggerCardHTML(blogger))
+                .join('');
+            
+            // Если это первая страница, заменяем содержимое
+            if (this.page === 1) {
+                grid.innerHTML = newCardsHTML;
+            } else {
+                // Иначе добавляем новые карточки в конец
+                grid.insertAdjacentHTML('beforeend', newCardsHTML);
+            }
         }
     }
 
@@ -72,6 +66,73 @@ class BloggerLoader {
         });
     }
 
+    initializePagination() {
+        // Создаем контейнер для пагинации если его нет
+        if (!document.querySelector('.pagination-container')) {
+            const container = document.createElement('div');
+            container.className = 'pagination-container';
+            document.querySelector('.products-grid').insertAdjacentElement('afterend', container);
+        }
+    }
+
+    createPaginationControls(currentPage, totalPages) {
+        const container = document.querySelector('.pagination-container');
+        container.innerHTML = '';
+
+        const pagination = document.createElement('div');
+        pagination.className = 'pagination';
+
+        // Кнопка "Назад"
+        const prevBtn = document.createElement('button');
+        prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        prevBtn.className = 'pagination-btn';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = () => this.changePage(currentPage - 1);
+
+        // Кнопка "Вперед"
+        const nextBtn = document.createElement('button');
+        nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        nextBtn.className = 'pagination-btn';
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.onclick = () => this.changePage(currentPage + 1);
+
+        // Добавляем номера страниц
+        const pageNumbers = document.createElement('div');
+        pageNumbers.className = 'page-numbers';
+
+        for (let i = 1; i <= totalPages; i++) {
+            if (
+                i === 1 || // Первая страница
+                i === totalPages || // Последняя страница
+                (i >= currentPage - 1 && i <= currentPage + 1) // Текущая и соседние
+            ) {
+                const pageBtn = document.createElement('button');
+                pageBtn.textContent = i;
+                pageBtn.className = `page-number ${i === currentPage ? 'active' : ''}`;
+                pageBtn.onclick = () => this.changePage(i);
+                pageNumbers.appendChild(pageBtn);
+            } else if (
+                (i === currentPage - 2 && currentPage > 3) ||
+                (i === currentPage + 2 && currentPage < totalPages - 2)
+            ) {
+                const dots = document.createElement('span');
+                dots.textContent = '...';
+                dots.className = 'pagination-dots';
+                pageNumbers.appendChild(dots);
+            }
+        }
+
+        pagination.appendChild(prevBtn);
+        pagination.appendChild(pageNumbers);
+        pagination.appendChild(nextBtn);
+        container.appendChild(pagination);
+    }
+
+    async changePage(newPage) {
+        this.page = newPage;
+        await this.loadBloggers();
+    }
+
     async loadBloggers() {
         if (this.loading || !this.hasMore) return;
         
@@ -81,69 +142,93 @@ class BloggerLoader {
         
         try {
             loadingIndicator.style.display = 'block';
-            const url = `https://blogy.uz/api/ads/category/blogger?page=${this.page}&limit=${this.limit}`;
+            
+            // Удаляем старый индикатор загрузки перед запросом
+            const oldLoadMore = document.querySelector('.load-more');
+            if (oldLoadMore) {
+                oldLoadMore.remove();
+            }
 
+            const url = `https://blogy.uz/api/post-bloggers/paginated?page=${this.page}&limit=${this.limit}`;
             const response = await fetch(url);
+            
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
+            
             const data = await response.json();
-            // console.log('Loaded bloggers:', data);
-
-
-            const bloggers = data.data || [];
+            const bloggers = data.posts || [];
+            
+            // Проверяем, есть ли ещё страницы
+            this.hasMore = this.page < data.totalPages;
+            
+            // Фильтруем активные объявления
             const activeBloggers = bloggers.filter(blogger => blogger.status === "true");
             
-            if (activeBloggers.length < this.limit) {
-                this.hasMore = false;
-            }
-
+            // Добавляем новые данные к существующим
             this.allBloggers = [...this.allBloggers, ...activeBloggers];
-            // console.log('Updated allBloggers:', this.allBloggers);
-
-
+            
+            // Отображаем только новые блогеры
             this.filterBloggers();
+            
+            // Увеличиваем номер страницы для следующей загрузки
             this.page++;
+
+            // Если есть ещё страницы, показываем индикатор загрузки
+            if (this.hasMore) {
+                this.showLoadMoreIndicator();
+            }
 
         } catch (error) {
             console.error('Error loading bloggers:', error);
+            if (this.page === 1) {
+                grid.innerHTML = '<div class="error-message">Ошибка загрузки данных</div>';
+            }
         } finally {
             this.loading = false;
             loadingIndicator.style.display = 'none';
         }
     }
 
-    createBloggerCard(data) {
-        const card = document.createElement('div');
-        card.className = 'product-card animate-card';
+    showLoadMoreIndicator() {
+        const grid = document.querySelector('.products-grid');
+        let loadMore = document.querySelector('.load-more');
         
+        if (!loadMore) {
+            loadMore = document.createElement('div');
+            loadMore.className = 'load-more';
+            loadMore.innerHTML = '<i class="fas fa-sync"></i>';
+            grid.insertAdjacentElement('afterend', loadMore);
+        }
+    }
+
+    createBloggerCardHTML(data) {
         const agreementKey = `blogger_${data.id}`;
         const hasAgreement = window.bloggerLoader?.userAgreements?.has(agreementKey);
         
-        card.innerHTML = `
-            <div class="product-image">
-                <img id="myImg" src="${data.photo_base64}" alt="Блогер" onerror="this.src='./img/noImage.jpg'">
-
-            </div>
-            <div class="product-info">
-                <div>
-                    <p style="color:dodgerblue; padding:0px; margin:0px;">${data.nickname || 'Без имени'}</p>
-                    <div class="direction-tag">${data.direction || ''}</div>
+        return `
+            <div class="product-card animate-card">
+                <div class="product-image">
+                    <img id="myImg" src="${data.photo_base64}" alt="Блогер" onerror="this.src='./img/noImage.jpg'">
                 </div>
+                <div class="product-info">
+                    <div>
+                        <p style="color:dodgerblue; padding:0px; margin:0px;">${data.nickname || 'Без имени'}</p>
+                        <div class="direction-tag">${data.direction || ''}</div>
+                    </div>
 
-                <div class="btn-actions">
-                    <button class="btn-details" data-id="${data.id}" data-type="blogger">
-                        <i class="fas fa-info-circle"></i> Подробнее
-                    </button>
-                    <button class="btn-accept" data-id="${data.id}" data-owner-id="${data.user_id}"
-                        ${hasAgreement ? 'disabled style="background: linear-gradient(45deg, #32d583, #20bd6d);"' : ''}>
-                        <i class="fas ${hasAgreement ? 'fa-check' : 'fa-check'}"></i>
-                    </button>
+                    <div class="btn-actions">
+                        <button class="btn-details" data-id="${data.id}" data-type="blogger">
+                            <i class="fas fa-info-circle"></i> Подробнее
+                        </button>
+                        <button class="btn-accept" data-id="${data.id}" data-owner-id="${data.user_id}"
+                            ${hasAgreement ? 'disabled style="background: linear-gradient(45deg, #32d583, #20bd6d);"' : ''}>
+                            <i class="fas ${hasAgreement ? 'fa-check' : 'fa-check'}"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
-        
-        return card;
     }
 
     createDetailsContent(data) {
@@ -364,13 +449,49 @@ class BloggerLoader {
     }
 }
 
+// Добавляем стили для индикатора загрузки
+const style = document.createElement('style');
+style.textContent = `
+    .load-more {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        color: var(--text-color);
+        font-size: 24px;
+    }
+
+    .load-more i {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .error-message {
+        text-align: center;
+        padding: 20px;
+        color: var(--text-color);
+        background: var(--card-bg);
+        border-radius: 8px;
+        margin: 20px;
+    }
+`;
+document.head.appendChild(style);
+
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     const bloggerLoader = new BloggerLoader();
     bloggerLoader.loadBloggers();
 
+    // Обработчик прокрутки
     window.addEventListener('scroll', () => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+        const loadMore = document.querySelector('.load-more');
+        if (!loadMore) return;
+
+        const rect = loadMore.getBoundingClientRect();
+        if (rect.top <= window.innerHeight && !bloggerLoader.loading) {
             bloggerLoader.loadBloggers();
         }
     });
@@ -383,4 +504,75 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Добавляем стили для пагинации
+const stylePagination = document.createElement('style');
+stylePagination.textContent = `
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+        padding: 20px;
+    }
+
+    .pagination {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .pagination-btn {
+        background: var(--card-bg);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: var(--text-color);
+        padding: 8px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .pagination-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .pagination-btn:not(:disabled):hover {
+        background: var(--card-hover);
+    }
+
+    .page-numbers {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+    }
+
+    .page-number {
+        background: var(--card-bg);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: var(--text-color);
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .page-number.active {
+        background: var(--accent-blue);
+        color: white;
+    }
+
+    .page-number:not(.active):hover {
+        background: var(--card-hover);
+    }
+
+    .pagination-dots {
+        color: var(--text-color);
+        padding: 0 5px;
+    }
+`;
+document.head.appendChild(stylePagination);
 
