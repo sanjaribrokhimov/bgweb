@@ -85,7 +85,7 @@ if (!isset($_GET['page'])) {
     <script src="scripts/utils.js"></script>
     <script src="scripts/main.js?v=1.0.3"></script>
     <!-- После utils.js -->
-<script src="scripts/notifications.js?v=1.0.2"></script>
+<script src="scripts/notifications.js?v=1.0.3"></script>
     <?php
     // Подключаем нужные скрипты в зависимости от страницы
     switch($page) {

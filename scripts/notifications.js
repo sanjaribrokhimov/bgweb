@@ -291,7 +291,7 @@ class NotificationManager {
         if (userDetails.telegram) {
             const telegramUsername = userDetails.telegram.replace('@', '').replace('https://t.me/', '');
             links.push(`
-                <a href="tg://resolve?domain=${telegramUsername}" class="social-link telegram">
+                <a href="https://t.me/${telegramUsername}" class="social-link telegram" target="_blank">
                     <i class="fab fa-telegram"></i> Telegram
                 </a>
                 <br>
