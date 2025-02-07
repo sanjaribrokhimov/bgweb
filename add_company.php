@@ -171,28 +171,58 @@
 }
 
 /* Добавьте к существующим стилям */
-select.form-control {
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1em;
-    padding-right: 2.5rem;
+.deal-type-switcher {
+    display: flex;
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 4px;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-select.form-control option {
-    background-color: var(--card-bg);
-    color: var(--text-color);
+.switch-option {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    z-index: 1;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--text-secondary);
+}
+
+.switch-option.active {
+    color: #fff;
+}
+
+.switch-slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    background: var(--gradient-2);
+    border-radius: 8px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.deal-type-switcher[data-type="barter"] .switch-slider {
+    transform: translateX(100%);
 }
 
 #budgetBlock {
     transition: all 0.3s ease;
+    overflow: hidden;
+    max-height: 200px;
+    opacity: 1;
 }
 
 #budgetBlock.hidden {
+    max-height: 0;
     opacity: 0;
-    height: 0;
-    overflow: hidden;
     margin: 0;
     padding: 0;
 }
@@ -232,22 +262,23 @@ select.form-control option {
             </div>
         </div>
 
-        <!-- Добавляем перед блоком бюджета -->
+        <!-- Заменяем блок бюджета на следующий код -->
         <div class="input-description">
             <i class="fas fa-handshake"></i>
             Выберите тип сделки
         </div>
-        <div class="form-group mb-3">
-            <div class="input-with-icon">
-                <i class="fas fa-handshake"></i>
-                <select name="deal_type" class="form-control" id="dealType">
-                    <option value="budget">Бюджет</option>
-                    <option value="barter">Бартер</option>
-                </select>
+        <div class="deal-type-switcher mb-3">
+            <div class="switch-option" data-value="budget">
+                <i class="fas fa-dollar-sign"></i>
+                <span>Бюджет</span>
             </div>
+            <div class="switch-option" data-value="barter">
+                <i class="fas fa-handshake"></i>
+                <span>Бартер</span>
+            </div>
+            <div class="switch-slider"></div>
         </div>
 
-        <!-- Модифицируем блок бюджета -->
         <div id="budgetBlock">
             <div class="input-description">
                 <i class="fas fa-dollar-sign"></i>
@@ -534,31 +565,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Обработка переключения типа сделки
-    const dealTypeSelect = document.getElementById('dealType');
-    const budgetBlock = document.getElementById('budgetBlock');
-    const budgetInput = budgetBlock.querySelector('input[name="budget"]');
-
-    dealTypeSelect.addEventListener('change', (e) => {
-        if (e.target.value === 'barter') {
-            budgetBlock.style.display = 'none';
-            budgetInput.value = '0';
-            budgetInput.required = false;
-        } else {
-            budgetBlock.style.display = 'block';
-            budgetInput.required = true;
-            budgetInput.value = '';
-        }
-    });
-
-    // Модифицируем обработчик формы
+    // Обработчик формы
     const addCompanyForm = document.getElementById('addCompanyForm');
     const responseBlock = document.getElementById('apiResponse');
     const alertBlock = responseBlock.querySelector('.alert');
 
     if (addCompanyForm) {
         addCompanyForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+            e.preventDefault(); // Предотвращаем стандартную отправку формы
             showLoading();
 
             try {
@@ -588,7 +602,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     direction: direction,
                     telegram_username: telegramUsername,
                     photo_base64: optimizedPhotoBase64,
-                    budget: dealTypeSelect.value === 'barter' ? 0 : parseInt(budgetInput.value) || 0,
+                    budget: currentDealType === 'barter' ? 0 : parseInt(budgetInput.value) || 0,
                     ad_comment: addCompanyForm.querySelector('textarea[name="ad_comment"]').value || "",
                     website_link: document.querySelector('#websiteFields input[type="url"]')?.value?.trim() || "",
                     telegram_link: document.querySelector('#telegramFields input[type="url"]')?.value?.trim() || "",
@@ -670,6 +684,43 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 300);
         }
     }
+
+    // Добавьте в существующий обработчик DOMContentLoaded
+    const dealTypeSwitcher = document.querySelector('.deal-type-switcher');
+    const switchOptions = dealTypeSwitcher.querySelectorAll('.switch-option');
+    const budgetBlock = document.getElementById('budgetBlock');
+    const budgetInput = budgetBlock.querySelector('input[name="budget"]');
+
+    let currentDealType = 'budget';
+
+    switchOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const value = option.dataset.value;
+            if (value === currentDealType) return;
+
+            currentDealType = value;
+            dealTypeSwitcher.dataset.type = value;
+            
+            switchOptions.forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.value === value);
+            });
+
+            if (value === 'barter') {
+                budgetBlock.classList.add('hidden');
+                setTimeout(() => {
+                    budgetInput.value = '0';
+                    budgetInput.required = false;
+                }, 300);
+            } else {
+                budgetBlock.classList.remove('hidden');
+                budgetInput.required = true;
+                budgetInput.value = '';
+            }
+        });
+    });
+
+    // Активируем начальное состояние
+    switchOptions[0].classList.add('active');
 });
 </script>
 

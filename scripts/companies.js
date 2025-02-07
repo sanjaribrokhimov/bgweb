@@ -96,8 +96,10 @@ class CompanyLoader {
 
     createCompanyCard(data) {
         const card = document.createElement('div');
+        let a = this.formatNumber(data.budget) > 0 ? `Бюджет: $${this.formatNumber(data.budget)}` : "Бартер";
         card.className = 'product-card animate-card';
         
+
         card.innerHTML = `
             <div class="product-image">
                 <img src="${data.photo_base64}" alt="Компания" onerror="this.src='./img/noImage.jpg'">
@@ -110,7 +112,7 @@ class CompanyLoader {
                     <div class="stats">
                         <div class="stat-item">
                             <i class="fas fa-briefcase"></i>
-                            <span>Бюджет: ${this.formatNumber(data.budget)}$</span>
+                            <span>${a}</span>
                         </div>
                     </div>
                 </div>
