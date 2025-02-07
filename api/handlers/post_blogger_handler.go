@@ -90,7 +90,7 @@ func GetPaginatedPostBloggers(c *gin.Context) {
     var total int64
 
     baseQuery := database.DB.Model(&models.PostBlogger{}).Where("status = ?", "true")
-    
+
     if category != "" && category != "all" {
         baseQuery = baseQuery.Where("user_direction LIKE ?", category)
     }
@@ -101,12 +101,12 @@ func GetPaginatedPostBloggers(c *gin.Context) {
     }
 
     query := database.DB.Where("status = ?", "true")
-    
+
     if category != "" && category != "all" {
         query = query.Where("user_direction LIKE ?", category)
     }
 
-    if err := query.Order("created_at DESC").
+    if err := query.Order("RANDOM()"). // Здесь меняем сортировку
         Offset(offset).
         Limit(limit).
         Find(&posts).Error; err != nil {
@@ -123,6 +123,7 @@ func GetPaginatedPostBloggers(c *gin.Context) {
         "category":   category,
     })
 }
+
 
 
 func GetPostBloggerByID(c *gin.Context) {
