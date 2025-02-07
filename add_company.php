@@ -169,6 +169,33 @@
 .modal.show .modal-dialog {
     transform: scale(1);
 }
+
+/* Добавьте к существующим стилям */
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+
+select.form-control option {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+#budgetBlock {
+    transition: all 0.3s ease;
+}
+
+#budgetBlock.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
 </style>
 
 
@@ -205,15 +232,32 @@
             </div>
         </div>
 
-        <!-- Бюджет -->
+        <!-- Добавляем перед блоком бюджета -->
         <div class="input-description">
-            <i class="fas fa-dollar-sign"></i>
-            Укажите ваш рекламный бюджет в долларах (если вы хотите на бартер поставьте 0)
+            <i class="fas fa-handshake"></i>
+            Выберите тип сделки
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
-                <i class="fas fa-dollar"></i>
-                <input type="number" name="budget" class="form-control" placeholder="Бюджет ($)" required>
+                <i class="fas fa-handshake"></i>
+                <select name="deal_type" class="form-control" id="dealType">
+                    <option value="budget">Бюджет</option>
+                    <option value="barter">Бартер</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Модифицируем блок бюджета -->
+        <div id="budgetBlock">
+            <div class="input-description">
+                <i class="fas fa-dollar-sign"></i>
+                Укажите ваш рекламный бюджет в долларах
+            </div>
+            <div class="form-group mb-3">
+                <div class="input-with-icon">
+                    <i class="fas fa-dollar"></i>
+                    <input type="number" name="budget" class="form-control" placeholder="Бюджет ($)" required>
+                </div>
             </div>
         </div>
 
@@ -490,14 +534,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Обработчик формы
+    // Обработка переключения типа сделки
+    const dealTypeSelect = document.getElementById('dealType');
+    const budgetBlock = document.getElementById('budgetBlock');
+    const budgetInput = budgetBlock.querySelector('input[name="budget"]');
+
+    dealTypeSelect.addEventListener('change', (e) => {
+        if (e.target.value === 'barter') {
+            budgetBlock.style.display = 'none';
+            budgetInput.value = '0';
+            budgetInput.required = false;
+        } else {
+            budgetBlock.style.display = 'block';
+            budgetInput.required = true;
+            budgetInput.value = '';
+        }
+    });
+
+    // Модифицируем обработчик формы
     const addCompanyForm = document.getElementById('addCompanyForm');
     const responseBlock = document.getElementById('apiResponse');
     const alertBlock = responseBlock.querySelector('.alert');
 
     if (addCompanyForm) {
         addCompanyForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Предотвращаем стандартную отправку формы
+            e.preventDefault();
             showLoading();
 
             try {
@@ -507,7 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error('Пожалуйста, выберите фото');
                 }
 
-                // Дополнительная ��птимизация перед отправкой
+                // Дополнительная оптимизация перед отправкой
                 const optimizedPhotoBase64 = await checkImageSize(photoBase64);
 
                 // Получаем данные из localStorage
@@ -527,7 +588,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     direction: direction,
                     telegram_username: telegramUsername,
                     photo_base64: optimizedPhotoBase64,
-                    budget: parseInt(addCompanyForm.querySelector('input[name="budget"]').value) || 0,
+                    budget: dealTypeSelect.value === 'barter' ? 0 : parseInt(budgetInput.value) || 0,
                     ad_comment: addCompanyForm.querySelector('textarea[name="ad_comment"]').value || "",
                     website_link: document.querySelector('#websiteFields input[type="url"]')?.value?.trim() || "",
                     telegram_link: document.querySelector('#telegramFields input[type="url"]')?.value?.trim() || "",
@@ -568,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Скрываем предыдущий алерт если он был
                     responseBlock.style.display = 'none';
                     
-                    // Показывае�� модальное окно
+                    // Показываем модальное окно
                     const successModal = new bootstrap.Modal(document.getElementById('successModal'));
                     successModal.show();
                     
