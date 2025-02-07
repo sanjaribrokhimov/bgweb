@@ -192,7 +192,7 @@ func MarkNotificationAsRead(c *gin.Context) {
 }
 
 func ClearOldNotifications() {
-	oneMonthAgo := time.Now().AddDate(0, -1, 0)
+	oneMonthAgo := time.Now().AddDate(0, 0, -10)
 	if err := database.DB.Where("created_at < ?", oneMonthAgo).Delete(&models.Notification{}).Error; err != nil {
 		log.Printf("Ошибка при очистке старых уведомлений: %v", err)
 	} else {
