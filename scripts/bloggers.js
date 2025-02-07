@@ -23,7 +23,6 @@ class BloggerLoader {
                 
                 this.currentCategory = e.target.value;
                 this.page = 1;
-                this.allBloggers = [];
                 this.hasMore = true;
                 this.loadBloggers();
             });
@@ -158,20 +157,41 @@ class BloggerLoader {
             if (this.loading || !this.hasMore) return;
             
             this.loading = true;
-            console.log('Loading bloggers for page:', this.page);
+            
+            // Формируем URL с параметрами
+            let url = `https://blogy.uz/api/post-bloggers/paginated?page=${this.page}&limit=${this.limit}`;
+            if (this.currentCategory && this.currentCategory !== 'all') {
+                url += `&category=${this.currentCategory}`;
+            }
 
-            const response = await fetch(`https://blogy.uz/api/post-bloggers/paginated?page=${this.page}&limit=${this.limit}`);
+            const response = await fetch(url);
             const data = await response.json();
             
-            console.log('Received data:', data);
-
             if (data && data.posts) {
-                this.allBloggers = [...this.allBloggers, ...data.posts];
+                const grid = document.querySelector('.products-grid');
+                
+                // Если постов нет, показываем сообщение
+                if (data.posts.length === 0 && this.page === 1) {
+                    grid.innerHTML = '<div class="no-results">Нет блогеров в выбранной категории</div>';
+                    this.hasMore = false;
+                    return;
+                }
+
+                // Создаем HTML для новых карточек
+                const newCardsHTML = data.posts
+                    .map(blogger => this.createBloggerCardHTML(blogger))
+                    .join('');
+                
+                // Если это первая страница, заменяем содержимое
+                if (this.page === 1) {
+                    grid.innerHTML = newCardsHTML;
+                } else {
+                    // Иначе добавляем новые карточки в конец
+                    grid.insertAdjacentHTML('beforeend', newCardsHTML);
+                }
+
                 this.hasMore = this.page < data.totalPages;
                 this.page++;
-                
-                console.log('Updated allBloggers:', this.allBloggers);
-                this.filterBloggers();
             }
         } catch (error) {
             console.error('Error loading bloggers:', error);
