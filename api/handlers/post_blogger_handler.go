@@ -79,7 +79,7 @@ func GetPostBloggers(c *gin.Context) {
 	c.JSON(http.StatusOK, posts)
 }
 
-
+// ... существующий код ...
 
 // Новая функция с пагинацией
 func GetPaginatedPostBloggers(c *gin.Context) {
