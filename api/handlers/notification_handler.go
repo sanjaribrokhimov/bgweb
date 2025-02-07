@@ -9,9 +9,11 @@ import (
 	"io"
 	"log"
 	"net/http"
-
+	"time"
 	"github.com/gin-gonic/gin"
 )
+
+
 
 func CreateAcceptNotification(c *gin.Context) {
 	var input struct {
@@ -187,4 +189,28 @@ func MarkNotificationAsRead(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Notification marked as read"})
+}
+
+func ClearOldNotifications() {
+	oneMonthAgo := time.Now().AddDate(0, -1, 0)
+	if err := database.DB.Where("created_at < ?", oneMonthAgo).Delete(&models.Notification{}).Error; err != nil {
+		log.Printf("Ошибка при очистке старых уведомлений: %v", err)
+	} else {
+		log.Println("Старые уведомления успешно удалены.")
+	}
+}
+
+func StartNotificationCleaner() {
+	// Сразу запускаем очистку при старте
+	log.Println("Первый запуск очистки уведомлений...")
+	ClearOldNotifications()
+
+	// Запускаем таймер на 24 часа
+	ticker := time.NewTicker(24 * time.Hour)
+	defer ticker.Stop()
+
+	for range ticker.C {
+		log.Println("Запуск очистки уведомлений...")
+		ClearOldNotifications()
+	}
 }

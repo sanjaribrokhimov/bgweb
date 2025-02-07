@@ -90,12 +90,12 @@ func SendWebSocketNotification(userId uint, notification interface{}) {
     connections := Hub.clients[userId]
     Hub.mutex.RUnlock()
 
-    if connections != nil {
+    
         for conn := range connections {
             err := conn.WriteJSON(notification)
             if err != nil {
                 log.Printf("Failed to send notification: %v", err)
             }
         }
-    }
+    
 } 
