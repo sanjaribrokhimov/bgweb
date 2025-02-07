@@ -79,11 +79,6 @@ func GetPostBloggers(c *gin.Context) {
 	c.JSON(http.StatusOK, posts)
 }
 
-<<<<<<< HEAD
-=======
-// ... существующий код ...
->>>>>>> a873f332aed0b04e6bf54134a8cacce785b57ad8
-
 // Новая функция с пагинацией
 func GetPaginatedPostBloggers(c *gin.Context) {
     page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
