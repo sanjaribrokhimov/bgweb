@@ -75,9 +75,19 @@ $user_id = $_GET['user_id'];
             margin-bottom: 8px;
             display: block;
         }
+        strong a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+        strong a:hover {
+            color: #007bff88;
+        }
     </style>
+
 </head>
 <body>
+
     <div class="admin-wrapper">
         <!-- Боковое меню -->
         <nav id="sidebar" class="sidebar">
@@ -165,8 +175,11 @@ $user_id = $_GET['user_id'];
                 html += '<h3 class="mt-4">Объявления блогера</h3>';
                 html += '<div class="row"><div class="col-12">';
                 data.bloggers.forEach(ad => {
+                    let tgLink = ad.telegram_link.replace('https://t.me/', '').replace('@', '');
+                    let igLink = ad.instagram_link.replace('https://www.instagram.com/', '');
                     html += `
                         <div class="ad-card">
+
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -180,8 +193,12 @@ $user_id = $_GET['user_id'];
                                                 <strong>Направление:</strong> ${ad.user_direction}<br>
                                                 <strong>Статус:</strong> ${ad.status}<br>
                                                 <strong>Комментарий:</strong> ${ad.ad_comment}<br>
+                                                <strong><a href="https://t.me/${tgLink}" target="_blank">Telegram</a></strong>
+                                                <strong><a href="https://www.instagram.com/${igLink}" target="_blank">Instagram</a></strong>
                                             </p>
                                             <div class="agreement-count">
+
+
                                                 <i class="fa-solid fa-handshake"></i> ${ad.agreement_count} соглашений
                                             </div>
                                         </div>
@@ -199,9 +216,13 @@ $user_id = $_GET['user_id'];
                 html += '<h3 class="mt-4">Объявления компании</h3>';
                 html += '<div class="row"><div class="col-12">';
                 data.companies.forEach(ad => {
+                    let tgLink = ad.telegram_link.replace('https://t.me/', '').replace('@', '');
+                    let igLink = ad.instagram_link.replace('https://www.instagram.com/', '');
                     html += `
                         <div class="ad-card">
                             <div class="card">
+
+
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-3">
@@ -215,6 +236,9 @@ $user_id = $_GET['user_id'];
                                                 <strong>Бюджет:</strong> ${ad.budget}<br>
                                                 <strong>Статус:</strong> ${ad.status}<br>
                                                 <strong>Комментарий:</strong> ${ad.ad_comment}<br>
+                                                <strong><a href="https://t.me/${tgLink}" target="_blank">Telegram</a></strong>
+                                                <strong><a href="https://www.instagram.com/${igLink}" target="_blank">Instagram</a></strong>
+
                                             </p>
                                             <div class="agreement-count">
                                                 <i class="fa-solid fa-handshake"></i> ${ad.agreement_count} соглашений
@@ -234,8 +258,11 @@ $user_id = $_GET['user_id'];
                 html += '<h3 class="mt-4">Объявления фрилансера</h3>';
                 html += '<div class="row"><div class="col-12">';
                 data.freelancers.forEach(ad => {
+                    let tgLink = ad.telegram_link.replace('https://t.me/', '').replace('@', '');
+                    let igLink = ad.instagram_link.replace('https://www.instagram.com/', '');
                     html += `
                         <div class="ad-card">
+
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -248,8 +275,12 @@ $user_id = $_GET['user_id'];
                                                 <strong>Категория:</strong> ${ad.category}<br>
                                                 <strong>Статус:</strong> ${ad.status}<br>
                                                 <strong>Комментарий:</strong> ${ad.ad_comment}<br>
+                                                <strong><a href="https://t.me/${tgLink}" target="_blank">Telegram</a></strong>
+                                                <strong><a href="https://www.instagram.com/${igLink}" target="_blank">Instagram</a></strong>
                                             </p>
                                             <div class="agreement-count">
+
+
                                                 <i class="fa-solid fa-handshake"></i> ${ad.agreement_count} соглашений
                                                 
                                             </div>
