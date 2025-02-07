@@ -2670,7 +2670,7 @@ body:not(.dark-theme) .btn-close:hover {
 }
 
 /* Тёмная тема */
-@media (prefers-color-scheme: dark) {
+/* body.dark-theme { */
     
 
     .custom-modal .btn-close {
@@ -2836,7 +2836,9 @@ body:not(.dark-theme) .btn-close:hover {
     }
 
 
-}
+/* } */
+
+
 
 .product-info p,
 .product-info h3
