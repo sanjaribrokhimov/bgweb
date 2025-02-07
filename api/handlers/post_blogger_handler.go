@@ -83,36 +83,48 @@ func GetPostBloggers(c *gin.Context) {
 func GetPaginatedPostBloggers(c *gin.Context) {
     page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
     limit, _ := strconv.Atoi(c.DefaultQuery("limit", "10"))
-    direction := c.DefaultQuery("category", "all")
+    category := c.DefaultQuery("category", "all")
     offset := (page - 1) * limit
 
     var posts []models.PostBlogger
     var total int64
 
+    // Добавим логирование для отладки
+    log.Printf("Получен запрос с параметрами: page=%d, limit=%d, category=%s", page, limit, category)
+
     baseQuery := database.DB.Model(&models.PostBlogger{}).Where("status = ?", "true")
     
-    if direction != "" && direction != "all" {
-        baseQuery = baseQuery.Where("direction = ?", direction)
+    if category != "" && category != "all" {
+        baseQuery = baseQuery.Where("user_direction LIKE ?", category)
+        // Добавим логирование значения в базе
+        log.Printf("Поиск по direction: %s", category)
     }
 
+    // Подсчет общего количества записей
     if err := baseQuery.Count(&total).Error; err != nil {
+        log.Printf("Ошибка подсчета записей: %v", err)
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка получения данных"})
         return
     }
 
+    // Получение записей с пагинацией
     query := database.DB.Where("status = ?", "true")
     
-    if direction != "" && direction != "all" {
-        query = query.Where("direction = ?", direction)
+    if category != "" && category != "all" {
+        query = query.Where("user_direction LIKE ?", category)
     }
 
     if err := query.Order("created_at DESC").
         Offset(offset).
         Limit(limit).
         Find(&posts).Error; err != nil {
+        log.Printf("Ошибка получения постов: %v", err)
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка загрузки постов"})
         return
     }
+
+    // Добавим логирование результатов
+    log.Printf("Найдено записей: %d, всего: %d", len(posts), total)
 
     c.JSON(http.StatusOK, gin.H{
         "posts":      posts,
@@ -120,7 +132,7 @@ func GetPaginatedPostBloggers(c *gin.Context) {
         "page":       page,
         "totalPages": int(math.Ceil(float64(total) / float64(limit))),
         "limit":      limit,
-        "direction":  direction,
+        "category":   category,
     })
 }
 
