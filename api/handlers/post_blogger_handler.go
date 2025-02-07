@@ -89,25 +89,17 @@ func GetPaginatedPostBloggers(c *gin.Context) {
     var posts []models.PostBlogger
     var total int64
 
-    // Добавим логирование для отладки
-    log.Printf("Получен запрос с параметрами: page=%d, limit=%d, category=%s", page, limit, category)
-
     baseQuery := database.DB.Model(&models.PostBlogger{}).Where("status = ?", "true")
     
     if category != "" && category != "all" {
         baseQuery = baseQuery.Where("user_direction LIKE ?", category)
-        // Добавим логирование значения в базе
-        log.Printf("Поиск по direction: %s", category)
     }
 
-    // Подсчет общего количества записей
     if err := baseQuery.Count(&total).Error; err != nil {
-        log.Printf("Ошибка подсчета записей: %v", err)
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка получения данных"})
         return
     }
 
-    // Получение записей с пагинацией
     query := database.DB.Where("status = ?", "true")
     
     if category != "" && category != "all" {
@@ -118,13 +110,9 @@ func GetPaginatedPostBloggers(c *gin.Context) {
         Offset(offset).
         Limit(limit).
         Find(&posts).Error; err != nil {
-        log.Printf("Ошибка получения постов: %v", err)
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка загрузки постов"})
         return
     }
-
-    // Добавим логирование результатов
-    log.Printf("Найдено записей: %d, всего: %d", len(posts), total)
 
     c.JSON(http.StatusOK, gin.H{
         "posts":      posts,
