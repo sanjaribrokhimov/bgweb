@@ -79,28 +79,36 @@ func GetPostBloggers(c *gin.Context) {
 	c.JSON(http.StatusOK, posts)
 }
 
-// ... существующий код ...
+
 
 // Новая функция с пагинацией
 func GetPaginatedPostBloggers(c *gin.Context) {
     page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
     limit, _ := strconv.Atoi(c.DefaultQuery("limit", "10"))
+    category := c.DefaultQuery("category", "all")
     offset := (page - 1) * limit
 
     var posts []models.PostBlogger
     var total int64
 
-    // Фильтруем по статусу "true" при подсчете
-    if err := database.DB.Model(&models.PostBlogger{}).
-        Where("status = ?", "true").
-        Count(&total).Error; err != nil {
+    baseQuery := database.DB.Model(&models.PostBlogger{}).Where("status = ?", "true")
+    
+    if category != "" && category != "all" {
+        baseQuery = baseQuery.Where("category = ?", category)
+    }
+
+    if err := baseQuery.Count(&total).Error; err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка получения данных"})
         return
     }
 
-    // Добавляем фильтр статуса в основной запрос
-    if err := database.DB.Where("status = ?", "true").
-        Order("created_at DESC").
+    query := database.DB.Where("status = ?", "true")
+    
+    if category != "" && category != "all" {
+        query = query.Where("category = ?", category)
+    }
+
+    if err := query.Order("created_at DESC").
         Offset(offset).
         Limit(limit).
         Find(&posts).Error; err != nil {
@@ -114,6 +122,7 @@ func GetPaginatedPostBloggers(c *gin.Context) {
         "page":       page,
         "totalPages": int(math.Ceil(float64(total) / float64(limit))),
         "limit":      limit,
+        "category":   category,
     })
 }
 
