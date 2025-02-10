@@ -72,6 +72,8 @@
 .products-grid {
     display: flex;
     flex-wrap: wrap; /* Позволяет карточкам переноситься на следующую строку */
+    justify-content: center; 
+
 }
 
 /* Стили для карточки блогера */
@@ -79,7 +81,6 @@
     
     background: var(--gradient-1);
     border-radius: 16px;
-    padding: 5px;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.05);

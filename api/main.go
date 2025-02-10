@@ -12,6 +12,8 @@ import (
 )
 
 func main() {
+
+	
 	// Установка режима Gin
 	gin.SetMode(gin.ReleaseMode)
 
@@ -131,4 +133,9 @@ func main() {
 	if err := r.Run(":8888"); err != nil {
 		log.Fatal("Failed to start server:", err)
 	}
+
+	go handlers.StartNotificationCleaner() // Запуск фоновой горутины
+
+	// Основной процесс, чтобы программа не завершалась
+	select {}
 }
