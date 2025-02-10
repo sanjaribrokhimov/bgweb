@@ -51,6 +51,13 @@ class Tutorial {
                 position: 'bottom',
                 borderRadius: '8px'
             },
+            {
+                element: 'body',
+                title: 'Спасибо за просмотр!',
+                text: 'Надеюсь, вы нашли что-то интересное! Если у вас возникли вопросы, не стесняйтесь обращаться в техподдержку.',
+                position: 'center',
+                borderRadius: '0'
+            }
         ];
 
         this.init();
@@ -311,11 +318,12 @@ class Tutorial {
         }
 
         // Для первого шага - центрируем попап
-        if (index === 0) {
+        if (index === 0 || index === 7) {
             const viewportHeight = window.innerHeight;
             const viewportWidth = window.innerWidth;
             
             this.highlight.style.display = 'block';
+            this.highlight.style.background = 'rgba(0, 0, 0, 0.85)';
             
             this.popup.style.top = `${(viewportHeight - 200) / 2}px`;
             this.popup.style.left = `${(viewportWidth - 280) / 2}px`;
@@ -334,6 +342,9 @@ class Tutorial {
                 </div>
             `;
             return;
+        }else   
+        {
+            this.highlight.style.background = 'rgba(255, 255, 255, 0.1)';
         }
 
         // Возвращаем стандартные стили для остальных шагов
