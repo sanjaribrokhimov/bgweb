@@ -143,7 +143,7 @@ func GetUserNotifications(c *gin.Context) {
 			"is_verified": notification.FromUser.IsVerified,
 		}
 
-		// toUser := gin.H{
+		toUser := gin.H{
 			"ID":         notification.ToUser.ID,
 			"name":       notification.ToUser.Name,
 			"email":      notification.ToUser.Email,
