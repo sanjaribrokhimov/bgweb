@@ -75,7 +75,7 @@ if (!isset($_GET['page'])) {
     <script src="scripts/notifications.js?v=1.0.3"></script>
 
     <!-- Добавьте перед закрывающим тегом body -->
-    <script src="scripts/tutorial.js?v=1.0.2"></scrpt>
+    <script src="scripts/tutorial.js?v=1.0.3"></scrpt>
     <?php
     // Подключаем нужные скрипты в зависимости от страницы
     switch($page) {

@@ -3,6 +3,13 @@ class Tutorial {
         this.currentStep = 0;
         this.steps = [
             {
+                element: 'body',
+                title: 'Добро пожаловать!',
+                text: 'Привет! Я ваш проводник по платформе. Сейчас я покажу вам основные функции и возможности сервиса. Нажмите в любое место, чтобы продолжить.',
+                position: 'center',
+                borderRadius: '0'
+            },
+            {
                 element: '.profile-btn',
                 title: 'Профиль',
                 text: 'Нажмите сюда, чтобы перейти в свой профиль, редактировать его и просматривать свои объявления',
@@ -302,6 +309,37 @@ class Tutorial {
             this.showStep(index + 1);
             return;
         }
+
+        // Для первого шага - центрируем попап
+        if (index === 0) {
+            const viewportHeight = window.innerHeight;
+            const viewportWidth = window.innerWidth;
+            
+            this.highlight.style.display = 'block';
+            
+            this.popup.style.top = `${(viewportHeight - 200) / 2}px`;
+            this.popup.style.left = `${(viewportWidth - 280) / 2}px`;
+            
+            // Специальный стиль для приветственного попапа
+            this.popup.style.padding = '25px 25px 25px 60px';
+            this.popup.style.width = '320px';
+            
+            this.popup.innerHTML = `
+                <div class="tutorial-character">
+                    <div class="character">👋</div>
+                </div>
+                <div class="tutorial-content">
+                    <h3>${step.title}</h3>
+                    <p>${step.text}</p>
+                </div>
+            `;
+            return;
+        }
+
+        // Возвращаем стандартные стили для остальных шагов
+        this.highlight.style.display = 'block';
+        this.popup.style.padding = '20px 20px 20px 50px';
+        this.popup.style.width = '280px';
 
         const rect = element.getBoundingClientRect();
         
