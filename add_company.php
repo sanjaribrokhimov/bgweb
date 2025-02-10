@@ -253,7 +253,7 @@
         <!-- Название компании -->
         <div class="input-description">
             <i class="fas fa-building"></i>
-            Укажите кого вы ищете (Заголовок)
+            Укажите название компании
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">

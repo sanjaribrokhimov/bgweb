@@ -128,10 +128,35 @@ func GetUserNotifications(c *gin.Context) {
 	// Обогащаем каждое уведомление деталями объявления
 	var enrichedNotifications []gin.H
 	for _, notification := range notifications {
+		// Создаем безопасные версии пользователей без паролей и OTP
+		fromUser := gin.H{
+			"ID":         notification.FromUser.ID,
+			"name":       notification.FromUser.Name,
+			"email":      notification.FromUser.Email,
+			"phone":      notification.FromUser.Phone,
+			"category":   notification.FromUser.Category,
+			"direction":  notification.FromUser.Direction,
+			"telegram":   notification.FromUser.Telegram,
+			"instagram":  notification.FromUser.Instagram,
+			"is_verified": notification.FromUser.IsVerified,
+		}
+
+		// toUser := gin.H{
+			"ID":         notification.ToUser.ID,
+			"name":       notification.ToUser.Name,
+			"email":      notification.ToUser.Email,
+			"phone":      notification.ToUser.Phone,
+			"category":   notification.ToUser.Category,
+			"direction":  notification.ToUser.Direction,
+			"telegram":   notification.ToUser.Telegram,
+			"instagram":  notification.ToUser.Instagram,
+			"is_verified": notification.ToUser.IsVerified,
+		}
+
 		enriched := gin.H{
 			"id":         notification.ID,
-			"from_user":  notification.FromUser,
-			"to_user":    notification.ToUser,
+			"from_user":  fromUser,
+			"to_user":    toUser,
 			"type":       notification.Type,
 			"message":    notification.Message,
 			"is_read":    notification.IsRead,
@@ -140,8 +165,7 @@ func GetUserNotifications(c *gin.Context) {
 			"user_message": notification.MessageToUser,
 		}
 
-
-		// Поучаем детали объявления
+		// Получаем детали объявления
 		var adDetails interface{}
 		switch notification.AdType {
 		case "blogger":

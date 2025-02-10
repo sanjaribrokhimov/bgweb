@@ -191,7 +191,7 @@
         <!-- Имя -->
         <div class="input-description">
             <i class="fas fa-user"></i>
-            Укажите кто вы кого ищете (Заголовок)
+            Укажите кто вы
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">

@@ -218,7 +218,7 @@
         <!-- Загрузка фото -->
          <div class="input-description">
             <i class="fas fa-image"></i>
-            Пожалуйста, загрузите фотографию вашего профиля
+            Пожалуйста, загрузите фотографию вашего профиля или логотип
         </div>
         <div class="form-group mb-4">
             <label class="upload-photo">
