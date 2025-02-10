@@ -9,12 +9,12 @@ $IP = '144.126.128.67';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloger Agency</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=1.0.6">
+    <link rel="stylesheet" href="styles.css?v=1.0.7">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
         .product-card {
-            max-width: 180px;
+            max-width: 200px;
         }
         /* Фиксируем блок сверху */
         .top-bar {
