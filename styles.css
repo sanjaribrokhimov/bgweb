@@ -322,7 +322,7 @@ body:not(.dark-theme) {
 
 .product-image {
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .product-image img {
@@ -1182,7 +1182,7 @@ body.light-theme input:-webkit-autofill:active {
     border: none;
     padding: 6px 14px;
     border-radius: 10px;
-   
+    height: 35px;
     font-size: 12px;
     transition: all 0.3s ease;
 }
@@ -2849,6 +2849,7 @@ body:not(.dark-theme) .btn-close:hover {
         -webkit-line-clamp: 3; /* Ограничение в 3 строки */
         overflow: hidden; /* Скрываем текст, выходящий за границы */
         text-overflow: ellipsis; /* Добавляем многоточие (...) в конце */
+        font-weight: bold;
 }
 .product-info h3
 {

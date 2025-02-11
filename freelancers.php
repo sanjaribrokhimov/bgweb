@@ -1,12 +1,12 @@
 <style>
     .product-info
     {
-        height: 135px;
+        height: 140px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         width: 100%;
-        padding: 0 10px 8px;
+        padding: 0 10px 10px;
     }
 </style>
 
