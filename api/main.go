@@ -112,6 +112,7 @@ func main() {
 		// Маршруты для админ-панели
 		admin := api.Group("/admin")
 		{
+    		admin.DELETE("/cleanup-users", handlers.DeleteInactiveUser)
 			admin.POST("/login", handlers.AdminLogin)
 			admin.GET("/pending-ads", handlers.GetPendingAds)
 			admin.GET("/pending-old-ads", handlers.GetPendingOldAdByID)

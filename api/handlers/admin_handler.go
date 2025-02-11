@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-
+	"gorm.io/gorm"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -705,3 +705,48 @@ func GetUserAdsWithAgreements(c *gin.Context) {
 
     c.JSON(http.StatusOK, response)
 }
+
+
+// DeleteInactiveUser удаляет неактивного пользователя и все связанные данные
+func DeleteInactiveUser(c *gin.Context) {
+    // Находим всех неактивных пользователей
+    var inactiveUsers []models.User
+    if err := database.DB.Where("is_verified = ?", false).Find(&inactiveUsers).Error; err != nil || len(inactiveUsers) == 0 {
+        c.JSON(http.StatusNotFound, gin.H{"error": "Нет неактивных пользователей для удаления"})
+        return
+    }
+
+    // Удаляем в транзакции
+    err := database.DB.Transaction(func(tx *gorm.DB) error {
+        // Собираем ID пользователей
+        var userIDs []uint
+        for _, user := range inactiveUsers {
+            userIDs = append(userIDs, user.ID)
+        }
+
+        // Удаляем все объявления пользователей
+        if err := tx.Where("user_id IN ?", userIDs).Delete(&models.PostBlogger{}).Error; err != nil {
+            return err
+        }
+        if err := tx.Where("user_id IN ?", userIDs).Delete(&models.Company{}).Error; err != nil {
+            return err
+        }
+        if err := tx.Where("user_id IN ?", userIDs).Delete(&models.Freelancer{}).Error; err != nil {
+            return err
+        }
+        
+        // Удаляем самих пользователей
+        return tx.Where("is_verified = ?", false).Delete(&models.User{}).Error
+    })
+
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при удалении аккаунтов"})
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{
+        "success": true,
+        "deleted_count": len(inactiveUsers),
+    })
+}
+

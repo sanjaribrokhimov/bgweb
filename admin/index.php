@@ -355,8 +355,17 @@ $statistics = fetchData("admin/statistics");
                                 </div>
                             </div>
                         </div>
-                        <!-- Статистика по типам объявлений -->
-                        
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Управление пользователями</h5>
+                                    <button class="btn btn-danger w-100" onclick="cleanupInactiveUsers()">
+                                        <i class="fas fa-user-minus"></i>
+                                        Удалить неактивных
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                     <!-- После существующих карточек статистики добавляем календарь -->
@@ -776,6 +785,30 @@ $statistics = fetchData("admin/statistics");
         // Добавляем JavaScript функцию для редактирования профиля (в секцию <script>)
         function editUserProfile(userEmail) {
             window.location.href = `editProfile.php?email=${encodeURIComponent(userEmail)}`;
+        }
+
+        // Функция для удаления неактивных пользователей
+        function cleanupInactiveUsers() {
+            if (confirm('Вы уверены, что хотите удалить всех неактивных пользователей? Это действие нельзя отменить.')) {
+                // Показываем индикатор загрузки
+                document.getElementById('loadingIndicator').style.display = 'flex';
+                
+                $.ajax({
+                    url: 'https://blogy.uz/api/admin/cleanup-users',
+                    method: 'DELETE',
+                    success: function(response) {
+                        // Скрываем индикатор загрузки
+                        document.getElementById('loadingIndicator').style.display = 'none';
+                        alert('Неактивные пользователи успешно удалены');
+                        location.reload();
+                    },
+                    error: function(xhr) {
+                        // Скрываем индикатор загрузки
+                        document.getElementById('loadingIndicator').style.display = 'none';
+                        alert('Ошибка: ' + (xhr.responseJSON ? xhr.responseJSON.error : 'Не удалось удалить неактивных пользователей'));
+                    }
+                });
+            }
         }
     </script>
 </body>
