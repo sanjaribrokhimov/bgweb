@@ -404,7 +404,9 @@ class Tutorial {
         // Содержимое попапа с персонажем
         this.popup.innerHTML = `
             <div class="tutorial-character">
-                <div class="character">👨‍🏫</div>
+                <div class="character">
+                    <img src="/img/tutorialer.png" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
             </div>
             <div class="tutorial-content">
                 <h3>${step.title}</h3>
