@@ -353,9 +353,27 @@ class Tutorial {
         this.popup.style.width = '280px';
 
         const rect = element.getBoundingClientRect();
+
+        if(index === 5 || index === 6)
+        {
+            console.log(rect.top)
+            console.log(document.querySelector('.bottom-nav').getBoundingClientRect().top)
+            if(element.offsetTop > document.querySelector('.bottom-nav').offsetTop)
+            {
+                window.scrollTo({
+                    top: element.offsetTop - document.querySelector('.bottom-nav').offsetTop,
+                    behavior: 'smooth'
+                });
+                
+            }
+
+            this.highlight.style.top = `${element.offsetTop}px`;
+
+        }else{
+            this.highlight.style.top = `${rect.top}px`; 
+        }
         
         // Подсветка элемента
-        this.highlight.style.top = `${rect.top}px`;
         this.highlight.style.left = `${rect.left}px`;
         this.highlight.style.width = `${rect.width}px`;
         this.highlight.style.height = `${rect.height}px`;
@@ -366,7 +384,6 @@ class Tutorial {
         const popupHeight = 200;
         const margin = 20;
         let popupTop;
-
         if (rect.top > popupHeight + margin) {
             popupTop = rect.top - popupHeight - margin;
         } else {
@@ -397,6 +414,7 @@ class Tutorial {
     }
 
     finish() {
+        window.scroll(0, 0)
         // Удаляем обработчик клика
         document.removeEventListener('click', this.handleClick.bind(this));
         

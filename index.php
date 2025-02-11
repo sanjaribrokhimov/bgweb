@@ -73,7 +73,7 @@ if (!isset($_GET['page'])) {
     <script src="scripts/main.js?v=1.0.3"></script>
     
     <!-- Добавьте перед закрывающим тегом body -->
-    <script src="scripts/tutorial.js?v=1.0.4"></scrpt>
+    <script src="scripts/tutorial.js?v=1.0.5"></script>
     
     <!-- После utils.js -->
     <script src="scripts/notifications.js?v=1.0.3"></script>
