@@ -119,7 +119,7 @@ class FreelancerLoader {
     createFreelancerCard(data) {
         const card = document.createElement('div');
         card.className = 'product-card animate-card';
-        
+        card.dataset.id = data.ID;
         const itemId = data.ID || data.id;
         const userId = data.user_id || data.userId;
         
@@ -369,11 +369,15 @@ document.addEventListener('DOMContentLoaded', () => {
             freelancerLoader.loadFreelancers();
         }
     });
-
     document.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-details')) {
-            const button = e.target.closest('.btn-details');
-            const id = button.dataset.id;
+        // Проверяем, не является ли целевой элемент кнопкой .btn-accept
+        if (e.target.closest('.btn-accept')) {
+            return;
+        }
+
+        if (e.target.closest('.btn-details') || e.target.closest('.product-card')) {
+            const thisTarget = e.target.closest('.btn-details') || e.target.closest('.product-card');
+            const id = thisTarget.dataset.id;
             freelancerLoader.showDetails(id);
         }
     });

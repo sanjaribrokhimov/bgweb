@@ -98,7 +98,7 @@ class CompanyLoader {
         const card = document.createElement('div');
         let a = this.formatNumber(data.budget) > 0 ? `Бюджет: $${this.formatNumber(data.budget)}` : "Бартер";
         card.className = 'product-card animate-card';
-        
+        card.dataset.id = data.ID;
 
         card.innerHTML = `
             <div class="product-image">
@@ -339,10 +339,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-details')) {
-            const button = e.target.closest('.btn-details');
-            const id = button.dataset.id;
+        // Проверяем, не является ли целевой элемент кнопкой .btn-accept
+        if (e.target.closest('.btn-accept')) {
+            return;
+        }
+        if (e.target.closest('.btn-details') || e.target.closest('.product-card')) {
+            const thisTarget = e.target.closest('.btn-details') || e.target.closest('.product-card');
+            const id = thisTarget.dataset.id;
             companyLoader.showDetails(id);
         }
     });
+
 }); 

@@ -209,7 +209,7 @@ class BloggerLoader {
         const hasAgreement = window.bloggerLoader?.userAgreements?.has(agreementKey);
         
         return `
-            <div class="product-card animate-card">
+            <div class="product-card animate-card" data-id="${data.id}">
                 <div class="product-image">
                     <img id="myImg" src="${data.photo_base64}" alt="Блогер" onerror="this.src='./img/noImage.jpg'">
                 </div>
@@ -499,9 +499,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-details')) {
-            const button = e.target.closest('.btn-details');
-            const id = button.dataset.id;
+        // Проверяем, не является ли целевой элемент кнопкой .btn-accept
+        if (e.target.closest('.btn-accept')) {
+            return;
+        }
+        if (e.target.closest('.btn-details') || e.target.closest('.product-card')) {
+            const thisTarget = e.target.closest('.btn-details') || e.target.closest('.product-card');
+            const id = thisTarget.dataset.id;
             bloggerLoader.showDetails(id);
         }
     });
