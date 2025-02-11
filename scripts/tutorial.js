@@ -117,14 +117,14 @@ class Tutorial {
 
             .tutorial-character {
                 position: absolute;
-                left: -15px;
-                top: -15px;
-                width: 50px;
-                height: 50px;
+                left: -50px;
+                top: -50px;
+                width: 100px;
+                height: 100px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: var(--accent-blue);
+                background: transparent;
                 border-radius: 50%;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             }
