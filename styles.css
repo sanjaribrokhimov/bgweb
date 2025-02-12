@@ -28,6 +28,7 @@
     display: flex;
     flex-direction: column;
     align-items: center; /* Центрируем содержимое */
+    cursor: pointer;
 }
 
 /* Стили для изображения блогера */
@@ -2279,16 +2280,25 @@ body:not(.dark-theme) .modal-header {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-body:not(.dark-theme) .modal-title {
-    color: var(--text-color);
+body:not(.dark-theme) .modal-title,
+body:not(.dark-theme) .modal-close-btn i {
+    color: #fff;
 }
 
 body:not(.dark-theme) .details-card  {
     background: var(--card-bg);
     border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
+}
+.details-card
+{
+    text-align: center;
 }
 
+body .details-header h4
+{
+    font-weight: bold;
+}
 body:not(.dark-theme) .details-header h4 {
     color: var(--text-color);
 }
@@ -2300,7 +2310,14 @@ body:not(.dark-theme) .details-stats span {
 
 body:not(.dark-theme) .info-item {
     background: var(--gradient-1);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
+}
+body.dark-theme .details-header span,
+body.dark-theme .info-item span,
+body.dark-theme .info-item .comment-text,
+body.dark-theme .info-item .looking-for-text
+{
+    color: #fffc;
 }
 
 body:not(.dark-theme) .info-item label {
@@ -2315,13 +2332,40 @@ body:not(.dark-theme) .info-item span {
 body:not(.dark-theme) .social-network-item {
     background: var(--gradient-1);
     color: var(--text-color);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
+}
+
+.social-networks
+{
+    display: flex;
+    justify-content: center;
+}
+
+.social-network-item {
+    transition: all 0.3s ease;
+    /* border: 1px solid #000; */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+}
+.social-network-item i
+{
+    font-size: 25px;
+}
+
+.social-network-item:hover {
+    transform: translateY(-5px);
 }
 
 body:not(.dark-theme) .comment-text {
     background: var(--gradient-1) !important;
     color: var(--text-color) !important;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
 }
 
 /* Стили для кнопки закрытия в светлой теме */

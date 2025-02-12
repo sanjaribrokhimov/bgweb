@@ -169,53 +169,45 @@ class FreelancerLoader {
                 </div>
                 <div class="details-info">
                     <div class="info-item">
-                        <label><i class="fas fa-tag"></i> Категория</label>
                         <span>${data.category || 'Не указана'}</span>
                     </div>
                     
                     <div class="info-item">
-                        <label><i class="fas fa-share-alt"></i> Социальные сети и портфолио</label>
-                        <div class="social-networks">
-                            ${data.github_link ? `
-                                <div class="social-network-item">
-                                    <i class="fab fa-github"></i>
-                                    <span>GitHub: <a href="${data.github_link}" target="_blank">Перейти</a></span>
-                                </div>
-                            ` : ''}
-                            
-                            ${data.portfolio_link ? `
-                                <div class="social-network-item">
-                                    <i class="fas fa-briefcase"></i>
-                                    <span>Портфолио: <a href="${data.portfolio_link}" target="_blank">Перейти</a></span>
-                                </div>
-                            ` : ''}
-                            
-                            ${data.instagram_link ? `
-                                <div class="social-network-item">
-                                    <i class="fab fa-instagram"></i>
-                                    <span>Instagram: <a href="${data.instagram_link}" target="_blank">Перейти</a></span>
-                                </div>
-                            ` : ''}
-                            
-                            ${data.telegram_link ? `
-                                <div class="social-network-item">
-                                    <i class="fab fa-telegram"></i>
-                                    <span>Telegram: <a href="${data.telegram_link}" target="_blank">Перейти</a></span>
-                                </div>
-                            ` : ''}
-                            
-                            ${data.youtube_link ? `
-                                <div class="social-network-item">
-                                    <i class="fab fa-youtube"></i>
-                                    <span>YouTube: <a href="${data.youtube_link}" target="_blank">Перейти</a></span>
-                                </div>
-                            ` : ''}
-                        </div>
+                        <p class="comment-text">${data.ad_comment || 'Комментарий не добавлен'}</p>
                     </div>
                     
                     <div class="info-item">
-                        <label><i class="fas fa-comment"></i> Комментарий</label>
-                        <p class="comment-text">${data.ad_comment || 'Комментарий не добавлен'}</p>
+                        <div class="social-networks">
+                            ${data.github_link ? `
+                                <a class="social-network-item" href="${data.github_link}" target="_blank">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            ` : ''}
+                            
+                            ${data.portfolio_link ? `
+                                <a class="social-network-item" href="${data.portfolio_link}" target="_blank">
+                                    <i class="fas fa-briefcase"></i>
+                                </a>
+                            ` : ''}
+                            
+                            ${data.instagram_link ? `
+                                <a class="social-network-item" href="${data.instagram_link}" target="_blank">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            ` : ''}
+                            
+                            ${data.telegram_link ? `
+                                <a class="social-network-item" href="${data.telegram_link}" target="_blank">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                            ` : ''}
+                            
+                            ${data.youtube_link ? `
+                                <a class="social-network-item" href="${data.youtube_link}" target="_blank">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            ` : ''}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -302,37 +294,13 @@ class FreelancerLoader {
                     transform: rotate(90deg);
                 }
 
-                .custom-modal .modal-body {
-                    background: #0f1116;
-                    border-radius: 0 0 20px 20px;
-                    padding: 30px;
-                }
-
                 .info-item {
                     
                     border-radius: 12px;
                     padding: 15px;
-                    margin-bottom: 15px;
                     transition: all 0.3s ease;
                 }
 
-                .info-item:hover {
-                    
-                    transform: translateY(-2px);
-                }
-
-                .social-network-item {
-                   
-                    padding: 12px;
-                    border-radius: 8px;
-                    transition: all 0.3s ease;
-                    margin-bottom: 8px;
-                }
-
-                .social-network-item:hover {
-                   
-                    transform: translateX(5px);
-                }
             `;
 
             const styleElement = document.createElement('style');

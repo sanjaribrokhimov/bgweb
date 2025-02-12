@@ -141,8 +141,11 @@ class CompanyLoader {
                 </div>
                 <div class="details-info">
                     <div class="info-item">
-                        <label><i class="fas fa-tag"></i> Категория</label>
                         <span>${data.category || 'Не указана'}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <p class="comment-text">${data.ad_comment || 'Комментарий не добавлен'}</p>
                     </div>
                    
                     ${data.telegram_username ? `
@@ -153,36 +156,27 @@ class CompanyLoader {
                     ` : ''}
                     
                     <div class="info-item">
-                        <label><i class="fas fa-share-alt"></i> Социальные сети и контакты</label>
                         <div class="social-networks">
+
                             ${data.website_link ? `
-                                <div class="social-network-item">
+                                <a class="social-network-item" href="${data.website_link}" target="_blank">
                                     <i class="fas fa-globe"></i>
-                                    <span>Веб-сайт: <a href="${data.website_link}" target="_blank">Перейти</a></span>
-                                </div>
+                                </a>
                             ` : ''}
                             
                             ${data.instagram_link ? `
-                                <div class="social-network-item">
+                                <a class="social-network-item" href="${data.instagram_link}" target="_blank">
                                     <i class="fab fa-instagram"></i>
-                                    <span>Instagram: <a href="${data.instagram_link}" target="_blank">Перейти</a></span>
-                                </div>
+                                </a>
                             ` : ''}
                             
                             ${data.telegram_link ? `
-                                <div class="social-network-item">
+                                <a class="social-network-item" href="${data.telegram_link}" target="_blank">
                                     <i class="fab fa-telegram"></i>
-                                    <span>Telegram: <a href="${data.telegram_link}" target="_blank">Перейти</a></span>
-                                </div>
+                                </a>
                             ` : ''}
-                            
 
                         </div>
-                    </div>
-                    
-                    <div class="info-item">
-                        <label><i class="fas fa-comment"></i> Комментарий</label>
-                        <p class="comment-text">${data.ad_comment || 'Комментарий не добавлен'}</p>
                     </div>
                 </div>
             </div>
@@ -269,36 +263,12 @@ class CompanyLoader {
                     transform: rotate(90deg);
                 }
 
-                .custom-modal .modal-body {
-                    background: #0f1116;
-                    border-radius: 0 0 20px 20px;
-                    padding: 30px;
-                }
-
                 .info-item {
                     
                     border-radius: 12px;
                     padding: 15px;
                     margin-bottom: 15px;
                     transition: all 0.3s ease;
-                }
-
-                .info-item:hover {
-                    
-                    transform: translateY(-2px);
-                }
-
-                .social-network-item {
-                   
-                    padding: 12px;
-                    border-radius: 8px;
-                    transition: all 0.3s ease;
-                    margin-bottom: 8px;
-                }
-
-                .social-network-item:hover {
-                   
-                    transform: translateX(5px);
                 }
             `;
 

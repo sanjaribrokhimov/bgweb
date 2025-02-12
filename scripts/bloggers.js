@@ -239,7 +239,6 @@ class BloggerLoader {
                 <div class="details-header">
                     <h4>${data.nickname || 'Без имени'}</h4>
                     <div class="details-stats">
-                        <span><i class="fas fa-tag"></i> ${data.category || 'Без категории'}</span>
                         <span><i class="fas fa-compass"></i> ${data.direction || 'Без направления'}</span>
                     </div>
                 </div>
@@ -252,33 +251,26 @@ class BloggerLoader {
                     </div>
                     
                     <div class="info-item">
-                        <label><i class="fas fa-share-alt"></i> Социальные сети</label>
-                        <div class="social-networks">
+                        <div class="social-networks">                         
                             ${data.telegram_link ? `
-                                <div class="social-network-item">
+                                <a class="social-network-item" href="${data.telegram_link}" target="_blank">
                                     <i class="fab fa-telegram"></i>
-                                    <span>Telegram: <a href="${data.telegram_link}" target="_blank">Перейти</a></span>
-                                </div>
+                                </a>
                             ` : ''}
-                            
                             ${data.instagram_link ? `
-                                <div class="social-network-item">
+                                <a class="social-network-item" href="${data.instagram_link}" target="_blank">
                                     <i class="fab fa-instagram"></i>
-                                    <span>Instagram: <a href="${data.instagram_link}" target="_blank">Перейти</a></span>
-                                </div>
+                                </a>
                             ` : ''}
-                            
                             ${data.youtube_link ? `
-                                <div class="social-network-item">
+                                <a class="social-network-item" href="${data.youtube_link}" target="_blank">
                                     <i class="fab fa-youtube"></i>
-                                    <span>YouTube: <a href="${data.youtube_link}" target="_blank">Перейти</a></span>
-                                </div>
+                                </a>
                             ` : ''}
                             ${data.tiktok_link ? `
-                                <div class="social-network-item">
+                                <a class="social-network-item" href="${data.tiktok_link}" target="_blank">
                                     <i class="fab fa-tiktok"></i>
-                                    <span>tiktok: <a href="${data.tiktok_link}" target="_blank">Перейти</a></span>
-                                </div>
+                                </a>
                             ` : ''}
                         </div>
                     </div>
@@ -374,36 +366,12 @@ class BloggerLoader {
                     transform: rotate(90deg);
                 }
 
-                .custom-modal .modal-body {
-                    background: #0f1116;
-                    border-radius: 0 0 20px 20px;
-                    padding: 30px;
-                }
-
                 .info-item {
                     
                     border-radius: 12px;
                     padding: 15px;
                     margin-bottom: 15px;
                     transition: all 0.3s ease;
-                }
-
-                .info-item:hover {
-                    
-                    transform: translateY(-2px);
-                }
-
-                .social-network-item {
-                   
-                    padding: 12px;
-                    border-radius: 8px;
-                    transition: all 0.3s ease;
-                    margin-bottom: 8px;
-                }
-
-                .social-network-item:hover {
-                   
-                    transform: translateX(5px);
                 }
             `;
 
