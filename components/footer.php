@@ -89,7 +89,7 @@
     visibility: hidden;
     opacity: 0;
     /* display: none; */
-    background: linear-gradient(to bottom, #4d7eff 45px, var(--card-bg) 45px, var(--card-bg));
+    background: linear-gradient(to bottom, var(--accent-orange) 45px, var(--card-bg) 45px, var(--card-bg));
     border-radius: 12px;
     border-bottom-right-radius: 0px;
     padding: 15px;

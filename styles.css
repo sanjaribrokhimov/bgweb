@@ -3,12 +3,12 @@
     --card-bg: #1a1d26;
     --text-color: #ffffff;
     --text-secondary: #9ba1b0;
-    --accent-blue: #4d7eff;
+    --accent-orange: #f16036;
     --accent-purple: #9d50ff;
     --accent-green: #32d583;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     --gradient-1: linear-gradient(145deg, #1a1d26, #252935);
-    --gradient-2: linear-gradient(145deg, #4d7eff, #6d5dff);
+    --gradient-2: linear-gradient(145deg, #ee7553, #f16036);
     --card-hover: #252935;
     --accent-blue-light: rgba(77, 126, 255, 0.1);
     --accent-blue-hover: rgba(77, 126, 255, 0.15);
@@ -226,7 +226,7 @@ body.light-theme {
     position: absolute;
     width: 24px;
     height: 24px;
-    background: var(--accent-blue);
+    background: var(--accent-orange);
     border-radius: 50%;
     top: 3px;
     left: 3px;
@@ -375,12 +375,12 @@ body:not(.dark-theme) {
 }
 
 .bottom-nav .btn-link:hover {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
     transform: translateY(-2px);
 }
 
 .bottom-nav .btn-link.active {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
 }
 
 /* Светлая тема */
@@ -569,7 +569,7 @@ body.light-theme .search-input {
 
 /* Специфичные стили для разных типов статистики */
 .stats > .engagement {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
 }
 
 .stats > .price {
@@ -581,7 +581,7 @@ body.light-theme .search-input {
 }
 
 .stats > .requirements {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
 }
 
 /* Стили для светлой темы */
@@ -666,7 +666,7 @@ body.light-theme .stats > span {
 }
 
 .profile-dropdown-item i {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
     font-size: 16px;
     width: 20px;
     text-align: center;
@@ -717,7 +717,7 @@ body.light-theme .stats > span {
 
 .category-select:focus {
     outline: none;
-    box-shadow: 0 0 0 2px var(--accent-blue);
+    box-shadow: 0 0 0 2px var(--accent-orange);
 }
 
 .category-select option {
@@ -804,11 +804,11 @@ body.light-theme .stats > span {
 
 .input-with-icon input:focus {
     box-shadow: none;
-    border-color: var(--accent-blue);
+    border-color: var(--accent-orange);
 }
 
 .forgot-password {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
     text-decoration: none;
     font-size: 14px;
 }
@@ -820,8 +820,8 @@ body.light-theme .stats > span {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--accent-blue);
-    color: var(--accent-blue);
+    border: 1px solid var(--accent-orange);
+    color: var(--accent-orange);
     transition: all 0.3s ease;
 }
 
@@ -838,8 +838,8 @@ body.light-theme .stats > span {
 }
 
 .form-check-input:checked {
-    background-color: var(--accent-blue);
-    border-color: var(--accent-blue);
+    background-color: var(--accent-orange);
+    border-color: var(--accent-orange);
 }
 
 /* Стили для инпутв в темном режиме */
@@ -929,7 +929,7 @@ input, select, textarea {
 }
 
 .password-toggle:hover {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
     background: rgba(77, 126, 255, 0.1);
 }
 
@@ -939,7 +939,7 @@ input, select, textarea {
 }
 
 .password-toggle.active {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
 }
 
 .input-with-icon input[type="password"],
@@ -950,7 +950,7 @@ input, select, textarea {
 /* Добавляем стили для светлой темы */
 body.light-theme .favorite-btn {
     background: var(--card-bg);
-    color: var(--accent-blue);
+    color: var(--accent-orange);
     box-shadow: var(--shadow);
 }
 
@@ -1004,14 +1004,14 @@ body.light-theme .input-with-icon select.form-control {
 
 /* Стили при фокусе */
 .input-with-icon select.form-control:focus {
-    border-color: var(--accent-blue);
+    border-color: var(--accent-orange);
     box-shadow: none;
     outline: none;
 }
 
 /* Стили при наведении */
 .input-with-icon select.form-control:hover {
-    border-color: var(--accent-blue);
+    border-color: var(--accent-orange);
 }
 
 /* Стили для чекбокса "Запомнить меня" */
@@ -1036,8 +1036,8 @@ body.light-theme .input-with-icon select.form-control {
 }
 
 .form-check-input:checked {
-    background-color: var(--accent-blue);
-    border-color: var(--accent-blue);
+    background-color: var(--accent-orange);
+    border-color: var(--accent-orange);
 }
 
 .form-check-input:checked::after {
@@ -1061,7 +1061,7 @@ body.light-theme .input-with-icon select.form-control {
 }
 
 .form-check-input:checked ~ .form-check-label {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
 }
 
 /* Стили для светлой темы */
@@ -1071,8 +1071,8 @@ body.light-theme .form-check-input {
 }
 
 body.light-theme .form-check-input:checked {
-    background-color: var(--accent-blue);
-    border-color: var(--accent-blue);
+    background-color: var(--accent-orange);
+    border-color: var(--accent-orange);
 }
 
 /* Стили для переключателей (switches) */
@@ -1082,8 +1082,8 @@ body.light-theme .form-switch .form-check-input {
 }
 
 body.light-theme .form-switch .form-check-input:checked {
-    background-color: var(--accent-blue);
-    border-color: var(--accent-blue);
+    background-color: var(--accent-orange);
+    border-color: var(--accent-orange);
 }
 
 /* Стили для иконы галочки внутри чекбокса */
@@ -1094,12 +1094,12 @@ body.light-theme .form-check-input:checked::after {
 
 /* Стили для переключателя при наведении */
 body.light-theme .form-check-input:hover {
-    border-color: var(--accent-blue);
+    border-color: var(--accent-orange);
 }
 
 /* Анимация при нажатии */
 .form-check:hover .form-check-label {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
 }
 
 /* Стили для автозаполнения */
@@ -1124,7 +1124,7 @@ body.light-theme input:-webkit-autofill:active {
 /* Стили для загрузки фото */
 .upload-photo {
     background: rgba(255, 255, 255, 0.05);
-    border: 2px dashed var(--accent-blue);
+    border: 2px dashed var(--accent-orange);
     border-radius: 16px;
     padding: 0;
     text-align: center;
@@ -1501,12 +1501,12 @@ body.light-theme .auth-form .btn-primary {
 /* Стили для радио кнопок в переключателе */
 .type-toggle .form-check-input {
     margin-right: 8px;
-    border-color: var(--accent-blue);
+    border-color: var(--accent-orange);
 }
 
 .type-toggle .form-check-input:checked {
-    background-color: var(--accent-blue);
-    border-color: var(--accent-blue);
+    background-color: var(--accent-orange);
+    border-color: var(--accent-orange);
 }
 
 .type-toggle .form-check-input:checked::after {
@@ -1544,8 +1544,8 @@ body.light-theme .type-toggle .form-check-input {
 }
 
 body.light-theme .type-toggle .form-check-input:checked {
-    background-color: var(--accent-blue);
-    border-color: var(--accent-blue);
+    background-color: var(--accent-orange);
+    border-color: var(--accent-orange);
 }
 
 body.light-theme .type-toggle .form-check-label {
@@ -1756,7 +1756,7 @@ body.light-theme .social-section:has(.fa-globe) .social-fields {
     animation: spinner-border 1s linear infinite;
     border-right-color: transparent;
     border-radius: 50%;
-    border-color: var(--accent-blue);
+    border-color: var(--accent-orange);
 }
 
 .loading-text {
@@ -2233,7 +2233,7 @@ body:not(.dark-theme) .nav-item:hover {
 }
 
 body:not(.dark-theme) .nav-item.active {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
     background: rgba(77, 126, 255, 0.1);
 }
 
@@ -2244,7 +2244,7 @@ body:not(.dark-theme) .nav-icon i {
 
 body:not(.dark-theme) .nav-item:hover .nav-icon i,
 body:not(.dark-theme) .nav-item.active .nav-icon i {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
 }
 
 /* Стили для текста под иконками */
@@ -2263,7 +2263,7 @@ body:not(.dark-theme) #addButton {
 }
 
 body:not(.dark-theme) #addButton:hover {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
     background: rgba(77, 126, 255, 0.1);
 }
 
@@ -2364,7 +2364,7 @@ body:not(.dark-theme) .btn-close:hover {
 }
 
 .notification-item.unread {
-    border-left: 4px solid var(--accent-blue);
+    border-left: 4px solid var(--accent-orange);
 }
 
 /* Заголовок уведомления */
@@ -2385,7 +2385,7 @@ body:not(.dark-theme) .btn-close:hover {
 
 .notification-user i {
     font-size: 24px;
-    color: var(--accent-blue);
+    color: var(--accent-orange);
 }
 
 .notification-time {
@@ -2449,7 +2449,7 @@ body:not(.dark-theme) .btn-close:hover {
 }
 
 .contact-item i {
-    color: var(--accent-blue);
+    color: var(--accent-orange);
 }
 
 /* Стили для пустого состояния */
@@ -2730,7 +2730,7 @@ body:not(.dark-theme) .btn-close:hover {
         position: absolute;
         top: 0;
         right: 0;
-        background: var(--accent-blue);
+        background: var(--accent-orange);
         color: white;
         border-radius: 50%;
         min-width: 18px;
@@ -2748,7 +2748,7 @@ body:not(.dark-theme) .btn-close:hover {
     }
 
     .filter-container {
-        background:linear-gradient(145deg, #f7eb67, #6d5dff);
+        background:linear-gradient(145deg, #f7eb67, #f16036);
         border-radius: 12px;
         margin: 0px 15px 0px 15px;
         display: flex;
@@ -2854,5 +2854,5 @@ body:not(.dark-theme) .btn-close:hover {
 .product-info h3
 {
     font-size: large;
-    color: dodgerblue;
+    color: var(--accent-orange);
 }

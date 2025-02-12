@@ -126,7 +126,6 @@ class Tutorial {
                 justify-content: center;
                 background: transparent;
                 border-radius: 50%;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             }
 
             .character {
@@ -334,6 +333,8 @@ class Tutorial {
             
             this.popup.innerHTML = `
                 <div class="tutorial-character">
+
+                
                     <div class="character">👋</div>
                 </div>
                 <div class="tutorial-content">

@@ -215,7 +215,7 @@ class BloggerLoader {
                 </div>
                 <div class="product-info">
                     <div>
-                        <p style="color:dodgerblue; padding:0px; margin:0px; max-width: 168px;">${data.nickname || 'Без имени'}</p>
+                        <p style="color:var(--accent-orange); padding:0px; margin:0px; max-width: 168px;">${data.nickname || 'Без имени'}</p>
                         <div class="direction-tag">${data.direction || ''}</div>
                     </div>
 

@@ -58,7 +58,7 @@ $IP = '144.126.128.67';
 
         /* Стили для логотипа */
         .header-logo {
-            height: 40px;
+            height: 50px;
             position: relative;
             z-index: 999;
         }
@@ -640,7 +640,7 @@ $IP = '144.126.128.67';
 
         <header class="d-flex justify-content-between align-items-center mb-4">
             <div class="header-content">
-                <img src="img/bga.png" alt="BGA" class="header-logo">
+                <img src="img/logo.png" alt="BGA" class="header-logo">
             </div>
             <div class="d-flex align-items-center gap-3">
                 <!-- Уведомления -->
