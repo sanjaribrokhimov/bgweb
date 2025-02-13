@@ -2355,8 +2355,7 @@ body .info-item .comment-text,
 body .info-item .looking-for-text
 {
     color: #bfbfbf;
-    text-align: justify;
-    text-indent: 50px;
+    text-align: center;
     text-transform: capitalize;
 }
 body .info-item.sni

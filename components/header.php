@@ -9,7 +9,7 @@ $IP = '144.126.128.67';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloger Agency</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=1.1.0">
+    <link rel="stylesheet" href="styles.css?v=1.1.1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
@@ -44,7 +44,7 @@ $IP = '144.126.128.67';
 
         /* Стили для header с логотипом и поиском */
         header {
-            margin-top: 60px;
+            margin-top: 30px;
             position: relative;
             z-index: 999;
         }
@@ -651,7 +651,7 @@ $IP = '144.126.128.67';
             </div>
         </div>
 
-        <header class="d-flex justify-content-between align-items-center mb-4">
+        <header class="d-flex justify-content-between align-items-center">
             <div class="header-content">
                 <img src="img/logo.png" alt="BGA" class="header-logo">
             </div>
