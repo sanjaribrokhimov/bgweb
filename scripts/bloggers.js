@@ -237,9 +237,13 @@ class BloggerLoader {
         return `
             <div class="details-card">
                 <div class="details-header">
-                    <h4>${data.nickname || 'Без имени'}</h4>
-                    <div class="details-stats">
-                        <span><i class="fas fa-compass"></i> ${data.direction || 'Без направления'}</span>
+                    <div class="detailImage" style="background-image: url(${data.photo_base64})"></div>
+                    <div>
+                        <h4>${data.nickname || 'Без имени'}</h4>
+                        
+                        <div class="info-item">
+                            <span>${data.direction || 'Без направления'}</span>
+                        </div>
                     </div>
                 </div>
                 <div class="details-info">
@@ -250,7 +254,7 @@ class BloggerLoader {
                         <p class="looking-for-text">${data.ad_comment || 'Не указано'}</p>
                     </div>
                     
-                    <div class="info-item">
+                    <div class="info-item sni">
                         <div class="social-networks">                         
                             ${data.telegram_link ? `
                                 <a class="social-network-item" href="${data.telegram_link}" target="_blank">

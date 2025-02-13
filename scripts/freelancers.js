@@ -162,21 +162,27 @@ class FreelancerLoader {
     }
 
     createDetailsContent(data) {
+        console.log(data)
         return `
             <div class="details-card">
                 <div class="details-header">
-                    <h4>${data.name || 'Без имени'}</h4>
+                    <div class="detailImage" style="background-image: url(${data.photo_base64})">
+                    </div>
+                    <div>
+                        <h4>${data.name || 'Без имени'}</h4>
+                        
+                        <div class="info-item">
+                            <span>${data.category || 'Не указана'}</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="details-info">
-                    <div class="info-item">
-                        <span>${data.category || 'Не указана'}</span>
-                    </div>
                     
                     <div class="info-item">
                         <p class="comment-text">${data.ad_comment || 'Комментарий не добавлен'}</p>
                     </div>
                     
-                    <div class="info-item">
+                    <div class="info-item sni">
                         <div class="social-networks">
                             ${data.github_link ? `
                                 <a class="social-network-item" href="${data.github_link}" target="_blank">

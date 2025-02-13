@@ -131,17 +131,23 @@ class CompanyLoader {
     }
 
     createDetailsContent(data) {
+        let byu = `Бюджет: ${this.formatNumber(data.budget)}$`
         return `
             <div class="details-card">
                 <div class="details-header">
-                    <h4>${data.name || 'Без названия'}</h4>
-                    <div class="details-stats">
-                        <span><i class="fas fa-briefcase"></i> Бюджет: ${this.formatNumber(data.budget)+'$' || 'Не указан'}</span>
+                    <div class="detailImage" style="background-image: url(${data.photo_base64})">
+                    </div>
+                    <div>
+                        <h4>${data.name || 'Без имени'}</h4>
+                        
+                        <div class="info-item">
+                            <span>${data.category || 'Не указана'}</span>
+                        </div>
                     </div>
                 </div>
                 <div class="details-info">
-                    <div class="info-item">
-                        <span>${data.category || 'Не указана'}</span>
+                    <div class="details-stats">
+                        <span><i class="fas fa-briefcase"></i> ${this.formatNumber(data.budget) > 0 ? byu : 'Бартер' || 'Не указан'}</span>
                     </div>
 
                     <div class="info-item">
@@ -155,7 +161,7 @@ class CompanyLoader {
                         </div>
                     ` : ''}
                     
-                    <div class="info-item">
+                    <div class="info-item sni">
                         <div class="social-networks">
 
                             ${data.website_link ? `

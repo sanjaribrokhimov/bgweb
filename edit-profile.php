@@ -19,7 +19,7 @@
 
     <div class="container-fluid p-3 app-container">
         <div class="text-center mb-4">
-            <img src="img/bga.png" alt="BGA" class="header-logo">
+            <img src="img/logo.png" alt="BGA" class="header-logo" style="height: 100px">
         </div>
 
         <div class="auth-container">
