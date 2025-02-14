@@ -442,6 +442,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="translations.js"></script>
     <script>
+
+        let params = new URLSearchParams(document.location.search);
+        const tgChatId = params.get('tg_chat_id');
+        localStorage.setItem('tg_chat_id', tgChatId)
+
+
+
+
         function showLoading() {
             const loader = document.getElementById('loadingIndicator');
             loader.style.display = 'flex';
