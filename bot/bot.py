@@ -13,6 +13,7 @@ logger.add("bot.log", rotation="1 MB", level="INFO", compression="zip")
 load_dotenv()
 TOKEN = os.getenv('BOT_TOKEN', '7690904808:AAEyzgbEZ3--sQ1pkJ-bFBpnDSCY2rNq9VY')
 
+
 class TelegramBot:
     TEXTS = {
         'ru': {
@@ -187,6 +188,8 @@ mumkin
             logger.error(f"Error requesting contact: {e}", exc_info=True)
             
         return keyboard
+    
+
 
     def handle_language_selection(self, message):
         try:
@@ -233,12 +236,10 @@ mumkin
                 
                 # Формируем данные для URL
                 init_data = {
-                    'tg_chat_id': str(user.id),
                     'tg_username': str(user.username) if user.username else '',
-                    'tg_user_id': str(user.id),
                     'tg_first_name': str(user.first_name) if user.first_name else '',
                     'tg_phone': str(phone),
-                    'tg_auth_date': str(int(time.time()))
+                    'tg_chat_id': str(message.chat.id)
                 }
                 
                 # Создаем URL с данными

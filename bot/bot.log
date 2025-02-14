@@ -823,3 +823,11 @@
 2025-02-03 16:55:34.474 | INFO     | __main__:language_handler:480 - Requested phone number from user 5789133679
 2025-02-03 16:55:37.150 | INFO     | __main__:handle_contact:229 - Received contact: 998331108810 from user Sanjar_3210
 2025-02-03 16:55:37.298 | INFO     | __main__:contact_handler:522 - Processed contact for user 5789133679
+2025-02-14 17:23:43.641 | INFO     | __main__:run:649 - Бот запущен
+2025-02-14 17:38:32.063 | INFO     | __main__:start_handler:444 - Sent language selection to user 5789133679
+2025-02-14 17:40:50.703 | INFO     | __main__:start_handler:444 - Sent language selection to user 7143097955
+2025-02-14 17:40:55.911 | INFO     | __main__:check_subscription:338 - Checking subscription for user 7143097955: True
+2025-02-14 17:40:55.911 | INFO     | __main__:check_subscription:339 - User status: member
+2025-02-14 17:40:56.072 | INFO     | __main__:language_handler:475 - Requested phone number from user 7143097955
+2025-02-14 17:41:24.998 | INFO     | __main__:handle_contact:230 - Received contact: +971583084148 from user None
+2025-02-14 17:41:25.181 | INFO     | __main__:contact_handler:517 - Processed contact for user 7143097955
