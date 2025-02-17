@@ -19,3 +19,43 @@ Error: Key: 'Identifier' Error:Field validation for 'Identifier' failed on the '
 Key: 'Password' Error:Field validation for 'Password' failed on the 'required' tag
 Details: Invalid request data: &{src:0xc000008318 hdr:<nil> r:<nil> closing:false doEarlyClose:true mu:{_:{} mu:{state:0 sema:0}} sawEOF:true closed:false earlyClose:false onHitEOF:0x934c20}
 
+[2025-02-17 18:55:42] Source: Register
+Error: ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
+Details: Failed to create user
+
+[2025-02-17 18:57:00] Source: Register
+Error: ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
+Details: Failed to create user
+
+[2025-02-17 18:57:03] Source: Register
+Error: ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
+Details: Failed to create user
+
+[2025-02-17 18:57:06] Source: Register
+Error: ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
+Details: Failed to create user
+
+[2025-02-17 19:10:54] Source: Register
+Error: ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
+Details: Failed to create user
+
+[2025-02-17 19:12:48] Source: Register
+Error: ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
+Details: Failed to create user
+
+[2025-02-17 19:12:54] Source: Register
+Error: ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
+Details: Failed to create user
+
+[2025-02-17 19:14:09] Source: Register
+Error: telegram API returned non-200 status code: 400
+Details: Failed to send OTP via Telegram
+
+[2025-02-17 19:14:21] Source: Register
+Error: telegram API returned non-200 status code: 400
+Details: Failed to send OTP via Telegram
+
+[2025-02-17 19:16:04] Source: Register
+Error: telegram API returned non-200 status code: 400
+Details: Failed to send OTP via Telegram
+
