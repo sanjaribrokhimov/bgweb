@@ -128,8 +128,8 @@ func Register(c *gin.Context) {
 
 func VerifyOTP(c *gin.Context) {
 	var input struct {
-		Email string `json:"email"`
-		OTP   string `json:"otp"`
+		Identifier string `json:"identifier"`
+		OTP        string `json:"otp"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -137,8 +137,24 @@ func VerifyOTP(c *gin.Context) {
 		return
 	}
 
+	// Определяем тип идентификатора (email или chat_id)
+	isEmail := false
+	for _, char := range input.Identifier {
+		if char == '@' {
+			isEmail = true
+			break
+		}
+	}
+
 	var user models.User
-	if err := database.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
+	query := database.DB
+	if isEmail {
+		query = query.Where("email = ?", input.Identifier)
+	} else {
+		query = query.Where("tg_chat_id = ?", input.Identifier)
+	}
+
+	if err := query.First(&user).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Пользователь не найден"})
 		return
 	}
@@ -156,7 +172,22 @@ func VerifyOTP(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Email успешно подтвержден"})
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Аккаунт успешно подтвержден",
+		"user": gin.H{
+			"id":          user.ID,
+			"email":       user.Email,
+			"name":        user.Name,
+			"category":    user.Category,
+			"direction":   user.Direction,
+			"telegram":    user.Telegram,
+			"instagram":   user.Instagram,
+			"is_verified": user.IsVerified,
+			"phone":       user.Phone,
+			"tg_chat_id":  user.TgChatID,
+			"tg_user_id":  user.TgUserID,
+		},
+	})
 }
 
 func Login(c *gin.Context) {
