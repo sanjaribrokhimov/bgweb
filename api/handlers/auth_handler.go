@@ -46,26 +46,47 @@ func Register(c *gin.Context) {
 	}
 
 	// Проверка существующего пользователя
-	var existingUser models.User
-	query := database.DB
-	if isEmail {
-		query = query.Where("email = ?", email)
-	} else {
-		query = query.Where("tg_chat_id = ?", chatID)
+	var existingUserByEmail models.User
+	var existingUserByChatID models.User
+
+	// Проверяем существование пользователя по email
+	if email != "" {
+		if err := database.DB.Where("email = ? AND email != ''", email).First(&existingUserByEmail).Error; err == nil {
+			if existingUserByEmail.IsVerified {
+				c.JSON(http.StatusBadRequest, gin.H{"error": "Пользователь с таким email уже зарегистрирован"})
+				return
+			} else {
+				// Удаляем старую неверифицированную запись
+				if err := database.DB.Unscoped().Delete(&existingUserByEmail).Error; err != nil {
+					logger.LogError("Register", err, "Failed to delete unverified user")
+					c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при обработке регистрации"})
+					return
+				}
+			}
+		}
 	}
 
-	if err := query.First(&existingUser).Error; err == nil {
-		if !existingUser.IsVerified {
-			// Удаляем старую неверифицированную запись
-			if err := database.DB.Unscoped().Delete(&existingUser).Error; err != nil {
-				logger.LogError("Register", err, "Failed to delete unverified user")
-				c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при обработке регистрации"})
+	// Проверяем существование пользователя по chat_id
+	if chatID != "" {
+		if err := database.DB.Where("tg_chat_id = ?", chatID).First(&existingUserByChatID).Error; err == nil {
+			if existingUserByChatID.IsVerified {
+				c.JSON(http.StatusBadRequest, gin.H{"error": "Пользователь с таким chat ID уже зарегистрирован"})
 				return
+			} else {
+				// Удаляем старую неверифицированную запись
+				if err := database.DB.Unscoped().Delete(&existingUserByChatID).Error; err != nil {
+					logger.LogError("Register", err, "Failed to delete unverified user")
+					c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при обработке регистрации"})
+					return
+				}
 			}
-		} else {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Пользователь уже зарегистрирован"})
-			return
 		}
+	}
+
+	// Дополнительная проверка на пустые значения
+	if email == "" && chatID == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Необходимо указать email или chat ID"})
+		return
 	}
 
 	// Генерация OTP
