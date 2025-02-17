@@ -1,0 +1,21 @@
+[2025-02-17 15:57:44] Source: Register
+Error: invalid character '}' looking for beginning of value
+Details: Invalid request data: &{src:0xc00015e000 hdr:<nil> r:<nil> closing:false doEarlyClose:true mu:{_:{} mu:{state:0 sema:0}} sawEOF:true closed:false earlyClose:false onHitEOF:0x934c20}
+
+[2025-02-17 16:53:09] Source: Register
+Error: json: cannot unmarshal number into Go struct field .identifier of type string
+Details: Invalid request data: &{src:0xc00015e0a8 hdr:<nil> r:<nil> closing:false doEarlyClose:true mu:{_:{} mu:{state:0 sema:0}} sawEOF:true closed:false earlyClose:false onHitEOF:0x934c20}
+
+[2025-02-17 16:55:43] Source: Register
+Error: json: cannot unmarshal number into Go struct field .identifier of type string
+Details: Invalid request data: &{src:0xc00015e000 hdr:<nil> r:<nil> closing:false doEarlyClose:true mu:{_:{} mu:{state:0 sema:0}} sawEOF:true closed:false earlyClose:false onHitEOF:0x934c20}
+
+[2025-02-17 16:55:54] Source: Register
+Error: json: cannot unmarshal number into Go struct field .identifier of type string
+Details: Invalid request data: &{src:0xc00015e150 hdr:<nil> r:<nil> closing:false doEarlyClose:true mu:{_:{} mu:{state:0 sema:0}} sawEOF:true closed:false earlyClose:false onHitEOF:0x934c20}
+
+[2025-02-17 16:56:47] Source: Register
+Error: Key: 'Identifier' Error:Field validation for 'Identifier' failed on the 'required' tag
+Key: 'Password' Error:Field validation for 'Password' failed on the 'required' tag
+Details: Invalid request data: &{src:0xc000008318 hdr:<nil> r:<nil> closing:false doEarlyClose:true mu:{_:{} mu:{state:0 sema:0}} sawEOF:true closed:false earlyClose:false onHitEOF:0x934c20}
+

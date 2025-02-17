@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    email: userData.email,
+                    identifier: userData.identifier,
                     otp: otp
                 })
             });

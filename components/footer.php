@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const userInstagram = localStorage.getItem('instagram');
             
             if (!userCategory || !userId || !userEmail || !userName || !userPhone || !userTelegram || !userDirection || !userInstagram) {
-                window.location.href = 'login.php';
+                // window.location.href = 'login.php';
                 return;
             }
 

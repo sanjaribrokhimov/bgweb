@@ -200,6 +200,63 @@
         .input-hint {
             animation: none;
         }
+        
+        /* Добавьте к существующим стилям */
+        .deal-type-switcher {
+            display: flex;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 4px;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .switch-option {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            z-index: 1;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-secondary);
+        }
+
+        .switch-option.active {
+            color: #fff;
+        }
+
+        .switch-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: var(--gradient-2);
+            border-radius: 8px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .deal-type-switcher[data-type="email"] .switch-slider {
+            transform: translateX(100%);
+        }
+
+        #emailBlock {
+            transition: all 0.3s ease;
+            overflow: hidden;
+            max-height: 200px;
+            opacity: 1;
+        }
+
+        #emailBlock.hidden {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+        }
     </style>
 </head>
 <body>
@@ -252,14 +309,14 @@
 
             <!-- Фрма регистраци -->
             <form id="registerForm" class="auth-form" autocomplete="off">
-                <div class="form-group mb-3">
+                <!-- <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-user"></i>
                         <input name="name" type="text" class="form-control" placeholder="Имя" required autocomplete="off">
                     </div>
                 </div>
 
-                <!-- Добавляем поле для номера телефона -->
+                Добавляем поле для номера телефона
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-phone"></i>
@@ -268,7 +325,7 @@
                     </div>
                 </div>
 
-                 <!-- Добавляем поле для Telegram username -->
+                 Добавляем поле для Telegram username
                  <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fab fa-telegram"></i>
@@ -286,7 +343,7 @@
                     </div>
                 </div>
 
-                <!-- Селектор категории -->
+                Селектор категории
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-tag"></i>
@@ -299,12 +356,12 @@
                     </div>
                 </div>
 
-                <!-- После селектора категории -->
+                После селектора категории
                 <div class="form-group mb-3 direction-selects-container" style="display: none;">
                     <div class="input-with-icon">
                         <i class="fas fa-compass"></i>
 
-                        <!-- Направления для блогеров -->
+                        Направления для блогеров
                         <select class="form-control direction-blogger" autocomplete="off" style="display: none;">
                             <option value="" disabled selected>Выберите направление</option>
                             <option value="lifestyle">Лайфстайл и влог</option>
@@ -327,7 +384,7 @@
                             <option value="motivation">Мотивация и психология</option>
                         </select>
 
-                        <!-- Направления для компаний -->
+                        Направления для компаний
                         <select class="form-control direction-company" autocomplete="off" style="display: none;">
                             <option value="" disabled selected>Выберите направление</option>
                             <option value="retail">Розничная торговля</option>
@@ -351,7 +408,7 @@
                             <option value="mall">Торговые центры</option>
                         </select>
 
-                        <!-- Направления для фрилансеров -->
+                        Направления для фрилансеров
                         <select class="form-control direction-freelancer" autocomplete="off" style="display: none;">
                             <option value="" disabled selected>Выберите направление</option>
                             <option value="webdev">Веб-разработка</option>
@@ -393,17 +450,26 @@
                         <i class="fas fa-circle-info"></i>
                         Вставьте ссылку на ваш Instagram
                     </div>
+                </div> -->
+                       
+                <!-- Заменяем блок бюджета на следующий код -->
+                <div class="input-description mb-3 text-center">
+                    Выберите тип регистрации
+                </div>
+                <div class="deal-type-switcher mb-3">
+                    <div class="switch-option" data-value="telegram">
+                        <i class="fa-brands fa-telegram"></i>
+                        <span>По телеграму</span>
+                    </div>
+                    <div class="switch-option" data-value="email">
+                        <i class="fa-regular fa-envelope"></i>
+                        <span>По почте</span>
+                    </div>
+                    <div class="switch-slider"></div>
                 </div>
 
-                <div class="form-group mb-3">
-                    <div class="input-with-icon">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" class="form-control" placeholder="Email" required autocomplete="off">
-                    </div>
-                    <div class="input-hint">
-                        <i class="fas fa-circle-info"></i>
-                        На email придет код подтверждения
-                    </div>
+                <div class="form-group mb-3 hidden" id="emailBlock">
+                    
                 </div>
 
                 <div class="form-group mb-3">
@@ -444,8 +510,8 @@
     <script>
 
         let params = new URLSearchParams(document.location.search);
-        const tgChatId = params.get('tg_chat_id');
-        localStorage.setItem('tg_chat_id', tgChatId)
+        const tgChatId = params.get('tgdata')?.split('&')[2].split('=')[1];
+        localStorage.setItem('tg_chat_id', +tgChatId)
 
 
 
@@ -595,24 +661,24 @@
                 registerForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     
-                    const direction = registerForm.querySelector(`[name="direction"]`)?.value;
-                    const telegram = registerForm.querySelector('input[name="telegram"]')?.value.trim();
+                    // const direction = registerForm.querySelector(`[name="direction"]`)?.value;
+                    // const telegram = registerForm.querySelector('input[name="telegram"]')?.value.trim();
                     
-                    if (!direction) {
-                        const alertBlock = document.getElementById('registerApiResponse').querySelector('.alert');
-                        alertBlock.className = 'alert alert-danger';
-                        alertBlock.textContent = 'Пожалуйста, выберите направление';
-                        alertBlock.style.display = 'block';
-                        return;
-                    }
+                    // if (!direction) {
+                    //     const alertBlock = document.getElementById('registerApiResponse').querySelector('.alert');
+                    //     alertBlock.className = 'alert alert-danger';
+                    //     alertBlock.textContent = 'Пожалуйста, выберите направление';
+                    //     alertBlock.style.display = 'block';
+                    //     return;
+                    // }
                     
-                    if (!telegram) {
-                        const alertBlock = document.getElementById('registerApiResponse').querySelector('.alert');
-                        alertBlock.className = 'alert alert-danger';
-                        alertBlock.textContent = 'Пожалуйста, укажите Telegram username';
-                        alertBlock.style.display = 'block';
-                        return;
-                    }
+                    // if (!telegram) {
+                    //     const alertBlock = document.getElementById('registerApiResponse').querySelector('.alert');
+                    //     alertBlock.className = 'alert alert-danger';
+                    //     alertBlock.textContent = 'Пожалуйста, укажите Telegram username';
+                    //     alertBlock.style.display = 'block';
+                    //     return;
+                    // }
                     
                     showLoading();
                     
@@ -623,22 +689,32 @@
                     
                     try {
                         // Добавьте эти стоки перед отправкой запроса
-                        console.log('Direction:', registerForm.querySelector(`[name="direction"]`)?.value);
-                        console.log('Telegram:', registerForm.querySelector('input[name="telegram"]')?.value);
+                        // console.log('Direction:', registerForm.querySelector(`[name="direction"]`)?.value);
+                        // console.log('Telegram:', registerForm.querySelector('input[name="telegram"]')?.value);
 
                         // Изменяем способ получения пароля
+                        let urlParams = new URLSearchParams(window.location.search);
+                        let tgdata = urlParams.get('tgdata');
+                        let decodedData = new URLSearchParams(tgdata)
+                        // console.log(decodedData.get('tg_chat_id'))
+                        let identifier = currentDealType === "email" ? document.querySelector('input[name="email"]').value.trim() : decodedData.get('tg_chat_id');
+                        // decodedData.get('tg_chat_id')
+                        // console.log(identifier)
+                        if(!identifier){return 0}
                         const formData = {
-                            name: registerForm.querySelector('input[type="text"]').value.trim(),
-                            phone: registerForm.querySelector('input[type="tel"]').value.trim(),
-                            email: registerForm.querySelector('input[type="email"]').value.trim(),
+                            // name: registerForm.querySelector('input[type="text"]').value.trim(),
+                            // phone: registerForm.querySelector('input[type="tel"]').value.trim(),
+                            // email: registerForm.querySelector('input[type="email"]').value.trim(),
+                            identifier: identifier,
                             password: registerForm.querySelector('input[name="password"]').value,
-                            category: registerForm.querySelector('.category-select').value,
-                            // Добавляем новые поля
-                            direction: registerForm.querySelector(`[name="direction"]`)?.value || '',
-                            telegram: registerForm.querySelector('input[name="telegram"]')?.value.trim(),
-                            instagram: registerForm.querySelector('input[name="instagram"]')?.value.trim(),
-                            tg_chat_id: "chat_id",
-                            tg_user_id: "user_id",
+                            // category: registerForm.querySelector('.category-select').value,
+                            // // Добавляем новые поля
+                            // direction: registerForm.querySelector(`[name="direction"]`)?.value || '',
+                            // telegram: registerForm.querySelector('input[name="telegram"]')?.value.trim(),
+                            // instagram: registerForm.querySelector('input[name="instagram"]')?.value.trim(),
+                            // registerMethod: currentDealType,
+                            // tg_chat_id: "chat_id",
+                            // tg_user_id: "user_id",
                             
                         };
 
@@ -665,7 +741,7 @@
                             alertBlock.textContent = data.message;
                             
                             localStorage.setItem('userRegistrationData', JSON.stringify({
-                                email: formData.email,
+                                identifier: formData.identifier,
                                 name: formData.name
                             }));
                             console.log(formData.tg_chat_id);
@@ -707,7 +783,7 @@
                         // Логируем данные, которые отправляем
                         console.log('Отправляемые данные (login):', formData);
 
-                        const response = await fetch('http://localhost:8888/api/auth/login', {
+                        const response = await fetch('https://blogy.uz/api/auth/login', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -791,44 +867,44 @@
             confirmPasswordInput.addEventListener('input', validatePasswords);
 
             // Обработчик изменения категории
-            const categorySelect = document.querySelector('.category-select');
-            const directionContainer = document.querySelector('.direction-selects-container');
-            const directionSelects = {
-                blogger: document.querySelector('.direction-blogger'),
-                company: document.querySelector('.direction-company'),
-                freelancer: document.querySelector('.direction-freelancer')
-            };
+            // const categorySelect = document.querySelector('.category-select');
+            // const directionContainer = document.querySelector('.direction-selects-container');
+            // const directionSelects = {
+            //     blogger: document.querySelector('.direction-blogger'),
+            //     company: document.querySelector('.direction-company'),
+            //     freelancer: document.querySelector('.direction-freelancer')
+            // };
 
-            categorySelect.addEventListener('change', function() {
-                const selectedCategory = this.value;
+            // categorySelect.addEventListener('change', function() {
+            //     const selectedCategory = this.value;
                 
-                // Сначала скрываем все селекты и убираем required
-                Object.values(directionSelects).forEach(select => {
-                    select.style.display = 'none';
-                    select.removeAttribute('name');
-                    select.removeAttribute('required'); // Убираем required у скрытых селектов
-                });
+            //     // Сначала скрываем все селекты и убираем required
+            //     Object.values(directionSelects).forEach(select => {
+            //         select.style.display = 'none';
+            //         select.removeAttribute('name');
+            //         select.removeAttribute('required'); // Убираем required у скрытых селектов
+            //     });
                 
-                // Снчала проверяем выбрана ли категория
-                if (!selectedCategory) {
-                    directionContainer.style.display = 'none';
-                    return;
-                }
+            //     // Снчала проверяем выбрана ли категория
+            //     if (!selectedCategory) {
+            //         directionContainer.style.display = 'none';
+            //         return;
+            //     }
                 
-                // Показываем контейнер если выбрана категория
-                directionContainer.style.display = 'block';
+            //     // Показываем контейнер если выбрана категория
+            //     directionContainer.style.display = 'block';
                 
-                // Показываем нужный селект
-                const directionSelect = directionSelects[selectedCategory];
-                if (directionSelect) {
-                    directionSelect.style.display = 'block';
-                    directionSelect.setAttribute('name', 'direction');
-                    directionSelect.setAttribute('required', 'required'); // Добавляем required только активном селекту
+            //     // Показываем нужный селект
+            //     const directionSelect = directionSelects[selectedCategory];
+            //     if (directionSelect) {
+            //         directionSelect.style.display = 'block';
+            //         directionSelect.setAttribute('name', 'direction');
+            //         directionSelect.setAttribute('required', 'required'); // Добавляем required только активном селекту
                     
-                    // Сбрасываем выбранное значение
-                    directionSelect.selectedIndex = 0;
-                }
-            });
+            //         // Сбрасываем выбранное значение
+            //         directionSelect.selectedIndex = 0;
+            //     }
+            // });
 
             // Добавляем стили для корректного отображения
             const style = document.createElement('style');
@@ -855,41 +931,86 @@
             document.head.appendChild(style);
 
             // Проверка Telegram username
-            const telegramInput = document.querySelector('input[name="telegram"]');
-            if (telegramInput) {
-                telegramInput.addEventListener('input', function() {
-                    const username = this.value.replace('https://t.me/', '');
+            // const telegramInput = document.querySelector('input[name="telegram"]');
+            // if (telegramInput) {
+            //     telegramInput.addEventListener('input', function() {
+            //         const username = this.value.replace('https://t.me/', '');
                     
-                    // Проверка формата username
-                    if (username.length < 5 || !/^[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(username)) {
-                        this.classList.add('is-invalid');
-                        this.classList.remove('is-valid');
+            //         // Проверка формата username
+            //         if (username.length < 5 || !/^[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(username)) {
+            //             this.classList.add('is-invalid');
+            //             this.classList.remove('is-valid');
                         
-                        // Добавляем сообщение об ошибке
-                        let feedback = this.nextElementSibling;
-                        if (!feedback || !feedback.classList.contains('invalid-feedback')) {
-                            feedback = document.createElement('div');
-                            feedback.className = 'invalid-feedback';
-                            this.parentNode.appendChild(feedback);
-                        }
-                        feedback.textContent = 'Введите корректный username Telegram';
+            //             // Добавляем сообщение об ошибке
+            //             let feedback = this.nextElementSibling;
+            //             if (!feedback || !feedback.classList.contains('invalid-feedback')) {
+            //                 feedback = document.createElement('div');
+            //                 feedback.className = 'invalid-feedback';
+            //                 this.parentNode.appendChild(feedback);
+            //             }
+            //             feedback.textContent = 'Введите корректный username Telegram';
+            //         } else {
+            //             this.classList.remove('is-invalid');
+            //             this.classList.add('is-valid');
+            //         }
+            //     });
+            // }
+
+            // // Проверка Instagram ссылки
+            // const instagramInput = document.querySelector('input[name="instagram"]');
+            // if (instagramInput) {
+            //     instagramInput.addEventListener('input', function() {
+            //         const value = this.value.trim();
+                    
+            //         // Проверка формата ссылки Instagram
+                   
+            //     });
+            // }
+
+            
+            // Добавьте в существующий обработчик DOMContentLoaded
+            const dealTypeSwitcher = document.querySelector('.deal-type-switcher');
+            const switchOptions = dealTypeSwitcher.querySelectorAll('.switch-option');
+            const emailBlock = document.getElementById('emailBlock');
+            const emailInput = emailBlock.querySelector('input[name="email"]');
+
+            var currentDealType = 'telegram';
+
+            switchOptions.forEach(option => {
+                console.log('options')
+                option.addEventListener('click', () => {
+                    console.log('asdasda')
+                    const value = option.dataset.value;
+                    if (value === currentDealType) return;
+
+                    currentDealType = value;
+                    dealTypeSwitcher.dataset.type = value;
+                    
+                    switchOptions.forEach(opt => {
+                        opt.classList.toggle('active', opt.dataset.value === value);
+                    });
+
+                    if (value === 'telegram') {
+                        emailBlock.innerHTML = ''
+                        emailBlock.classList.add('hidden')
                     } else {
-                        this.classList.remove('is-invalid');
-                        this.classList.add('is-valid');
+                        emailBlock.innerHTML = `
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" class="form-control" placeholder="Email" name="email" autocomplete="off" required>
+                        </div>
+                        <div class="input-hint">
+                            <i class="fas fa-circle-info"></i>
+                            На email придет код подтверждения
+                        </div>
+                        `
+                        emailBlock.classList.remove('hidden');
                     }
                 });
-            }
+            });
 
-            // Проверка Instagram ссылки
-            const instagramInput = document.querySelector('input[name="instagram"]');
-            if (instagramInput) {
-                instagramInput.addEventListener('input', function() {
-                    const value = this.value.trim();
-                    
-                    // Проверка формата ссылки Instagram
-                   
-                });
-            }
+            // Активируем начальное состояние
+            switchOptions[0].classList.add('active');
         });
     </script>
     <script>
@@ -907,40 +1028,38 @@
                 phone: phone
             });
 
-            // Заполняем поле имени
-            const nameInput = document.querySelector('input[name="name"]');
-            if (nameInput && firstName) {
-                nameInput.value = firstName;
-                nameInput.classList.add('is-valid');
-                console.log('Filled name input with:', firstName);
-            }
+            // // Заполняем поле имени
+            // const nameInput = document.querySelector('input[name="name"]');
+            // if (nameInput && firstName) {
+            //     nameInput.value = firstName;
+            //     nameInput.classList.add('is-valid');
+            //     console.log('Filled name input with:', firstName);
+            // }
 
-            // Заполняем поле telegram
-            const telegramInput = document.querySelector('input[name="telegram"]');
-            if (telegramInput && username) {
-                telegramInput.value = `https://t.me/${username}`;
-                telegramInput.classList.add('is-valid');
+            // // Заполняем поле telegram
+            // const telegramInput = document.querySelector('input[name="telegram"]');
+            // if (telegramInput && username) {
+            //     telegramInput.value = `https://t.me/${username}`;
+            //     telegramInput.classList.add('is-valid');
                 
-            }else{
-                telegramInput.value = `https://t.me/`;
-               
-                
-            }
+            // }else{
+            //     telegramInput.value = `https://t.me/`;
+            // }
 
-            // Заполняем поле телефона
-            const phoneInput = document.querySelector('input[type="tel"]');
-            if (phoneInput && phone) {
-                phoneInput.value = phone;
-                phoneInput.classList.add('is-valid');
-                console.log('Filled phone input with:', phone);
-            }
+            // // Заполняем поле телефона
+            // const phoneInput = document.querySelector('input[type="tel"]');
+            // if (phoneInput && phone) {
+            //     phoneInput.value = phone;
+            //     phoneInput.classList.add('is-valid');
+            //     console.log('Filled phone input with:', phone);
+            // }
 
-            // Проверяем, все ли поля заполнены
-            if ((!firstName || !username || !phone) && attempts < maxAttempts) {
-                attempts++;
-                setTimeout(fillFormFields, 1000); // Пробуем снова через 1 секунду
-                console.log('Retrying... Attempt:', attempts);
-            }
+            // // Проверяем, все ли поля заполнены
+            // if ((!firstName || !username || !phone) && attempts < maxAttempts) {
+            //     attempts++;
+            //     setTimeout(fillFormFields, 1000); // Пробуем снова через 1 секунду
+            //     console.log('Retrying... Attempt:', attempts);
+            // }
         }
 
         // Счетчик попыток
