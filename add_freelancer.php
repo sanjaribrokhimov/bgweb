@@ -578,7 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Отправляем данные на API
-                const response = await fetch('https://blogy.uz/api/freelancers', {
+                const response = await fetch('http://localhost:8888/api/freelancers', {
                     method: 'POST',
                     credentials: 'include',
                     headers: {

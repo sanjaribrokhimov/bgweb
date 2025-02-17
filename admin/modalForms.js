@@ -555,7 +555,7 @@ function domContentOnMinimalize(userId, userType, user_direction, userTelegram, 
                 }
                 var postUrl = '';
                 if(userType === 'freelancer'){
-                    postUrl = 'https://blogy.uz/api/freelancers';
+                    postUrl = 'http://localhost:8888/api/freelancers';
                     var postData = {
                         user_id: parseInt(userId),
                         name: postForm.querySelector('input[placeholder*="Имя"]').value.trim(),
@@ -569,7 +569,7 @@ function domContentOnMinimalize(userId, userType, user_direction, userTelegram, 
                         youtube_link: document.querySelector('#youtubeFields input[type="url"]')?.value?.trim() || ""
                     };
                 }else if(userType === 'company'){
-                    postUrl = 'https://blogy.uz/api/companies';
+                    postUrl = 'http://localhost:8888/api/companies';
                     var postData = {
                         user_id: parseInt(userId),
                         name: postForm.querySelector('input[placeholder*="Название компании"]').value.trim(),
@@ -584,7 +584,7 @@ function domContentOnMinimalize(userId, userType, user_direction, userTelegram, 
                         instagram_link: localStorage.getItem('instagram') || "",
                     };
                 }else if(userType === 'blogger'){
-                    postUrl = 'https://blogy.uz/api/post-bloggers';
+                    postUrl = 'http://localhost:8888/api/post-bloggers';
                     var postData = {
                         user_id: parseInt(userId),
                         name: postForm.querySelector('input[name="title"]').value.trim(),

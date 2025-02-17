@@ -215,7 +215,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 
             try {
                 // Получаем данные пользователя по email
-                const response = await fetch(`https://blogy.uz/api/auth/user?email=${encodeURIComponent(userEmail)}`);
+                const response = await fetch(`http://localhost:8888/api/auth/user?email=${encodeURIComponent(userEmail)}`);
                 const userData = await response.json();
 
                 if (!response.ok) {
@@ -269,7 +269,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 
                 console.log('Отправляемые данные:', formData); // Для отладки
 
-                const response = await fetch('https://blogy.uz/api/auth/update-profile', {
+                const response = await fetch('http://localhost:8888/api/auth/update-profile', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

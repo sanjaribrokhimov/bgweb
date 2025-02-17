@@ -1,0 +1,42 @@
+package utils
+
+import (
+	"fmt"
+	"net/http"
+)
+
+// SendTelegramOTP отправляет OTP код через Telegram бот
+func SendTelegramOTP(chatID string, otp string) error {
+	botToken := "7690904808:AAEyzgbEZ3--sQ1pkJ-bFBpnDSCY2rNq9VY"
+
+	message := fmt.Sprintf("Ваш код подтверждения: %s", otp)
+	url := fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", botToken)
+
+	// Создаем HTTP клиент
+	client := &http.Client{}
+
+	// Формируем запрос
+	req, err := http.NewRequest("POST", url, nil)
+	if err != nil {
+		return fmt.Errorf("error creating request: %v", err)
+	}
+
+	// Добавляем параметры
+	q := req.URL.Query()
+	q.Add("chat_id", chatID)
+	q.Add("text", message)
+	req.URL.RawQuery = q.Encode()
+
+	// Отправляем запрос
+	resp, err := client.Do(req)
+	if err != nil {
+		return fmt.Errorf("error sending telegram message: %v", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("telegram API returned non-200 status code: %d", resp.StatusCode)
+	}
+
+	return nil
+}

@@ -19,46 +19,51 @@ var logger = utils.NewLogger()
 
 func Register(c *gin.Context) {
 	var input struct {
-		Name      string `json:"name" binding:"required"`
-		Email     string `json:"email" binding:"required"`
-		Password  string `json:"password" binding:"required"`
-		Phone     string `json:"phone" binding:"required"`
-		Category  string `json:"category" binding:"required"`
-		Direction string `json:"direction" binding:"required"`
-		Telegram  string `json:"telegram" binding:"required"`
-		Instagram string `json:"instagram" binding:"required"`
-		TgChatID  string `json:"tg_chat_id" binding:"required"`
-		TgUserID  string `json:"tg_user_id" binding:"required"`
+		Identifier string `json:"identifier" binding:"required"`
+		Password   string `json:"password" binding:"required"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
 		logger.LogError("Register", err, fmt.Sprintf("Invalid request data: %+v", c.Request.Body))
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Пожалуйста, заполните все поля"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Пожалуйста, укажите identifier и пароль"})
 		return
 	}
 
-	// Проверяем все обязательные поля
-	if input.Name == "" || input.Email == "" || input.Password == "" ||
-		input.Phone == "" || input.Category == "" || input.Direction == "" ||
-		input.Telegram == "" {
-		logger.LogError("Register", fmt.Errorf("missing required fields"),
-			fmt.Sprintf("User data: %+v", input))
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Все поля обязательны для заполнения"})
-		return
+	// Определяем тип идентификатора (email или chat_id)
+	isEmail := false
+	for _, char := range input.Identifier {
+		if char == '@' {
+			isEmail = true
+			break
+		}
+	}
+
+	var email, chatID string
+	if isEmail {
+		email = input.Identifier
+	} else {
+		chatID = input.Identifier
 	}
 
 	// Проверка существующего пользователя
 	var existingUser models.User
-	if err := database.DB.Where("email = ?", input.Email).First(&existingUser).Error; err == nil {
+	query := database.DB
+	if isEmail {
+		query = query.Where("email = ?", email)
+	} else {
+		query = query.Where("tg_chat_id = ?", chatID)
+	}
+
+	if err := query.First(&existingUser).Error; err == nil {
 		if !existingUser.IsVerified {
 			// Удаляем старую неверифицированную запись
 			if err := database.DB.Unscoped().Delete(&existingUser).Error; err != nil {
-				logger.LogError("Register", err, fmt.Sprintf("Failed to delete unverified user: %s", input.Email))
+				logger.LogError("Register", err, "Failed to delete unverified user")
 				c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при обработке регистрации"})
 				return
 			}
 		} else {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Этот email уже зарегистрирован"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Пользователь уже зарегистрирован"})
 			return
 		}
 	}
@@ -75,34 +80,50 @@ func Register(c *gin.Context) {
 
 	// Создаем пользователя
 	user := models.User{
-		Name:       input.Name,
-		Email:      input.Email,
+		Name:       "empty",
+		Email:      email,
 		Password:   string(hashedPassword),
-		Phone:      input.Phone,
-		Category:   input.Category,
-		Direction:  input.Direction,
-		Telegram:   input.Telegram,
-		Instagram:  input.Instagram,
+		Phone:      "empty",
+		Category:   "empty",
+		Direction:  "empty",
+		Telegram:   "empty",
+		Instagram:  "empty",
 		OTPCode:    otp,
 		IsVerified: false,
-		TgChatID:   input.TgChatID,
-		TgUserID:   input.TgUserID,
+		TgChatID:   chatID,
+		TgUserID:   "empty",
 	}
 
 	// Сохранение пользователя
 	if err := database.DB.Create(&user).Error; err != nil {
-		logger.LogError("Register", err, fmt.Sprintf("Failed to create user: %s", user.Email))
+		logger.LogError("Register", err, "Failed to create user")
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при создании пользователя"})
 		return
 	}
 
-	// Отправка OTP
-	if err := utils.SendOTP(user.Email, otp); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при отправке кода подтверждения"})
+	var otpError error
+
+	// Отправляем OTP в зависимости от типа идентификатора
+	if isEmail {
+		if err := utils.SendOTP(email, otp); err != nil {
+			logger.LogError("Register", err, "Failed to send OTP via email")
+			otpError = err
+		}
+	} else {
+		if err := utils.SendTelegramOTP(chatID, otp); err != nil {
+			logger.LogError("Register", err, "Failed to send OTP via Telegram")
+			otpError = err
+		}
+	}
+
+	if otpError != nil {
+		// Удаляем созданного пользователя
+		database.DB.Unscoped().Delete(&user)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при отправке кода подтверждения: " + otpError.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Регистрация успешна. Проверьте email для подтверждения."})
+	c.JSON(http.StatusOK, gin.H{"message": "Регистрация успешна. Проверьте сообщение с кодом подтверждения."})
 }
 
 func VerifyOTP(c *gin.Context) {

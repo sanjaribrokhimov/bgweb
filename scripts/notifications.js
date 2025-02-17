@@ -143,7 +143,7 @@ class NotificationManager {
             // console.log('Fetching notifications for user:', userId);
             
 
-            const response = await fetch(`https://blogy.uz/api/notifications/${userId}`);
+            const response = await fetch(`http://localhost:8888/api/notifications/${userId}`);
             
             // Проверяем статус ответа
             if (!response.ok) {
@@ -333,7 +333,7 @@ class NotificationManager {
         if (!userId) return;
 
         try {
-            const response = await fetch(`https://blogy.uz/api/notifications/${notificationId}/read`, {
+            const response = await fetch(`http://localhost:8888/api/notifications/${notificationId}/read`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
