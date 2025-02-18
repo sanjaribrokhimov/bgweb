@@ -277,12 +277,25 @@
 
             <!-- Форма входа -->
             <form id="loginForm" class="auth-form active" autocomplete="off">
-                <div class="form-group mb-3">
-                    <div class="input-with-icon">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" class="form-control" placeholder="Email" required autocomplete="off">
-                    </div>
+                <div class="input-description mb-3 text-center">
+                    Выберите тип входа
                 </div>
+                <div class="deal-type-switcher mb-3" id="loginDealTypeSwitcher" data-type="telegram">
+                    <div class="switch-option" data-value="telegram">
+                        <i class="fa-brands fa-telegram"></i>
+                        <span>По телеграму</span>
+                    </div>
+                    <div class="switch-option" data-value="email">
+                        <i class="fa-regular fa-envelope"></i>
+                        <span>По почте</span>
+                    </div>
+                    <div class="switch-slider"></div>
+                </div>
+
+                <div class="form-group mb-3 hidden" id="loginEmailBlock">
+                    
+                </div>
+
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-lock"></i>
@@ -456,7 +469,7 @@
                 <div class="input-description mb-3 text-center">
                     Выберите тип регистрации
                 </div>
-                <div class="deal-type-switcher mb-3">
+                <div class="deal-type-switcher mb-3" id="registerDealTypeSwitcher">
                     <div class="switch-option" data-value="telegram">
                         <i class="fa-brands fa-telegram"></i>
                         <span>По телеграму</span>
@@ -468,7 +481,7 @@
                     <div class="switch-slider"></div>
                 </div>
 
-                <div class="form-group mb-3 hidden" id="emailBlock">
+                <div class="form-group mb-3 hidden" id="registerEmailBlock">
                     
                 </div>
 
@@ -773,17 +786,21 @@
                     
                     const responseBlock = document.getElementById('loginApiResponse');
                     const alertBlock = responseBlock.querySelector('.alert');
-                    
+                    const currentDealType = loginDealTypeSwitcher.dataset.type;
+                    const tg_chat_id = localStorage.getItem('telegram_chat_id');
+                    console.log(currentDealType)
+                    console.log(tg_chat_id)
+                    const identifier = currentDealType === "email" ? loginForm.querySelector('input[type="email"]').value.trim() : tg_chat_id;
                     try {
                         const formData = {
-                            email: loginForm.querySelector('input[type="email"]').value.trim(),
+                            identifier: identifier,
                             password: loginForm.querySelector('input[type="password"], input[type="text"]').value
                         };
 
                         // Логируем данные, которые отправляем
                         console.log('Отправляемые данные (login):', formData);
 
-                        const response = await fetch('https://blogy.uz/api/auth/login', {
+                        const response = await fetch('http://localhost:8888/api/auth/login', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -969,32 +986,31 @@
 
             
             // Добавьте в существующий обработчик DOMContentLoaded
-            const dealTypeSwitcher = document.querySelector('.deal-type-switcher');
-            const switchOptions = dealTypeSwitcher.querySelectorAll('.switch-option');
-            const emailBlock = document.getElementById('emailBlock');
-            const emailInput = emailBlock.querySelector('input[name="email"]');
+            const regDealTypeSwitcher = document.querySelector('#registerDealTypeSwitcher');
+            const regSwitchOptions = regDealTypeSwitcher.querySelectorAll('.switch-option');
+            const regEmailBlock = document.getElementById('registerEmailBlock');
+            const regEmailInput = regEmailBlock.querySelector('input[name="email"]');
 
             var currentDealType = 'telegram';
 
-            switchOptions.forEach(option => {
+            regSwitchOptions.forEach(option => {
                 console.log('options')
                 option.addEventListener('click', () => {
-                    console.log('asdasda')
                     const value = option.dataset.value;
                     if (value === currentDealType) return;
 
                     currentDealType = value;
-                    dealTypeSwitcher.dataset.type = value;
+                    regDealTypeSwitcher.dataset.type = value;
                     
-                    switchOptions.forEach(opt => {
+                    regSwitchOptions.forEach(opt => {
                         opt.classList.toggle('active', opt.dataset.value === value);
                     });
 
                     if (value === 'telegram') {
-                        emailBlock.innerHTML = ''
-                        emailBlock.classList.add('hidden')
+                        regEmailBlock.innerHTML = ''
+                        regEmailBlock.classList.add('hidden')
                     } else {
-                        emailBlock.innerHTML = `
+                        regEmailBlock.innerHTML = `
                         <div class="input-with-icon">
                             <i class="fas fa-envelope"></i>
                             <input type="email" class="form-control" placeholder="Email" name="email" autocomplete="off" required>
@@ -1004,13 +1020,53 @@
                             На email придет код подтверждения
                         </div>
                         `
-                        emailBlock.classList.remove('hidden');
+                        regEmailBlock.classList.remove('hidden');
                     }
                 });
             });
 
             // Активируем начальное состояние
-            switchOptions[0].classList.add('active');
+            regSwitchOptions[0].classList.add('active');
+
+
+            // Добавьте в существующий обработчик DOMContentLoaded
+            const loginDealTypeSwitcher = document.querySelector('#loginDealTypeSwitcher');
+            const loginSwitchOptions = loginDealTypeSwitcher.querySelectorAll('.switch-option');
+            const loginEmailBlock = document.getElementById('loginEmailBlock');
+            const loginEmailInput = loginEmailBlock.querySelector('input[name="email"]');
+
+            var currentDealType = 'telegram';
+
+            loginSwitchOptions.forEach(option => {
+                console.log('options')
+                option.addEventListener('click', () => {
+                    const value = option.dataset.value;
+                    if (value === currentDealType) return;
+
+                    currentDealType = value;
+                    loginDealTypeSwitcher.dataset.type = value;
+                    
+                    loginSwitchOptions.forEach(opt => {
+                        opt.classList.toggle('active', opt.dataset.value === value);
+                    });
+
+                    if (value === 'telegram') {
+                        loginEmailBlock.innerHTML = ''
+                        loginEmailBlock.classList.add('hidden')
+                    } else {
+                        loginEmailBlock.innerHTML = `
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" class="form-control" placeholder="Email" required autocomplete="off">
+                            </div>
+                        `
+                        loginEmailBlock.classList.remove('hidden');
+                    }
+                });
+            });
+
+            // Активируем начальное состояние
+            loginSwitchOptions[0].classList.add('active');
         });
     </script>
     <script>
