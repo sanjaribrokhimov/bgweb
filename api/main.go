@@ -13,7 +13,6 @@ import (
 
 func main() {
 
-	
 	// Установка режима Gin
 	gin.SetMode(gin.ReleaseMode)
 
@@ -68,12 +67,13 @@ func main() {
 			auth.POST("/reset-password", handlers.ResetPassword)
 			auth.POST("/update-profile", handlers.UpdateProfile)
 			auth.GET("/check-fields/:id", handlers.CheckUserFields)
+			auth.POST("/complete-registration/:id", handlers.CompleteRegistration)
 		}
 
 		// Маршруты для постов блогеров
 		api.POST("/post-bloggers", handlers.CreatePostBlogger)
 		api.GET("/post-bloggers", handlers.GetPostBloggers)
-		api.GET("/post-bloggers/paginated", handlers.GetPaginatedPostBloggers) 
+		api.GET("/post-bloggers/paginated", handlers.GetPaginatedPostBloggers)
 		api.GET("/post-bloggers/:id", handlers.GetPostBloggerByID)
 		api.GET("/user-posts/:user_id", handlers.GetUserPosts)
 
@@ -113,7 +113,7 @@ func main() {
 		// Маршруты для админ-панели
 		admin := api.Group("/admin")
 		{
-    		admin.DELETE("/cleanup-users", handlers.DeleteInactiveUser)
+			admin.DELETE("/cleanup-users", handlers.DeleteInactiveUser)
 			admin.POST("/login", handlers.AdminLogin)
 			admin.GET("/pending-ads", handlers.GetPendingAds)
 			admin.GET("/pending-old-ads", handlers.GetPendingOldAdByID)

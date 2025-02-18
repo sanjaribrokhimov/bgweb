@@ -746,3 +746,67 @@ func CheckUserFields(c *gin.Context) {
 		},
 	})
 }
+
+// CompleteRegistration обновляет данные пользователя после первичной регистрации
+func CompleteRegistration(c *gin.Context) {
+	userID := c.Param("id")
+
+	var input struct {
+		Name      string `json:"name" binding:"required"`
+		Phone     string `json:"phone" binding:"required"`
+		Category  string `json:"category" binding:"required"`
+		Direction string `json:"direction" binding:"required"`
+		Telegram  string `json:"telegram" binding:"required"`
+		Instagram string `json:"instagram" binding:"required"`
+	}
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		logger.LogError("CompleteRegistration", err, "Invalid input data")
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Все поля обязательны для заполнения",
+		})
+		return
+	}
+
+	var user models.User
+	if err := database.DB.First(&user, userID).Error; err != nil {
+		logger.LogError("CompleteRegistration", err, fmt.Sprintf("User not found with ID: %s", userID))
+		c.JSON(http.StatusNotFound, gin.H{
+			"error": "Пользователь не найден",
+		})
+		return
+	}
+
+	// Обновляем данные пользователя
+	user.Name = input.Name
+	user.Phone = input.Phone
+	user.Category = input.Category
+	user.Direction = input.Direction
+	user.Telegram = input.Telegram
+	user.Instagram = input.Instagram
+
+	if err := database.DB.Save(&user).Error; err != nil {
+		logger.LogError("CompleteRegistration", err, "Failed to update user")
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Ошибка при обновлении данных",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Регистрация успешно завершена",
+		"user": gin.H{
+			"id":          user.ID,
+			"email":       user.Email,
+			"name":        user.Name,
+			"category":    user.Category,
+			"direction":   user.Direction,
+			"telegram":    user.Telegram,
+			"instagram":   user.Instagram,
+			"is_verified": user.IsVerified,
+			"phone":       user.Phone,
+			"tg_chat_id":  user.TgChatID,
+			"tg_user_id":  user.TgUserID,
+		},
+	})
+}
