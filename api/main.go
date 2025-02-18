@@ -67,6 +67,7 @@ func main() {
 			auth.POST("/forgot-password", handlers.ForgotPassword)
 			auth.POST("/reset-password", handlers.ResetPassword)
 			auth.POST("/update-profile", handlers.UpdateProfile)
+			auth.GET("/check-fields/:id", handlers.CheckUserFields)
 		}
 
 		// Маршруты для постов блогеров

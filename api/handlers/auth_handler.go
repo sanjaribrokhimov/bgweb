@@ -699,3 +699,50 @@ func AdminUpdateUser(c *gin.Context) {
 		},
 	})
 }
+
+// CheckUserFields проверяет, заполнены ли все поля пользователя
+func CheckUserFields(c *gin.Context) {
+	userID := c.Param("id")
+	log.Printf("Получен запрос на проверку полей для ID: %s", userID)
+
+	var user models.User
+	result := database.DB.First(&user, userID)
+	if result.Error != nil {
+		log.Printf("Ошибка при поиске пользователя: %v", result.Error)
+		log.Printf("Искомый ID: %s", userID)
+
+		logger.LogError("CheckUserFields", result.Error, fmt.Sprintf("User not found with ID: %s", userID))
+		c.JSON(http.StatusNotFound, gin.H{
+			"error":   "Пользователь не найден",
+			"details": fmt.Sprintf("Не удалось найти пользователя с ID: %s", userID),
+		})
+		return
+	}
+
+	log.Printf("Пользователь найден: %+v", user)
+
+	// Проверяем все поля на "empty"
+	isComplete := user.Name != "empty" &&
+		user.Phone != "empty" &&
+		user.Category != "empty" &&
+		user.Direction != "empty" &&
+		user.Telegram != "empty" &&
+		user.Instagram != "empty"
+
+	c.JSON(http.StatusOK, gin.H{
+		"is_complete": isComplete,
+		"user": gin.H{
+			"id":          user.ID,
+			"email":       user.Email,
+			"name":        user.Name,
+			"category":    user.Category,
+			"direction":   user.Direction,
+			"telegram":    user.Telegram,
+			"instagram":   user.Instagram,
+			"is_verified": user.IsVerified,
+			"phone":       user.Phone,
+			"tg_chat_id":  user.TgChatID,
+			"tg_user_id":  user.TgUserID,
+		},
+	})
+}
