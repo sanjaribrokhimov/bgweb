@@ -213,33 +213,52 @@ func VerifyOTP(c *gin.Context) {
 
 func Login(c *gin.Context) {
 	var input struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
+		Identifier string `json:"identifier"` // Может быть email или chat_id
+		Password   string `json:"password"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
 		logger.LogError("Login", err, "Invalid login data format")
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Введите email и пароль"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Введите идентификатор (email или chat ID) и пароль"})
 		return
 	}
 
+	// Определяем тип идентификатора (email или chat_id)
+	isEmail := false
+	for _, char := range input.Identifier {
+		if char == '@' {
+			isEmail = true
+			break
+		}
+	}
+
 	var user models.User
-	if err := database.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
-		logger.LogError("Login", err, fmt.Sprintf("User not found: %s", input.Email))
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Неверный email или пароль"})
-		return
+	if isEmail {
+		// Поиск по email
+		if err := database.DB.Where("email = ?", input.Identifier).First(&user).Error; err != nil {
+			logger.LogError("Login", err, fmt.Sprintf("User not found: %s", input.Identifier))
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Неверный email или пароль"})
+			return
+		}
+	} else {
+		// Поиск по chat_id
+		if err := database.DB.Where("tg_chat_id = ?", input.Identifier).First(&user).Error; err != nil {
+			logger.LogError("Login", err, fmt.Sprintf("User not found with chat_id: %s", input.Identifier))
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Неверный chat ID или пароль"})
+			return
+		}
 	}
 
 	if !user.IsVerified {
 		c.JSON(http.StatusUnauthorized, gin.H{
-			"error":      "Email не подтвержден",
+			"error":      "Аккаунт не подтвержден",
 			"isVerified": false,
 		})
 		return
 	}
 
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Password)); err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Неверный email или пароль"})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Неверный идентификатор или пароль"})
 		return
 	}
 
