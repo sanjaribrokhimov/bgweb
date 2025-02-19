@@ -284,12 +284,13 @@ body.add-active {
 function checkAuth() {
     const requiredFields = [
         'userId', 
-        'category', 
-        'userEmail',
-        'name',
-        'phone',
-        'telegram',
-        'direction'
+        'telegram_chat_id',
+        // 'category', 
+        // 'userEmail',
+        // 'name',
+        // 'phone',
+        // 'telegram',
+        // 'direction'
     ];
     const missingFields = requiredFields.filter(field => !localStorage.getItem(field));
     const isVerified = localStorage.getItem('verified');

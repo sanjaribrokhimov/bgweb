@@ -248,8 +248,11 @@
             
             // Получаем данные пользователя из базы
             try {
-                const email = localStorage.getItem('userEmail');
-                const response = await fetch(`http://localhost:8888/api/auth/user?email=${encodeURIComponent(email)}`);
+                // const email = localStorage.getItem('userEmail');
+                // const tg_chat_id = localStorage.getItem('telegram_chat_id') || null;
+                // const identifier = tg_chat_id ? tg_chat_id : email;
+                const userId = localStorage.getItem('userId');
+                const response = await fetch(`http://localhost:8888/api/auth/check-fields/${userId}`);
                 
                 if (!response.ok) {
                     throw new Error('Ошибка получения данных пользователя');
@@ -258,24 +261,42 @@
                 const userData = await response.json();
                 console.log('Полученные данные:', userData); // Для отладки
                 
+                const is_complete = userData.is_complete;
+                if(!is_complete){
+                    window.location.href = 'reRegister.php';
+                    // console.error('Ошибка:', error);
+                    // Можно показать сообщение об ошибке пользователю
+                    // const responseBlock = document.getElementById('editProfileResponse');
+                    // const alertBlock = responseBlock.querySelector('.alert');
+                    // responseBlock.style.display = 'block';
+                    // alertBlock.className = 'alert alert-danger';
+                    // alertBlock.textContent = 'Заполните профиль чтобы продолжить работу в приложении';
+                }
+                const user = userData.user;
+                for(let key in user){
+                    if(user[key] === 'empty'){
+                        user[key] = '';
+                    }
+                }
+                
                 // Заполняем форму данными из базы
-                form.name.value = userData.name || '';
-                form.phone.value = userData.phone || '';
-                form.telegram.value = userData.telegram || ''; // Исправлено имя поля
-                form.instagram.value = userData.instagram || '';
-                form.category.value = userData.category || '';
+                form.name.value = user.name || '';
+                form.phone.value = user.phone || '';
+                form.telegram.value = user.telegram || ''; // Исправлено имя поля
+                form.instagram.value = user.instagram || '';
+                form.category.value = user.category || '';
                 
                 // Показываем соответствующий select направления
-                if (userData.category) {
+                if (user.category) {
                     const directionContainer = document.querySelector('.direction-selects-container');
-                    const directionSelect = document.querySelector(`.direction-${userData.category}`);
+                    const directionSelect = document.querySelector(`.direction-${user.category}`);
                     if (directionSelect) {
                         directionContainer.style.display = 'block';
                         directionSelect.style.display = 'block';
-                        directionSelect.value = userData.direction || '';
+                        directionSelect.value = user.direction || '';
                         // Если направление не выбралось, выводим в консоль для отладки
                         if (!directionSelect.value) {
-                            console.log('Направление не найдено:', userData.direction);
+                            console.log('Направление не найдено:', user.direction);
                             console.log('Доступные опции:', Array.from(directionSelect.options).map(opt => opt.value));
                         }
                     }
@@ -396,6 +417,7 @@
                         setTimeout(() => {
                             localStorage.clear();
                             window.location.href = 'login.php';
+                            alert('hello world')
                         }, 1000);
                     } else {
                         throw new Error(data.error || 'Ошибка при обновлении профиля');
