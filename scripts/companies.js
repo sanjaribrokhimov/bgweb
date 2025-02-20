@@ -85,8 +85,13 @@ class CompanyLoader {
     }
 
     initializeAcceptButtons() {
-        document.addEventListener('click', (e) => {
+        document.addEventListener('click', async (e) => {
             const acceptBtn = e.target.closest('.btn-accept');
+            let is_complete = await checkUser();
+            if(!is_complete){
+                window.location.href = 'reRegister.php';
+                return;
+            }
             if (!acceptBtn) return;
             
             e.preventDefault();
