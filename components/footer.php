@@ -308,6 +308,39 @@ function checkAuth() {
     return true;
 }
 
+async function checkUser(){
+    var userData;
+    try {
+        const userId = localStorage.getItem('userId');
+        const response = await fetch(`http://localhost:8888/api/auth/check-fields/${userId}`);
+        
+        if (!response.ok) {
+            throw new Error('Ошибка получения данных пользователя');
+        }
+
+        userData = await response.json();
+        console.log('Полученные данные:', userData); // Для отладки
+        
+        const is_complete = userData.is_complete;
+        if(!is_complete){
+            window.location.href = 'reRegister.php';
+        }
+        const user = userData.user;
+        localStorage.setItem('userId', user.id);
+        localStorage.setItem('userCategory', user.category);
+        localStorage.setItem('userEmail', user.email);
+        localStorage.setItem('userName', user.name);
+        localStorage.setItem('userPhone', user.phone);
+        localStorage.setItem('userTelegram', user.telegram);
+        localStorage.setItem('userDirection', user.direction);
+        localStorage.setItem('is_complete', userData.is_complete);
+        console.log('asdasd')
+    } catch (error) {
+        console.error('Ошибка:', error);
+    }
+    return userData.is_complete;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // checkAuth();
     setInterval(checkAuth, 30000);
@@ -348,25 +381,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // Обработчик кнопки добавления
     const addButton = document.getElementById('addButton');
     if (addButton) {
-        addButton.addEventListener('click', function() {
-            const userCategory = localStorage.getItem('category');
+        addButton.addEventListener('click', async function() {
+            const userCategory = localStorage.getItem('userCategory');
             const isVerified = localStorage.getItem('verified');
             const userId = localStorage.getItem('userId');
-            const userEmail = localStorage.getItem('userEmail');
-            const userName = localStorage.getItem('name');
-            const userPhone = localStorage.getItem('phone');
-            const userTelegram = localStorage.getItem('telegram');
-            const userDirection = localStorage.getItem('direction');
-            const userInstagram = localStorage.getItem('instagram');
+            // const userEmail = localStorage.getItem('userEmail');
+            // const userName = localStorage.getItem('name');
+            // const userPhone = localStorage.getItem('phone');
+            // const userTelegram = localStorage.getItem('telegram');
+            // const userDirection = localStorage.getItem('direction');
+            // const userInstagram = localStorage.getItem('instagram');
             
-            if (!userCategory || !userId || !userEmail || !userName || !userPhone || !userTelegram || !userDirection || !userInstagram) {
-                // window.location.href = 'login.php';
+            if (!userId) {
+                window.location.href = 'login.php';
                 return;
             }
 
             if (isVerified !== 'true') {
                
-                window.location.href = 'verification.php';
+                window.location.href = 'reRegister.php';
+                return;
+            }
+            var is_complete = await checkUser();
+            console.log(is_complete);
+            if(!is_complete){
+                window.location.href = 'reRegister.php';
                 return;
             }
 
