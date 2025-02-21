@@ -392,10 +392,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // const userDirection = localStorage.getItem('direction');
             // const userInstagram = localStorage.getItem('instagram');
             
-            if (!userId) {
-                window.location.href = 'login.php';
-                return;
-            }
+            // if (!userId) {
+            //     window.location.href = 'login.php';
+            //     return;
+            // }
 
             if (isVerified !== 'true') {
                
