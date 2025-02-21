@@ -33,11 +33,11 @@
     bottom: 0;
     left: 0;
     right: 0;
+    padding-bottom: 15px
     background: var(--card-bg);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease;
     z-index: 1000;
-   
 }
 
 .bottom-nav.hidden {
