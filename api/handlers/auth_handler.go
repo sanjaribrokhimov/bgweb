@@ -13,6 +13,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 )
 
 var logger = utils.NewLogger()
@@ -314,17 +315,33 @@ func ResendOTP(c *gin.Context) {
 }
 
 func GetUserByEmail(c *gin.Context) {
-	email := c.Query("email")
-	log.Printf("Получен запрос для email: %s", email)
+	identifier := c.Query("identi")
+	log.Printf("Получен запрос для идентификатора: %s", identifier)
 
-	if email == "" {
-		log.Printf("Email не указан в запросе")
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Email is required"})
+	if identifier == "" {
+		log.Printf("Идентификатор не указан в запросе")
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Identifier is required"})
 		return
 	}
 
+	// Определяем тип идентификатора (email или chat_id)
+	isEmail := false
+	for _, char := range identifier {
+		if char == '@' {
+			isEmail = true
+			break
+		}
+	}
+
 	var user models.User
-	result := database.DB.Where("email = ?", email).First(&user)
+	var result *gorm.DB
+
+	if isEmail {
+		result = database.DB.Where("email = ?", identifier).First(&user)
+	} else {
+		result = database.DB.Where("tg_chat_id = ?", identifier).First(&user)
+	}
+
 	if result.Error != nil {
 		log.Printf("Ошибка при поиске пользователя: %v", result.Error)
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
