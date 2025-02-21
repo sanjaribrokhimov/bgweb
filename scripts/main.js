@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!userId) return;
 
         try {
-            const response = await fetch(`http://localhost:8888/api/user-agreements?user_id=${userId}`);
+            const response = await fetch(`https://blogy.uz/api/user-agreements?user_id=${userId}`);
             if (!response.ok) throw new Error('Failed to fetch agreements');
             
             const agreements = await response.json();
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
 
-            const response = await fetch('http://localhost:8888/api/notifications/accept', {
+            const response = await fetch('https://blogy.uz/api/notifications/accept', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

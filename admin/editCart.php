@@ -133,7 +133,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
         // Загружаем данные объявления
         async function loadAdData() {
             try {
-                const response = await fetch(`http://localhost:8888/api/admin/pending-old-ads?id=${adId}&type=${adType}`);
+                const response = await fetch(`https://blogy.uz/api/admin/pending-old-ads?id=${adId}&type=${adType}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -229,7 +229,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
         // Функция отправки данных на сервер
         async function sendData(data) {
             try {
-                const response = await fetch('http://localhost:8888/api/admin/edit-ad', {
+                const response = await fetch('https://blogy.uz/api/admin/edit-ad', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

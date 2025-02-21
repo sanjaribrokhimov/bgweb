@@ -161,7 +161,7 @@ class BloggerLoader {
             this.loading = true;
             
             // Формируем URL с параметрами
-            let url = `http://localhost:8888/api/post-bloggers/paginated?page=${this.page}&limit=${this.limit}`;
+            let url = `https://blogy.uz/api/post-bloggers/paginated?page=${this.page}&limit=${this.limit}`;
             if (this.currentCategory && this.currentCategory !== 'all') {
                 url += `&category=${this.currentCategory}`;
             }
@@ -302,7 +302,7 @@ class BloggerLoader {
             loadingIndicator.style.display = 'block';
 
             // console.log('Fetching details for ID:', id);
-            const response = await fetch(`http://localhost:8888/api/ads/details/blogger/${id}`);
+            const response = await fetch(`https://blogy.uz/api/ads/details/blogger/${id}`);
             if (!response.ok) {
                 console.error('Response status:', response.status);
                 console.error('Response text:', await response.text());
@@ -412,7 +412,7 @@ class BloggerLoader {
         if (!userId) return;
 
         try {
-            const response = await fetch(`http://localhost:8888/api/user-agreements?user_id=${userId}`);
+            const response = await fetch(`https://blogy.uz/api/user-agreements?user_id=${userId}`);
             if (!response.ok) throw new Error('Failed to fetch agreements');
             const agreements = await response.json();
             

@@ -312,7 +312,7 @@ async function checkUser(){
     var userData;
     try {
         const userId = localStorage.getItem('userId');
-        const response = await fetch(`http://localhost:8888/api/auth/check-fields/${userId}`);
+        const response = await fetch(`https://blogy.uz/api/auth/check-fields/${userId}`);
         
         if (!response.ok) {
             throw new Error('Ошибка получения данных пользователя');

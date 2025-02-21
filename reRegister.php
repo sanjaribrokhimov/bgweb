@@ -302,7 +302,7 @@
                         return;
                     }
 
-                    const response = await fetch(`http://localhost:8888/api/auth/complete-registration/${userId}`, {
+                    const response = await fetch(`https://blogy.uz/api/auth/complete-registration/${userId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
