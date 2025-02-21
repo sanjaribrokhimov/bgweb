@@ -758,12 +758,22 @@ func CompleteRegistration(c *gin.Context) {
 		Direction string `json:"direction" binding:"required"`
 		Telegram  string `json:"telegram" binding:"required"`
 		Instagram string `json:"instagram" binding:"required"`
+		Email     string `json:"email" binding:"required,email"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
 		logger.LogError("CompleteRegistration", err, "Invalid input data")
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Все поля обязательны для заполнения",
+		})
+		return
+	}
+
+	// Проверяем, не занят ли уже этот email другим пользователем
+	var existingUser models.User
+	if err := database.DB.Where("email = ? AND id != ?", input.Email, userID).First(&existingUser).Error; err == nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Этот email уже используется другим пользователем",
 		})
 		return
 	}
@@ -784,6 +794,7 @@ func CompleteRegistration(c *gin.Context) {
 	user.Direction = input.Direction
 	user.Telegram = input.Telegram
 	user.Instagram = input.Instagram
+	user.Email = input.Email
 
 	if err := database.DB.Save(&user).Error; err != nil {
 		logger.LogError("CompleteRegistration", err, "Failed to update user")
