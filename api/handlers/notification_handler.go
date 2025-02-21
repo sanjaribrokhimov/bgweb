@@ -81,9 +81,10 @@ func CreateAcceptNotification(c *gin.Context) {
 		return
 	}
 
-	emailText := fmt.Sprintf(
+	// Формируем текст сообщения для обоих каналов связи
+	messageText := fmt.Sprintf(
 		"У вас новое соглашение по вашему объявлению!\n\n"+
-			"Сообщение от пользователя:\n%s\n\n"+  // Добавляем блок с сообщением
+			"Сообщение от пользователя:\n%s\n\n"+
 			"Данные пользователя:\n"+
 			"Имя: %s\n"+
 			"Категория: %s\n"+
@@ -92,7 +93,7 @@ func CreateAcceptNotification(c *gin.Context) {
 			"Telegram: %s\n"+
 			"Instagram: %s\n\n"+
 			"Пожалуйста, свяжитесь с пользователем через Telegram или Email для обсуждения деталей.",
-		input.UserMessage,  // Добавляем пользовательское сообщение первым аргументом
+		input.UserMessage,
 		fromUser.Name,
 		fromUser.Category,
 		fromUser.Direction,
@@ -101,11 +102,32 @@ func CreateAcceptNotification(c *gin.Context) {
 		fromUser.Instagram,
 	)
 
-	// Отправляем email
-	err := utils.SendEmail(toUser.Email, "Новое соглашение по объявлению", emailText)
-	if err != nil {
-		log.Printf("Failed to send email: %v", err)
-		// Не возвращаем ошибку клиенту, так как уведомление уже создано
+	// Отправляем уведомления по доступным каналам
+	var notificationsSent bool
+
+	// Отправляем email, если есть адрес
+	if toUser.Email != "" {
+		err := utils.SendEmail(toUser.Email, "Новое соглашение по объявлению", messageText)
+		if err != nil {
+			log.Printf("Failed to send email: %v", err)
+		} else {
+			notificationsSent = true
+		}
+	}
+
+	// Отправляем в Telegram, если есть chat_id
+	if toUser.TgChatID != "" {
+		err := utils.SendTelegramMessage(toUser.TgChatID, messageText)
+		if err != nil {
+			log.Printf("Failed to send Telegram message: %v", err)
+		} else {
+			notificationsSent = true
+		}
+	}
+
+	// Проверяем, было ли отправлено хотя бы одно уведомление
+	if !notificationsSent {
+		log.Printf("Warning: No notifications were sent - no valid contact information for user %d", toUser.ID)
 	}
 
 	// Отправляем уведомление через WebSocket

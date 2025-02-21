@@ -315,7 +315,7 @@ func ResendOTP(c *gin.Context) {
 }
 
 func GetUserByEmail(c *gin.Context) {
-	identifier := c.Query("identi")
+	identifier := c.Query("identifier")
 	log.Printf("Получен запрос для идентификатора: %s", identifier)
 
 	if identifier == "" {
