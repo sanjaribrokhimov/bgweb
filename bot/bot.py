@@ -11,7 +11,7 @@ logger.add("bot.log", rotation="1 MB", level="INFO", compression="zip")
 
 # Загрузка переменных окружения
 load_dotenv()
-TOKEN = os.getenv('BOT_TOKEN', '7690904808:AAEyzgbEZ3--sQ1pkJ-bFBpnDSCY2rNq9VY')
+TOKEN = os.getenv('BOT_TOKEN', '6383507019:AAE4b5xfd7N0DA6yWce8KbNb3erygmLssoM')
 
 
 class TelegramBot:
@@ -34,12 +34,12 @@ class TelegramBot:
 • Профессиональное сообщество
 
 💡 *Как начать?*
-Просто нажмите кнопку '🌐 Открыть app' ниже и откройте для себя мир новых возможностей!
+Просто нажмите кнопку '🌐 Открыть app' ниже и откройте для себя мир новых возможностей\!
 
-🚀 Найдите именно то, что будет полезно для вашего развития.
+🚀 Найдите именно то, что будет полезно для вашего развития\.
             """,
             'subscription': r"""
-❗️ *Добро пожаловать в Bloger Agency!*
+❗️ *Добро пожаловать в Bloger Agency\!*
 
 🤖 Наш бот поможет вам:
 • Находить заказы и предложения
@@ -54,7 +54,7 @@ class TelegramBot:
             """,
             'help': r"""
 🔍 *Как использовать бота:*
-• /start - начать работу с ботом
+• /start \- начать работу с ботом
 • Нажмите '🌐 Открыть app' для доступа к приложению
 • Нажмите '📞 Контакты' для связи с нами
 
@@ -65,7 +65,7 @@ class TelegramBot:
             """,
             'contacts': r"""
 📞 *Наши контакты:*
-• Телефон: +998 97 708 78 67
+• Телефон: \+998 97 708 78 67
 • Instagram: [bloger\.agency](https://www\.instagram\.com/bloger\.agency/)
 • Сайт: [bloger\.agency](https://bloger\.agency)
 
@@ -74,12 +74,12 @@ class TelegramBot:
             'choose_language': "🌍 Пожалуйста, выберите язык / Iltimos, tilni tanlang:",
             'language_changed': "✅ Язык успешно изменен на русский",
             'not_subscribed': "Для доступа к функциям бота необходимо подписаться на наш канал\.",
-            'subscription_verified': "✅ Подписка подтверждена\! Теперь вам доступны все функции бота\. пожалуйста, поделитесь номером телефона",
+            'subscription_verified': "✅ Подписка подтверждена\! Теперь вам доступны все функции бота\.",
             'subscription_failed': "❌ Подписка не найдена\. Пожалуйста, подпишитесь на канал и попробуйте снова\."
         },
         'uz': {
             'welcome': r"""
-👋 *Bloger Agency ilovasiga xush kelibsiz!*
+👋 *Bloger Agency ilovasiga xush kelibsiz\!*
 
 🎯 *Bloger Agency nima ?*
 Bu yerda siz:
@@ -90,18 +90,18 @@ mumkin
 
 ✨ *Bizning ilovamizning afzalliklari:*
 • Takliflar va buyurtmalarni qulay qidirish
-• Blogerlar va brendlar o'rtasida to'g'ridan-to'g'ri aloqa
+• Blogerlar va brendlar o'rtasida to'g'ridan\-to'g'ri aloqa
 • Xavfsiz bitimlar
 • Dolzarb takliflar bazasi
 • Professional hamjamiyat
 
 💡 *Qanday boshlash kerak ?*
-'🌐 Ilovani ochish' tugmasini bosing va o'zingiz uchun yangi imkoniyatlar yarating !
+'🌐 Ilovani ochish' tugmasini bosing va o'zingiz uchun yangi imkoniyatlar yarating \!
 
 🚀 Aynan rivojlanishingiz uchun foydali bo'lgan narsalarni toping\.
             """,
             'subscription': r"""
-❗️ *Bloger\.Agency\-ga xush kelibsiz !*
+❗️ *Bloger Agency\-ga xush kelibsiz \!*
 
 🤖 Bizning bot sizga yordam beradi:
 • Buyurtmalar va takliflarni topish
@@ -112,7 +112,7 @@ mumkin
 📢 *Ilovadan foydalanish va dolzarb yangiliklarni olish uchun kanalimizga obuna bo'ling:*
 [@blogerAgency](https://t\.me/blogerAgensy)
 
-✅ Obuna bo'lgandan so'ng ilovaga kirish uchun /start tugmasini bosing .
+✅ Obuna bo'lgandan so'ng ilovaga kirish uchun /start tugmasini bosing\.
             """,
             'help': r"""
 🔍 *Botdan qanday foydalanish:*
@@ -136,7 +136,7 @@ mumkin
             'choose_language': "🌍 Пожалуйста, выберите язык / Iltimos, tilni tanlang:",
             'language_changed': "✅ Til muvaffaqiyatli o'zbekchaga o'zgartirildi",
             'not_subscribed': "Bot funksiyalaridan foydalanish uchun kanalimizga obuna bo'lishingiz kerak\.",
-            'subscription_verified': "✅ Obuna tasdiqlandi\! Endi botning barcha funksiyalari sizga ochiq\. Iltimos, telefon raqamingizni ulashing",
+            'subscription_verified': "✅ Obuna tasdiqlandi\! Endi botning barcha funksiyalari sizga ochiq\.",
             'subscription_failed': "❌ Obuna topilmadi\. Iltimos, kanalga obuna bo'ling va qaytadan urinib ko'ring\."
         }
     }
@@ -160,46 +160,54 @@ mumkin
         keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
         
         try:
+            # Всегда получаем данные пользователя
+            user = self.bot.get_chat(chat_id) if chat_id else None
+            
+            # Создаем URL с данными пользователя
+            web_app_url = "https://blogy.uz/login.php"
             if chat_id:
-                user = self.bot.get_chat(chat_id)
-                logger.info(f"Got user data from Telegram: username={user.username}, first_name={user.first_name}, id={user.id}")
-                
-                # Сначала запросим номер телефона
-                contact_keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-                contact_keyboard.add(KeyboardButton(
-                    text="📱 Отправить номер телефона" if lang == 'ru' else "📱 Telefon raqamini yuborish",
-                    request_contact=True
-                ))
-                
-                self.bot.send_message(
-                    chat_id=chat_id,
-                    text="Для продолжения, пожалуйста, поделитесь номером телефона" if lang == 'ru' else 
-                         "Davom etish uchun telefon raqamingizni ulashing",
-                    reply_markup=contact_keyboard
-                )
-                
-                # После получения контакта будем обрабатывать в handle_contact
-                return None
-                
-            else:
-                logger.warning("No chat_id provided")
+                # Формируем строку с данными в нужном формате
+                tgdata = f"tg_username={str(user.username) if user and user.username else ''}&tg_first_name={str(user.first_name) if user and user.first_name else ''}&tg_chat_id={str(chat_id)}"
+                encoded_data = urllib.parse.quote(tgdata)
+                web_app_url = f"https://blogy.uz/login.php?tgdata={encoded_data}"
+            
+            web_app = WebAppInfo(url=web_app_url)
+            
+            # Создаем кнопки
+            buttons_text = {
+                'ru': [
+                    (KeyboardButton(text="🌐 Открыть app", web_app=web_app)),
+                    "👥 Наша группа", "📢 Наш канал",
+                    "❓ Помощь", "📞 Контакты",
+                    "🔄 Сменить язык"
+                ],
+                'uz': [
+                    (KeyboardButton(text="🌐 Ilovani ochish", web_app=web_app)),
+                    "👥 Bizning guruh", "📢 Bizning kanal",
+                    "❓ Yordam", "📞 Kontaktlar",
+                    "🔄 Tilni o'zgartirish"
+                ]
+            }
+
+            # Размещаем кнопки
+            buttons = buttons_text[lang]
+            keyboard.row(buttons[0])
+            keyboard.row(buttons[1], buttons[2])
+            keyboard.row(buttons[3], buttons[4])
+            keyboard.row(buttons[5])
                 
         except Exception as e:
-            logger.error(f"Error requesting contact: {e}", exc_info=True)
+            logger.error(f"Error creating main keyboard: {e}", exc_info=True)
             
         return keyboard
-    
-
 
     def handle_language_selection(self, message):
         try:
             # Определяем выбранный язык
             if message.text == "🇷🇺 Русский":
                 lang = 'ru'
-                response_text = "Пожалуйста, поделитесь номером телефона для продолжения"
             elif message.text == "🇺🇿 O'zbekcha":
                 lang = 'uz'
-                response_text = "Davom etish uchun telefon raqamingizni ulashing"
             else:
                 return
 
@@ -207,18 +215,20 @@ mumkin
             self.user_languages[message.from_user.id] = lang
             logger.info(f"User {message.from_user.id} selected language: {lang}")
 
-            # Создаем клавиатуру для запроса номера
-            contact_keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-            contact_keyboard.add(KeyboardButton(
-                text="📱 Отправить номер телефона" if lang == 'ru' else "📱 Telefon raqamini yuborish",
-                request_contact=True
-            ))
+            # Проверяем подписку
+            if not self.check_subscription(message):
+                self.send_subscription_message(message)
+                return
 
-            # Запрашиваем номер телефона
+            # Создаем основную клавиатуру
+            keyboard = self.create_main_keyboard(lang=lang, chat_id=message.chat.id)
+            
+            # Отправляем приветственное сообщение
             self.bot.send_message(
                 chat_id=message.chat.id,
-                text=response_text,
-                reply_markup=contact_keyboard
+                text=self.TEXTS[lang]['welcome'],
+                parse_mode='MarkdownV2',
+                reply_markup=keyboard
             )
 
         except Exception as e:
@@ -461,20 +471,18 @@ mumkin
                     self.send_subscription_message(message)
                     return
                 
-                # Если есть подписка, запрашиваем номер телефона
-                contact_keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-                contact_keyboard.add(KeyboardButton(
-                    text="📱 Отправить номер телефона" if lang == 'ru' else "📱 Telefon raqamini yuborish",
-                    request_contact=True
-                ))
+                # Создаем основную клавиатуру
+                keyboard = self.create_main_keyboard(lang=lang, chat_id=message.chat.id)
                 
+                # Отправляем приветственное сообщение
                 self.bot.send_message(
                     chat_id=message.chat.id,
-                    text="Для продолжения, пожалуйста, поделитесь номером телефона" if lang == 'ru' else 
-                         "Davom etish uchun telefon raqamingizni ulashing",
-                    reply_markup=contact_keyboard
+                    text=self.TEXTS[lang]['welcome'],
+                    parse_mode='MarkdownV2',
+                    reply_markup=keyboard
                 )
-                logger.info(f"Requested phone number from user {message.from_user.id}")
+                logger.info(f"Main menu sent to user {message.from_user.id}")
+                
             except Exception as e:
                 logger.error(f"Error in language handler: {e}")
                 self.send_error_message(message)
@@ -487,17 +495,15 @@ mumkin
                 lang = self.user_languages.get(message.from_user.id, 'ru')
                 
                 if self.check_subscription(message):
-                    # Если подписка подтверждена, запрашиваем номер
-                    contact_keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-                    contact_keyboard.add(KeyboardButton(
-                        text="📱 Отправить номер телефона" if lang == 'ru' else "📱 Telefon raqamini yuborish",
-                        request_contact=True
-                    ))
+                    # Создаем основную клавиатуру
+                    keyboard = self.create_main_keyboard(lang=lang, chat_id=message.chat.id)
                     
+                    # Отправляем приветственное сообщение
                     self.bot.send_message(
                         chat_id=message.chat.id,
-                        text=self.TEXTS[lang]['subscription_verified'],
-                        reply_markup=contact_keyboard
+                        text=self.TEXTS[lang]['welcome'],
+                        parse_mode='MarkdownV2',
+                        reply_markup=keyboard
                     )
                     logger.info(f"Subscription verified for user {message.from_user.id}")
                 else:
@@ -538,25 +544,17 @@ mumkin
                         message_id=call.message.message_id
                     )
                     
-                    # Создаем клавиатуру для запроса номера телефона
-                    contact_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-                    contact_keyboard.add(KeyboardButton(
-                        text="📱 Отправить номер телефона" if lang == 'ru' else "📱 Telefon raqamini yuborish",
-                        request_contact=True
-                    ))
+                    # Создаем основную клавиатуру
+                    keyboard = self.create_main_keyboard(lang=lang, chat_id=call.message.chat.id)
                     
-                    # Отправляем сообщение с запросом номера телефона
-                    phone_request_text = {
-                        'ru': "Для продолжения, пожалуйста, поделитесь номером телефона",
-                        'uz': "Davom etish uchun telefon raqamingizni ulashing"
-                    }
-                    
+                    # Отправляем приветственное сообщение
                     self.bot.send_message(
                         chat_id=call.message.chat.id,
-                        text=phone_request_text[lang],
-                        reply_markup=contact_keyboard
+                        text=self.TEXTS[lang]['welcome'],
+                        parse_mode='MarkdownV2',
+                        reply_markup=keyboard
                     )
-                    logger.info(f"Requested phone number from user {call.from_user.id}")
+                    logger.info(f"Main menu shown to user {call.from_user.id}")
                     
                 else:
                     # Показываем уведомление об ошибке подписки
@@ -645,6 +643,24 @@ mumkin
             except Exception as e:
                 logger.error(f"Error in change language handler: {e}")
                 self.send_error_message(message)
+
+        @self.bot.message_handler(func=lambda message: True)
+        def handle_all_messages(message):
+            try:
+                # Получаем текущий язык пользователя
+                lang = self.user_languages.get(message.from_user.id, 'ru')
+                
+                # Обновляем клавиатуру с актуальным chat_id
+                keyboard = self.create_main_keyboard(lang=lang, chat_id=message.chat.id)
+                
+                # Обновляем сообщение с новой клавиатурой
+                self.bot.edit_message_reply_markup(
+                    chat_id=message.chat.id,
+                    message_id=message.message_id,
+                    reply_markup=keyboard
+                )
+            except Exception as e:
+                logger.error(f"Error in handle_all_messages: {e}")
 
     def run(self):
         try:

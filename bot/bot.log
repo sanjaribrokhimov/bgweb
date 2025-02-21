@@ -1,0 +1,43 @@
+2025-02-22 00:41:57.162 | INFO     | __main__:run:671 - Бот запущен
+2025-02-22 00:42:10.487 | INFO     | __main__:start_handler:460 - Sent language selection to user 7556301574
+2025-02-22 00:42:13.534 | INFO     | __main__:check_subscription:354 - Checking subscription for user 7556301574: False
+2025-02-22 00:42:13.534 | INFO     | __main__:check_subscription:355 - User status: left
+2025-02-22 00:42:13.662 | INFO     | __main__:send_subscription_message:380 - Subscription message sent to user 7556301574
+2025-02-22 00:42:17.734 | INFO     | __main__:check_subscription_callback:538 - Checking subscription callback for user 7556301574
+2025-02-22 00:42:18.033 | INFO     | __main__:check_subscription:354 - Checking subscription for user 7556301574: False
+2025-02-22 00:42:18.034 | INFO     | __main__:check_subscription:355 - User status: left
+2025-02-22 00:42:18.035 | INFO     | __main__:check_subscription_callback:542 - Subscription status: False
+2025-02-22 00:42:18.143 | INFO     | __main__:check_subscription_callback:570 - Subscription check failed for user 7556301574
+2025-02-22 00:42:26.244 | INFO     | __main__:check_subscription_callback:538 - Checking subscription callback for user 7556301574
+2025-02-22 00:42:26.345 | INFO     | __main__:check_subscription:354 - Checking subscription for user 7556301574: True
+2025-02-22 00:42:26.346 | INFO     | __main__:check_subscription:355 - User status: member
+2025-02-22 00:42:26.346 | INFO     | __main__:check_subscription_callback:542 - Subscription status: True
+2025-02-22 00:42:26.701 | INFO     | __main__:check_subscription_callback:561 - Main menu shown to user 7556301574
+2025-02-22 00:42:32.410 | ERROR    | __main__:send_help:422 - Error in send_help: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\'
+2025-02-22 00:42:33.858 | ERROR    | __main__:send_contacts:435 - Error in send_contacts: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '+' is reserved and must be escaped with the preceding '\'
+2025-02-22 00:43:20.436 | INFO     | __main__:run:671 - Бот запущен
+2025-02-22 00:43:36.051 | INFO     | __main__:change_language_handler:646 - Language selection shown to user 7556301574
+2025-02-22 00:43:37.626 | INFO     | __main__:check_subscription:354 - Checking subscription for user 7556301574: True
+2025-02-22 00:43:37.627 | INFO     | __main__:check_subscription:355 - User status: member
+2025-02-22 00:43:37.976 | INFO     | __main__:language_handler:488 - Main menu sent to user 7556301574
+2025-02-22 00:43:43.485 | INFO     | __main__:change_language_handler:646 - Language selection shown to user 7556301574
+2025-02-22 00:43:44.798 | INFO     | __main__:check_subscription:354 - Checking subscription for user 7556301574: True
+2025-02-22 00:43:44.799 | INFO     | __main__:check_subscription:355 - User status: member
+2025-02-22 00:43:45.035 | INFO     | __main__:language_handler:488 - Main menu sent to user 7556301574
+2025-02-22 00:43:49.808 | INFO     | __main__:start_handler:460 - Sent language selection to user 7556301574
+2025-02-22 00:43:52.193 | INFO     | __main__:check_subscription:354 - Checking subscription for user 7556301574: True
+2025-02-22 00:43:52.193 | INFO     | __main__:check_subscription:355 - User status: member
+2025-02-22 00:43:52.500 | INFO     | __main__:language_handler:488 - Main menu sent to user 7556301574
+2025-02-22 00:44:02.480 | INFO     | __main__:change_language_handler:646 - Language selection shown to user 7556301574
+2025-02-22 00:44:05.228 | INFO     | __main__:check_subscription:354 - Checking subscription for user 7556301574: True
+2025-02-22 00:44:05.229 | INFO     | __main__:check_subscription:355 - User status: member
+2025-02-22 00:44:05.447 | INFO     | __main__:language_handler:488 - Main menu sent to user 7556301574
+2025-02-22 00:50:18.050 | INFO     | __main__:run:667 - Бот запущен
+2025-02-22 00:50:28.450 | INFO     | __main__:start_handler:456 - Sent language selection to user 5789133679
+2025-02-22 00:50:29.956 | INFO     | __main__:check_subscription:350 - Checking subscription for user 5789133679: True
+2025-02-22 00:50:29.956 | INFO     | __main__:check_subscription:351 - User status: creator
+2025-02-22 00:50:30.211 | INFO     | __main__:language_handler:484 - Main menu sent to user 5789133679
+2025-02-22 00:51:00.225 | INFO     | __main__:start_handler:456 - Sent language selection to user 7556301574
+2025-02-22 00:51:02.065 | INFO     | __main__:check_subscription:350 - Checking subscription for user 7556301574: True
+2025-02-22 00:51:02.065 | INFO     | __main__:check_subscription:351 - User status: member
+2025-02-22 00:51:02.453 | INFO     | __main__:language_handler:484 - Main menu sent to user 7556301574
