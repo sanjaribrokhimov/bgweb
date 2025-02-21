@@ -10,18 +10,17 @@ import (
 	"log"
 	"net/http"
 	"time"
+
 	"github.com/gin-gonic/gin"
 )
 
-
-
 func CreateAcceptNotification(c *gin.Context) {
 	var input struct {
-		FromUserID uint   `json:"from_user_id"`
-		ToUserID   uint   `json:"to_user_id"`
-		AdID       uint   `json:"ad_id"`
-		AdType     string `json:"ad_type"`
-		UserMessage    string `json:"user_message"` 
+		FromUserID  uint   `json:"from_user_id"`
+		ToUserID    uint   `json:"to_user_id"`
+		AdID        uint   `json:"ad_id"`
+		AdType      string `json:"ad_type"`
+		UserMessage string `json:"user_message"`
 	}
 
 	// Логируем входящие данные ДО привязки JSON
@@ -66,14 +65,14 @@ func CreateAcceptNotification(c *gin.Context) {
 
 	// Создаем уведомление в базе
 	notification := models.Notification{
-		FromUserID: input.FromUserID,
-		ToUserID:   input.ToUserID,
-		AdID:       input.AdID,
-		AdType:     input.AdType,
-		Type:       "accept",
-		Message:    "У вас новое соглашение по вашему объявлению",
-		MessageToUser:  input.UserMessage,
-		IsRead:     false,
+		FromUserID:    input.FromUserID,
+		ToUserID:      input.ToUserID,
+		AdID:          input.AdID,
+		AdType:        input.AdType,
+		Type:          "accept",
+		Message:       "У вас новое соглашение по вашему объявлению",
+		MessageToUser: input.UserMessage,
+		IsRead:        false,
 	}
 
 	if err := database.DB.Create(&notification).Error; err != nil {
@@ -154,38 +153,38 @@ func GetUserNotifications(c *gin.Context) {
 	for _, notification := range notifications {
 		// Создаем безопасные версии пользователей без паролей и OTP
 		fromUser := gin.H{
-			"ID":         notification.FromUser.ID,
-			"name":       notification.FromUser.Name,
-			"email":      notification.FromUser.Email,
-			"phone":      notification.FromUser.Phone,
-			"category":   notification.FromUser.Category,
-			"direction":  notification.FromUser.Direction,
-			"telegram":   notification.FromUser.Telegram,
-			"instagram":  notification.FromUser.Instagram,
+			"ID":          notification.FromUser.ID,
+			"name":        notification.FromUser.Name,
+			"email":       notification.FromUser.Email,
+			"phone":       notification.FromUser.Phone,
+			"category":    notification.FromUser.Category,
+			"direction":   notification.FromUser.Direction,
+			"telegram":    notification.FromUser.Telegram,
+			"instagram":   notification.FromUser.Instagram,
 			"is_verified": notification.FromUser.IsVerified,
 		}
 
 		toUser := gin.H{
-			"ID":         notification.ToUser.ID,
-			"name":       notification.ToUser.Name,
-			"email":      notification.ToUser.Email,
-			"phone":      notification.ToUser.Phone,
-			"category":   notification.ToUser.Category,
-			"direction":  notification.ToUser.Direction,
-			"telegram":   notification.ToUser.Telegram,
-			"instagram":  notification.ToUser.Instagram,
+			"ID":          notification.ToUser.ID,
+			"name":        notification.ToUser.Name,
+			"email":       notification.ToUser.Email,
+			"phone":       notification.ToUser.Phone,
+			"category":    notification.ToUser.Category,
+			"direction":   notification.ToUser.Direction,
+			"telegram":    notification.ToUser.Telegram,
+			"instagram":   notification.ToUser.Instagram,
 			"is_verified": notification.ToUser.IsVerified,
 		}
 
 		enriched := gin.H{
-			"id":         notification.ID,
-			"from_user":  fromUser,
-			"to_user":    toUser,
-			"type":       notification.Type,
-			"message":    notification.Message,
-			"is_read":    notification.IsRead,
-			"created_at": notification.CreatedAt,
-			"ad_type":    notification.AdType,
+			"id":           notification.ID,
+			"from_user":    fromUser,
+			"to_user":      toUser,
+			"type":         notification.Type,
+			"message":      notification.Message,
+			"is_read":      notification.IsRead,
+			"created_at":   notification.CreatedAt,
+			"ad_type":      notification.AdType,
 			"user_message": notification.MessageToUser,
 		}
 

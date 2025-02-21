@@ -775,22 +775,12 @@ func CompleteRegistration(c *gin.Context) {
 		Direction string `json:"direction" binding:"required"`
 		Telegram  string `json:"telegram" binding:"required"`
 		Instagram string `json:"instagram" binding:"required"`
-		Email     string `json:"email" binding:"required,email"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
 		logger.LogError("CompleteRegistration", err, "Invalid input data")
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Все поля обязательны для заполнения",
-		})
-		return
-	}
-
-	// Проверяем, не занят ли уже этот email другим пользователем
-	var existingUser models.User
-	if err := database.DB.Where("email = ? AND id != ?", input.Email, userID).First(&existingUser).Error; err == nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Этот email уже используется другим пользователем",
 		})
 		return
 	}
@@ -812,52 +802,7 @@ func CompleteRegistration(c *gin.Context) {
 	user.Telegram = input.Telegram
 	user.Instagram = input.Instagram
 
-	// Если email изменился, отправляем OTP для подтверждения
-	if input.Email != user.Email {
-		// Генерация OTP
-		otp := strconv.Itoa(1000 + rand.Intn(9000))
-		user.OTPCode = otp
-		user.IsVerified = false
-		user.Email = input.Email
-
-		// Отправляем OTP на новый email
-		if err := utils.SendOTP(input.Email, otp); err != nil {
-			logger.LogError("CompleteRegistration", err, "Failed to send OTP")
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": "Ошибка при отправке кода подтверждения",
-			})
-			return
-		}
-
-		if err := database.DB.Save(&user).Error; err != nil {
-			logger.LogError("CompleteRegistration", err, "Failed to update user")
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": "Ошибка при обновлении данных",
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, gin.H{
-			"message":             "Данные обновлены. Для подтверждения email введите код, отправленный на почту",
-			"requireVerification": true,
-			"user": gin.H{
-				"id":          user.ID,
-				"email":       user.Email,
-				"name":        user.Name,
-				"category":    user.Category,
-				"direction":   user.Direction,
-				"telegram":    user.Telegram,
-				"instagram":   user.Instagram,
-				"is_verified": user.IsVerified,
-				"phone":       user.Phone,
-				"tg_chat_id":  user.TgChatID,
-				"tg_user_id":  user.TgUserID,
-			},
-		})
-		return
-	}
-
-	// Если email не изменился, просто сохраняем обновленные данные
+	// Сохраняем обновленные данные
 	if err := database.DB.Save(&user).Error; err != nil {
 		logger.LogError("CompleteRegistration", err, "Failed to update user")
 		c.JSON(http.StatusInternalServerError, gin.H{
