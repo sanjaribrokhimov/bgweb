@@ -9,7 +9,7 @@ $IP = '144.126.128.67';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloger Agency</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=1.1.1">
+    <link rel="stylesheet" href="styles.css?v=1.1.2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
@@ -933,16 +933,22 @@ $IP = '144.126.128.67';
             // Обработчики для пунктов меню
             const menuItems = profileDropdown.querySelectorAll('.profile-dropdown-item');
             menuItems.forEach(item => {
-                item.addEventListener('click', () => {
+                item.addEventListener('click', async () => {
                     const text = item.textContent.trim().toLowerCase();
                     
                     // Проверяем текст пункта меню на обоих языках
                     if (text.includes('мой профиль') || text.includes('my profile')) {
-                        window.location.href = 'edit-profile.php';
+                        let is_complete = await checkUser();
+                        if(is_complete){
+                            window.location.href = 'edit-profile.php';
+                        }
                     }
                     // Проверяем текст пункта меню на обоих языках
                     else if (text.includes('мои объявления') || text.includes('mening e\'lonlarim') || text.includes('my ads')) {
-                        window.location.href = 'myads.php';
+                        let is_complete = await checkUser();
+                        if(is_complete){
+                            window.location.href = 'myads.php';
+                        }
                     }
                     else if (text.includes('выйти') || text.includes('chiqish') || text.includes('logout')) {
                         window.location.href = 'logout.php';

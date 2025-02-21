@@ -154,7 +154,7 @@
                 <div class="form-group mb-3 hidden" id="registerEmailBlock">
                     <div class="input-with-icon">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" class="form-control" placeholder="Email" name="email" autocomplete="off" required>
+                        <input type="email" class="form-control" placeholder="Email" name="email" autocomplete="off">
                     </div>
                 </div>          
 
@@ -321,14 +321,16 @@
                         alertBlock.className = 'alert alert-success';
                         alertBlock.textContent = data.message;
                         
-                        localStorage.setItem('userRegistrationData', JSON.stringify({
-                            identifier: formData.identifier,
-                            name: formData.name
-                        }));
-                        console.log(formData.tg_chat_id);
-                        setTimeout(() => {
-                            window.location.href = 'index.php';
-                        }, 1000);
+                        if(data.message !== 'Регистрация успешно завершена'){
+                            setTimeout(() => {
+                                window.location.href = 'otp.php';
+                            }, 1000);
+                        }else
+                        {
+                            setTimeout(() => {
+                                window.location.href = 'index.php';
+                            }, 1000);
+                        }
                     } else {
                         alertBlock.className = 'alert alert-danger';
                         alertBlock.textContent = data.error;

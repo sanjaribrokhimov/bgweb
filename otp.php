@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Проверяем, что введены все цифры
             if (otp.length !== 4) {
-                throw new Error('Введите се 4 цифры кода');
+                throw new Error('Введите все 4 цифры кода');
             }
             
             // Получаем данные пользователя из localStorage
@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alertBlock.textContent = data.message;
 
                 // Получаем данные о пользователе
-                const userResponse = await fetch(`http://localhost:8888/api/auth/user?email=${userData.email}`, {
+                const userResponse = await fetch(`http://localhost:8888/api/auth/user?identifier=${userData.identifier}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 
                 // Удаляем временные данные регистрации
-                localStorage.removeItem('userRegistrationData');
+                // localStorage.removeItem('userRegistrationData');
                 
                 const isResetPassword = localStorage.getItem('resetPassword') === 'true';
                 

@@ -70,7 +70,7 @@ if (!isset($_GET['page'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="translations.js"></script>
     <script src="scripts/utils.js"></script>
-    <script src="scripts/main.js?v=1.0.3"></script>
+    <script src="scripts/main.js?v=1.0.4"></script>
     
     <!-- Добавьте перед закрывающим тегом body -->
     <script src="scripts/tutorial.js?v=1.0.8"></script>
@@ -82,10 +82,10 @@ if (!isset($_GET['page'])) {
     // Подключаем нужные скрипты в зависимости от страницы
     switch($page) {
         case 'advertisers':
-            echo '<script src="scripts/companies.js?v=1.0.8"></script>';
+            echo '<script src="scripts/companies.js?v=1.0.9"></script>';
             break;
         case 'freelancers':
-            echo '<script src="scripts/freelancers.js?v=1.0.6"></script>';
+            echo '<script src="scripts/freelancers.js?v=1.0.7"></script>';
             break;
         default:
             echo '<script src="scripts/ads.js?v=1.0.4"></script>';

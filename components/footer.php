@@ -322,19 +322,20 @@ async function checkUser(){
         console.log('Полученные данные:', userData); // Для отладки
         
         const is_complete = userData.is_complete;
-        if(!is_complete){
+        if(!is_complete && confirm('Вы не завершили регистрацию, хотите завершить её чтобы продолжить?')){
             window.location.href = 'reRegister.php';
         }
         const user = userData.user;
         localStorage.setItem('userId', user.id);
-        // localStorage.setItem('userCategory', user.category);
-        // localStorage.setItem('userEmail', user.email);
-        // localStorage.setItem('userName', user.name);
-        // localStorage.setItem('userPhone', user.phone);
-        // localStorage.setItem('userTelegram', user.telegram);
-        // localStorage.setItem('userDirection', user.direction);
+        localStorage.setItem('category', user.category);
+        localStorage.setItem('email', user.email);
+        localStorage.setItem('name', user.name);
+        localStorage.setItem('phone', user.phone);
+        localStorage.setItem('telegram', user.telegram);
+        localStorage.setItem('direction', user.direction);
+        localStorage.setItem('instagram', user.instagram);
         localStorage.setItem('is_complete', userData.is_complete);
-        console.log('asdasd')
+        localStorage.setItem('verified', user.is_verified);
     } catch (error) {
         console.error('Ошибка:', error);
     }
@@ -382,6 +383,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const addButton = document.getElementById('addButton');
     if (addButton) {
         addButton.addEventListener('click', async function() {
+            var is_complete = await checkUser();
+
             const userCategory = localStorage.getItem('category');
             const isVerified = localStorage.getItem('verified');
             const userId = localStorage.getItem('userId');
@@ -397,15 +400,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            if (isVerified !== 'true') {
-               
-                window.location.href = 'reRegister.php';
+            if (isVerified === 'false') {
+                // window.location.href = 'reRegister.php';
                 return;
             }
-            var is_complete = await checkUser();
-            console.log(is_complete);
             if(!is_complete){
-                window.location.href = 'reRegister.php';
                 return;
             }
 

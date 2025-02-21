@@ -537,6 +537,8 @@
             const loginForm = document.getElementById('loginForm');
             if (loginForm) {
                 loginForm.addEventListener('submit', async (e) => {
+                    
+                    
                     e.preventDefault();
                     
                     showLoading();
@@ -548,6 +550,9 @@
                     console.log(currentDealType)
                     console.log(tg_chat_id)
                     const identifier = currentDealType === "email" ? loginForm.querySelector('input[type="email"]').value.trim() : tg_chat_id;
+                    localStorage.setItem('userRegistrationData', JSON.stringify({
+                        identifier: identifier
+                    }));
                     try {
                         const formData = {
                             identifier: identifier,
@@ -594,9 +599,9 @@
                             alertBlock.className = 'alert alert-warning';
                             alertBlock.textContent = data.error;
                             
-                            localStorage.setItem('userRegistrationData', JSON.stringify({
-                                email: formData.email
-                            }));
+                            // localStorage.setItem('userRegistrationData', JSON.stringify({
+                            //     email: formData.email
+                            // }));
                             
                             setTimeout(() => {
                                 window.location.href = 'otp.php';

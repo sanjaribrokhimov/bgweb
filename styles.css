@@ -2357,6 +2357,7 @@ body .info-item .looking-for-text
     color: #bfbfbf;
     text-align: center;
     text-transform: capitalize;
+    overflow-x: hidden;
 }
 body .info-item.sni
 {

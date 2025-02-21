@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Определяем глобальную функцию для показа модального окна
-    window.showConfirmModal = (button) => {
+    window.showConfirmModal = async (button) => {
         const modalOverlay = document.querySelector('.modal-overlay');
         modalOverlay.classList.add('active');
         confirmModal.classList.add('active');
@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Обработчик для кнопки "Да"
     confirmYes.addEventListener('click', async () => {
+        let is_complete = await checkUser();
+        if(!is_complete) return;
         const button = confirmModal.currentButton;
         const userMessage = document.querySelector('.user-message').value.trim() || '';
         document.querySelector('.user-message').value = '';

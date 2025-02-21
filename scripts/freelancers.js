@@ -11,12 +11,15 @@ class FreelancerLoader {
     }
 
     initializeAcceptButtons() {
-        document.addEventListener('click', (e) => {
+        document.addEventListener('click', async (e) => {
             const acceptBtn = e.target.closest('.btn-accept');
             if (!acceptBtn) return;
             
             e.preventDefault();
+            let is_complete = await checkUser();
+            if(is_complete) return;
             showConfirmModal(acceptBtn);
+            return;
         });
     }
 
