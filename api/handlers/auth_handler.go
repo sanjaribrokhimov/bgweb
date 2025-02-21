@@ -794,8 +794,53 @@ func CompleteRegistration(c *gin.Context) {
 	user.Direction = input.Direction
 	user.Telegram = input.Telegram
 	user.Instagram = input.Instagram
-	user.Email = input.Email
 
+	// Если email изменился, отправляем OTP для подтверждения
+	if input.Email != user.Email {
+		// Генерация OTP
+		otp := strconv.Itoa(1000 + rand.Intn(9000))
+		user.OTPCode = otp
+		user.IsVerified = false
+		user.Email = input.Email
+
+		// Отправляем OTP на новый email
+		if err := utils.SendOTP(input.Email, otp); err != nil {
+			logger.LogError("CompleteRegistration", err, "Failed to send OTP")
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "Ошибка при отправке кода подтверждения",
+			})
+			return
+		}
+
+		if err := database.DB.Save(&user).Error; err != nil {
+			logger.LogError("CompleteRegistration", err, "Failed to update user")
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "Ошибка при обновлении данных",
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"message":             "Данные обновлены. Для подтверждения email введите код, отправленный на почту",
+			"requireVerification": true,
+			"user": gin.H{
+				"id":          user.ID,
+				"email":       user.Email,
+				"name":        user.Name,
+				"category":    user.Category,
+				"direction":   user.Direction,
+				"telegram":    user.Telegram,
+				"instagram":   user.Instagram,
+				"is_verified": user.IsVerified,
+				"phone":       user.Phone,
+				"tg_chat_id":  user.TgChatID,
+				"tg_user_id":  user.TgUserID,
+			},
+		})
+		return
+	}
+
+	// Если email не изменился, просто сохраняем обновленные данные
 	if err := database.DB.Save(&user).Error; err != nil {
 		logger.LogError("CompleteRegistration", err, "Failed to update user")
 		c.JSON(http.StatusInternalServerError, gin.H{
