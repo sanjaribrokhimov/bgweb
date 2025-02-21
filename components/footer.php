@@ -284,7 +284,7 @@ body.add-active {
 function checkAuth() {
     const requiredFields = [
         'userId', 
-        'telegram_chat_id',
+        // 'telegram_chat_id',
         // 'category', 
         // 'userEmail',
         // 'name',
@@ -392,10 +392,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // const userDirection = localStorage.getItem('direction');
             // const userInstagram = localStorage.getItem('instagram');
             
-            // if (!userId) {
-            //     window.location.href = 'login.php';
-            //     return;
-            // }
+            if (!userId) {
+                window.location.href = 'login.php';
+                return;
+            }
 
             if (isVerified !== 'true') {
                
