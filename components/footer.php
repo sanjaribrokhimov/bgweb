@@ -327,12 +327,12 @@ async function checkUser(){
         }
         const user = userData.user;
         localStorage.setItem('userId', user.id);
-        localStorage.setItem('userCategory', user.category);
-        localStorage.setItem('userEmail', user.email);
-        localStorage.setItem('userName', user.name);
-        localStorage.setItem('userPhone', user.phone);
-        localStorage.setItem('userTelegram', user.telegram);
-        localStorage.setItem('userDirection', user.direction);
+        // localStorage.setItem('userCategory', user.category);
+        // localStorage.setItem('userEmail', user.email);
+        // localStorage.setItem('userName', user.name);
+        // localStorage.setItem('userPhone', user.phone);
+        // localStorage.setItem('userTelegram', user.telegram);
+        // localStorage.setItem('userDirection', user.direction);
         localStorage.setItem('is_complete', userData.is_complete);
         console.log('asdasd')
     } catch (error) {
@@ -382,7 +382,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const addButton = document.getElementById('addButton');
     if (addButton) {
         addButton.addEventListener('click', async function() {
-            const userCategory = localStorage.getItem('userCategory');
+            const userCategory = localStorage.getItem('category');
             const isVerified = localStorage.getItem('verified');
             const userId = localStorage.getItem('userId');
             // const userEmail = localStorage.getItem('userEmail');
