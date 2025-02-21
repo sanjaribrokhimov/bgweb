@@ -11,7 +11,7 @@ logger.add("bot.log", rotation="1 MB", level="INFO", compression="zip")
 
 # Загрузка переменных окружения
 load_dotenv()
-TOKEN = os.getenv('BOT_TOKEN', '6383507019:AAE4b5xfd7N0DA6yWce8KbNb3erygmLssoM')
+TOKEN = os.getenv('BOT_TOKEN', '7690904808:AAEyzgbEZ3--sQ1pkJ-bFBpnDSCY2rNq9VY')
 
 
 class TelegramBot:
