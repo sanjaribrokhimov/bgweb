@@ -1036,7 +1036,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция проверки наличия всех необходимых данных
     function checkRequiredData() {
         const requiredKeys = [
-            'userEmail',
             'category',
             'verified',
             'userId',
