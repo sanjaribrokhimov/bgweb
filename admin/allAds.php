@@ -226,7 +226,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
         // Загрузка данных для каждой категории
         async function loadAds(type) {
             try {
-                const response = await fetch(`http://localhost:8888/api/admin/all-ads?type=${type}`);
+                const response = await fetch(`https://blogy.uz/api/admin/all-ads?type=${type}`);
                 const data = await response.json();
                 return data;
             } catch (error) {
@@ -350,7 +350,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 
         function deleteAd(id, type) {
             if (confirm('Вы уверены, что хотите удалить это объявление?')) {
-                fetch(`http://localhost:8888/api/admin/delete-ad`, {
+                fetch(`https://blogy.uz/api/admin/delete-ad`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

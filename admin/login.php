@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     
     // Здесь должна быть проверка через API
-    $api_url = "http://localhost:8888/api/admin/login";
+    $api_url = "https://blogy.uz/api/admin/login";
     
     $data = array(
         "username" => $username,

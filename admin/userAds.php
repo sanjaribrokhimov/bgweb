@@ -157,7 +157,7 @@ $user_id = $_GET['user_id'];
         async function loadUserAds() {
             const userId = <?php echo $user_id; ?>;
             try {
-                const response = await fetch(`http://localhost:8888/api/admin/user-ads/${userId}`);
+                const response = await fetch(`https://blogy.uz/api/admin/user-ads/${userId}`);
                 const data = await response.json();
                 renderAds(data);
             } catch (error) {

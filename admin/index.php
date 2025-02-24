@@ -8,7 +8,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
 
 // Получение данных через API
 function fetchData($endpoint) {
-    $api_url = "http://localhost:8888/api/" . $endpoint;
+    $api_url = "https://blogy.uz/api/" . $endpoint;
     $response = file_get_contents($api_url);
     return json_decode($response, true);
 }
@@ -619,7 +619,7 @@ $statistics = fetchData("admin/statistics");
         function approveAd(id, type) {
             if (confirm('Вы уверены, что хотите одобрить это объявление?')) {
                 $.ajax({
-                    url: 'http://localhost:8888/api/admin/approve-ad',
+                    url: 'https://blogy.uz/api/admin/approve-ad',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({ 
@@ -641,7 +641,7 @@ $statistics = fetchData("admin/statistics");
             const reason = prompt('Укажите причину отклонения:');
             if (reason) {
                 $.ajax({
-                    url: 'http://localhost:8888/api/admin/reject-ad',
+                    url: 'https://blogy.uz/api/admin/reject-ad',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({ 
@@ -664,7 +664,7 @@ $statistics = fetchData("admin/statistics");
         function toggleUserStatus(id) {
             if (confirm('Вы уверены, что хотите изменить статус этого пользователя?')) {
                 $.ajax({
-                    url: 'http://localhost:8888/api/admin/toggle-user-status',
+                    url: 'https://blogy.uz/api/admin/toggle-user-status',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({ id: id }),
@@ -739,7 +739,7 @@ $statistics = fetchData("admin/statistics");
                 locale: 'ru',
                 events: async function(info, successCallback, failureCallback) {
                     try {
-                        const response = await fetch('http://localhost:8888/api/admin/calendar-events');
+                        const response = await fetch('https://blogy.uz/api/admin/calendar-events');
                         if (!response.ok) throw new Error('Network response was not ok');
                         const events = await response.json();
                         
@@ -794,7 +794,7 @@ $statistics = fetchData("admin/statistics");
                 document.getElementById('loadingIndicator').style.display = 'flex';
                 
                 $.ajax({
-                    url: 'http://localhost:8888/api/admin/cleanup-users',
+                    url: 'https://blogy.uz/api/admin/cleanup-users',
                     method: 'DELETE',
                     success: function(response) {
                         // Скрываем индикатор загрузки
