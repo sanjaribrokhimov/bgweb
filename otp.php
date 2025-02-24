@@ -18,10 +18,10 @@
         </p>
 
         <div class="otp-inputs mb-4">
-            <input type="text" maxlength="1" class="otp-input" required>
-            <input type="text" maxlength="1" class="otp-input" required>
-            <input type="text" maxlength="1" class="otp-input" required>
-            <input type="text" maxlength="1" class="otp-input" required>
+            <input type="number" maxlength="1" class="otp-input" required>
+            <input type="number" maxlength="1" class="otp-input" required>
+            <input type="number" maxlength="1" class="otp-input" required>
+            <input type="number" maxlength="1" class="otp-input" required>
         </div>
 
         <div class="resend-container text-center mb-4">
