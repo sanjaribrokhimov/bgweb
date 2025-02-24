@@ -14,7 +14,7 @@
     <form id="otpForm" class="auth-form active">
         <h2 class="text-center mb-4" data-translate="auth.otpTitle">Подтверждение</h2>
         <p class="text-center mb-4" id="otpDescription">
-            Введите код подтверждения, отправленный на email: <span id="userEmail"></span>
+            Введите код подтверждения, отправленный на <span id="typeOfAuth"></span>: <span id="userEmail"></span>
         </p>
 
         <div class="otp-inputs mb-4">
@@ -48,6 +48,12 @@
 <script src="translations.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    const typeOfAuth = JSON.parse(localStorage.getItem('userRegistrationData')).identifier;
+    if(typeOfAuth>1){
+        document.getElementById('typeOfAuth').textContent = 'телеграм';
+    }else{
+        document.getElementById('typeOfAuth').textContent = 'почту';
+    }
     const urlParams = new URLSearchParams(window.location.search);
     const action = urlParams.get('action');
     const isResetPassword = localStorage.getItem('resetPassword') === 'true';

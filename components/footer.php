@@ -343,7 +343,7 @@ async function checkUser(){
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // checkAuth();
+    checkAuth();
     setInterval(checkAuth, 30000);
     
     // Функция обновления переводов футера

@@ -56,7 +56,7 @@
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-lock"></i>
-                        <input type="password" class="form-control" placeholder="Пароль" required autocomplete="new-password">
+                        <input type="password" class="form-control toBeFocused" placeholder="Пароль" required autocomplete="new-password">
                         <button type="button" class="password-toggle">
                             <i class="far fa-eye"></i>
                         </button>
@@ -245,7 +245,7 @@
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-lock"></i>
-                        <input name="password" type="password" class="form-control" placeholder="Пароь" required autocomplete="new-password">
+                        <input name="password" type="password" class="form-control toBeFocused" placeholder="Пароь" required autocomplete="new-password">
                         <button type="button" class="password-toggle">
                             <i class="far fa-eye"></i>
                         </button>
@@ -254,7 +254,7 @@
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-lock"></i>
-                        <input name="confirm_password" type="password" class="form-control" placeholder="Подтвердите пароль" required autocomplete="new-password">
+                        <input name="confirm_password" type="password" class="form-control toBeFocused" placeholder="Подтвердите пароль" required autocomplete="new-password">
                         <button type="button" class="password-toggle">
                             <i class="far fa-eye"></i>
                         </button>
@@ -276,6 +276,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/inputFocus.js"></script>
     <script src="translations.js"></script>
     <script>
 
@@ -775,7 +776,7 @@
                         regEmailBlock.innerHTML = `
                         <div class="input-with-icon">
                             <i class="fas fa-envelope"></i>
-                            <input type="email" class="form-control" placeholder="Email" name="email" autocomplete="off" required>
+                            <input type="email" class="form-control toBeFocused" placeholder="Email" name="email" autocomplete="off" required>
                         </div>
                         <div class="input-hint">
                             <i class="fas fa-circle-info"></i>
@@ -819,7 +820,7 @@
                         loginEmailBlock.innerHTML = `
                             <div class="input-with-icon">
                                 <i class="fas fa-envelope"></i>
-                                <input type="email" class="form-control" placeholder="Email" required autocomplete="off">
+                                <input type="email" class="form-control toBeFocused" placeholder="Email" required autocomplete="off">
                             </div>
                         `
                         loginEmailBlock.classList.remove('hidden');

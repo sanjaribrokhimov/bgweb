@@ -237,7 +237,7 @@
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
-                <input type="text" name="title" class="form-control" placeholder="Заголовок" required>
+                <input type="text" name="title" class="form-control toBeFocused" placeholder="Заголовок" required>
             </div>
         </div>
 
@@ -249,7 +249,7 @@
         <div class="form-group mb-4 conditions-field">
             <div class="input-with-icon">
                 <i class="fas fa-handshake barter-icon"></i>
-                <textarea  class="form-control" rows="4"  required></textarea>
+                <textarea  class="form-control toBeFocused" rows="4"  required></textarea>
             </div>
         </div>
         <div class="input-description">
@@ -273,7 +273,7 @@
             <div class="social-fields" id="telegramFields" style="display: none;">
                 <div class="input-with-icon mb-2">
                     <i class="fas fa-link"></i>
-                    <input type="url" name="telegram_link" class="form-control" placeholder="Ссылка на Telegram" data-translate="addBlogger.telegram.link">
+                    <input type="url" name="telegram_link" class="form-control toBeFocused" placeholder="Ссылка на Telegram" data-translate="addBlogger.telegram.link">
                 </div>
                
             </div>
@@ -293,7 +293,7 @@
             <div class="social-fields" id="youtubeFields" style="display: none;">
                 <div class="input-with-icon mb-2">
                     <i class="fas fa-link"></i>
-                    <input type="url" name="youtube_link" class="form-control" placeholder="Ссылка на канал" data-translate="addBlogger.youtube.link">
+                    <input type="url" name="youtube_link" class="form-control toBeFocused" placeholder="Ссылка на канал" data-translate="addBlogger.youtube.link">
                 </div>
                 
             </div>
@@ -312,6 +312,7 @@
 
     <!-- Подключаем скрипты -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/inputFocus.js"></script>
     <script src="translations.js"></script>
     <script>
     // Добавьте функции для управления индикатором загрузки в начало скрипта
