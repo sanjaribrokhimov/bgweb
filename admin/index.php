@@ -518,6 +518,7 @@ $statistics = fetchData("admin/statistics");
                                         </thead>
                                         <tbody>
                                             <?php foreach ($categorized_users[$tab_id] as $user): ?>
+                                                <?php $identifier = $user['email'] ? $user['email'] : $user['tg_chat_id']; ?>
                                             <tr>
                                                 <td><?php echo $user['id']; ?></td>
                                                 <td><?php echo $user['name']; ?></td>
@@ -554,7 +555,7 @@ $statistics = fetchData("admin/statistics");
                                                     </button>
                                                     <button class="btn btn-sm btn-primary" 
                                                             style="margin-bottom: 10px"
-                                                            onclick="editUserProfile('<?php echo $user['email'] OR $user['tg_chat_id']; ?>')">
+                                                            onclick="editUserProfile('<?php echo $identifier; ?>')">
                                                         <i class="fas fa-user-edit"></i> 
                                                         Редактировать
                                                     </button>
@@ -783,8 +784,8 @@ $statistics = fetchData("admin/statistics");
         }
 
         // Добавляем JavaScript функцию для редактирования профиля (в секцию <script>)
-        function editUserProfile(userEmail) {
-            window.location.href = `editProfile.php?identifier=${encodeURIComponent(userEmail)}`;
+        function editUserProfile(identifier) {
+            window.location.href = `editProfile.php?identifier=${encodeURIComponent(identifier)}`;
         }
 
         // Функция для удаления неактивных пользователей
