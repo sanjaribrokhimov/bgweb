@@ -518,7 +518,7 @@ $statistics = fetchData("admin/statistics");
                                         </thead>
                                         <tbody>
                                             <?php foreach ($categorized_users[$tab_id] as $user): ?>
-                                                <?php $identifier = $user['email'] ? $user['email'] : $user['tg_chat_id']; ?>
+                                            <?php $identifier = $user['email'] ? $user['email'] : $user['tg_chat_id']; ?>
                                             <tr>
                                                 <td><?php echo $user['id']; ?></td>
                                                 <td><?php echo $user['name']; ?></td>
