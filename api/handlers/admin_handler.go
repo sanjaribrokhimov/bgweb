@@ -397,6 +397,7 @@ func GetAllUsers(c *gin.Context) {
 			"id":         user.ID,
 			"name":       user.Name,
 			"email":      user.Email,
+			"tg_chat_id": user.TgChatID,
 			"phone":      user.Phone,
 			"telegram":   user.Telegram,
 			"instagram":  user.Instagram,

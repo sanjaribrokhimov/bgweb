@@ -554,7 +554,7 @@ $statistics = fetchData("admin/statistics");
                                                     </button>
                                                     <button class="btn btn-sm btn-primary" 
                                                             style="margin-bottom: 10px"
-                                                            onclick="editUserProfile('<?php echo $user['email']; ?>')">
+                                                            onclick="editUserProfile('<?php echo $user['email'] OR $user['tg_chat_id']; ?>')">
                                                         <i class="fas fa-user-edit"></i> 
                                                         Редактировать
                                                     </button>
@@ -784,7 +784,7 @@ $statistics = fetchData("admin/statistics");
 
         // Добавляем JavaScript функцию для редактирования профиля (в секцию <script>)
         function editUserProfile(userEmail) {
-            window.location.href = `editProfile.php?email=${encodeURIComponent(userEmail)}`;
+            window.location.href = `editProfile.php?identifier=${encodeURIComponent(userEmail)}`;
         }
 
         // Функция для удаления неактивных пользователей

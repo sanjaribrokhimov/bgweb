@@ -205,17 +205,17 @@ if (!isset($_SESSION['admin_logged_in'])) {
 
         // При загрузке страницы
         document.addEventListener('DOMContentLoaded', async () => {
-            const userEmail = new URLSearchParams(window.location.search).get('email');
-            if (!userEmail) {
+            const identifier = new URLSearchParams(window.location.search).get('identifier');
+            if (!identifier) {
                 showAlert('Не указан email пользователя', 'danger');
                 return;
             }
 
-            document.getElementById('email').value = userEmail;
+            document.getElementById('email').value = identifier.includes('@') ? identifier : null;
 
             try {
                 // Получаем данные пользователя по email
-                const response = await fetch(`https://blogy.uz/api/auth/user?email=${encodeURIComponent(userEmail)}`);
+                const response = await fetch(`https://blogy.uz/api/auth/user?identifier=${encodeURIComponent(identifier)}`);
                 const userData = await response.json();
 
                 if (!response.ok) {
