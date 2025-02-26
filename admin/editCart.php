@@ -141,7 +141,6 @@ if (!isset($_SESSION['admin_logged_in'])) {
 
                 // Находим нужное объявление в массиве
                 const ad = data;
-                
                 if (!ad) {
                     throw new Error('Объявление не найдено');
                 }
@@ -156,8 +155,8 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 document.getElementById('adComment').value = ad.ad_comment;
                 
                 // Заполняем ссылки
-                document.getElementById('instagramLink').value = ad.user_instagram || '';
-                document.getElementById('telegramLink').value = ad.user_telegram || '';
+                document.getElementById('instagramLink').value = ad.instagram_link || '';
+                document.getElementById('telegramLink').value = ad.telegram_link || '';
                 
                 if (adType === 'blogger') {
                     document.getElementById('youtubeLink').value = ad.youtube_link || '';

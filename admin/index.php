@@ -422,8 +422,8 @@ $statistics = fetchData("admin/statistics");
                                         <td>
                                             Email: <?php echo $ad['user_email']; ?><br>
                                             Телефон: <?php echo $ad['user_phone']; ?><br>
-                                            Telegram: <?php echo $ad['user_telegram']; ?><br>
-                                            Instagram: <?php echo $ad['user_instagram']; ?>
+                                            Telegram: <?php echo $ad['telegram_link']; ?><br>
+                                            Instagram: <?php echo $ad['instagram_link']; ?>
                                         </td>
                                         <td>
                                             <?php echo $ad['category']; ?><br>
