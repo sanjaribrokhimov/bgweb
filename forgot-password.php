@@ -114,19 +114,13 @@
                         alertBlock.textContent = data.message;
                         
                         // Сохраняем данные пользователя
-                        const userResponse = await fetch(`https://blogy.uz/api/auth/user?email=${encodeURIComponent(email)}`);
+                        const userResponse = await fetch(`https://blogy.uz/api/auth/user?identifier=${encodeURIComponent(email)}`);
                         if (userResponse.ok) {
                             const userData = await userResponse.json();
                             const userRegistrationData = {
-                                id: userData.id,
-                                name: userData.name,
-                                email: userData.email,
-                                phone: userData.phone,
-                                category: userData.category,
-                                direction: userData.direction,
-                                telegram: userData.telegram,
-                                is_verified: userData.is_verified
+                                identifier: email
                             };
+                            console.log(userData)
                             localStorage.setItem('userRegistrationData', JSON.stringify(userRegistrationData));
                         }
                         

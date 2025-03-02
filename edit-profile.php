@@ -417,7 +417,6 @@
                         setTimeout(() => {
                             localStorage.clear();
                             window.location.href = 'login.php';
-                            alert('hello world')
                         }, 1000);
                     } else {
                         throw new Error(data.error || 'Ошибка при обновлении профиля');
