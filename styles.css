@@ -370,6 +370,7 @@ body:not(.dark-theme) {
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     padding: 10px 0;
+    
 }
 
 .bottom-nav .btn-link {
@@ -538,6 +539,8 @@ body.light-theme .search-input {
         overflow-x: auto;
         padding-bottom: 5px;
         flex-wrap: nowrap !important;
+        padding-bottom: 18px;
+       
     }
 }
 
@@ -739,6 +742,7 @@ body.light-theme .stats > span {
         flex-wrap: nowrap !important;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+        padding-bottom: 18px;
     }
     
     .category-select {
@@ -1482,6 +1486,7 @@ body.light-theme .auth-form .btn-primary {
     gap: 30px !important;
     flex-wrap: nowrap !important;
     width: 100%;
+    padding-bottom: 18px;
 }
 
 .type-toggle .form-check {
@@ -2947,4 +2952,8 @@ body:not(.dark-theme) .btn-close:hover {
 {
     font-size: large;
     color: var(--accent-orange);
+}
+
+.justify-content-around {
+    padding-bottom: 15px;
 }
