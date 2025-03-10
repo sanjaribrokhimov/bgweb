@@ -433,21 +433,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-let lastScrollY = window.scrollY;
+// let lastScrollY = window.scrollY;
 
-window.addEventListener('scroll', () => {
-    const bottomNav = document.querySelector('.bottom-nav');
-    const currentScrollY = window.scrollY;
+// window.addEventListener('scroll', () => {
+//     const bottomNav = document.querySelector('.bottom-nav');
+//     const currentScrollY = window.scrollY;
     
-    // Скрываем при скролле вниз, показываем при скролле вверх
-    if (currentScrollY > lastScrollY) {
-        bottomNav.classList.add('hidden');
-    } else {
-        bottomNav.classList.remove('hidden');
-    }
+//     // Скрываем при скролле вниз, показываем при скролле вверх
+//     if (currentScrollY > lastScrollY) {
+//         bottomNav.classList.add('hidden');
+//     } else {
+//         bottomNav.classList.remove('hidden');
+//     }
     
-    lastScrollY = currentScrollY;
-});
+//     lastScrollY = currentScrollY;
+// });
 
 
 
