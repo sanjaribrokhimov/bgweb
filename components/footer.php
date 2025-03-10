@@ -347,37 +347,37 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(checkAuth, 30000);
     
     // Функция обновления переводов футера
-    function updateFooterTranslations() {
-        const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
-        const t = translations[currentLang];
+    // function updateFooterTranslations() {
+    //     const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
+    //     const t = translations[currentLang];
         
         // Обновляем все элементы с data-translate в футере
-        document.querySelectorAll('.bottom-nav [data-translate]').forEach(element => {
-            const key = element.getAttribute('data-translate');
-            const translationKey = key.split('.')[1];
-            if (t && t.footer && t.footer[translationKey]) {
-                element.textContent = t.footer[translationKey];
-            }
-        });
-    }
+    //     document.querySelectorAll('.bottom-nav [data-translate]').forEach(element => {
+    //         const key = element.getAttribute('data-translate');
+    //         const translationKey = key.split('.')[1];
+    //         if (t && t.footer && t.footer[translationKey]) {
+    //             element.textContent = t.footer[translationKey];
+    //         }
+    //     });
+    // }
 
     // Обновляем переводы при загрузке
     updateFooterTranslations();
 
     // Слушаем клики на кнопках переключения языка
-    const langButtons = document.querySelectorAll('.lang-toggle button');
-    langButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            setTimeout(updateFooterTranslations, 0); // Добавляем небольшую задержку
-        });
-    });
+    // const langButtons = document.querySelectorAll('.lang-toggle button');
+    // langButtons.forEach(button => {
+    //     button.addEventListener('click', () => {
+    //         setTimeout(updateFooterTranslations, 0); // Добавляем небольшую задержку
+    //     });
+    // });
 
     // Также оставляем слушатель storage для синхронизации между вкладками
-    window.addEventListener('storage', function(e) {
-        if (e.key === 'selectedLanguage') {
-            updateFooterTranslations();
-        }
-    });
+    // window.addEventListener('storage', function(e) {
+    //     if (e.key === 'selectedLanguage') {
+    //         updateFooterTranslations();
+    //     }
+    // });
 
     // Обработчик кнопки добавления
     const addButton = document.getElementById('addButton');

@@ -14,7 +14,7 @@
     <form id="otpForm" class="auth-form active">
         <h2 class="text-center mb-4" data-translate="auth.otpTitle">Подтверждение</h2>
         <p class="text-center mb-4" id="otpDescription">
-            Введите код подтверждения, отправленный на <span id="typeOfAuth"></span>: <span id="userEmail"></span>
+            Проверьте  <span id="typeOfAuth"></span> код подтверждения уже отправлен <span id="userEmail"></span>
         </p>
 
         <div class="otp-inputs mb-4">
@@ -48,11 +48,12 @@
 <script src="translations.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    
     const typeOfAuth = JSON.parse(localStorage.getItem('userRegistrationData')).identifier;
     if(typeOfAuth>1){
-        document.getElementById('typeOfAuth').textContent = 'телеграм';
+        document.getElementById('typeOfAuth').textContent = `Ваш Тедеграм Чат Бота `;
     }else{
-        document.getElementById('typeOfAuth').textContent = 'почту';
+        document.getElementById('typeOfAuth').textContent = `Вашу Почту ${typeOfAuth}`;
     }
     const urlParams = new URLSearchParams(window.location.search);
     const action = urlParams.get('action');
@@ -163,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             showLoading();
             
-            // Получаем email из localStorage
+            // Получаем данные пользователя из localStorage
             const userData = JSON.parse(localStorage.getItem('userRegistrationData'));
             
             // Отправляем запрос на повторную отправку OTP
@@ -173,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    email: userData.email
+                    identifier: userData.identifier
                 })
             });
 

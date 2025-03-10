@@ -577,13 +577,13 @@ $IP = '144.126.128.67';
 
     <!-- Google Translate Script -->
     <script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'ru',
-            includedLanguages: 'ru,uz',
-            autoDisplay: false
-        }, 'google_translate_element');
-    }
+    // function googleTranslateElementInit() {
+    //     new google.translate.TranslateElement({
+    //         pageLanguage: 'ru',
+    //         includedLanguages: 'ru,uz',
+    //         autoDisplay: false
+    //     }, 'google_translate_element');
+    // }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
@@ -813,18 +813,7 @@ $IP = '144.126.128.67';
         const langButtons = document.querySelectorAll('.lang-btn');
         const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
 
-        function changeLanguage(lang) {
-            const select = document.querySelector('.goog-te-combo');
-            if (select) {
-                const langMap = {
-                    'ru': 'ru',
-                    'uz': 'uz'
-                };
-
-                select.value = langMap[lang];
-                select.dispatchEvent(new Event('change'));
-            }
-        }
+        
 
         // Устанавлиаем активную кнопку и язык
         langButtons.forEach(btn => {

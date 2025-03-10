@@ -283,16 +283,32 @@ func Login(c *gin.Context) {
 
 func ResendOTP(c *gin.Context) {
 	var input struct {
-		Email string `json:"email"`
+		Identifier string `json:"identifier" binding:"required"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Email обязателен"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Identifier is required"})
 		return
 	}
 
+	// Определяем тип идентификатора (email или chat_id)
+	isEmail := false
+	for _, char := range input.Identifier {
+		if char == '@' {
+			isEmail = true
+			break
+		}
+	}
+
 	var user models.User
-	if err := database.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
+	query := database.DB
+	if isEmail {
+		query = query.Where("email = ?", input.Identifier)
+	} else {
+		query = query.Where("tg_chat_id = ?", input.Identifier)
+	}
+
+	if err := query.First(&user).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Пользователь не найден"})
 		return
 	}
@@ -306,8 +322,23 @@ func ResendOTP(c *gin.Context) {
 		return
 	}
 
-	if err := utils.SendOTP(user.Email, newOTP); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при отправке нового кода"})
+	var otpError error
+
+	// Отправляем OTP в зависимости от типа идентификатора
+	if isEmail {
+		if err := utils.SendOTP(user.Email, newOTP); err != nil {
+			logger.LogError("ResendOTP", err, "Failed to send OTP via email")
+			otpError = err
+		}
+	} else {
+		if err := utils.SendTelegramOTP(user.TgChatID, newOTP); err != nil {
+			logger.LogError("ResendOTP", err, "Failed to send OTP via Telegram")
+			otpError = err
+		}
+	}
+
+	if otpError != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при отправке нового кода: " + otpError.Error()})
 		return
 	}
 

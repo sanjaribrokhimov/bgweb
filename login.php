@@ -277,7 +277,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="scripts/inputFocus.js"></script>
-    <script src="translations.js"></script>
+   
     <script>
 
         let params = new URLSearchParams(document.location.search);
@@ -361,61 +361,7 @@
                     updateLanguage(lang);
                 });
             });
-
-            function updateLanguage(lang) {
-                const t = translations[lang];
-                if (!t) return;
-
-                // Обновляем тексты форм
-                document.querySelector('[data-form="login"]').textContent = t.auth.login;
-                document.querySelector('[data-form="register"]').textContent = t.auth.register;
-                
-                // Обновляем плейсхолдеры и тексты входа
-                document.querySelectorAll('#loginForm input[type="email"]').forEach(input => {
-                    input.placeholder = t.auth.email;
-                });
-                document.querySelectorAll('#loginForm input[type="password"]').forEach(input => {
-                    input.placeholder = t.auth.password;
-                });
-                document.querySelector('#rememberMe').nextElementSibling.textContent = t.auth.rememberMe;
-                document.querySelector('.forgot-password').textContent = t.auth.forgotPassword;
-                document.querySelector('#loginForm button[type="submit"]').textContent = t.auth.loginButton;
-
-                // Обновляем форму регистрации
-                document.querySelector('#registerForm input[type="text"]').placeholder = t.auth.name;
-                document.querySelector('#registerForm input[type="tel"]').placeholder = t.auth.phone;
-                document.querySelectorAll('#registerForm input[type="email"]').forEach(input => {
-                    input.placeholder = t.auth.email;
-                });
-                document.querySelectorAll('#registerForm input[type="password"]')[0].placeholder = t.auth.password;
-                document.querySelectorAll('#registerForm input[type="password"]')[1].placeholder = t.auth.confirmPassword;
-                document.querySelector('#registerForm button[type="submit"]').textContent = t.auth.registerButton;
-
-                // Обновляем селектор атегорий
-                const categorySelect = document.querySelector('.category-select');
-                if (categorySelect) {
-                    // Обновляем placeholder опцию
-                    categorySelect.options[0].textContent = t.auth.selectCategory;
-                    // Обновляем остальные опции
-                    Array.from(categorySelect.options).forEach(option => {
-                        const translateKey = option.getAttribute('data-translate');
-                        if (translateKey) {
-                            const keys = translateKey.split('.');
-                            let translation = t;
-                            keys.forEach(key => {
-                                translation = translation[key];
-                            });
-                            if (translation) {
-                                option.textContent = translation;
-                            }
-                        }
-                    });
-                }
-
-                document.querySelector('.social-auth p').textContent = t.auth.orLoginWith;
-
-                localStorage.setItem('selectedLanguage', lang);
-            }
+          
 
             // Загружаем схраненный язык
             const savedLanguage = localStorage.getItem('selectedLanguage') || 'ru';
