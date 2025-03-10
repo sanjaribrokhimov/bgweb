@@ -379,21 +379,7 @@ body:not(.dark-theme) {
     padding: 10px;
     transition: all 0.3s ease;
 }
-.btn-link{
-    color: var(--text-secondary);
-    font-size: 20px;
-    padding: 10px 20px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    border-radius: 8px;
-    background: transparent;
-    border: 1px solid var(--text-secondary);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 500;
-}
+
 
 .bottom-nav .btn-link:hover {
     color: var(--accent-orange);
