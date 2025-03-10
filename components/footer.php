@@ -33,11 +33,11 @@
     bottom: 0;
     left: 0;
     right: 0;
+    padding-bottom: 15px;
     background: var(--card-bg);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease;
     z-index: 1000;
-   
 }
 
 .bottom-nav.hidden {
@@ -322,7 +322,7 @@ async function checkUser(){
         console.log('Полученные данные:', userData); // Для отладки
         
         const is_complete = userData.is_complete;
-        if(!is_complete && confirm('Вы не завершили регистрацию, хотите завершить её чтобы продолжить?')){
+        if(!is_complete && confirm('Чтобы продолжить пользоваться нашей платформой, вам нужно завершить регистрацию. Хотите пройти полную регистрацию?')){
             window.location.href = 'reRegister.php';
         }
         const user = userData.user;
@@ -343,7 +343,7 @@ async function checkUser(){
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // checkAuth();
+    checkAuth();
     setInterval(checkAuth, 30000);
     
     // Функция обновления переводов футера

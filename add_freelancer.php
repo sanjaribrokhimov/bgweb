@@ -1,4 +1,5 @@
 <?php include 'components/miniHeader.php'; ?>
+
 <!-- Индикатор загрузки -->
 <div id="loadingIndicator" class="loading-indicator">
     <div class="spinner-wrapper">
@@ -196,7 +197,7 @@
         <div class="form-group mb-3">
             <div class="input-with-icon">
                 <i class="fas fa-user"></i>
-                <input type="text" class="form-control"  data-translate="addFreelancer.name" required>
+                <input type="text" class="form-control toBeFocused"  data-translate="addFreelancer.name" required>
             </div>
         </div>
 
@@ -209,7 +210,7 @@
             <div class="input-with-icon">
                 <i class="fas fa-handshake barter-icon"></i>
                 <i class="fas fa-comment ad-icon" style="display: none;"></i>
-                <textarea class="form-control" rows="4" placeholder="Комментарий" data-translate-barter="addFreelancer.barterConditions" data-translate-ad="addFreelancer.adComment"></textarea>
+                <textarea class="form-control toBeFocused" rows="4" placeholder="Комментарий" data-translate-barter="addFreelancer.barterConditions" data-translate-ad="addFreelancer.adComment"></textarea>
             </div>
         </div>
 
@@ -233,7 +234,7 @@
             <div class="social-fields" id="githubFields" style="display: none;">
                 <div class="input-with-icon mb-2">
                     <i class="fas fa-link"></i>
-                    <input type="url" class="form-control" placeholder="Ссылка на GitHub" data-translate="addFreelancer.github">
+                    <input type="url" class="form-control toBeFocused" placeholder="Ссылка на GitHub" data-translate="addFreelancer.github">
                 </div>
             </div>
         </div>
@@ -252,7 +253,7 @@
             <div class="social-fields" id="portfolioFields" style="display: none;">
                 <div class="input-with-icon mb-2">
                     <i class="fas fa-link"></i>
-                    <input type="url" class="form-control" placeholder="Ссылка на портфолио" data-translate="addFreelancer.portfolio">
+                    <input type="url" class="form-control toBeFocused" placeholder="Ссылка на портфолио" data-translate="addFreelancer.portfolio">
                 </div>
             </div>
         </div>
@@ -273,7 +274,7 @@
             <div class="social-fields" id="telegramFields" style="display: none;">
                 <div class="input-with-icon mb-2">
                     <i class="fas fa-link"></i>
-                    <input type="url" class="form-control" placeholder="Ссылка на Telegram" data-translate="addFreelancer.telegram">
+                    <input type="url" class="form-control toBeFocused" placeholder="Ссылка на Telegram" data-translate="addFreelancer.telegram">
                 </div>
             </div>
         </div>
@@ -292,7 +293,7 @@
             <div class="social-fields" id="youtubeFields" style="display: none;">
                 <div class="input-with-icon mb-2">
                     <i class="fas fa-link"></i>
-                    <input type="url" class="form-control" placeholder="Ссылка на YouTube" data-translate="addFreelancer.youtube">
+                    <input type="url" class="form-control toBeFocused" placeholder="Ссылка на YouTube" data-translate="addFreelancer.youtube">
                 </div>
             </div>
         </div>
@@ -328,6 +329,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="scripts/inputFocus.js"></script>
 <script src="translations.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {

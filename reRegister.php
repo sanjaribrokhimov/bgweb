@@ -190,6 +190,7 @@
         </div>
     </div>
 
+    <script src="scripts/inputFocus.js"></script>
     <script>
         
         const responseBlock = document.getElementById('registerApiResponse');

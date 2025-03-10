@@ -422,8 +422,8 @@ $statistics = fetchData("admin/statistics");
                                         <td>
                                             Email: <?php echo $ad['user_email']; ?><br>
                                             Телефон: <?php echo $ad['user_phone']; ?><br>
-                                            Telegram: <?php echo $ad['user_telegram']; ?><br>
-                                            Instagram: <?php echo $ad['user_instagram']; ?>
+                                            Telegram: <?php echo $ad['telegram_link']; ?><br>
+                                            Instagram: <?php echo $ad['instagram_link']; ?>
                                         </td>
                                         <td>
                                             <?php echo $ad['category']; ?><br>
@@ -518,6 +518,7 @@ $statistics = fetchData("admin/statistics");
                                         </thead>
                                         <tbody>
                                             <?php foreach ($categorized_users[$tab_id] as $user): ?>
+                                            <?php $identifier = $user['email'] ? $user['email'] : $user['tg_chat_id']; ?>
                                             <tr>
                                                 <td><?php echo $user['id']; ?></td>
                                                 <td><?php echo $user['name']; ?></td>
@@ -554,7 +555,7 @@ $statistics = fetchData("admin/statistics");
                                                     </button>
                                                     <button class="btn btn-sm btn-primary" 
                                                             style="margin-bottom: 10px"
-                                                            onclick="editUserProfile('<?php echo $user['email']; ?>')">
+                                                            onclick="editUserProfile('<?php echo $identifier; ?>')">
                                                         <i class="fas fa-user-edit"></i> 
                                                         Редактировать
                                                     </button>
@@ -783,8 +784,8 @@ $statistics = fetchData("admin/statistics");
         }
 
         // Добавляем JavaScript функцию для редактирования профиля (в секцию <script>)
-        function editUserProfile(userEmail) {
-            window.location.href = `editProfile.php?email=${encodeURIComponent(userEmail)}`;
+        function editUserProfile(identifier) {
+            window.location.href = `editProfile.php?identifier=${encodeURIComponent(identifier)}`;
         }
 
         // Функция для удаления неактивных пользователей

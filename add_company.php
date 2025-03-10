@@ -1,4 +1,5 @@
 <?php include 'components/miniHeader.php'; ?>
+
 <!-- Индикатор загрузки -->
 <div id="loadingIndicator" class="loading-indicator">
     <div class="spinner-wrapper">
@@ -258,7 +259,7 @@
         <div class="form-group mb-3">
             <div class="input-with-icon">
                 <i class="fas fa-building"></i>
-                <input type="text" name="name" class="form-control" placeholder="Название компании" required>
+                <input type="text" name="name" class="form-control toBeFocused" placeholder="Название компании" required>
             </div>
         </div>
 
@@ -287,7 +288,7 @@
             <div class="form-group mb-3">
                 <div class="input-with-icon">
                     <i class="fas fa-dollar"></i>
-                    <input type="number" name="budget" class="form-control" placeholder="Бюджет ($)" required>
+                    <input type="number" name="budget" class="form-control toBeFocused" placeholder="Бюджет ($)" required>
                 </div>
             </div>
         </div>
@@ -300,7 +301,7 @@
         <div class="form-group mb-3">
             <div class="input-with-icon">
                 <i class="fas fa-comment"></i>
-                <textarea name="ad_comment" class="form-control" rows="4" placeholder="Комментарий к рекламе"></textarea>
+                <textarea name="ad_comment" class="form-control toBeFocused" rows="4" placeholder="Комментарий к рекламе"></textarea>
             </div>
         </div>
 
@@ -324,7 +325,7 @@
             <div class="social-fields" id="websiteFields" style="display: none;">
                 <div class="input-with-icon">
                     <i class="fas fa-link"></i>
-                    <input type="url" name="website_link" class="form-control" placeholder="Ссылка на сайт">
+                    <input type="url" name="website_link" class="form-control toBeFocused" placeholder="Ссылка на сайт">
                 </div>
             </div>
         </div>
@@ -345,7 +346,7 @@
             <div class="social-fields" id="telegramFields" style="display: none;">
                 <div class="input-with-icon">
                     <i class="fas fa-link"></i>
-                    <input type="url" name="telegram_link" class="form-control" placeholder="Ссылка на Telegram">
+                    <input type="url" name="telegram_link" class="form-control toBeFocused" placeholder="Ссылка на Telegram">
                 </div>
             </div>
         </div>
@@ -365,6 +366,7 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="scripts/inputFocus.js"></script>
 <script src="translations.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
