@@ -9,7 +9,8 @@ import (
 func SendTelegramOTP(chatID string, otp string) error {
 	botToken := "7690904808:AAEyzgbEZ3--sQ1pkJ-bFBpnDSCY2rNq9VY"
 
-	message := fmt.Sprintf("Ваш код подтверждения: %s", otp)
+	// Используем HTML-форматирование для выделения кода
+	message := fmt.Sprintf("<b>🔔 Ваш код подтверждения:</b> <code>%s</code>", otp)
 	url := fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", botToken)
 
 	// Создаем HTTP клиент
@@ -25,6 +26,9 @@ func SendTelegramOTP(chatID string, otp string) error {
 	q := req.URL.Query()
 	q.Add("chat_id", chatID)
 	q.Add("text", message)
+	q.Add("parse_mode", "HTML") // Указываем режим парсинга HTML
+	q.Add("disable_notification", "false")
+	q.Add("allow_sending_without_reply", "true")
 	req.URL.RawQuery = q.Encode()
 
 	// Отправляем запрос
