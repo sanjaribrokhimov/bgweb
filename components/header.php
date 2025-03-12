@@ -9,7 +9,7 @@ $IP = '144.126.128.67';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloger Agency</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=1.1.3">
+    <link rel="stylesheet" href="styles.css?v=1.1.4">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
@@ -810,32 +810,32 @@ $IP = '144.126.128.67';
         }
 
         // Переключатель языка с Google Translate
-        const langButtons = document.querySelectorAll('.lang-btn');
-        const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
+        // const langButtons = document.querySelectorAll('.lang-btn');
+        // const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
 
         
 
         // Устанавлиаем активную кнопку и язык
-        langButtons.forEach(btn => {
-            if (btn.dataset.lang === currentLang) {
-                btn.classList.add('active');
-            }
+        // langButtons.forEach(btn => {
+        //     if (btn.dataset.lang === currentLang) {
+        //         btn.classList.add('active');
+        //     }
 
-            btn.addEventListener('click', () => {
-                langButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+        //     btn.addEventListener('click', () => {
+        //         langButtons.forEach(b => b.classList.remove('active'));
+        //         btn.classList.add('active');
                 
-                const newLang = btn.dataset.lang;
-                localStorage.setItem('selectedLanguage', newLang);
+        //         const newLang = btn.dataset.lang;
+        //         localStorage.setItem('selectedLanguage', newLang);
                 
-                changeLanguage(newLang);
-            });
-        });
+        //         changeLanguage(newLang);
+        //     });
+        // });
 
-        // Применяем сохраненный язык при загрузке
-        setTimeout(() => {
-            changeLanguage(currentLang);
-        }, 1000);
+        // // Применяем сохраненный язык при загрузке
+        // setTimeout(() => {
+        //     changeLanguage(currentLang);
+        // }, 1000);
     });
     </script>
 
@@ -893,12 +893,12 @@ $IP = '144.126.128.67';
     </script>
 
     <!-- Подключаем скрипт поиска -->
-    <script src="scripts/search.js?v=1.0.3"></script>
-    <script>
+    <!-- <script src="scripts/search.js?v=1.0.3"></script> -->
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             new Search();
         });
-    </script>
+    </script> -->
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -950,119 +950,119 @@ $IP = '144.126.128.67';
 
     <script>
     // Обработчик поиска
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('searchInput');
-        const searchIcon = document.getElementById('searchIcon');
-        const searchResults = document.getElementById('searchResults');
-        const searchContainer = document.querySelector('.search-container');
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const searchInput = document.getElementById('searchInput');
+    //     const searchIcon = document.getElementById('searchIcon');
+    //     const searchResults = document.getElementById('searchResults');
+    //     const searchContainer = document.querySelector('.search-container');
 
-        // Обработчик клика по иконке поиска
-        searchIcon.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
+    //     // Обработчик клика по иконке поиска
+    //     searchIcon.addEventListener('click', (e) => {
+    //         e.preventDefault();
+    //         e.stopPropagation();
             
-            searchInput.classList.toggle('active');
-            searchContainer.classList.toggle('search-active');
+    //         searchInput.classList.toggle('active');
+    //         searchContainer.classList.toggle('search-active');
             
-            if (searchInput.classList.contains('active')) {
-                searchInput.focus();
-            } else {
-                searchInput.value = '';
-                hideResults();
-            }
-        });
+    //         if (searchInput.classList.contains('active')) {
+    //             searchInput.focus();
+    //         } else {
+    //             searchInput.value = '';
+    //             hideResults();
+    //         }
+    //     });
 
-        // Обработчик ввода в поле поиска
-        let searchTimeout;
-        searchInput.addEventListener('input', (e) => {
-            clearTimeout(searchTimeout);
-            const query = e.target.value.trim();
+    //     // Обработчик ввода в поле поиска
+    //     let searchTimeout;
+    //     searchInput.addEventListener('input', (e) => {
+    //         clearTimeout(searchTimeout);
+    //         const query = e.target.value.trim();
             
-            if (query.length >= 2) {
-                searchTimeout = setTimeout(() => performSearch(query), 300);
-            } else {
-                hideResults();
-            }
-        });
+    //         if (query.length >= 2) {
+    //             searchTimeout = setTimeout(() => performSearch(query), 300);
+    //         } else {
+    //             hideResults();
+    //         }
+    //     });
 
-        // Закрытие при клике вне области поиска
-        document.addEventListener('click', (e) => {
-            if (!searchContainer.contains(e.target)) {
-                searchInput.classList.remove('active');
-                searchContainer.classList.remove('search-active');
-                hideResults();
-            }
-        });
+    //     // Закрытие при клике вне области поиска
+    //     document.addEventListener('click', (e) => {
+    //         if (!searchContainer.contains(e.target)) {
+    //             searchInput.classList.remove('active');
+    //             searchContainer.classList.remove('search-active');
+    //             hideResults();
+    //         }
+    //     });
 
-        // Функция поиска
-        async function performSearch(query) {
-            try {
-                const response = await fetch(`https://blogy.uz/api/ads/search?q=${encodeURIComponent(query)}`);
-                if (!response.ok) throw new Error('Ошибка сети');
+    //     // Функция поиска
+    //     async function performSearch(query) {
+    //         try {
+    //             const response = await fetch(`https://blogy.uz/api/ads/search?q=${encodeURIComponent(query)}`);
+    //             if (!response.ok) throw new Error('Ошибка сети');
                 
-                const data = await response.json();
-                displayResults(data);
-            } catch (error) {
-                console.error('Ошибка поиска:', error);
-                showError();
-            }
-        }
+    //             const data = await response.json();
+    //             displayResults(data);
+    //         } catch (error) {
+    //             console.error('Ошибка поиска:', error);
+    //             showError();
+    //         }
+    //     }
 
-        // Функция отображения результатов
-        function displayResults(data) {
-            searchResults.innerHTML = '';
-            searchResults.style.display = 'block';
+    //     // Функция отображения результатов
+    //     function displayResults(data) {
+    //         searchResults.innerHTML = '';
+    //         searchResults.style.display = 'block';
 
-            if (!data.results || data.total === 0) {
-                searchResults.innerHTML = '<div class="search-no-results">Ничего не найдено</div>';
-                return;
-            }
+    //         if (!data.results || data.total === 0) {
+    //             searchResults.innerHTML = '<div class="search-no-results">Ничего не найдено</div>';
+    //             return;
+    //         }
 
-            Object.entries(data.results).forEach(([type, items]) => {
-                if (items && items.length > 0) {
-                    items.forEach(item => {
-                        const resultItem = document.createElement('div');
-                        resultItem.className = 'search-result-item';
+    //         Object.entries(data.results).forEach(([type, items]) => {
+    //             if (items && items.length > 0) {
+    //                 items.forEach(item => {
+    //                     const resultItem = document.createElement('div');
+    //                     resultItem.className = 'search-result-item';
                         
-                        resultItem.innerHTML = `
-                            <img src="${item.data.photo_base64 || './img/noImage.jpg'}" 
-                                 onerror="this.src='./img/noImage.jpg'" 
-                                 alt="${item.data.name || item.data.nickname || 'Фото профиля'}">
-                            <div class="search-result-info">
-                                <div class="search-result-name">${item.data.name || item.data.nickname || 'Без имени'}</div>
-                                <div class="search-result-type">${getTypeLabel(type)} • ${item.data.category || 'Без категории'}</div>
-                            </div>
-                        `;
+    //                     resultItem.innerHTML = `
+    //                         <img src="${item.data.photo_base64 || './img/noImage.jpg'}" 
+    //                              onerror="this.src='./img/noImage.jpg'" 
+    //                              alt="${item.data.name || item.data.nickname || 'Фото профиля'}">
+    //                         <div class="search-result-info">
+    //                             <div class="search-result-name">${item.data.name || item.data.nickname || 'Без имени'}</div>
+    //                             <div class="search-result-type">${getTypeLabel(type)} • ${item.data.category || 'Без категории'}</div>
+    //                         </div>
+    //                     `;
 
-                        resultItem.addEventListener('click', () => {
-                            window.location.href = `search-results.php?q=${encodeURIComponent(searchInput.value)}&type=${type}&selected=${item.data.id}`;
-                        });
+    //                     resultItem.addEventListener('click', () => {
+    //                         window.location.href = `search-results.php?q=${encodeURIComponent(searchInput.value)}&type=${type}&selected=${item.data.id}`;
+    //                     });
 
-                        searchResults.appendChild(resultItem);
-                    });
-                }
-            });
-        }
+    //                     searchResults.appendChild(resultItem);
+    //                 });
+    //             }
+    //         });
+    //     }
 
-        function getTypeLabel(type) {
-            const labels = {
-                bloggers: 'Блогер',
-                companies: 'Компания',
-                freelancers: 'Фрила��сер'
-            };
-            return labels[type] || type;
-        }
+    //     function getTypeLabel(type) {
+    //         const labels = {
+    //             bloggers: 'Блогер',
+    //             companies: 'Компания',
+    //             freelancers: 'Фрила��сер'
+    //         };
+    //         return labels[type] || type;
+    //     }
 
-        function hideResults() {
-            searchResults.style.display = 'none';
-        }
+    //     function hideResults() {
+    //         searchResults.style.display = 'none';
+    //     }
 
-        function showError() {
-            searchResults.innerHTML = '<div class="search-no-results">Произошла ошибка при поиске</div>';
-            searchResults.style.display = 'block';
-        }
-    });
-    </script>
+    //     function showError() {
+    //         searchResults.innerHTML = '<div class="search-no-results">Произошла ошибка при поиске</div>';
+    //         searchResults.style.display = 'block';
+    //     }
+    // });
+    // </script>
 
     <script>
         let lastScrollPosition = window.pageYOffset;

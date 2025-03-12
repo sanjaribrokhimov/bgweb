@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // }
 
     // Обновляем переводы при загрузке
-    updateFooterTranslations();
+    // updateFooterTranslations();
 
     // Слушаем клики на кнопках переключения языка
     // const langButtons = document.querySelectorAll('.lang-toggle button');

@@ -2958,3 +2958,13 @@ body:not(.dark-theme) .btn-close:hover {
 .justify-content-around {
     padding-bottom: 15px;
 }
+
+.accept-button
+{
+    background-color: var(--accent-orange);
+    padding: 15px 0;
+    color: #fff;
+    margin: 15px 30px 0;
+    border-radius: 10px;
+    cursor: pointer;
+}

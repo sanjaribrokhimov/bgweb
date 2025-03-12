@@ -85,7 +85,7 @@ if (!isset($_GET['page'])) {
             echo '<script src="scripts/companies.js?v=1.0.9"></script>';
             break;
         case 'freelancers':
-            echo '<script src="scripts/freelancers.js?v=1.0.7"></script>';
+            echo '<script src="scripts/freelancers.js?v=1.0.8"></script>';
             break;
         default:
             echo '<script src="scripts/ads.js?v=1.0.4"></script>';
