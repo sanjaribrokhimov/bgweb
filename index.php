@@ -82,7 +82,7 @@ if (!isset($_GET['page'])) {
     // Подключаем нужные скрипты в зависимости от страницы
     switch($page) {
         case 'advertisers':
-            echo '<script src="scripts/companies.js?v=1.0.9"></script>';
+            echo '<script src="scripts/companies.js?v=1.1.0"></script>';
             break;
         case 'freelancers':
             echo '<script src="scripts/freelancers.js?v=1.0.8"></script>';

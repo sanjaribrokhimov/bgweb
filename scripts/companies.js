@@ -188,6 +188,9 @@ class CompanyLoader {
                         </div>
                     </div>
                 </div>
+                <div class="accept-button" data-id="${data.id}">
+                    Сделка
+                </div>
             </div>
         `;
     }
@@ -302,6 +305,20 @@ class CompanyLoader {
             const loadingIndicator = document.getElementById('loadingIndicator');
             loadingIndicator.style.display = 'none';
         }
+        
+        document.querySelector('.accept-button').addEventListener('click', function(){
+            let id = this.dataset.id;
+            document.querySelector('.modal-close-btn').click();
+            setTimeout(function(){
+                let list = document.querySelectorAll('.product-card');
+                list.forEach(e => {
+                    if(e.dataset.id == id){
+                        e.querySelector(".btn-accept").click();
+                    }
+                    
+                })
+            }, 500);
+        })
     }
 }
 

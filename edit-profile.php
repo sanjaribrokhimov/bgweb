@@ -41,20 +41,6 @@
 
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" class="form-control" name="password" placeholder="Новый пароль" autocomplete="new-password">
-                    </div>
-                </div>
-
-                <div class="form-group mb-3">
-                    <div class="input-with-icon">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" class="form-control" name="confirmPassword" placeholder="Подтвердите пароль" autocomplete="new-password">
-                    </div>
-                </div>
-
-                <div class="form-group mb-3">
-                    <div class="input-with-icon">
                         <i class="fab fa-telegram"></i>
                         <input type="text" class="form-control" name="telegram" placeholder="Telegram" required>
                     </div>
@@ -149,8 +135,42 @@
                         </select>
                     </div>
                 </div>
+                <div class="change-password-div" title="Можно не заполнять чтобы оставить старый пароль!">
+                    <span class="ch-p-label">Change Password</span>
+                    <div class="form-group mb-3">
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" class="form-control" name="password" placeholder="Новый пароль" autocomplete="new-password">
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" class="form-control" name="confirmPassword" placeholder="Подтвердите пароль" autocomplete="new-password">
+                        </div>
+                    </div>
+                </div>
 
                 <style>
+                    .change-password-div
+                    {
+                        border: 1px solid #2c3034;
+                        padding: 25px 15px 0;
+                        position: relative;
+                        margin-bottom: 15px;
+                        border-radius: 8px;
+                    }
+                    .ch-p-label
+                    {
+                        position: absolute;
+                        top: 0;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        z-index: 9999;
+                        background: var(--primary-bg);
+                        padding: 0 10px;
+                    }
                     /* Общие стили для всех полей ввода и селекторов */
                     .form-control, .form-select {
                        
