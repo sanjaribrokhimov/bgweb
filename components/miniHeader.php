@@ -777,28 +777,28 @@ $IP = '144.126.128.67';
         // Восстанавливаем сохраненные настройки при загрузке
         const savedLang = localStorage.getItem('selectedLanguage');
         if (savedLang) {
-            // Применяем сохраненный язык ко всем элементам
-            document.querySelectorAll('[data-translate]').forEach(element => {
-                const key = element.getAttribute('data-translate');
-                const icon = element.querySelector('i')?.outerHTML || ''; // Сохраняем иконку если она есть
+            // // Применяем сохраненный язык ко всем элементам
+            // document.querySelectorAll('[data-translate]').forEach(element => {
+            //     const key = element.getAttribute('data-translate');
+            //     const icon = element.querySelector('i')?.outerHTML || ''; // Сохраняем иконку если она есть
                 
-                const keys = key.split('.');
-                let translation = translations[savedLang];
+            //     const keys = key.split('.');
+            //     let translation = translations[savedLang];
                 
-                // Получаем значение по вложенным ключам
-                for (const k of keys) {
-                    if (translation && translation[k]) {
-                        translation = translation[k];
-                    } else {
-                        translation = null;
-                        break;
-                    }
-                }
+            //     // Получаем значение по вложенным ключам
+            //     for (const k of keys) {
+            //         if (translation && translation[k]) {
+            //             translation = translation[k];
+            //         } else {
+            //             translation = null;
+            //             break;
+            //         }
+            //     }
                 
-                if (translation) {
-                    element.innerHTML = icon + ' ' + translation; // Возвращаем иконку с переводом
-                }
-            });
+            //     if (translation) {
+            //         element.innerHTML = icon + ' ' + translation; // Возвращаем иконку с переводом
+            //     }
+            // });
 
             // Устанавливаем активную кнопку языка
             langButtons.forEach(btn => {
@@ -845,28 +845,28 @@ $IP = '144.126.128.67';
     // Восстанавливаем сохраненные настройки при загрузке
     const savedLang = localStorage.getItem('selectedLanguage');
     if (savedLang) {
-        // Применяем сохраненный язык ко всем элементам
-        document.querySelectorAll('[data-translate]').forEach(element => {
-            const key = element.getAttribute('data-translate');
-            const icon = element.querySelector('i')?.outerHTML || ''; // Сохраняем иконку если она есть
+        // // Применяем сохраненный язык ко всем элементам
+        // document.querySelectorAll('[data-translate]').forEach(element => {
+        //     const key = element.getAttribute('data-translate');
+        //     const icon = element.querySelector('i')?.outerHTML || ''; // Сохраняем иконку если она есть
             
-            const keys = key.split('.');
-            let translation = translations[savedLang];
+        //     const keys = key.split('.');
+        //     let translation = translations[savedLang];
             
-            // Получаем значение по вложенным ключам
-            for (const k of keys) {
-                if (translation && translation[k]) {
-                    translation = translation[k];
-                } else {
-                    translation = null;
-                    break;
-                }
-            }
+        //     // Получаем значение по вложенным ключам
+        //     for (const k of keys) {
+        //         if (translation && translation[k]) {
+        //             translation = translation[k];
+        //         } else {
+        //             translation = null;
+        //             break;
+        //         }
+        //     }
             
-            if (translation) {
-                element.innerHTML = icon + ' ' + translation; // Возвращаем иконку с переводом
-            }
-        });
+        //     if (translation) {
+        //         element.innerHTML = icon + ' ' + translation; // Возвращаем иконку с переводом
+        //     }
+        // });
 
         // Устанавливаем активную кнопку языка
         langButtons.forEach(btn => {

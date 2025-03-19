@@ -26,12 +26,12 @@
 
         <!-- Форма входа/регистрации -->
         <div class="auth-container">
-            <h2 class="text-center p-4">Полная регистрация</h2>
+            <h2 class="text-center p-4 translate">Полная регистрация</h2>
             <form id="reRegisterForm" class="auth-form active" autocomplete="off">
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-user"></i>
-                        <input name="name" type="text" class="form-control" placeholder="Имя" required autocomplete="off">
+                        <input name="name" type="text" class="form-control" placeholder="Sanjar" required autocomplete="off">
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-phone"></i>
-                        <input type="tel" class="form-control" placeholder="Номер телефона" required autocomplete="off" 
+                        <input type="tel" class="form-control" placeholder="+998 93 000 00 00" required autocomplete="off" 
                                 pattern="[\+]?[0-9]{12}" title="Формат: +998 XX XXX XX XX" name="phone">
                     </div>
                 </div>
@@ -49,10 +49,10 @@
                     <div class="input-with-icon">
                         <i class="fas fa-tag"></i>
                         <select class="form-control category-select" required autocomplete="off" name="category">
-                            <option value="" disabled selected data-translate="auth.selectCategory">Выберите категорию</option>
-                            <option value="blogger" data-translate="auth.categories.blogger">Блогер</option>
-                            <option value="company" data-translate="auth.categories.company">Компания</option>
-                            <option value="freelancer" data-translate="auth.categories.freelancer">Фрилансер</option>
+                            <option class="translate" value="" disabled selected data-translate="auth.selectCategory">Выберите категорию</option>
+                            <option class="translate" value="blogger" data-translate="auth.categories.blogger">Блогер</option>
+                            <option class="translate" value="company" data-translate="auth.categories.company">Компания</option>
+                            <option class="translate" value="freelancer" data-translate="auth.categories.freelancer">Фрилансер</option>
                         </select>
                     </div>
                 </div>
@@ -64,72 +64,72 @@
 
                         <!-- Направления для блогеров -->
                         <select class="form-control direction-blogger" autocomplete="off" style="display: none;">
-                            <option value="" disabled selected>Выберите направление</option>
-                            <option value="lifestyle">Лайфстайл и влог</option>
-                            <option value="fashion">Мода и стиль</option>
-                            <option value="beauty">Бьюти и косметика</option>
-                            <option value="travel">Путешествия и туризм</option>
-                            <option value="food">Еда и кулинария</option>
-                            <option value="sport">Спорт и фитнес</option>
-                            <option value="business">Бизнес и предпринимательство</option>
-                            <option value="education">Образование и саморазвитие</option>
-                            <option value="technology">Технологии и гаджеты</option>
-                            <option value="gaming">Игры и киберспорт</option>
-                            <option value="music">Музыка и развлечения</option>
-                            <option value="art">Искусство и творчество</option>
-                            <option value="health">Здоровье и wellness</option>
-                            <option value="parenthood">Родительство и семья</option>
-                            <option value="pets">Домашние животные</option>
-                            <option value="cars">Автомобили и транспорт</option>
-                            <option value="finance">Финансы и инвестиции</option>
-                            <option value="motivation">Мотивация и психология</option>
+                            <option class="translate" value="" disabled selected>Выберите направление</option>
+                            <option class="translate" value="lifestyle">Лайфстайл и влог</option>
+                            <option class="translate" value="fashion">Мода и стиль</option>
+                            <option class="translate" value="beauty">Бьюти и косметика</option>
+                            <option class="translate" value="travel">Путешествия и туризм</option>
+                            <option class="translate" value="food">Еда и кулинария</option>
+                            <option class="translate" value="sport">Спорт и фитнес</option>
+                            <option class="translate" value="business">Бизнес и предпринимательство</option>
+                            <option class="translate" value="education">Образование и саморазвитие</option>
+                            <option class="translate" value="technology">Технологии и гаджеты</option>
+                            <option class="translate" value="gaming">Игры и киберспорт</option>
+                            <option class="translate" value="music">Музыка и развлечения</option>
+                            <option class="translate" value="art">Искусство и творчество</option>
+                            <option class="translate" value="health">Здоровье и wellness</option>
+                            <option class="translate" value="parenthood">Родительство и семья</option>
+                            <option class="translate" value="pets">Домашние животные</option>
+                            <option class="translate" value="cars">Автомобили и транспорт</option>
+                            <option class="translate" value="finance">Финансы и инвестиции</option>
+                            <option class="translate" value="motivation">Мотивация и психология</option>
                         </select>
 
                         <!-- Направления для компаний -->
                         <select class="form-control direction-company" autocomplete="off" style="display: none;">
-                            <option value="" disabled selected>Выберите направление</option>
-                            <option value="retail">Розничная торговля</option>
-                            <option value="wholesale">Оптовая торговля</option>
-                            <option value="services">Услуги и сервис</option>
-                            <option value="manufacturing">Производство</option>
-                            <option value="tech">IT и технологии</option>
-                            <option value="finance">Финансы и банкинг</option>
-                            <option value="construction">Строительство</option>
-                            <option value="realestate">Недвижимость</option>
-                            <option value="healthcare">Здравоохранение</option>
-                            <option value="education">Образование</option>
-                            <option value="hospitality">Гостиничный бизнес</option>
-                            <option value="restaurant">Рестораны и общепит</option>
-                            <option value="logistics">Логистика</option>
-                            <option value="agriculture">Сельское хозяйство</option>
-                            <option value="energy">Энергетика</option>
-                            <option value="media">Медиа и развлечения</option>
-                            <option value="consulting">Консалтинг</option>
-                            <option value="automotive">Автомобильный бизнес</option>
-                            <option value="mall">Торговые центры</option>
+                            <option class="translate" value="" disabled selected>Выберите направление</option>
+                            <option class="translate" value="retail">Розничная торговля</option>
+                            <option class="translate" value="wholesale">Оптовая торговля</option>
+                            <option class="translate" value="services">Услуги и сервис</option>
+                            <option class="translate" value="manufacturing">Производство</option>
+                            <option class="translate" value="tech">IT и технологии</option>
+                            <option class="translate" value="finance">Финансы и банкинг</option>
+                            <option class="translate" value="construction">Строительство</option>
+                            <option class="translate" value="realestate">Недвижимость</option>
+                            <option class="translate" value="healthcare">Здравоохранение</option>
+                            <option class="translate" value="education">Образование</option>
+                            <option class="translate" value="hospitality">Гостиничный бизнес</option>
+                            <option class="translate" value="restaurant">Рестораны и общепит</option>
+                            <option class="translate" value="logistics">Логистика</option>
+                            <option class="translate" value="agriculture">Сельское хозяйство</option>
+                            <option class="translate" value="energy">Энергетика</option>
+                            <option class="translate" value="media">Медиа и развлечения</option>
+                            <option class="translate" value="consulting">Консалтинг</option>
+                            <option class="translate" value="automotive">Автомобильный бизнес</option>
+                            <option class="translate" value="mall">Торговые центры</option>
                         </select>
 
                         <!-- Направления для фрилансеров -->
                         <select class="form-control direction-freelancer" autocomplete="off" style="display: none;">
-                            <option value="" disabled selected>Выберите направление</option>
-                            <option value="webdev">Веб-разработка</option>
-                            <option value="mobiledev">Мобильная разработка</option>
-                            <option value="uidesign">UI/UX Дизайн</option>
-                            <option value="graphicdesign">Графический дизайн</option>
-                            <option value="marketing">Маркетинг</option>
-                            <option value="smm">SMM</option>
-                            <option value="copywriting">Копирайтинг</option>
-                            <option value="translation">Перевод</option>
-                            <option value="video">Видеопроизводство</option>
-                            <option value="animation">Анимация</option>
-                            <option value="voiceover">Озвучка</option>
-                            <option value="photography">Фотография</option>
-                            <option value="3d">3D моделирование</option>
-                            <option value="gamedev">Разработка игр</option>
-                            <option value="seo">SEO-оптимизация</option>
-                            <option value="analytics">Аналитика</option>
-                            <option value="consulting">Консультирование</option>
-                            <option value="projectmanagement">Управление проектами</option>
+                            <option class="translate" value="" disabled selected>Выберите направление</option>
+                            <option class="translate" value="webdev">Веб-разработка</option>
+                            <option class="translate" value="mobiledev">Мобильная разработка</option>
+                            <option class="translate" value="uidesign">UI/UX Дизайн</option>
+                            <option class="translate" value="graphicdesign">Графический дизайн</option>
+                            <option class="translate" value="marketing">Маркетинг</option>
+                            <option class="translate" value="smm">SMM</option>
+                            <option class="translate" value="copywriting">Копирайтинг</option>
+                            <option class="translate" value="translation">Перевод</option>
+                            <option class="translate" value="video">Видеопроизводство</option>
+                            <option class="translate" value="animation">Анимация</option>
+                            <option class="translate" value="voiceover">Озвучка</option>
+                            <option class="translate" value="photography">Фотография</option>
+                            <option class="translate" value="3d">3D моделирование</option>
+                            <option class="translate" value="gamedev">Разработка игр</option>
+                            <option class="translate" value="seo">SEO-оптимизация</option>
+                            <option class="translate" value="analytics">Аналитика</option>
+                            <option class="translate" value="consulting">Консультирование</option>
+                            <option class="translate" value="projectmanagement">Управление проектами</option>
                         </select>
                     </div>
                 </div>
@@ -164,7 +164,7 @@
                         <input type="text" 
                                 class="form-control" 
                                 name="instagram"
-                                placeholder="сылка на Instagram"
+                                placeholder="Instagram"
                                 data-placeholder="instagram"
                                 required 
                                 autocomplete="off">
@@ -209,6 +209,9 @@
             }, 300);
         }
         document.addEventListener('DOMContentLoaded', () => {
+
+            let tg_username = localStorage.telegram_username || '';
+            document.querySelector('input[name="telegram"]').value = tg_username;
             
 
             // Обработчик изменения категории
