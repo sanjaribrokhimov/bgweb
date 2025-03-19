@@ -12,27 +12,27 @@
 
 <div class="filter-container">
     <select class="form-select category-select" id="companyCategorySelect">
-        <option value="">Все категории</option>
-        <option value="retail">Розничная торговля</option>
-                            <option value="wholesale">Оптовая торговля</option>
-                            <option value="services">Услуги и сервис</option>
-                            <option value="manufacturing">Производство</option>
-                            <option value="tech">IT и технологии</option>
-                            <option value="finance">Финансы и банкинг</option>
-                            <option value="construction">Строительство</option>
-                            <option value="realestate">Недвижимость</option>
-                            <option value="healthcare">Здравоохранение</option>
-                            <option value="education">Образование</option>
-                            <option value="hospitality">Гостиничный бизнес</option>
-                            <option value="restaurant">Рестораны и общепит</option>
-                            <option value="logistics">Логистика</option>
-                            <option value="agriculture">Сельское хозяйство</option>
-                            <option value="energy">Энергетика</option>
-                            <option value="media">Медиа и развлечения</option>
-                            <option value="consulting">Консалтинг</option>
-                            <option value="automotive">Автомобильный бизнес</option>
-                            <option value="mall">Торговые центры</option>
-    </select>
+        <option class="translate" value="">Все категории</option>
+        <option class="translate" value="retail">Розничная торговля</option>
+        <option class="translate" value="wholesale">Оптовая торговля</option>
+        <option class="translate" value="services">Услуги и сервис</option>
+        <option class="translate" value="manufacturing">Производство</option>
+        <option class="translate" value="tech">IT и технологии</option>
+        <option class="translate" value="finance">Финансы и банкинг</option>
+        <option class="translate" value="construction">Строительство</option>
+        <option class="translate" value="realestate">Недвижимость</option>
+        <option class="translate" value="healthcare">Здравоохранение</option>
+        <option class="translate" value="education">Образование</option>
+        <option class="translate" value="hospitality">Гостиничный бизнес</option>
+        <option class="translate" value="restaurant">Рестораны и общепит</option>
+        <option class="translate" value="logistics">Логистика</option>
+        <option class="translate" value="agriculture">Сельское хозяйство</option>
+        <option class="translate" value="energy">Энергетика</option>
+        <option class="translate" value="media">Медиа и развлечения</option>
+        <option class="translate" value="consulting">Консалтинг</option>
+        <option class="translate" value="automotive">Автомобильный бизнес</option>
+        <option class="translate" value="mall">Торговые центры</option>
+    </select> 
     <div class="filter-icon" id="companyFilterIcon">
         <i class="fas fa-filter"></i>
     </div>

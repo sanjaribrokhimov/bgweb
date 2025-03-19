@@ -195,6 +195,7 @@ class BloggerLoader {
                 this.hasMore = this.page < data.totalPages;
                 this.page++;
             }
+            translatePage(localStorage.selectedLanguage);
         } catch (error) {
             console.error('Error loading bloggers:', error);
             if (this.page === 1) {
@@ -216,14 +217,14 @@ class BloggerLoader {
                     <img id="myImg" src="${data.photo_base64}" alt="Блогер" onerror="this.src='./img/noImage.jpg'">
                 </div>
                 <div class="product-info">
-                    <div>
-                        <p style="color:var(--accent-orange); padding:0px; margin:0px; max-width: 168px;">${data.nickname || 'Без имени'}</p>
+                    <div class="tr">
+                        <p style="color:var(--accent-orange); padding:0px; margin:0px; max-width: 168px;" class="translate">${data.nickname || 'Без имени'}</p>
                         <div class="direction-tag">${data.direction || ''}</div>
                     </div>
 
                     <div class="btn-actions">
                         <button class="btn-details" data-id="${data.id}" data-type="blogger">
-                            <i class="fas fa-info-circle"></i> Подробнее
+                            <i class="fas fa-info-circle"></i> <span class="translate">Подробнее</span>
                         </button>
                         <button class="btn-accept" data-id="${data.id}" data-owner-id="${data.user_id}"
                             ${hasAgreement ? 'disabled style="background: linear-gradient(45deg, #32d583, #20bd6d);"' : ''}>
@@ -241,10 +242,10 @@ class BloggerLoader {
                 <div class="details-header">
                     <div class="detailImage" style="background-image: url(${data.photo_base64})"></div>
                     <div>
-                        <h4>${data.nickname || 'Без имени'}</h4>
+                        <h4 class="translate">${data.nickname || 'Без имени'}</h4>
                         
                         <div class="info-item">
-                            <span>${data.direction || 'Без направления'}</span>
+                            <span class="translate">${data.direction || 'Без направления'}</span>
                         </div>
                     </div>
                 </div>
@@ -252,8 +253,8 @@ class BloggerLoader {
                     
                     
                     <div class="info-item">
-                        <label><i class="fas fa-search"></i> Кого ищет</label>
-                        <p class="looking-for-text">${data.ad_comment || 'Не указано'}</p>
+                        <label><i class="fas fa-search"></i> <span class="translate">Кого ищет</span></label>
+                        <p class="looking-for-text translate">${data.ad_comment || 'Не указано'}</p>
                     </div>
                     
                     <div class="info-item sni">
@@ -281,7 +282,7 @@ class BloggerLoader {
                         </div>
                     </div>
                 </div>
-                <div class="accept-button" data-id="${data.id}">
+                <div class="accept-button translate" data-id="${data.id}">
                     Сделка
                 </div>
             </div>
@@ -320,7 +321,7 @@ class BloggerLoader {
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Подробная информация</h5>
+                                <h5 class="modal-title translate">Подробная информация</h5>
                                 <button type="button" class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">
                                     <i class="fas fa-times"></i>
                                 </button>
@@ -396,6 +397,8 @@ class BloggerLoader {
 
             const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
             modal.show();
+
+            translatePage(localStorage.selectedLanguage || "ru");
 
         } catch (error) {
             console.error('Error:', error);

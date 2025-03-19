@@ -2,6 +2,7 @@
 window.showConfirmModal = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+
     // Находим модальное окно
     const confirmModal = document.querySelector('.confirm-modal');
     const confirmYes = confirmModal?.querySelector('.confirm-yes');
@@ -45,6 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
         modalOverlay.classList.add('active');
         confirmModal.classList.add('active');
         confirmModal.currentButton = button;
+        
+        translatePage(localStorage.selectedLanguage);
     };
 
 
@@ -161,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Добавляем обработчик для всех кнопок accept
     document.addEventListener('click', (e) => {
         const acceptBtn = e.target.closest('.btn-accept');
+        
         if (!acceptBtn) return;
 
         e.preventDefault();

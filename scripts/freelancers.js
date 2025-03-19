@@ -120,6 +120,8 @@ class FreelancerLoader {
             this.loading = false;
             loadingIndicator.style.display = 'none';
         }
+        
+        translatePage(localStorage.selectedLanguage);
     }
 
     createFreelancerCard(data) {
@@ -138,7 +140,9 @@ class FreelancerLoader {
                 
             </div>
             <div class="product-info">
-                <h3>${data.name || 'Без имени'}</h3>
+                <span class="tr">
+                    <h3 class="translate">${data.name || 'Без имени'}</h3>
+                </span>
                
                 <div class="stats">
                     <div class="stat-item">
@@ -148,7 +152,7 @@ class FreelancerLoader {
                 </div>
                 <div class="btn-actions">
                     <button class="btn-details" data-id="${itemId}" data-type="freelancer">
-                        <i class="fas fa-info-circle"></i> Подробнее
+                        <i class="fas fa-info-circle"></i> <span class="translate">Подробнее</span>
                     </button>
                     <button class="btn-accept" data-id="${itemId}" data-owner-id="${userId}">
                         <i class="fas fa-check"></i>
@@ -168,14 +172,14 @@ class FreelancerLoader {
     }
 
     createDetailsContent(data) {
-        console.log(data)
+        // console.log(data)
         return `
             <div class="details-card">
                 <div class="details-header">
                     <div class="detailImage" style="background-image: url(${data.photo_base64})">
                     </div>
                     <div>
-                        <h4>${data.name || 'Без имени'}</h4>
+                        <h4 class="translate">${data.name || 'Без имени'}</h4>
                         
                         <div class="info-item">
                             <span>${data.category || 'Не указана'}</span>
@@ -185,7 +189,7 @@ class FreelancerLoader {
                 <div class="details-info">
                     
                     <div class="info-item">
-                        <p class="comment-text">${data.ad_comment || 'Комментарий не добавлен'}</p>
+                        <p class="comment-text translate">${data.ad_comment || 'Комментарий не добавлен'}</p>
                     </div>
                     
                     <div class="info-item sni">
@@ -222,7 +226,7 @@ class FreelancerLoader {
                         </div>
                     </div>
                 </div>
-                <div class="accept-button" data-id="${data.id}">
+                <div class="accept-button translate" data-id="${data.id}">
                     Сделка
                 </div>
             </div>
@@ -254,7 +258,7 @@ class FreelancerLoader {
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Подробная информация</h5>
+                                <h5 class="modal-title translate">Подробная информация</h5>
                                 <button type="button" class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">
                                     <i class="fas fa-times"></i>
                                 </button>
@@ -331,6 +335,8 @@ class FreelancerLoader {
 
             const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
             modal.show();
+            
+            translatePage(localStorage.selectedLanguage);
 
         } catch (error) {
             console.error('Error:', error);

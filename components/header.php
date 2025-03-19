@@ -11,6 +11,8 @@ $IP = '144.126.128.67';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=1.1.4">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
     <style>
         .product-card {
@@ -609,12 +611,12 @@ $IP = '144.126.128.67';
                 <button class="btn back-btn" onclick="window.history.back()">
                     <i class="fas fa-arrow-left"></i>
                 </button>
-                <!-- <div class="language-switcher">
+                <div class="language-switcher">
                     <div class="notranslate lang-toggle">
                         <button class="lang-btn" data-lang="ru">RU</button>
                         <button class="lang-btn" data-lang="uz">UZ</button>
                     </div>
-                </div> -->
+                </div>
                 <div class="theme-switcher">
                     <div class="theme-toggle" role="button" aria-label="Переключить тему">
                         <i class="fas fa-sun"></i>
@@ -630,11 +632,11 @@ $IP = '144.126.128.67';
                 <div class="profile-dropdown">
                     <div class="profile-dropdown-item" >
                         <i class="fas fa-user"></i>
-                        Мой профиль
+                        <span class="translate">Мой профиль</span>
                     </div>
                     <div class="profile-dropdown-item">
                         <i class="fas fa-list"></i>
-                        Мои объявления
+                        <span class="translate">Мои объявления</span>
                     </div>
                     <div class="profile-dropdown-divider"></div>
                    
@@ -645,7 +647,7 @@ $IP = '144.126.128.67';
                     
                     <div class="profile-dropdown-item" data-translate="profile.logout">
                         <i class="fas fa-sign-out-alt"></i>
-                        Выйти
+                        <span class="translate">Выйти</span>
                     </div>
                 </div>
             </div>
@@ -792,104 +794,101 @@ $IP = '144.126.128.67';
    
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Переключатель темы с анимацией
-        const themeToggle = document.querySelector('.theme-toggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                themeToggle.classList.add('switching');
-                document.body.classList.toggle('dark-theme');
-                document.documentElement.classList.toggle('dark-theme');
-                const isDark = document.body.classList.contains('dark-theme');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                
-                setTimeout(() => {
-                    themeToggle.classList.remove('switching');
-                }, 500);
-            });
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Переключатель темы с анимацией
+            const themeToggle = document.querySelector('.theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    themeToggle.classList.add('switching');
+                    document.body.classList.toggle('dark-theme');
+                    document.documentElement.classList.toggle('dark-theme');
+                    const isDark = document.body.classList.contains('dark-theme');
+                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                    
+                    setTimeout(() => {
+                        themeToggle.classList.remove('switching');
+                    }, 500);
+                });
+            }
 
-        // Переключатель языка с Google Translate
-        // const langButtons = document.querySelectorAll('.lang-btn');
-        // const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
-
-        
-
-        // Устанавлиаем активную кнопку и язык
-        // langButtons.forEach(btn => {
-        //     if (btn.dataset.lang === currentLang) {
-        //         btn.classList.add('active');
-        //     }
-
-        //     btn.addEventListener('click', () => {
-        //         langButtons.forEach(b => b.classList.remove('active'));
-        //         btn.classList.add('active');
-                
-        //         const newLang = btn.dataset.lang;
-        //         localStorage.setItem('selectedLanguage', newLang);
-                
-        //         changeLanguage(newLang);
-        //     });
-        // });
-
-        // // Применяем сохраненный язык при загрузке
-        // setTimeout(() => {
-        //     changeLanguage(currentLang);
-        // }, 1000);
-    });
+            // // Применяем сохраненный язык при загрузке
+            // setTimeout(() => {
+            //     changeLanguage(currentLang);
+            // }, 1000);
+        });
     </script>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
         document.addEventListener("DOMContentLoaded", function() {
-    // Переключатель темы
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (themeToggle) {
-        // Устанавливаем тёмную тему по умолчанию
-        document.body.classList.add('dark-theme');
+            document.addEventListener("DOMContentLoaded", function() {
+                // Переключатель темы
+                const themeToggle = document.querySelector('.theme-toggle');
+                if (themeToggle) {
+                    // Устанавливаем тёмную тему по умолчанию
+                    document.body.classList.add('dark-theme');
 
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            const newTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
-            localStorage.setItem('theme', newTheme);
-        });
-    }
+                    themeToggle.addEventListener('click', () => {
+                        document.body.classList.toggle('dark-theme');
+                        const newTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+                        localStorage.setItem('theme', newTheme);
+                    });
+                }    
+            });
 
-    
-    });
+            // Переключатель языка с Google Translate
+            const langButtons = document.querySelectorAll('.lang-btn');
+            const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
 
-    // Восстанавливаем сохраненные настройки при загрузке
-    const savedLang = localStorage.getItem('selectedLanguage');
-    if (savedLang) {
-        // Применяем сохраненный язык ко всем элементам
-        document.querySelectorAll('[data-translate]').forEach(element => {
-            const key = element.getAttribute('data-translate');
-            const icon = element.querySelector('i')?.outerHTML || ''; // Сохраняем иконку если она есть
-            
-            const keys = key.split('.');
-            let translation = translations[savedLang];
-            
-            // Получаем значение по вложенным ключам
-            for (const k of keys) {
-                if (translation && translation[k]) {
-                    translation = translation[k];
-                } else {
-                    translation = null;
-                    break;
+            // Устанавлиаем активную кнопку и язык
+            langButtons.forEach(btn => {
+                if (btn.dataset.lang === currentLang) {
+                    btn.classList.add('active');
                 }
-            }
-            
-            if (translation) {
-                element.innerHTML = icon + ' ' + translation; // Возвращаем иконку с переводом
-            }
-        });
 
-        // Устанавливаем активную кнопку языка
-        langButtons.forEach(btn => {
-            btn.classList.toggle('active', btn.textContent.toLowerCase() === savedLang);
+                btn.addEventListener('click', () => {
+                    langButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const newLang = btn.dataset.lang;
+                    localStorage.setItem('selectedLanguage', newLang);
+                    
+                    translatePage(newLang)
+                });
+            });
+            
+            // Восстанавливаем сохраненные настройки при загрузке
+            const savedLang = localStorage.getItem('selectedLanguage');
+            if (savedLang) {
+                // Применяем сохраненный язык ко всем элементам
+                document.querySelectorAll('[data-translate]').forEach(element => {
+                    const key = element.getAttribute('data-translate');
+                    const icon = element.querySelector('i')?.outerHTML || ''; // Сохраняем иконку если она есть
+                    
+                    const keys = key.split('.');
+                    let translation = translations[savedLang];
+                    
+                    // Получаем значение по вложенным ключам
+                    for (const k of keys) {
+                        if (translation && translation[k]) {
+                            translation = translation[k];
+                        } else {
+                            translation = null;
+                            break;
+                        }
+                    }
+                    
+                    if (translation) {
+                        element.innerHTML = icon + ' ' + translation; // Возвращаем иконку с переводом
+                    }
+                });
+
+                // Устанавливаем активную кнопку языка
+                langButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.textContent.toLowerCase() === savedLang);
+                });
+            }
+
         });
-    }
-});
     </script>
 
     <!-- Подключаем скрипт поиска -->
@@ -909,7 +908,10 @@ $IP = '144.126.128.67';
         if (profileBtn && profileDropdown) {
             profileBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                profileDropdown.classList.toggle('active');
+                // let is_complete = await checkUser();
+                // if(is_complete){
+                    profileDropdown.classList.toggle('active');
+                // }
             });
 
             // Закрытие при клике вне меню
@@ -926,14 +928,14 @@ $IP = '144.126.128.67';
                     const text = item.textContent.trim().toLowerCase();
                     
                     // Проверяем текст пункта меню на обоих языках
-                    if (text.includes('мой профиль') || text.includes('my profile')) {
+                    if (text.includes('мой профиль') || text.includes('mening profilim')) {
                         let is_complete = await checkUser();
                         if(is_complete){
                             window.location.href = 'edit-profile.php';
                         }
                     }
                     // Проверяем текст пункта меню на обоих языках
-                    else if (text.includes('мои объявления') || text.includes('mening e\'lonlarim') || text.includes('my ads')) {
+                    else if (text.includes('мои объявления') || text.includes('mening e\'lonlarim')) {
                         let is_complete = await checkUser();
                         if(is_complete){
                             window.location.href = 'myads.php';

@@ -99,10 +99,70 @@ if (!isset($_GET['page'])) {
             phone: localStorage.getItem('telegram_phone'),
             username: localStorage.getItem('telegram_username'),
             user_id: localStorage.getItem('telegram_user_id')
-        };
-        
-        
+        };        
     }
+
+    
+    function translateText(text, targetLang) {
+        return fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURI(text)}`)
+            .then(response => response.json())
+            .then(data => data[0][0][0])
+            .catch(error => console.error('Ошибка перевода:', error));
+    }
+    const translationExceptions = {
+        "Подробнее": { "ru": "Подробнее", "uz": "Batafsil" },
+        "Batafsil": { "ru": "Подробнее", "uz": "Batafsil" },
+        "Блогеры": { "ru": "Блогеры", "uz": "Blogerlar" },
+        "Blogerlar": { "ru": "Блогеры", "uz": "Blogerlar" },
+        "Компании": { "ru": "Компании", "uz": "Kompaniyalar" },
+        "Kompaniyalar": { "ru": "Компании", "uz": "Kompaniyalar" },
+        "Фрилансеры": { "ru": "Фрилансеры", "uz": "Frilanserlar" },
+        "Frilanserlar": { "ru": "Фрилансеры", "uz": "Frilanserlar" },
+        "Добавить": { "ru": "Добавить", "uz": "Qoshish" },
+        "Qoshish": { "ru": "Добавить", "uz": "Qoshish" },
+        "Сделка": { "ru": "Сделка", "uz": "Kelishuv" },
+        "Kelishuv": { "ru": "Сделка", "uz": "Kelishuv" },
+        "Мухаммаддиёр": { "ru": "Мухаммаддиёр", "uz": "Mukhammaddiyor" },
+        "Mukhammaddiyor": { "ru": "Мухаммаддиёр", "uz": "Mukhammaddiyor" },
+        "Мой профиль": { "ru": "Мой профиль", "uz": "Mening profilim" },
+        "Mening profilim": { "ru": "Мой профиль", "uz": "Mening profilim" },
+        "Мои объявления": { "ru": "Мои объявления", "uz": "Mening e\'lonlarim" },
+        "Mening e\'lonlarim": { "ru": "Мои объявления", "uz": "Mening e\'lonlarim" },
+        "Выйти": { "ru": "Выйти", "uz": "Chiqish" },
+        "Chiqish": { "ru": "Выйти", "uz": "Chiqish" },
+        "Изменить пароль": { "ru": "ВыйтИзменить парольи", "uz": "Parolni o'zgartirish" },
+        "Parolni o'zgartirish": { "ru": "Изменить пароль", "uz": "Parolni o'zgartirish" },
+    };
+
+    function translatePage(targetLang) {
+        $('.translate').each(function () {
+            let element = $(this);
+            let originalText = element.text().trim();
+            let wordsCount = originalText.split(" ").length;
+
+            // Проверяем, находится ли элемент внутри карточки
+            let isInCard = element.closest('.product-card .tr').length > 0;
+
+            // Если элемент внутри карточки и текст состоит из одного слова, не переводим его
+            if ((isInCard && wordsCount === 1)) {
+                return;
+            }
+            if(originalText.length > 200){
+                console.log(originalText);
+            }
+            // Проверяем, есть ли слово/фраза в исключениях
+            if (translationExceptions[originalText] && translationExceptions[originalText][targetLang]) {
+                element.text(translationExceptions[originalText][targetLang]);
+            } else {
+                // Если нет, переводим через API
+                translateText(originalText, targetLang).then(translatedText => {
+                    element.text(translatedText);
+                });
+            }
+        });
+    }
+
+
     </script>
 
 </body>

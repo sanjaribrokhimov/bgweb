@@ -178,9 +178,9 @@ class NotificationManager {
                 this.container.innerHTML = `
                     <div class="error-state">
                         <i class="fas fa-exclamation-circle"></i>
-                        <p>Не удалось загрузить уведомления</p>
+                        <p class="translate">Не удалось загрузить уведомления</p>
                         <button onclick="notificationManager.loadNotifications()" class="retry-btn">
-                            <i class="fas fa-redo"></i> Повторить
+                            <i class="fas fa-redo"></i> <span class="translate">Повторить</span>
                         </button>
                     </div>
                 `;

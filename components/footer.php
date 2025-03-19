@@ -3,25 +3,25 @@
         <a href="index.php?page=bloggers" class="btn btn-link nav-item" data-page="bloggers">
             <div class="nav-icon">
                 <i class="fas fa-user"></i>
-                <span class="nav-label" data-translate="footer.bloggers">Блогеры</span>
+                <span class="nav-label translate" data-translate="footer.bloggers">Блогеры</span>
             </div>
         </a>
         <a href="index.php?page=advertisers" class="btn btn-link nav-item" data-page="advertisers">
             <div class="nav-icon">
                 <i class="fas fa-chart-line"></i>
-                <span class="nav-label" data-translate="footer.companies">Компании</span>
+                <span class="nav-label translate" data-translate="footer.companies">Компании</span>
             </div>
         </a>
         <a href="index.php?page=freelancers" class="btn btn-link nav-item" data-page="freelancers">
             <div class="nav-icon">
                 <i class="fas fa-laptop-code"></i>
-                <span class="nav-label" data-translate="footer.freelancers">Фрилансеры</span>
+                <span class="nav-label translate" data-translate="footer.freelancers">Фрилансеры</span>
             </div>
         </a>
         <button class="btn btn-link nav-item" id="addButton">
             <div class="nav-icon">
                 <i class="fas fa-plus-circle"></i>
-                <span class="nav-label" data-translate="footer.add">Добавить</span>
+                <span class="nav-label translate" data-translate="footer.add">Добавить</span>
             </div>
         </button>
     </div>
@@ -246,8 +246,8 @@ body.add-active {
 
 <div class="confirm-modal">
     <div class="message-container">
-        <p style="font-size: 12px; text-align: center;">Напишите сообщение пользователю</p>
-        <textarea rows="3" type="text" class="user-message" placeholder="Сообщение пользователю" style="resize: none;"></textarea>
+        <p style="font-size: 12px; text-align: center;" class="translate">Напишите сообщение пользователю</p>
+        <textarea rows="3" type="text" class="user-message" style="resize: none;"></textarea>
     </div>
     <div class="confirm-content">
         <button class="confirm-no">
@@ -319,7 +319,7 @@ async function checkUser(){
         }
 
         userData = await response.json();
-        console.log('Полученные данные:', userData); // Для отладки
+        // console.log('Полученные данные:', userData); // Для отладки
         
         const is_complete = userData.is_complete;
         if(!is_complete && confirm('Чтобы продолжить пользоваться нашей платформой, вам нужно завершить регистрацию. Хотите пройти полную регистрацию?')){
@@ -431,6 +431,7 @@ document.addEventListener('DOMContentLoaded', function() {
             button.classList.add('active');
         }
     });
+
 });
 
 // let lastScrollY = window.scrollY;
@@ -448,6 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 //     lastScrollY = currentScrollY;
 // });
+
 
 
 

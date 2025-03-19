@@ -82,6 +82,8 @@ class CompanyLoader {
             this.loading = false;
             loadingIndicator.style.display = 'none';
         }
+        
+        translatePage(localStorage.selectedLanguage);
     }
 
     initializeAcceptButtons() {
@@ -109,8 +111,8 @@ class CompanyLoader {
                
             </div>
             <div class="product-info">
-                <div style="height: 135px;">
-                    <h3>${data.name || 'Без имени'}</h3>
+                <div style="height: 135px;" class="tr">
+                    <h3 class="translate">${data.name || 'Без имени'}</h3>
                     <div class="direction-tag">${data.direction || 'Без направления'}</div>
                     <div class="stats">
                         <div class="stat-item">
@@ -121,7 +123,7 @@ class CompanyLoader {
                 </div>
                 <div class="btn-actions">
                     <button class="btn-details" data-id="${data.ID}" data-type="company">
-                        <i class="fas fa-info-circle"></i> Подробнее
+                        <i class="fas fa-info-circle"></i> <span class="translate">Подробнее</span>
                     </button>
                     <button class="btn-accept" data-id="${data.ID}" data-owner-id="${data.user_id}">
                         <i class="fas fa-check"></i>
@@ -141,7 +143,7 @@ class CompanyLoader {
                     <div class="detailImage" style="background-image: url(${data.photo_base64})">
                     </div>
                     <div>
-                        <h4>${data.name || 'Без имени'}</h4>
+                        <h4 class="translate">${data.name || 'Без имени'}</h4>
                         
                         <div class="info-item">
                             <span>${data.category || 'Не указана'}</span>
@@ -150,11 +152,11 @@ class CompanyLoader {
                 </div>
                 <div class="details-info">
                     <div class="details-stats">
-                        <span><i class="fas fa-briefcase"></i> ${this.formatNumber(data.budget) > 0 ? byu : 'Бартер' || 'Не указан'}</span>
+                        <span><i class="fas fa-briefcase"></i> <span class="translate">${this.formatNumber(data.budget) > 0 ? byu : 'Бартер' || 'Не указан'}</span></span>
                     </div>
 
                     <div class="info-item">
-                        <p class="comment-text">${data.ad_comment || 'Комментарий не добавлен'}</p>
+                        <p class="comment-text translate">${data.ad_comment || 'Комментарий не добавлен'}</p>
                     </div>
                    
                     ${data.telegram_username ? `
@@ -188,7 +190,7 @@ class CompanyLoader {
                         </div>
                     </div>
                 </div>
-                <div class="accept-button" data-id="${data.id}">
+                <div class="accept-button translate" data-id="${data.id}">
                     Сделка
                 </div>
             </div>
@@ -297,6 +299,8 @@ class CompanyLoader {
 
             const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
             modal.show();
+
+            translatePage(localStorage.selectedLanguage || "ru");
 
         } catch (error) {
             console.error('Error:', error);
