@@ -28,23 +28,23 @@
         <div class="auth-container">
             <!-- Переключатель форм -->
             <div class="auth-toggle mb-4">
-                <button class="active" data-form="login">Вход</button>
-                <button data-form="register">Регистрация</button>
+                <button class="active translate" data-form="login">Вход</button>
+                <button data-form="register" class="translate">Регистрация</button>
             </div>
 
             <!-- Форма входа -->
             <form id="loginForm" class="auth-form active" autocomplete="off">
-                <div class="input-description mb-3 text-center">
+                <div class="input-description mb-3 text-center translate">
                     Выберите тип входа
                 </div>
                 <div class="deal-type-switcher mb-3" id="loginDealTypeSwitcher" data-type="telegram">
                     <div class="switch-option" data-value="telegram">
                         <i class="fa-brands fa-telegram"></i>
-                        <span>По телеграму</span>
+                        <span class="translate">По телеграму</span>
                     </div>
                     <div class="switch-option" data-value="email">
                         <i class="fa-regular fa-envelope"></i>
-                        <span>По почте</span>
+                        <span class="translate">По почте</span>
                     </div>
                     <div class="switch-slider"></div>
                 </div>
@@ -65,11 +65,11 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Запомнить меня</label>
+                        <label class="form-check-label translate" for="rememberMe">Запомнить меня</label>
                     </div>
-                    <a href="forgot-password.php" class="forgot-password">Забыли пароль?</a>
+                    <a href="forgot-password.php" class="forgot-password translate">Забыли пароль?</a>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Войти</button>
+                <button type="submit" class="btn btn-primary w-100 translate">Войти</button>
                 
                 <!-- Изменяем id для блока ответа -->
                 <div id="loginApiResponse" class="mt-3" style="display: none;">
@@ -223,17 +223,17 @@
                 </div> -->
                        
                 <!-- Заменяем блок бюджета на следующий код -->
-                <div class="input-description mb-3 text-center">
+                <div class="input-description mb-3 text-center translate">
                     Выберите тип регистрации
                 </div>
                 <div class="deal-type-switcher mb-3" id="registerDealTypeSwitcher">
                     <div class="switch-option" data-value="telegram">
                         <i class="fa-brands fa-telegram"></i>
-                        <span>По телеграму</span>
+                        <span class="translate">По телеграму</span>
                     </div>
                     <div class="switch-option" data-value="email">
                         <i class="fa-regular fa-envelope"></i>
-                        <span>По почте</span>
+                        <span class="translate">По почте</span>
                     </div>
                     <div class="switch-slider"></div>
                 </div>
@@ -258,12 +258,12 @@
                         <button type="button" class="password-toggle">
                             <i class="far fa-eye"></i>
                         </button>
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback translate">
                             Пароли не совпадают
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                <button type="submit" class="btn btn-primary w-100 translate">Зарегистрироваться</button>
                 
                 <!-- Изменяем id для блока ответа -->
                 <div id="registerApiResponse" class="mt-3" style="display: none;">

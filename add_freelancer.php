@@ -177,14 +177,16 @@
         <!-- Загрузка фото -->
         <div class="input-description">
             <i class="fas fa-image"></i>
-            Загрузите вашу фотографию или логотип
+            <span class="translate">
+                Загрузите вашу фотографию или логотип
+            </span>
         </div>
         <div class="form-group mb-4">
             <label class="upload-photo">
                 <input type="file" accept="image/*" hidden required>
                 <div class="upload-placeholder">
                     <i class="fas fa-camera"></i>
-                    <span data-translate="addFreelancer.uploadPhoto">Загрузить фото</span>
+                    <span data-translate="addFreelancer.uploadPhoto" class="translate">Загрузить фото</span>
                 </div>
             </label>
         </div>
@@ -192,7 +194,9 @@
         <!-- Имя -->
         <div class="input-description">
             <i class="fas fa-user"></i>
-            Укажите кто вы
+            <span class="translate">
+                Укажите кто вы
+            </span>
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
@@ -204,7 +208,9 @@
         <!-- Комментарий -->
         <div class="input-description">
             <i class="fas fa-comment-dots"></i>
-            Расскажите о своих навыках и опыте работы и о том кого вы ищете (пустой строкой не заполняйте будет отказано)
+            <span class="translate">
+                Расскажите о своих навыках и опыте работы и о том кого вы ищете (пустой строкой не заполняйте будет отказано)
+            </span>
         </div>
         <div class="form-group mb-4 conditions-field">
             <div class="input-with-icon">
@@ -217,7 +223,9 @@
         <!-- Социальные сети -->
         <div class="input-description">
             <i class="fas fa-share-alt"></i>
-            Добавьте ссылки на ваши проекты и социальные сети
+            <span class="translate">
+                Добавьте ссылки на ваши проекты и социальные сети
+            </span>
         </div>
 
         <!-- GitHub секция -->
@@ -225,7 +233,7 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="social-header">
                     <i class="fab fa-github"></i>
-                    <span>GitHub</span>
+                    <span class="translate">GitHub</span>
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="githubSwitch">
@@ -244,7 +252,7 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="social-header">
                     <i class="fas fa-briefcase"></i>
-                    <span>Portfolio</span>
+                    <span class="translate">Portfolio</span>
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="portfolioSwitch">
@@ -265,7 +273,7 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="social-header">
                     <i class="fab fa-telegram"></i>
-                    <span>Telegram</span>
+                    <span class="translate">Telegram</span>
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="telegramSwitch">
@@ -284,7 +292,7 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="social-header">
                     <i class="fab fa-youtube"></i>
-                    <span>YouTube</span>
+                    <span class="translate">YouTube</span>
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="youtubeSwitch">
@@ -298,7 +306,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100" data-translate="addFreelancer.publish">Опубликовать</button>
+        <button type="submit" class="btn btn-primary w-100 translate" data-translate="addFreelancer.publish">Опубликовать</button>
 
         <!-- Блок для отображения ответа -->
         <div id="apiResponse" class="mt-3" style="display: none;">
@@ -311,17 +319,17 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Отлично!</h5>
+                <h5 class="modal-title translate">Отлично!</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
                 <i class="fas fa-check-circle success-icon"></i>
-                <p class="mt-3">Ваше объявление успешно добавлено и отправлено на модерацию.</p>
-                <p>Уведомление будет отправлено на вашу почту.</p>
+                <p class="mt-3 translate">Ваше объявление успешно добавлено и отправлено на модерацию.</p>
+                <p class="translate">Уведомление будет отправлено на вашу почту.</p>
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-primary" onclick="window.location.href='index.php'">
-                    <i class="fas fa-check"></i> Понятно
+                    <i class="fas fa-check"></i> <span class="translate">Понятно</span>
                 </button>
             </div>
         </div>

@@ -218,14 +218,14 @@
         <!-- Загрузка фото -->
          <div class="input-description">
             <i class="fas fa-image"></i>
-            Пожалуйста, загрузите фотографию вашего профиля или логотип
+            <span class="translate">Пожалуйста, загрузите фотографию вашего профиля или логотип</span>
         </div>
         <div class="form-group mb-4">
             <label class="upload-photo">
                 <input type="file" name="photo" accept="image/*" hidden required>
                 <div class="upload-placeholder">
                     <i class="fas fa-camera"></i>
-                    <span data-translate="addBlogger.uploadPhoto">Загрузить фото</span>
+                    <span data-translate="addBlogger.uploadPhoto" class="translate">Загрузить фото</span>
                 </div>
             </label>
         </div>
@@ -233,7 +233,9 @@
         <!-- Основная информация -->
         <div class="input-description">
             <i class="fas fa-user"></i>
-            Укажите кого вы ищете (Заголовок)
+            <span class="translate">
+                Укажите кого вы ищете (Заголовок)
+            </span>
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
@@ -244,7 +246,9 @@
         <!-- Условия бартера / Комментарий к рекламе -->
         <div class="input-description">
             <i class="fas fa-comment-dots"></i>
-            Укажите кого вы ищете подробно (пустой строкой не заполняйте будет отказано)
+            <span class="translate">
+                Укажите кого вы ищете подробно (пустой строкой не заполняйте будет отказано)
+            </span>
         </div>
         <div class="form-group mb-4 conditions-field">
             <div class="input-with-icon">
@@ -254,7 +258,9 @@
         </div>
         <div class="input-description">
             <i class="fas fa-share-alt"></i>
-            Укажите ваши социальные сети (если есть)
+            <span class="translate">
+                Укажите ваши социальные сети (если есть)
+            </span>
         </div>
         <!-- Instagram секция -->
         
@@ -264,7 +270,7 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="social-header">
                     <i class="fab fa-telegram"></i>
-                    <span>Telegram</span>
+                    <span class="translate">Telegram</span>
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="telegramSwitch">
@@ -284,7 +290,7 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="social-header">
                     <i class="fab fa-youtube"></i>
-                    <span>YouTube</span>
+                    <span class="translate">YouTube</span>
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="youtubeSwitch">
@@ -301,7 +307,7 @@
 
 
 
-        <button type="submit" class="btn btn-primary w-100" data-translate="addBlogger.publish">Опубликовать</button>
+        <button type="submit" class="btn btn-primary w-100 translate" data-translate="addBlogger.publish">Опубликовать</button>
         
         <!-- Блок для отображения ответа -->
         <div id="apiResponse" class="mt-3" style="display: none;">
@@ -673,12 +679,12 @@
             </div>
             <div class="modal-body text-center">
                 <i class="fas fa-check-circle success-icon"></i>
-                <p class="mt-3">Ваше объявление успешно добавлено и отправлено на модерацию.</p>
-                <p>Уведомление будет отправлено на вашу почту.</p>
+                <p class="mt-3 translate">Ваше объявление успешно добавлено и отправлено на модерацию.</p>
+                <p class="translate">Уведомление будет отправлено на вашу почту.</p>
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-primary" onclick="window.location.href='index.php'">
-                    <i class="fas fa-check"></i> Понятно
+                    <i class="fas fa-check"></i> <span class="translate">Понятно</span>
                 </button>
             </div>
         </div>

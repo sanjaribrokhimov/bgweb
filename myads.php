@@ -91,9 +91,9 @@
             <div class="profile-header mb-4">
                 <div class="user-info">
                     <div class="info">
-                        <h4 class="user-name" id="userName" data-translate="myads.loading">Загрузка...</h4>
-                        <p class="user-email" id="userEmail" data-translate="myads.loading">Загрузка...</p>
-                        <span class="user-category" id="userCategory" data-translate="myads.loading">Загрузка...</span>
+                        <h4 class="user-name translate" id="userName" data-translate="myads.loading">Загрузка...</h4>
+                        <p class="user-email translate" id="userEmail" data-translate="myads.loading">Загрузка...</p>
+                        <span class="user-category translate" id="userCategory" data-translate="myads.loading">Загрузка...</span>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <div id="noAdsMessage" style="display: none;" class="text-center mt-4">
-                        <p data-translate="myads.noAds">У вас пока нет объявлений</p>
+                        <p data-translate="myads.noAds" class="translate">У вас пока нет объявлений</p>
                     </div>
                 </div>
             </div>
@@ -121,26 +121,26 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow">
                 <div class="modal-header border-0 text-center">
-                    <h5 class="modal-title w-100" data-translate="myads.deleteConfirmTitle">Подтверждение действия</h5>
+                    <h5 class="modal-title w-100 translate" data-translate="myads.deleteConfirmTitle">Подтверждение действия</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center py-4">
                     <div class="delete-icon-wrapper mb-4">
                         <i class="fas fa-trash-alt text-danger"></i>
                     </div>
-                    <h4 class="delete-title mb-3" data-translate="myads.deleteConfirmText">
+                    <h4 class="delete-title mb-3 translate" data-translate="myads.deleteConfirmText">
                         Вы действительно хотите удалить это объявление?
                     </h4>
-                    <p class="text-muted" data-translate="myads.deleteConfirmSubtext">
+                    <p class="text-muted translate" data-translate="myads.deleteConfirmSubtext">
                         Это действие нельзя будет отменить
                     </p>
                 </div>
                 <div class="modal-footer border-0 justify-content-center gap-2 pb-4">
                     <button type="button" class="btn btn-outline-secondary px-4 py-2" data-bs-dismiss="modal" data-translate="myads.cancel">
-                        <i class="fas fa-times me-2"></i>Отмена
+                        <i class="fas fa-times me-2"></i><span class="translate">Отмена</span>
                     </button>
                     <button type="button" class="btn btn-danger px-4 py-2" id="confirmDelete" data-translate="myads.delete">
-                        <i class="fas fa-trash-alt me-2"></i>Удалить
+                        <i class="fas fa-trash-alt me-2"></i><span class="translate">Удалить</span>
                     </button>
                 </div>
             </div>

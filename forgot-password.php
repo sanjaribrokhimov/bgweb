@@ -17,7 +17,7 @@
         </div>
 
         <div class="auth-container">
-            <h4 class="text-center mb-4" data-translate="auth.forgotPasswordTitle">Восстановление пароля</h4>
+            <h4 class="text-center mb-4 translate" data-translate="auth.forgotPasswordTitle">Восстановление пароля</h4>
             <form id="forgotPasswordForm">
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
@@ -25,7 +25,7 @@
                         <input type="email" class="form-control" placeholder="Введите ваш email" required data-translate="auth.emailPlaceholder">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary w-100" data-translate="auth.sendCode">Отправить код</button>
+                <button type="submit" class="btn btn-primary w-100 translate" data-translate="auth.sendCode">Отправить код</button>
                 
                 <div id="forgotPasswordResponse" class="mt-3" style="display: none;">
                     <div class="alert" role="alert"></div>

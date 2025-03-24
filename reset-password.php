@@ -6,7 +6,7 @@
 <body>
     <div class="container-fluid p-3 app-container">
         <div class="auth-container">
-            <h4 class="text-center mb-4">Изменение пароля</h4>
+            <h4 class="text-center mb-4 translate">Изменение пароля</h4>
             <form id="resetPasswordForm">
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
@@ -20,7 +20,7 @@
                         <input type="password" class="form-control" placeholder="Подтвердите пароль" required>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Сохранить</button>
+                <button type="submit" class="btn btn-primary w-100 translate">Сохранить</button>
                 
                 <div id="resetPasswordResponse" class="mt-3" style="display: none;">
                     <div class="alert" role="alert"></div>

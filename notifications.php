@@ -296,7 +296,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-contentt">
                 <div class="modal-header">
-                    <h5 class="modal-title">Детали уведомления</h5>
+                    <h5 class="modal-title translate">Детали уведомления</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">

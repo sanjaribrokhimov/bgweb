@@ -239,14 +239,16 @@
         <!-- Загрузка фото -->
         <div class="input-description">
             <i class="fas fa-image"></i>
-            Загрузите логотип или фото вашей компании
+            <span class="translate">
+                Загрузите логотип или фото вашей компании
+            </span>
         </div>
         <div class="form-group mb-4">
             <label class="upload-photo">
                 <input type="file" name="photo" accept="image/*" hidden required>
                 <div class="upload-placeholder">
                     <i class="fas fa-camera"></i>
-                    <span data-translate="addCompany.uploadPhoto">Загрузить фото</span>
+                    <span data-translate="addCompany.uploadPhoto" class="translate">Загрузить фото</span>
                 </div>
             </label>
         </div>
@@ -254,7 +256,9 @@
         <!-- Название компании -->
         <div class="input-description">
             <i class="fas fa-building"></i>
-            Укажите название компании
+            <span class="translate">
+                Укажите название компании
+            </span>
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
@@ -266,16 +270,22 @@
         <!-- Заменяем блок бюджета на следующий код -->
         <div class="input-description">
             <i class="fas fa-handshake"></i>
-            Выберите тип сделки
+            <span class="translate">
+                Выберите тип сделки
+            </span>
         </div>
         <div class="deal-type-switcher mb-3">
             <div class="switch-option" data-value="budget">
                 <i class="fas fa-dollar-sign"></i>
-                <span>Бюджет</span>
+                <span class="translate">
+                    Бюджет
+                </span>
             </div>
             <div class="switch-option" data-value="barter">
                 <i class="fas fa-handshake"></i>
-                <span>Бартер</span>
+                <span class="translate">
+                    Бартер
+                </span>
             </div>
             <div class="switch-slider"></div>
         </div>
@@ -283,7 +293,9 @@
         <div id="budgetBlock">
             <div class="input-description">
                 <i class="fas fa-dollar-sign"></i>
-                Укажите ваш рекламный бюджет в долларах
+                <span class="translate">
+                    Укажите ваш рекламный бюджет в долларах
+                </span>
             </div>
             <div class="form-group mb-3">
                 <div class="input-with-icon">
@@ -296,7 +308,9 @@
         <!-- Комментарий -->
         <div class="input-description">
             <i class="fas fa-comment"></i>
-            Укажите кого вы ищете и о компании подробно (пустой строкой не заполняйте будет отказано)
+            <span class="translate">
+                Укажите кого вы ищете и о компании подробно (пустой строкой не заполняйте будет отказано)
+            </span>
         </div>
         <div class="form-group mb-3">
             <div class="input-with-icon">
@@ -308,7 +322,9 @@
         <!-- Социальные сети -->
         <div class="input-description">
             <i class="fas fa-share-alt"></i>
-            Добавьте ссылки на ваши социальные сети и сайт
+            <span class="translate">
+                Добавьте ссылки на ваши социальные сети и сайт
+            </span>
         </div>
 
         <!-- Веб-сайт секция -->
@@ -316,7 +332,7 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="social-header">
                     <i class="fas fa-globe"></i>
-                    <span>Веб-сайт</span>
+                    <span class="translate">Веб-сайт</span>
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="websiteSwitch">
@@ -337,7 +353,7 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="social-header">
                     <i class="fab fa-telegram"></i>
-                    <span>Telegram</span>
+                    <span class="translate">Telegram</span>
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="telegramSwitch">
@@ -351,7 +367,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100">Опубликовать</button>
+        <button type="submit" class="btn btn-primary w-100 translate">Опубликовать</button>
         
         <!-- Блок для отображения ответа -->
         <div id="apiResponse" class="mt-3" style="display: none;">

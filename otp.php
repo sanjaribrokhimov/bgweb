@@ -4,7 +4,7 @@
 <div id="loadingIndicator" class="loading-indicator" style="display: none;">
     <div class="spinner-wrapper">
         <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden translate">Loading...</span>
         </div>
         <div class="loading-text">Пожалуйста, подождите...</div>
     </div>
@@ -12,8 +12,8 @@
 
 <div class="auth-container">
     <form id="otpForm" class="auth-form active">
-        <h2 class="text-center mb-4" data-translate="auth.otpTitle">Подтверждение</h2>
-        <p class="text-center mb-4" id="otpDescription">
+        <h2 class="text-center mb-4 translate" data-translate="auth.otpTitle">Подтверждение</h2>
+        <p class="text-center mb-4 translate" id="otpDescription">
             Проверьте  <span id="typeOfAuth"></span> код подтверждения уже отправлен <span id="userEmail"></span>
         </p>
 
@@ -26,21 +26,21 @@
 
         <div class="resend-container text-center mb-4">
             <div id="timerBlock">
-                <span data-translate="auth.otpTimer">Повторная отправка через:</span> 
+                <span data-translate="auth.otpTimer translate">Повторная отправка через:</span> 
                 <span id="timer">60</span>с
             </div>
-            <button type="button" id="resendBtn" class="btn-link" style="display: none;" data-translate="auth.otpResend">
+            <button type="button" id="resendBtn" class="btn-link translate" style="display: none;" data-translate="auth.otpResend">
                 Отправить код повторно
             </button>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100" data-translate="auth.otpVerify">
+        <button type="submit" class="btn btn-primary w-100 translate" data-translate="auth.otpVerify">
             Подтвердить
         </button>
 
         <!-- Добавляем блок для отображения ответа -->
         <div id="apiResponse" class="mt-3" style="display: none;">
-            <div class="alert" role="alert"></div>
+            <div class="alert translate" role="alert"></div>
         </div>
     </form>
 </div>
