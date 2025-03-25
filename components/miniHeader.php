@@ -9,9 +9,11 @@ $IP = '144.126.128.67';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloger Agency</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=1.0.2">
+    <link rel="stylesheet" href="styles.css?v=1.1.5">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="scripts/translate.js?v=1.0.1"></script>
+
 
     
 
@@ -754,7 +756,13 @@ $IP = '144.126.128.67';
         // Переключатель языка с Google Translate
         const langButtons = document.querySelectorAll('.lang-btn');
         const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
-
+        document.addEventListener("DOMContentLoaded", function(){
+            if(localStorage.getItem('selectedLanguage') == 'uz') {
+                translatePage('uz');
+            }
+        })
+        // setTimeout(function(){
+        // }, 1000);
 
 
         // Устанавлиаем активную кнопку и язык
@@ -805,23 +813,8 @@ $IP = '144.126.128.67';
                 btn.classList.toggle('active', btn.textContent.toLowerCase() === savedLang);
             });
         }
-
-        function translateText(text, targetLang) {
-            return fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURI(text)}`)
-                .then(response => response.json())
-                .then(data => data[0][0][0])
-                .catch(error => console.error('Ошибка перевода:', error));
-        }
-
-        function translatePage(targetLang) {
-            $('.translate').each(function () {
-                let element = $(this);
-                translateText(element.text(), targetLang).then(translatedText => {
-                    element.text(translatedText);
-                });
-            });
-        }
     </script>
+
 
     <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -924,118 +917,118 @@ $IP = '144.126.128.67';
 
     <script>
     // Обработчик поиска
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('searchInput');
-        const searchIcon = document.getElementById('searchIcon');
-        const searchResults = document.getElementById('searchResults');
-        const searchContainer = document.querySelector('.search-container');
+    // document.addEventListener('DOMContentLoaded', function() {
+        // const searchInput = document.getElementById('searchInput');
+        // const searchIcon = document.getElementById('searchIcon');
+        // const searchResults = document.getElementById('searchResults');
+        // const searchContainer = document.querySelector('.search-container');
 
-        // Обработчик клика по иконке поиска
-        searchIcon.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
+        // // Обработчик клика по иконке поиска
+        // searchIcon.addEventListener('click', (e) => {
+        //     e.preventDefault();
+        //     e.stopPropagation();
             
-            searchInput.classList.toggle('active');
-            searchContainer.classList.toggle('search-active');
+        //     searchInput.classList.toggle('active');
+        //     searchContainer.classList.toggle('search-active');
             
-            if (searchInput.classList.contains('active')) {
-                searchInput.focus();
-            } else {
-                searchInput.value = '';
-                hideResults();
-            }
-        });
+        //     if (searchInput.classList.contains('active')) {
+        //         searchInput.focus();
+        //     } else {
+        //         searchInput.value = '';
+        //         hideResults();
+        //     }
+        // });
 
-        // Обработчик ввода в поле поиска
-        let searchTimeout;
-        searchInput.addEventListener('input', (e) => {
-            clearTimeout(searchTimeout);
-            const query = e.target.value.trim();
+        // // Обработчик ввода в поле поиска
+        // let searchTimeout;
+        // searchInput.addEventListener('input', (e) => {
+        //     clearTimeout(searchTimeout);
+        //     const query = e.target.value.trim();
             
-            if (query.length >= 2) {
-                searchTimeout = setTimeout(() => performSearch(query), 300);
-            } else {
-                hideResults();
-            }
-        });
+        //     if (query.length >= 2) {
+        //         searchTimeout = setTimeout(() => performSearch(query), 300);
+        //     } else {
+        //         hideResults();
+        //     }
+        // });
 
-        // Закрытие при клике вне области поиска
-        document.addEventListener('click', (e) => {
-            if (!searchContainer.contains(e.target)) {
-                searchInput.classList.remove('active');
-                searchContainer.classList.remove('search-active');
-                hideResults();
-            }
-        });
+        // // Закрытие при клике вне области поиска
+        // document.addEventListener('click', (e) => {
+        //     if (!searchContainer.contains(e.target)) {
+        //         searchInput.classList.remove('active');
+        //         searchContainer.classList.remove('search-active');
+        //         hideResults();
+        //     }
+        // });
 
-        // Функция поиска
-        async function performSearch(query) {
-            try {
-                const response = await fetch(`https://blogy.uz/api/ads/search?q=${encodeURIComponent(query)}`);
-                if (!response.ok) throw new Error('Ошибка сети');
+        // // Функция поиска
+        // async function performSearch(query) {
+        //     try {
+        //         const response = await fetch(`https://blogy.uz/api/ads/search?q=${encodeURIComponent(query)}`);
+        //         if (!response.ok) throw new Error('Ошибка сети');
                 
-                const data = await response.json();
-                displayResults(data);
-            } catch (error) {
-                console.error('Ошибка поиска:', error);
-                showError();
-            }
-        }
+        //         const data = await response.json();
+        //         displayResults(data);
+        //     } catch (error) {
+        //         console.error('Ошибка поиска:', error);
+        //         showError();
+        //     }
+        // }
 
-        // Функция отображения результатов
-        function displayResults(data) {
-            searchResults.innerHTML = '';
-            searchResults.style.display = 'block';
+        // // Функция отображения результатов
+        // function displayResults(data) {
+        //     searchResults.innerHTML = '';
+        //     searchResults.style.display = 'block';
 
-            if (!data.results || data.total === 0) {
-                searchResults.innerHTML = '<div class="search-no-results">Ничего не найдено</div>';
-                return;
-            }
+        //     if (!data.results || data.total === 0) {
+        //         searchResults.innerHTML = '<div class="search-no-results">Ничего не найдено</div>';
+        //         return;
+        //     }
 
-            Object.entries(data.results).forEach(([type, items]) => {
-                if (items && items.length > 0) {
-                    items.forEach(item => {
-                        const resultItem = document.createElement('div');
-                        resultItem.className = 'search-result-item';
+        //     Object.entries(data.results).forEach(([type, items]) => {
+        //         if (items && items.length > 0) {
+        //             items.forEach(item => {
+        //                 const resultItem = document.createElement('div');
+        //                 resultItem.className = 'search-result-item';
                         
-                        resultItem.innerHTML = `
-                            <img src="${item.data.photo_base64 || './img/noImage.jpg'}" 
-                                 onerror="this.src='./img/noImage.jpg'" 
-                                 alt="${item.data.name || item.data.nickname || 'Фото профиля'}">
-                            <div class="search-result-info">
-                                <div class="search-result-name">${item.data.name || item.data.nickname || 'Без имени'}</div>
-                                <div class="search-result-type">${getTypeLabel(type)} • ${item.data.category || 'Без категории'}</div>
-                            </div>
-                        `;
+        //                 resultItem.innerHTML = `
+        //                     <img src="${item.data.photo_base64 || './img/noImage.jpg'}" 
+        //                          onerror="this.src='./img/noImage.jpg'" 
+        //                          alt="${item.data.name || item.data.nickname || 'Фото профиля'}">
+        //                     <div class="search-result-info">
+        //                         <div class="search-result-name">${item.data.name || item.data.nickname || 'Без имени'}</div>
+        //                         <div class="search-result-type">${getTypeLabel(type)} • ${item.data.category || 'Без категории'}</div>
+        //                     </div>
+        //                 `;
 
-                        resultItem.addEventListener('click', () => {
-                            window.location.href = `search-results.php?q=${encodeURIComponent(searchInput.value)}&type=${type}&selected=${item.data.id}`;
-                        });
+        //                 resultItem.addEventListener('click', () => {
+        //                     window.location.href = `search-results.php?q=${encodeURIComponent(searchInput.value)}&type=${type}&selected=${item.data.id}`;
+        //                 });
 
-                        searchResults.appendChild(resultItem);
-                    });
-                }
-            });
-        }
+        //                 searchResults.appendChild(resultItem);
+        //             });
+        //         }
+        //     });
+        // }
 
-        function getTypeLabel(type) {
-            const labels = {
-                bloggers: 'Блогер',
-                companies: 'Компания',
-                freelancers: 'Фрилансер'
-            };
-            return labels[type] || type;
-        }
+    //     function getTypeLabel(type) {
+    //         const labels = {
+    //             bloggers: 'Блогер',
+    //             companies: 'Компания',
+    //             freelancers: 'Фрилансер'
+    //         };
+    //         return labels[type] || type;
+    //     }
 
-        function hideResults() {
-            searchResults.style.display = 'none';
-        }
+    //     function hideResults() {
+    //         searchResults.style.display = 'none';
+    //     }
 
-        function showError() {
-            searchResults.innerHTML = '<div class="search-no-results">Произошла ошибка при поиске</div>';
-            searchResults.style.display = 'block';
-        }
-    });
+    //     function showError() {
+    //         searchResults.innerHTML = '<div class="search-no-results">Произошла ошибка при поиске</div>';
+    //         searchResults.style.display = 'block';
+    //     }
+    // });
     </script>
 
     <script>

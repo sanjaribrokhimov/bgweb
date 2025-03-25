@@ -398,15 +398,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Обработчики для кнопок языка
-    langButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const lang = button.textContent.toLowerCase();
-            langButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            localStorage.setItem('selectedLanguage', lang);
-            updateTranslations(lang);
-        });
-    });
+    // langButtons.forEach(button => {
+    //     button.addEventListener('click', () => {
+    //         const lang = button.textContent.toLowerCase();
+    //         langButtons.forEach(btn => btn.classList.remove('active'));
+    //         button.classList.add('active');
+    //         localStorage.setItem('selectedLanguage', lang);
+    //         updateTranslations(lang);
+    //     });
+    // });
 
     // Инициализация пеекючателя темы
     const themeToggle = document.querySelector('.theme-toggle');
@@ -436,29 +436,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Функция обновления переводов
-    function updateTranslations(lang) {
-        document.querySelectorAll('[data-translate]').forEach(element => {
-            const key = element.getAttribute('data-translate');
-            try {
-                const keys = key.split('.');
-                let translation = translations[lang];
-                for (let k of keys) {
-                    translation = translation[k];
-                }
+    // function updateTranslations(lang) {
+    //     document.querySelectorAll('[data-translate]').forEach(element => {
+    //         const key = element.getAttribute('data-translate');
+    //         try {
+    //             const keys = key.split('.');
+    //             let translation = translations[lang];
+    //             for (let k of keys) {
+    //                 translation = translation[k];
+    //             }
                 
-                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' || element.tagName === 'SELECT') {
-                    element.placeholder = translation;
-                } else {
-                    element.textContent = translation;
-                }
-            } catch (e) {
-                console.error('Translation error for key:', key, e);
-            }
-        });
-    }
+    //             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' || element.tagName === 'SELECT') {
+    //                 element.placeholder = translation;
+    //             } else {
+    //                 element.textContent = translation;
+    //             }
+    //         } catch (e) {
+    //             console.error('Translation error for key:', key, e);
+    //         }
+    //     });
+    // }
 
     // Вызываем перевод при загрузке
-    updateTranslations(savedLang);
+    // updateTranslations(savedLang);
 
     // Обработка переключения реклама/бартер
   

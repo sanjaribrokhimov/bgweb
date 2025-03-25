@@ -13,6 +13,11 @@
     --accent-blue-light: rgba(77, 126, 255, 0.1);
     --accent-blue-hover: rgba(77, 126, 255, 0.15);
 }
+
+textarea::placeholder {
+    color: var(--text-secondary) !important;
+    opacity: 0.8;
+}
 *::selection
 {
     color: #fff;

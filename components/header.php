@@ -9,7 +9,7 @@ $IP = '144.126.128.67';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloger Agency</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=1.1.4">
+    <link rel="stylesheet" href="styles.css?v=1.1.5">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -838,6 +838,10 @@ $IP = '144.126.128.67';
             // Переключатель языка с Google Translate
             const langButtons = document.querySelectorAll('.lang-btn');
             const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
+            console.log(localStorage.getItem('selectedLanguage'));
+            if(localStorage.getItem('selectedLanguage') == 'uz') {
+                translatePage('uz');
+            }
 
             // Устанавлиаем активную кнопку и язык
             langButtons.forEach(btn => {
@@ -852,7 +856,8 @@ $IP = '144.126.128.67';
                     const newLang = btn.dataset.lang;
                     localStorage.setItem('selectedLanguage', newLang);
                     
-                    translatePage(newLang)
+                    console.log('hehee');
+                    translatePage(newLang);
                 });
             });
             

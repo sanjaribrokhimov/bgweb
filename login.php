@@ -726,7 +726,9 @@
                         </div>
                         <div class="input-hint">
                             <i class="fas fa-circle-info"></i>
-                            На email придет код подтверждения
+                            <span class="translate">
+                                На email придет код подтверждения
+                            </span>
                         </div>
                         `
                         regEmailBlock.classList.remove('hidden');

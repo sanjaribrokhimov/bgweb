@@ -136,7 +136,7 @@
                     </div>
                 </div>
                 <div class="change-password-div" title="Можно не заполнять чтобы оставить старый пароль!">
-                    <span class="ch-p-label translate">Изменить пароль</span>
+                    <span class="ch-p-label translate">Новый пароль</span>
                     <div class="form-group mb-3">
                         <div class="input-with-icon">
                             <i class="fas fa-lock"></i>
@@ -253,7 +253,7 @@
                     }
                 </style>
 
-                <button type="submit" class="btn btn-primary w-100">Сохранить</button>
+                <button type="submit" class="btn btn-primary w-100 translate">Сохранить</button>
                 
                 <div id="editProfileResponse" class="mt-3" style="display: none;">
                     <div class="alert" role="alert"></div>
