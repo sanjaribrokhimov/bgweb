@@ -461,7 +461,7 @@ mumkin
         
 
         web_app = WebAppInfo(url=web_app_url)
-        menu_button = MenuButtonWebApp(text="Web App", web_app=web_app, type='web_app')
+        menu_button = MenuButtonWebApp(text="Open Blogy", web_app=web_app, type='web_app')
         self.bot.set_chat_menu_button(chat_id=chat_id, menu_button=menu_button)
 
 
