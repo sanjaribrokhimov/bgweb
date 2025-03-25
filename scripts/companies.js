@@ -112,7 +112,7 @@ class CompanyLoader {
             </div>
             <div class="product-info">
                 <div style="height: 135px;" class="tr">
-                    <h3 class="translate">${data.name || 'Без имени'}</h3>
+                    <h3>${data.name || 'Без имени'}</h3>
                     <div class="direction-tag">${data.direction || 'Без направления'}</div>
                     <div class="stats">
                         <div class="stat-item">
@@ -143,7 +143,7 @@ class CompanyLoader {
                     <div class="detailImage" style="background-image: url(${data.photo_base64})">
                     </div>
                     <div>
-                        <h4 class="translate">${data.name || 'Без имени'}</h4>
+                        <h4>${data.name || 'Без имени'}</h4>
                         
                         <div class="info-item">
                             <span>${data.category || 'Не указана'}</span>

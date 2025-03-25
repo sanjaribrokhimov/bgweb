@@ -218,7 +218,7 @@ class BloggerLoader {
                 </div>
                 <div class="product-info">
                     <div class="tr">
-                        <p style="color:var(--accent-orange); padding:0px; margin:0px; max-width: 168px;" class="translate">${data.nickname || 'Без имени'}</p>
+                        <p style="color:var(--accent-orange); padding:0px; margin:0px; max-width: 168px;">${data.nickname || 'Без имени'}</p>
                         <div class="direction-tag">${data.direction || ''}</div>
                     </div>
 
@@ -242,7 +242,7 @@ class BloggerLoader {
                 <div class="details-header">
                     <div class="detailImage" style="background-image: url(${data.photo_base64})"></div>
                     <div>
-                        <h4 class="translate">${data.nickname || 'Без имени'}</h4>
+                        <h4>${data.nickname || 'Без имени'}</h4>
                         
                         <div class="info-item">
                             <span class="translate">${data.direction || 'Без направления'}</span>

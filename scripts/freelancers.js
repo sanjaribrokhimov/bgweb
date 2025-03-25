@@ -141,7 +141,7 @@ class FreelancerLoader {
             </div>
             <div class="product-info">
                 <span class="tr">
-                    <h3 class="translate">${data.name || 'Без имени'}</h3>
+                    <h3>${data.name || 'Без имени'}</h3>
                 </span>
                
                 <div class="stats">
@@ -179,7 +179,7 @@ class FreelancerLoader {
                     <div class="detailImage" style="background-image: url(${data.photo_base64})">
                     </div>
                     <div>
-                        <h4 class="translate">${data.name || 'Без имени'}</h4>
+                        <h4>${data.name || 'Без имени'}</h4>
                         
                         <div class="info-item">
                             <span>${data.category || 'Не указана'}</span>
