@@ -2,7 +2,7 @@ import os
 import time
 from loguru import logger
 import telebot
-from telebot.types import ReplyKeyboardMarkup, KeyboardButton, WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton
+from telebot.types import ReplyKeyboardMarkup, KeyboardButton, MenuButtonWebApp, WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton
 from dotenv import load_dotenv
 import urllib.parse
 
@@ -11,7 +11,9 @@ logger.add("bot.log", rotation="1 MB", level="INFO", compression="zip")
 
 # Загрузка переменных окружения
 load_dotenv()
+# TOKEN = os.getenv('BOT_TOKEN', '7747258402:AAF0QkG6gjpOqtZqNr-GA4s3YkQRO9JKiKI')
 TOKEN = os.getenv('BOT_TOKEN', '7690904808:AAEyzgbEZ3--sQ1pkJ-bFBpnDSCY2rNq9VY')
+
 
 
 class TelegramBot:
@@ -442,6 +444,27 @@ mumkin
         except Exception as e:
             logger.error(f"Error in send_error_message: {e}")
 
+            
+
+    def set_menu_button(self, chat_id):
+
+        # Всегда получаем данные пользователя
+        user = self.bot.get_chat(chat_id) if chat_id else None
+        
+        # Создаем URL с данными пользователя
+        web_app_url = "https://blogy.uz/login.php"
+        if chat_id:
+            # Формируем строку с данными в нужном формате
+            tgdata = f"tg_username={str(user.username) if user and user.username else ''}&tg_first_name={str(user.first_name) if user and user.first_name else ''}&tg_chat_id={str(chat_id)}"
+            encoded_data = urllib.parse.quote(tgdata)
+            web_app_url = f"https://blogy.uz/login.php?tgdata={encoded_data}"
+        
+
+        web_app = WebAppInfo(url=web_app_url)
+        menu_button = MenuButtonWebApp(text="Web App", web_app=web_app, type='web_app')
+        self.bot.set_chat_menu_button(chat_id=chat_id, menu_button=menu_button)
+
+
     def setup_handlers(self):
         @self.bot.message_handler(commands=['start'])
         def start_handler(message):
@@ -453,11 +476,15 @@ mumkin
                     self.TEXTS['ru']['choose_language'],
                     reply_markup=keyboard
                 )
+
+                # Установка menu button
+                self.set_menu_button(message.chat.id)
+
                 logger.info(f"Sent language selection to user {message.from_user.id}")
             except Exception as e:
                 logger.error(f"Error in start handler: {e}")
                 self.send_error_message(message)
-
+           
         # 2. После выбора языка проверяем подписку
         @self.bot.message_handler(func=lambda message: message.text in ["🇷🇺 Русский", "🇺🇿 O'zbekcha"])
         def language_handler(message):
