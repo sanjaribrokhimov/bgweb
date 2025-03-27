@@ -27,7 +27,7 @@ const translationExceptions = {
     "Mening e\'lonlarim": { "ru": "Мои объявления", "uz": "Mening e\'lonlarim" },
     "Выйти": { "ru": "Выйти", "uz": "Chiqish" },
     "Chiqish": { "ru": "Выйти", "uz": "Chiqish" },
-    "Изменить пароль": { "ru": "ВыйтИзменить парольи", "uz": "Parolni yangilash" },
+    "Изменить пароль": { "ru": "Изменить пароль", "uz": "Parolni yangilash" },
     "Parolni yangilash": { "ru": "Изменить пароль", "uz": "Parolni yangilash" },
     "Войти": { "ru": "Войти", "uz": "Kirish" },
     "Kirish": { "ru": "Войти", "uz": "Kirish" },
@@ -46,6 +46,8 @@ const translationExceptions = {
     "Reklama sharhi": {"ru": "Комментарий к рекламе", "uz": "Reklama sharhi"},
     "Новый пароль": { "ru": "Новый пароль", "uz": "Yangi parol" },
     "Yangi parol": { "ru": "Новый пароль", "uz": "Yangi parol" },
+    "Пароль": { "ru": "Пароль", "uz": "Parol" },
+    "Parol": { "ru": "Пароль", "uz": "Parol" },
 };
 
 // function translatePage(targetLang) {
