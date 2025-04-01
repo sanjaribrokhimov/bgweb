@@ -38,11 +38,11 @@
                     Выберите тип входа
                 </div>
                 <div class="deal-type-switcher mb-3" id="loginDealTypeSwitcher" data-type="telegram">
-                    <div class="switch-option" data-value="telegram">
+                    <div class="switch-option" data-value="telegram" onclick="inWith('telegram')">
                         <i class="fa-brands fa-telegram"></i>
                         <span class="translate">По телеграму</span>
                     </div>
-                    <div class="switch-option" data-value="email">
+                    <div class="switch-option" data-value="email" onclick="inWith('email')">
                         <i class="fa-regular fa-envelope"></i>
                         <span class="translate">По почте</span>
                     </div>
@@ -740,45 +740,46 @@
             regSwitchOptions[0].classList.add('active');
 
 
-            // Добавьте в существующий обработчик DOMContentLoaded
-            const loginDealTypeSwitcher = document.querySelector('#loginDealTypeSwitcher');
-            const loginSwitchOptions = loginDealTypeSwitcher.querySelectorAll('.switch-option');
-            const loginEmailBlock = document.getElementById('loginEmailBlock');
-            const loginEmailInput = loginEmailBlock.querySelector('input[name="email"]');
 
-            var currentDealType = 'telegram';
-
-            loginSwitchOptions.forEach(option => {
+            // loginSwitchOptions.forEach(option => {
                 console.log('options')
-                option.addEventListener('click', () => {
-                    const value = option.dataset.value;
-                    if (value === currentDealType) return;
-
-                    currentDealType = value;
-                    loginDealTypeSwitcher.dataset.type = value;
-                    
-                    loginSwitchOptions.forEach(opt => {
-                        opt.classList.toggle('active', opt.dataset.value === value);
-                    });
-
-                    if (value === 'telegram') {
-                        loginEmailBlock.innerHTML = ''
-                        loginEmailBlock.classList.add('hidden')
-                    } else {
-                        loginEmailBlock.innerHTML = `
-                            <div class="input-with-icon">
-                                <i class="fas fa-envelope"></i>
-                                <input type="email" class="form-control toBeFocused" placeholder="Email" required autocomplete="off">
-                            </div>
-                        `
-                        loginEmailBlock.classList.remove('hidden');
-                    }
-                });
-            });
+            // });
 
             // Активируем начальное состояние
             loginSwitchOptions[0].classList.add('active');
         });
+        
+        // Добавьте в существующий обработчик DOMContentLoaded
+        const loginDealTypeSwitcher = document.querySelector('#loginDealTypeSwitcher');
+        const loginSwitchOptions = loginDealTypeSwitcher.querySelectorAll('.switch-option');
+        const loginEmailBlock = document.getElementById('loginEmailBlock');
+        const loginEmailInput = loginEmailBlock.querySelector('input[name="email"]');
+
+        var currentDealType = 'telegram';
+        function inWith(value) {
+
+            if (value === currentDealType) return;
+
+            currentDealType = value;
+            loginDealTypeSwitcher.dataset.type = value;
+
+            loginSwitchOptions.forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.value === value);
+            });
+
+            if (value === 'telegram') {
+                loginEmailBlock.innerHTML = ''
+                loginEmailBlock.classList.add('hidden')
+            } else {
+                loginEmailBlock.innerHTML = `
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" class="form-control toBeFocused" placeholder="Email" required autocomplete="off">
+                    </div>
+                `
+                loginEmailBlock.classList.remove('hidden');
+            }
+        }
     </script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
