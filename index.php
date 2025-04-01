@@ -102,7 +102,7 @@ if (!isset($_GET['page'])) {
         };        
     }
     </script>
-    <script src="scripts/translate.js?v=1.0.1"></script>
+    <script src="scripts/translate.js?v=1.0.2"></script>
 
 </body>
 </html>
