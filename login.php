@@ -245,7 +245,7 @@
                 <div class="form-group mb-3">
                     <div class="input-with-icon">
                         <i class="fas fa-lock"></i>
-                        <input name="password" type="password" class="form-control toBeFocused translate" placeholder="Пароь" required autocomplete="new-password">
+                        <input name="password" type="password" class="form-control toBeFocused translate" placeholder="Пароль" required autocomplete="new-password">
                         <button type="button" class="password-toggle">
                             <i class="far fa-eye"></i>
                         </button>
